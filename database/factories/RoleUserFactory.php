@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class RoleUserFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::get()->id;
         return [
-            //
+            'role_id' => $this->faker->numberBetween(2,3),
+            'user_id' => $this->faker->unique()->rand($user),
         ];
     }
 }

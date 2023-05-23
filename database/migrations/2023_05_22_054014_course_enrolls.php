@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade');
             $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
             $table->enum('status', ['menunggu pembayaran', 'proses', 'aktif', 'selesai']);
-            $table->string('payment_prrof', 255);
+            $table->string('payment_proof', 255);
             $table->integer('upto_no_module')->default(0);
             $table->integer('upto_no_media')->default(0);
             $table->date('started_at');

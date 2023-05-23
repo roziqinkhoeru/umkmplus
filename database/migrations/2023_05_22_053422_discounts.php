@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mentor_id');
             $table->foreign('mentor_id')->references('id')->on('customers')->onUpdate('cascade');
+            $table->string('code', 10)->unique();
             $table->integer('discount');
             $table->boolean('status');
             $table->timestamps();

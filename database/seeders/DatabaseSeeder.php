@@ -3,6 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Course;
+use App\Models\CourseEnroll;
+use App\Models\Customer;
+use App\Models\CustomerSpecialist;
+use App\Models\Discount;
+use App\Models\MediaModule;
+use App\Models\Module;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +20,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Customer::factory()->count(60)->create();
+        $this->call([
+            CategorySeeder::class,
+            RoleSeeder::class,
+            SpecialistSeeder::class,
+            UserSeeder::class,
+        ]);
+        Discount::factory()->count(100)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

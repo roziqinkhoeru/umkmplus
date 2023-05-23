@@ -17,7 +17,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'address' => $this->faker->address(),
+            'phone' => $this->faker->phoneNumber(),
+            'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years')
         ];
     }
 }

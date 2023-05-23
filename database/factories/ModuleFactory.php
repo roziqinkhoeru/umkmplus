@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class ModuleFactory extends Factory
      */
     public function definition(): array
     {
+        $course = Course::get()->id;
         return [
-            //
+            'course_id' => $this->faker->unique()->rand($course),
+            'title' => $this->faker->title(),
+            'file' => $this->faker->url(),
+            'no_module' => 1
         ];
     }
 }
