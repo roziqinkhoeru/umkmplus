@@ -1,0 +1,111 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  06. ABOUT CSS START
+/*----------------------------------------*/
+
+.about{
+    &__content{
+        @media #{$xl}{
+            padding-left: 40px;
+        }
+        @media #{$lg}{
+            padding-left: 0;
+        }
+        @media #{$md, $sm, $xs}{
+            margin-top: 50px;
+            padding-left: 0;
+        }
+        & p{
+            font-size: 16px;
+            line-height: 28px;
+            color: var(--tp-text-5);
+            margin-bottom: 30px;
+        }
+    }
+    &__list{
+        & ul{
+            & li{
+                font-size: 16px;
+                color: var(--tp-common-black);
+                list-style: none;
+                margin-bottom: 10px;
+                & i{
+                    display: inline-block;
+                    width: 24px;
+                    height: 24px;
+                    line-height: 24px;
+                    text-align: center;
+                    background-color: rgba($color: #26C089, $alpha: .08);
+                    color: var(--tp-common-green);
+                    font-size: 13px;
+                    @include border-radius(50%);
+                    margin-right: 7px;
+                }
+
+                &:hover{
+                    & i{
+                        color: var(--tp-common-white);
+                        background-color: var(--tp-common-green);
+                    }
+                }
+            }
+        }
+    }
+    &__thumb{
+        &-wrapper{
+            @media #{$sm, $xs}{
+                margin-right: 0;
+            }
+        }
+        &-left{
+            @media #{$xs}{
+                margin-right: 0;
+            }
+            & img{
+                @media #{$xs}{
+                    width: 100%;
+                }
+            }
+        }
+        &-2{
+            & img{
+                @media #{$sm, $xs, $lg}{
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &__shape{
+        &-1{
+            position: absolute;
+            z-index: -1;
+            left: -11%;
+            top: 30%;
+        }
+        &-2{
+            position: absolute;
+            left: -24%;
+            top: 17%;
+            z-index: -1;
+        }
+        &-3{
+            position: absolute;
+            right: -7%;
+            top: 5%;
+
+            @media #{$md}{
+                right: -4%;
+            }
+
+            @media #{$sm}{
+                right: -5%;
+            }
+
+            @media #{$xs}{
+                right: 0;
+                top: -4%;
+            }
+        }
+    }
+}

@@ -1,0 +1,170 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  14. OFFCANVAS CSS START
+/*----------------------------------------*/
+
+// sidebar
+.offcanvas{
+    &__area{
+
+        @media #{$xs}{
+            width: 290px;
+        }
+
+        & .modal.show .modal-dialog{
+            transform: none !important;
+        }
+        & .modal.fade .modal-dialog{
+            transition:transform .3s ease-out;
+            transform:translate(100px,0px);
+        }
+        & .modal-dialog{
+            position: absolute;
+            top: 0;
+            right: 0;
+            max-width: 450px;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: var(--clr-common-white);
+        }
+        & .modal-content{
+            border: 0;
+        }
+    }
+    &__wrapper{
+        position: relative;
+        padding: 45px;
+        @media #{$xs}{
+           padding: 20px;
+        }
+    }
+    &__close{
+        &-btn{
+            display: inline-block;
+            font-size: 16px;
+            height: 45px;
+            width: 45px;
+            line-height: 46px;
+            background: var(--tp-theme-1);
+            color: #fff;
+            border-radius: 50%;
+            &:hover{
+                background: var(--tp-common-black);
+            }
+        }
+    }
+    &__top{
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--tp-border-1);
+    }
+    &__logo{
+        
+    }
+    &__search{
+        position: relative;
+        & input{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding-right: 20px;
+            background: transparent;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid var(--tp-border-1);
+            font-size: 14px;
+            &::placeholder{
+                color: var(--tp-text-1);
+            }
+            &:focus{
+                border-color: var(--tp-common-black);
+            }
+        }
+        & button{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            @include transform(translateY(-50%));
+            font-size: 14px;
+            color: var(--tp-text-1);
+        }
+    }
+    &__text{
+        & p{
+            margin-bottom: 25px;
+        }
+    }
+    &__contact{
+        & h4{
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        & ul{
+            & li{
+                &:not(:last-child){
+                    margin-bottom: 20px;
+                }
+                &:hover{
+                    & i{
+                        background: var(--tp-theme-1);
+                        color: var(--tp-common-white);
+                        border-color: var(--tp-theme-1);
+                    }
+                    & a{
+                        color: var(--tp-common-black);
+                    }
+                }
+            }
+        }
+        &-icon{
+            & i{
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                border: 1px solid var(--tp-border-1);
+                @include border-radius(7px);
+            }
+        }
+        &-text{
+            & a{
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--tp-text-2);
+            }
+        }
+    }
+    &__map{
+        & iframe{
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+    }
+    &__social{
+        & ul{
+            & li{
+                display: inline-block;
+                &:not(:last-child){
+                    margin-right: 5px;
+                }
+                & a{
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 42px;
+                    text-align: center;
+                    background: var(--tp-grey-1);
+                    color: var(--tp-theme-1);
+                    @include border-radius(5px);
+                    &:hover{
+                        background: var(--tp-theme-1);
+                        color: var(--tp-common-white);
+                    }
+                }
+            }
+        }
+    }
+}

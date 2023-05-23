@@ -1,0 +1,349 @@
+@use '../utils' as *;
+
+/*-----------------------------------------------------------------------------------
+
+    Theme Name: Template Name – HTML5 Template
+    Author: Theme Pure
+    Support: basictheme@gmail.com
+    Description: Template Name  – HTML5 Template
+    Version: 1.0
+
+-----------------------------------------------------------------------------------
+
+/************ TABLE OF CONTENTS ***************
+
+    01. THEME DEFAULT CSS
+    02. HEADER CSS
+
+
+
+**********************************************/
+
+
+
+
+/*----------------------------------------*/
+/*  01. THEME DEFAULT CSS START
+/*----------------------------------------*/
+
+@import url($font-url);
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/*---------------------------------
+    typography css start 
+---------------------------------*/
+body {
+	font-family: var(--tp-ff-body);
+	font-size: var(--tp-fz-body);
+	font-weight: normal;
+	color: var(--tp-text-body);
+	line-height: 26px;
+}
+
+a{
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--tp-ff-heading);
+	color: var(--tp-header-primary);
+	margin-top: 0px;
+	font-weight: var(--tp-fw-sbold);
+	line-height: 1.2;
+	@include transition(.3s);
+}
+
+h1 {
+	font-size: var(--tp-fz-h1);
+}
+  
+h2 {
+font-size: var(--tp-fz-h2);
+}
+
+h3 {
+font-size: var(--tp-fz-h3);
+}
+
+h4 {
+font-size: var(--tp-fz-h4);
+}
+
+h5 {
+font-size: var(--tp-fz-h5);
+}
+
+h6 {
+font-size: var(--tp-fz-h6);
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+p {
+	font-family: var(--tp-ff-p);
+	font-size: var(--tp-fz-p);
+	font-weight: var(--tp-fw-normal);
+	color: var(--tp-text-body);
+	margin-bottom: 15px;
+	line-height: 26px;
+}
+
+
+a,
+.btn,
+button,
+span,
+p,
+i,
+input,
+select,
+textarea,
+li,
+img,
+svg path,
+*::after,
+*::before,
+.transition-3,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@include transition(.3s);
+}
+
+a:focus,
+.button:focus {
+	text-decoration: none;
+	outline: none;
+}
+
+a:focus,
+a:hover{
+	color: inherit;
+	text-decoration: none;
+}
+
+a,
+button {
+	color: inherit;
+	outline: none;
+	border: none;
+	background: transparent;
+}
+
+button:hover{
+	cursor: pointer;
+}
+
+button:focus{
+    outline: 0; 
+    border:0
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+.capitalize {
+	text-transform: capitalize;
+}
+
+input{
+	outline: none;
+}
+
+input[type="color"] {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	border-radius: 50%;
+}
+
+*::-moz-selection {
+	background: var(--tp-common-black);
+	color: var(--tp-common-white);
+	text-shadow: none;
+}
+::-moz-selection {
+	background: var(--tp-common-black);
+	color: var(--tp-common-white);
+	text-shadow: none;
+}
+::selection {
+	background: var(--tp-common-black);
+	color: var(--tp-common-white);
+	text-shadow: none;
+}
+
+
+*::-moz-placeholder {
+	color: var(--tp-common-black);
+	font-size: var(--tp-fz-body);
+	opacity: 1;
+}
+*::placeholder {
+	color: var(--tp-common-black);
+	font-size: var(--tp-fz-body);
+	opacity: 1;
+}
+
+/*---------------------------------
+    common classes css start 
+---------------------------------*/
+
+.w-img{
+	& img{
+		width: 100%;
+	}
+}
+
+.m-img{
+	& img{
+		max-width: 100%;
+	}
+}
+
+.fix {
+    overflow:hidden
+}
+.clear{
+    clear: both;
+}
+
+.f-left {
+	float: left
+}
+.f-right {
+	float: right
+}
+
+.z-index-1{
+	z-index: 1;
+}
+
+.z-index-11{
+	z-index: 11;
+}
+
+.overflow-y-visible{
+	overflow-x: hidden;
+	overflow-y: visible;
+}
+
+.p-relative{
+	position: relative;
+}
+.p-absolute{
+	position: absolute;
+}
+
+.include-bg{
+	@include background();
+}
+
+
+
+/*----------------------------------------
+    Body Overlay 
+-----------------------------------------*/
+
+.body-overlay{
+    background-color: rgba($color: var(--tp-common-black), $alpha: .5);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 99;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	@include transition(.3s);
+
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+.body-overlay.opened{
+	opacity: 1;
+    visibility: visible;
+}
+
+/*----------------------------------------
+    Progress Wrap
+-----------------------------------------*/
+
+.progress-wrap{
+	@media #{$xs}{
+		right: 15px;
+		bottom: 15px;
+	}
+}
+
+
+
+/*----------------------------------------
+    basic pagination
+-----------------------------------------*/
+
+.basic-pagination{
+	& ul{
+		& li{
+			display: inline-block;
+			margin-right: 10px;
+			@media #{$xs}{
+				margin-right: 5px;
+			}
+			&.active{
+				& a{
+					color: var(--tp-common-white);
+					background: var(--tp-theme-1);
+					border-color: var(--tp-theme-1);
+				}
+			}
+			& a,
+			& span{
+				position: relative;
+				overflow: hidden;
+				background: transparent;
+				display: inline-block;
+				width: 40px;
+				height: 40px;
+				line-height: 36px;
+				text-align: center;
+				@include border-radius(4px);
+				font-weight: 500;
+				font-size: 16px;
+				border: 2px solid #eef0f6;
+				color: var(--tp-common-black);
+				&:hover,
+				&.current{
+					background: var(--tp-theme-1);
+					color: var(--tp-common-white);
+					border-color: var(--tp-theme-1);
+				}
+			}
+		}
+	}
+}

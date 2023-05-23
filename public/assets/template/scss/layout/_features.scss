@@ -1,0 +1,102 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  05. FEATURES CSS START
+/*----------------------------------------*/
+
+.features{
+    &__inner{
+        margin-top: -70px;
+        padding: 40px 60px;
+        padding-bottom: 10px;
+        @include box-shadow(0px 30px 50px rgba(26, 31, 35, 0.07));
+
+        @media #{$lg}{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media #{$md}{
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+        @media #{$xs}{
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+
+        & .row [class*="col-"]:nth-child(2) .features__border-right{
+            @media #{$md}{
+                padding-left: 13px;
+            }
+            &::after{
+                @media #{$md}{
+                 display: none;
+                }
+            }
+        }
+    }
+    &__item{
+        padding-right: 55px;
+        @media #{$lg}{
+            padding-right: 35px;
+        }
+        @media #{$md}{
+            padding-right: 30px;
+        }
+        @media #{$xs}{
+            padding: 0;
+        }
+        
+    }
+    &__icon{
+        @media #{$xs}{
+            margin-bottom: 20px;
+        }
+        & i{
+            font-size: 45px;
+            color: var(--tp-theme-1);
+        }
+        & svg{
+            height: 45px;
+            width: 45px;
+            & path{
+
+            }
+        }
+    }
+    &__content{
+        & p{
+            line-height: 20px;
+            margin-bottom: 10px;
+        }
+    }
+    &__title{
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        & a{
+            &:hover{
+                color: var(--tp-theme-1);
+            }
+        }
+    }
+    &__border-right{
+        position: relative;
+        &::after{
+            position: absolute;
+            content: '';
+            right: 5px;
+            top: 50%;
+            @include transform(translateY(-50%));
+            background-color: rgba($color: #031220, $alpha: 0.1);
+            height: 120px;
+            width: 1px;
+
+            @media #{$sm, $xs}{
+                display: none;
+            }
+        }
+    }
+}

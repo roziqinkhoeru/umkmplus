@@ -1,0 +1,103 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  22. FAQ CSS START
+/*----------------------------------------*/
+
+.faq{
+    &__accordion{
+        & .accordion-item{
+            border: none;
+            border-bottom: 1px solid rgba($color: #031220, $alpha: .06);
+            padding: 15px 0;
+            padding-left: 65px;
+        }
+        & .accordion-item:first-of-type .accordion-button {
+            border-top-left-radius: 20px ;
+            border-top-right-radius: 20px;
+        }
+        & .accordion-button{
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--tp-common-black);
+            border: 0;
+            padding: 15px 0;
+            padding-left: 25px;
+            position: relative;
+            @include border-radius(20px 20px 0 0);
+            &::after{
+                position: absolute;
+                top: 50%;
+                left: -65px;
+                @include transform(translateY(-50%) rotate(0deg));
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                background-color: var(--tp-grey-10);
+                background-image: none;
+                content: '\2b';
+                font-family: var(--tp-ff-fontawesome);
+                font-weight: 500;
+                margin: inherit;
+                @include border-radius(50%);
+                @include transition(.3s);
+            }
+        }
+
+        & .accordion-button:focus {
+            box-shadow: none;
+        }
+        & .accordion-body{
+            padding: 0;
+            padding-right: 50px;
+            padding-left: 25px;
+            padding-bottom: 25px;
+
+            @media #{$xs}{
+                padding-right: 15px;
+            }
+            
+            & p{
+                font-size: 15px;
+                color: var(--tp-text-11);
+                line-height: 24px;
+                margin-bottom: 0;
+            }
+        }
+
+        & .accordion-button:not(.collapsed){
+            background-color: transparent;
+            box-shadow: none;
+            background-color: var(--tp-grey-7);
+            &::after{
+                @include transform(translateY(-50%) rotate(45deg));
+                background-color: var(--tp-theme-3);
+                color: var(--tp-common-white);
+            }
+        }
+        & .accordion-collapse{
+            @include border-radius(0 0 20px 20px);
+            background-color: var(--tp-grey-7);
+        }
+    }
+    &__wrapper{
+        & p{
+            font-size: 16px;
+            margin-bottom: 20px;
+            & a{
+                color: var(--tp-theme-3);
+                font-weight: 500;
+
+            }
+        }
+    }
+    &__item{
+        &-wrapper{
+            @media #{$md, $sm, $xs}{
+                padding-left: 0;
+                margin-top: 50px;
+            }
+        }
+    }
+}
