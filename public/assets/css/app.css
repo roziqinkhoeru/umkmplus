@@ -1,3 +1,21 @@
 @import url(./global.css);
 @import url(./components.css);
 @import url(./utilities.css);
+
+/* navbar */
+.tp-btn-login {
+    line-height: 40px;
+    height: 40px;
+}
+.nav-icon-cart {
+    color: #b3b3b3;
+}
+.nav-icon-cart:hover {
+    color: #3d6ce7;
+}
+.nav-icon-user {
+    color: #b3b3b3;
+}
+.nav-icon-user:hover {
+    color: #3d6ce7;
+}
