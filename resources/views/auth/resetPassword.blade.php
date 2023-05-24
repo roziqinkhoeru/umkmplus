@@ -122,13 +122,19 @@
                     error: function(xhr, status, error) {
                         $('#resetPasswordButton').html('Reset password');
                         $('#resetPasswordButton').prop('disabled', false);
-                        // if (xhr.responseJSON)
-                        //     toastr.error(xhr.responseJSON.meta.message, 'RESET PASSWORD GAGAL!');
-                        // else
-                        //     toastr.error(
-                        //         "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                        //         error, 'RESET PASSWORD GAGAL!');
-                        // return false;
+                        if (xhr.responseJSON)
+                        Swal.fire({
+                                icon: 'error',
+                                title: 'RESET PASSWORD GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
+                        else
+                        Swal.fire({
+                                icon: 'error',
+                                title: 'RESET PASSWORD GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                            })
+                        return false;
                     }
                 });
             }

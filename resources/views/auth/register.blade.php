@@ -63,8 +63,8 @@
                                         </label>
                                         <div class="sign__input">
                                             <i class="fal fa-envelope icon-form"></i>
-                                            <input type="email" placeholder="Masukan email" name="email"
-                                                id="email" value="{{ old('email') }}" required class="input-form">
+                                            <input type="email" placeholder="Masukan email" name="email" id="email"
+                                                value="{{ old('email') }}" required class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-22">
@@ -98,8 +98,8 @@
                                             <div class="toggle-eye-wrapper-confirm"><i
                                                     class="fa-regular fa-eye toggle-eye icon-toggle-password"></i></div>
                                             <input type="password" placeholder="Masukan ulang kata sandi"
-                                                name="password_confirmation" id="password_confirmation" value="" required
-                                                class="input-form">
+                                                name="password_confirmation" id="password_confirmation" value=""
+                                                required class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__action d-flex justify-content-between mb-30">
@@ -111,7 +111,8 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" id="registerButton" class="tp-btn w-100 rounded-pill">Daftar</button>
+                                    <button type="submit" id="registerButton"
+                                        class="tp-btn w-100 rounded-pill">Daftar</button>
                                     <div class="sign__new text-center mt-20">
                                         <p>Sudah punya akun? <a href="/login"> Login</a></p>
                                     </div>
@@ -216,6 +217,7 @@
                         email: $('#email').val(),
                         phone: $('#phone').val(),
                         password: $('#password').val(),
+                        password_confirmation: $('#password_confirmation').val(),
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
@@ -226,14 +228,20 @@
                     error: function(xhr, status, error) {
                         // $('#registerButton').html('Masuk');
                         $('#registerButton').prop('disabled', false);
-                        console.log("Error: " + error);
-                        // if (xhr.responseJSON)
-                        //     toastr.error(xhr.responseJSON.meta.message, 'PENDAFTARAN GAGAL!');
-                        // else
-                        //     toastr.error(
-                        //         "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                        //         error, 'PENDAFTARAN GAGAL!');
-                        // return false;
+                        if (xhr.responseJSON)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'PENDAFTARAN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
+                        else
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'PENDAFTARAN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
+                            })
+                        return false;
                     }
                 });
             }

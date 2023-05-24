@@ -99,11 +99,17 @@
                     $('#forgotPasswordButton').html('Kirim tautan');
                     $('#forgotPasswordButton').prop('disabled', false);
                     if (xhr.responseJSON)
-                        toastr.error(xhr.responseJSON.meta.message, 'KIRIM TAUTAN GAGAL!');
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'KIRIM TAUTAN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
                     else
-                        toastr.error(
-                            "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                            error, 'KIRIM TAUTAN GAGAL!');
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'KIRIM TAUTAN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                            })
                     return false;
                 }
             });

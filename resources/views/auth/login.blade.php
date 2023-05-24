@@ -129,12 +129,13 @@
                                 icon: 'error',
                                 title: 'LOGIN GAGAL!',
                                 text: xhr.responseJSON.meta.message,
-                                // footer: '<a href="">Why do I have this issue?</a>'
                             })
-                        else
-                            toastr.error(
-                                "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                                error, 'LOGIN GAGAL!');
+                            else
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                            })
                         return false;
                     }
                 });
