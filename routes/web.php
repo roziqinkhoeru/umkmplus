@@ -28,7 +28,7 @@ Route::controller(RegisterController::class)->group(function () {
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'login');
+    Route::post('/login', 'authenticate');
     Route::get('/logout', 'logout');
 });
 Route::controller(PasswordResetLinkController::class)->group(function () {
