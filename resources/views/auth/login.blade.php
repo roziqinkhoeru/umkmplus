@@ -36,7 +36,8 @@
                                 </div>
                             </div>
                             <div class="sign__form">
-                                <form action="#" id="loginForm">
+                                <form action="{{ url('login') }}" method="POST" id="loginForm">
+                                    @csrf
                                     <div class="sign__input-wrapper mb-22">
                                         <label for="username">
                                             <h5>Username</h5>
@@ -104,6 +105,40 @@
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi tidak boleh kosong',
                 }
             },
+            submitHandler: function(form) {
+                $('#login-button').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#login-button').prop('disabled', true);
+                $.ajax({
+                    url: "{{ url('login') }}",
+                    type: "POST",
+                    data: {
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#login-button').html('Masuk');
+                        $('#login-button').prop('disabled', false);
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        $('#login-button').html('Masuk');
+                        $('#login-button').prop('disabled', false);
+                        if (xhr.responseJSON)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                                // footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                        else
+                            toastr.error(
+                                "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                error, 'LOGIN GAGAL!');
+                        return false;
+                    }
+                });
+            }
         });
 
         // toggle-eye-wrapper

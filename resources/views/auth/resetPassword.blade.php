@@ -28,21 +28,24 @@
                     <div class="col-xxl-6 offset-xxl-3 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
                         <div class="sign__wrapper white-bg">
                             <div class="sign__form">
-                                <form action="#" id="resetPasswordForm">
+                                <form action="{{ url('reset-password') }}" method="POST" id="resetPasswordForm">
+                                    @csrf
+                                    <input hidden type="text" name="token" id="token" value="{{ $token }}">
+                                    <input hidden type="email" name="email" id="email" value="{{ $email }}">
                                     <div class="sign__input-wrapper mb-22">
-                                        <label for="newPassword">
+                                        <label for="password">
                                             <h5>Password Baru</h5>
                                         </label>
                                         <div class="sign__input">
                                             <i class="fal fa-lock icon-form"></i>
                                             <div class="toggle-eye-wrapper-new"><i
                                                     class="fa-regular fa-eye toggle-eye icon-toggle-password"></i></div>
-                                            <input type="password" placeholder="Masukan password baru" name="newPassword"
-                                                id="newPassword" required value="" class="input-form">
+                                            <input type="password" placeholder="Masukan password baru" name="password"
+                                                id="password" required value="" class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-32">
-                                        <label for="confirmNewPassword">
+                                        <label for="password_confirmation">
                                             <h5>Konfirmasi Password Baru</h5>
                                         </label>
                                         <div class="sign__input">
@@ -50,11 +53,11 @@
                                             <div class="toggle-eye-wrapper-confirm-new"><i
                                                     class="fa-regular fa-eye toggle-eye icon-toggle-password"></i></div>
                                             <input type="password" placeholder="Masukan Konfirmasi Password Baru"
-                                                name="confirmNewPassword" id="confirmNewPassword" required value=""
+                                                name="password_confirmation" id="password_confirmation" required value=""
                                                 class="input-form">
                                         </div>
                                     </div>
-                                    <button class="tp-btn w-100 rounded-pill">Reset password</button>
+                                    <button type="submit" class="tp-btn w-100 rounded-pill" id="resetPasswordButton">Reset password</button>
                                     <div class="sign__new text-center mt-20">
                                         <p>Mengalami kesulitan? Hubungi<a href="#"> kami</a></p>
                                     </div>
@@ -74,50 +77,82 @@
         // validate form
         $("#resetPasswordForm").validate({
             rules: {
-                newPassword: {
+                password: {
                     required: true,
                     minlength: 8,
                     pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
                 },
-                confirmNewPassword: {
+                password_confirmation: {
                     required: true,
                     minlength: 8,
-                    equalTo: "#newPassword",
+                    equalTo: "#password",
                 },
             },
             messages: {
-                newPassword: {
+                password: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Password tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Password minimal 8 karakter',
                     pattern: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Password harus mengandung huruf dan angka',
                 },
-                confirmNewPassword: {
+                password_confirmation: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Konfirmasi password tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Konfirmasi password minimal 8 karakter',
                     equalTo: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Konfirmasi password tidak sama',
                 },
             },
+            submitHandler: function(form) {
+                $('#resetPasswordButton').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#resetPasswordButton').prop('disabled', true);
+                console.log($('#password').val());
+                $.ajax({
+                    url: "{{ route('resetPassword') }}",
+                    type: "POST",
+                    data: {
+                        email: $('#email').val(),
+                        password: $('#password').val(),
+                        password_confirmation: $('#password_confirmation').val(),
+                        token: $('#token').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#resetPasswordButton').html('Reset password');
+                        $('#resetPasswordButton').prop('disabled', false);
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        $('#resetPasswordButton').html('Reset password');
+                        $('#resetPasswordButton').prop('disabled', false);
+                        // if (xhr.responseJSON)
+                        //     toastr.error(xhr.responseJSON.meta.message, 'RESET PASSWORD GAGAL!');
+                        // else
+                        //     toastr.error(
+                        //         "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                        //         error, 'RESET PASSWORD GAGAL!');
+                        // return false;
+                    }
+                });
+            }
         });
 
         // toggle-eye-wrapper
         $('.toggle-eye-wrapper-new').click(function() {
-            if ($('#newPassword').attr('type') == 'password') {
-                $('#newPassword').attr('type', 'text');
+            if ($('#password').attr('type') == 'password') {
+                $('#password').attr('type', 'text');
                 $('.toggle-eye-wrapper-new').html(
                     '<i class="fa-regular fa-eye-slash toggle-eye icon-toggle-password"></i>');
             } else {
-                $('#newPassword').attr('type', 'password');
+                $('#password').attr('type', 'password');
                 $('.toggle-eye-wrapper-new').html(
                     '<i class="fa-regular fa-eye toggle-eye icon-toggle-password"></i>');
             }
         });
         $('.toggle-eye-wrapper-confirm-new').click(function() {
-            if ($('#confirmNewPassword').attr('type') == 'password') {
-                $('#confirmNewPassword').attr('type', 'text');
+            if ($('#password_confirmation').attr('type') == 'password') {
+                $('#password_confirmation').attr('type', 'text');
                 $('.toggle-eye-wrapper-confirm-new').html(
                     '<i class="fa-regular fa-eye-slash toggle-eye icon-toggle-password"></i>');
             } else {
-                $('#confirmNewPassword').attr('type', 'password');
+                $('#password_confirmation').attr('type', 'password');
                 $('.toggle-eye-wrapper-confirm-new').html(
                     '<i class="fa-regular fa-eye toggle-eye icon-toggle-password"></i>');
             }

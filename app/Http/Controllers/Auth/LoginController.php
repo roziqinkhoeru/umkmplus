@@ -32,7 +32,7 @@ class LoginController extends Controller
     {
         try {
             $rules = [
-                'email' => 'required|email',
+                'username' => 'required',
                 'password' => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
@@ -49,10 +49,10 @@ class LoginController extends Controller
                     : back()->with(['error' => $validator->errors()]);
             }
 
-            $credentials = $request->only('email', 'password');
+            $credentials = $request->only('username', 'password');
 
             if (Auth::attempt($credentials)) {
-                $redirect = redirect()->intended('dashboard');
+                $redirect = redirect()->intended('register');
                 $request->session()->regenerate();
                 return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirect->getTargetUrl()], 'Authenticated') : $redirect;
                 // return redirect()->intended('dashboard');

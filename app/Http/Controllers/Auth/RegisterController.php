@@ -86,6 +86,6 @@ class RegisterController extends Controller
                 ],
                 'Register failed',
                 400,
-            ) : back()->withInput($request->only('email'))->withErrors(['error' => 'Register failed']);
+            ) : back()->withInput()->withErrors(['error' => 'Register failed']);
     }
 }

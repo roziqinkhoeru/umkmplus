@@ -17,25 +17,12 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 |
 */
 
-// auth
-Route::get('/login', function () {
-    return view('auth.login', ['title' => 'Login | UMKM Plus', 'ptSection' => '54px']);
-});
-Route::get('/register', function () {
-    return view('auth.register', ['title' => 'Register | UMKM Plus', 'ptSection' => '54px']);
-});
-Route::get('/forgot-password', function () {
-    return view('auth.forgotPassword', ['title' => 'Forgot Password | UMKM Plus', 'ptSection' => '54px']);
-});
-Route::get('/reset-password', function () {
-    return view('auth.resetPassword', ['title' => 'Reset Password | UMKM Plus', 'ptSection' => '54px']);
-});
-
 // user
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
     Route::post('/register', 'store');

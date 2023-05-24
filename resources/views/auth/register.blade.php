@@ -35,15 +35,16 @@
                                 </div>
                             </div>
                             <div class="sign__form">
-                                <form action="#" id="registerForm">
+                                <form action="{{ url('register') }}" method="POST" id="registerForm">
+                                    @csrf
                                     <div class="sign__input-wrapper mb-22">
-                                        <label for="fullname">
+                                        <label for="name">
                                             <h5>Nama Lengkap</h5>
                                         </label>
                                         <div class="sign__input">
                                             <i class="fal fa-user icon-form"></i>
-                                            <input type="text" placeholder="Masukan nama lengkap" name="fullname"
-                                                id="fullname" value="" required class="input-form">
+                                            <input type="text" placeholder="Masukan nama lengkap" name="name"
+                                                id="name" value="{{ old('name') }}" required class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-22">
@@ -53,7 +54,17 @@
                                         <div class="sign__input">
                                             <i class="fal fa-user icon-form"></i>
                                             <input type="text" placeholder="Masukan username" name="username"
-                                                id="username" value="" required class="input-form">
+                                                id="username" value="{{ old('username') }}" required class="input-form">
+                                        </div>
+                                    </div>
+                                    <div class="sign__input-wrapper mb-22">
+                                        <label for="email">
+                                            <h5>Email</h5>
+                                        </label>
+                                        <div class="sign__input">
+                                            <i class="fal fa-envelope icon-form"></i>
+                                            <input type="email" placeholder="Masukan email" name="email"
+                                                id="email" value="{{ old('email') }}" required class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-22">
@@ -63,7 +74,7 @@
                                         <div class="sign__input">
                                             <i class="fal fa-phone icon-form"></i>
                                             <input type="text" placeholder="Masukan nomor handphone" name="phone"
-                                                id="phone" value="" required class="input-form">
+                                                id="phone" value="{{ old('phone') }}" required class="input-form">
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-22">
@@ -79,7 +90,7 @@
                                         </div>
                                     </div>
                                     <div class="sign__input-wrapper mb-15">
-                                        <label for="confirmPassword">
+                                        <label for="password_confirmation">
                                             <h5>Ulangi Kata Sandi</h5>
                                         </label>
                                         <div class="sign__input">
@@ -87,7 +98,7 @@
                                             <div class="toggle-eye-wrapper-confirm"><i
                                                     class="fa-regular fa-eye toggle-eye icon-toggle-password"></i></div>
                                             <input type="password" placeholder="Masukan ulang kata sandi"
-                                                name="confirmPassword" id="confirmPassword" value="" required
+                                                name="password_confirmation" id="password_confirmation" value="" required
                                                 class="input-form">
                                         </div>
                                     </div>
@@ -100,7 +111,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button class="tp-btn w-100 rounded-pill">Daftar</button>
+                                    <button type="submit" id="registerButton" class="tp-btn w-100 rounded-pill">Daftar</button>
                                     <div class="sign__new text-center mt-20">
                                         <p>Sudah punya akun? <a href="/login"> Login</a></p>
                                     </div>
@@ -116,6 +127,11 @@
 @endsection
 
 @section('script')
+    @if (session()->has('error'))
+        <script>
+            console.log({{ session('error') }});
+        </script>
+    @endif
     <script>
         // add method validation only letters
         $.validator.addMethod('alphabetOnly', function(value, element) {
@@ -124,12 +140,17 @@
         // validate form
         $("#registerForm").validate({
             rules: {
-                fullname: {
+                name: {
                     required: true,
                     alphabetOnly: true,
                 },
                 username: {
                     required: true,
+                    nowhitespace: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
                 },
                 phone: {
                     required: true,
@@ -142,7 +163,7 @@
                     minlength: 8,
                     pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
                 },
-                confirmPassword: {
+                password_confirmation: {
                     required: true,
                     equalTo: "#password",
                 },
@@ -151,12 +172,17 @@
                 },
             },
             messages: {
-                fullname: {
+                name: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username tidak boleh kosong',
                     alphabetOnly: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username hanya boleh berisi huruf',
                 },
                 username: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username tidak boleh kosong',
+                    nowhitespace: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username tidak boleh ada spasi',
+                },
+                email: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak boleh kosong',
+                    email: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak valid',
                 },
                 phone: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone tidak boleh kosong',
@@ -169,7 +195,7 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi minimal 8 karakter',
                     pattern: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi harus mengandung huruf dan angka',
                 },
-                confirmPassword: {
+                password_confirmation: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Konfirmasi kata sandi tidak boleh kosong',
                     equalTo: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Konfirmasi kata sandi tidak sama',
                 },
@@ -177,6 +203,41 @@
                     required: '<i class="fas fa-exclamation-circle text-sm icon-error" style="transform: translateY(-2px) !important;"></i>',
                 },
             },
+            submitHandler: function(form) {
+                $('#registerButton').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#registerButton').prop('disabled', true);
+                console.log('form submitted');
+                $.ajax({
+                    url: "{{ url('register') }}",
+                    type: "POST",
+                    data: {
+                        name: $('#name').val(),
+                        username: $('#username').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        password: $('#password').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        // $('#registerButton').html('Masuk');
+                        $('#registerButton').prop('disabled', false);
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        // $('#registerButton').html('Masuk');
+                        $('#registerButton').prop('disabled', false);
+                        console.log("Error: " + error);
+                        // if (xhr.responseJSON)
+                        //     toastr.error(xhr.responseJSON.meta.message, 'PENDAFTARAN GAGAL!');
+                        // else
+                        //     toastr.error(
+                        //         "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                        //         error, 'PENDAFTARAN GAGAL!');
+                        // return false;
+                    }
+                });
+            }
+
         });
 
         // toggle-eye-wrapper
@@ -192,12 +253,12 @@
             }
         });
         $('.toggle-eye-wrapper-confirm').click(function() {
-            if ($('#confirmPassword').attr('type') == 'password') {
-                $('#confirmPassword').attr('type', 'text');
+            if ($('#password_confirmation').attr('type') == 'password') {
+                $('#password_confirmation').attr('type', 'text');
                 $('.toggle-eye-wrapper-confirm').html(
                     '<i class="fa-regular fa-eye-slash toggle-eye icon-toggle-password"></i>');
             } else {
-                $('#confirmPassword').attr('type', 'password');
+                $('#password_confirmation').attr('type', 'password');
                 $('.toggle-eye-wrapper-confirm').html(
                     '<i class="fa-regular fa-eye toggle-eye icon-toggle-password"></i>');
             }
