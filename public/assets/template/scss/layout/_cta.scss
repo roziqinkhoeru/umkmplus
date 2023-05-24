@@ -1,0 +1,58 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  12. CTA CSS START
+/*----------------------------------------*/
+
+.cta{
+    &__title{
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    &__icon{
+        @media #{$xs}{
+            margin-bottom: 25px;
+        }
+        & span{
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            text-align: center;
+            background-color: var(--tp-common-cream);
+            @include border-radius(50%);
+        }
+    }
+    &__content{
+        & p{
+            font-size: 15px;
+            line-height: 25px;
+            margin-bottom: 30px;
+        }
+    }
+    &__inner{
+        border-top: 1px solid rgba($color: #3D6CE7, $alpha: .1);
+    }
+    &__item{
+        @media #{$lg}{
+            padding-left: 35px;
+        }
+        @media #{$md, $sm, $xs}{
+            padding-left: 0;
+        }
+        &-border{
+            border-right: 1px solid rgba($color: #3D6CE7, $alpha: .1);
+            @media #{$lg}{
+                padding-right: 45px;
+                padding-left: 0;
+            }
+            @media #{$md, $sm, $xs}{
+                border: 0;
+            }
+            @media #{$xs}{
+                padding-right: 0;
+            }
+        }
+    }
+}

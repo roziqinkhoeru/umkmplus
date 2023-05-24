@@ -1,0 +1,102 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  18. TESTIMONIAL CSS START
+/*----------------------------------------*/
+
+.testimonial{
+    &__slider{
+        & .owl-stage-outer{
+            overflow: visible;
+        }
+        & .owl-item{
+            opacity: 0;
+            visibility: hidden;
+            @include transition(.3s);
+            &.active{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        & .owl-dots{
+            @include flexbox();
+            align-items: center;
+            position: absolute;
+            bottom: -52px;
+            left: 50%;
+            @include transform(translateX(-50%));
+            & .owl-dot{
+                margin: 0 6px;
+                width: 8px;
+                height: 8px;
+                background-color: var(--tp-grey-6);
+                @include border-radius(50%);
+
+                &.active{
+                    width: 12px;
+                    height: 12px;
+                    background-color: var(--tp-theme-2);
+                }
+            }
+        }
+    }
+    &__active{
+        &.swiper-container{
+            overflow: visible
+        }
+    }
+    &__item{
+        padding: 40px 45px;
+        @include border-radius(10px);
+        @include box-shadow(0px 30px 40px rgba(3, 18, 32, 0.06));
+
+        @media #{$lg, $md, $xs}{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    &__avater{
+        margin-bottom: 30px;
+        & img{
+            width: 66px !important;
+            height: 66px;
+            display: inline-block !important;
+            @include border-radius(50%);
+        }
+        &-info{
+            & h3{
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 0;
+            }
+            & span{
+                color: var(--tp-text-11);
+            }
+        }
+    }
+    &__text{
+        & h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        & p{
+            font-size: 16px;
+            line-height: 26px;
+            color: var(--tp-text-12);
+            margin-bottom: 20px;
+        }
+    }
+    &__rating{
+        & ul{
+            & li{
+                display: inline-block;
+                margin: 0 0;
+                & a{
+                    font-size: 14px;
+                    color: var(--tp-common-yellow-4);
+                }
+            }
+        }
+    }
+}
