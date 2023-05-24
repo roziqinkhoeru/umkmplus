@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Course;
 use App\Models\Customer;
+use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -46,19 +47,19 @@ class UserSeeder extends Seeder
         $userRecords =
         [
             [
-                'customer_id' => null,
+                'customer_id' => 1,
                 'username' => 1,
                 'email' => "admin@gmail.com",
                 'password' => bcrypt('=Secret1234'),
             ],
             [
-                'customer_id' => 1,
+                'customer_id' =>2,
                 'username' => 2,
                 'email' => "mentor@gmail.com",
                 'password' => bcrypt('=Secret1234'),
             ],
             [
-                'customer_id' => 2,
+                'customer_id' => 3,
                 'username' => 3,
                 'email' => "student@gmail.com",
                 'password' => bcrypt('=Secret1234'),
@@ -67,6 +68,26 @@ class UserSeeder extends Seeder
 
         foreach ($userRecords as $userRecord) {
             User::firstOrCreate($userRecord);
+        }
+
+        $roleUserRecords =
+        [
+            [
+                'user_id' => 1,
+                'role_id' => 1,
+            ],
+            [
+                'user_id' => 2,
+                'role_id' => 2,
+            ],
+            [
+                'user_id' => 3,
+                'role_id' => 3,
+            ],
+        ];
+
+        foreach ($roleUserRecords as $roleUserRecord) {
+            RoleUser::firstOrCreate($roleUserRecord);
         }
 
         $faker = Factory::create();
