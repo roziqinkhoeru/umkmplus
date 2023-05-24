@@ -68,3 +68,65 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Author
 
 [Verdian Galang Pratama](https://github.com/)
+
+## How to install
+
+-   Clone GitHub repo for this project locally
+
+```bash
+git clone https://github.com/roziqinkhoeru/umkmplus.git
+```
+
+-   Enter into your project
+
+```bash
+cd .\umkmplus\
+```
+
+-   Move to development branch
+
+```bash
+git checkout development
+```
+
+-   Install composer dependencies
+
+```bash
+composer install
+```
+
+-   Create a copy of your .env file
+
+```bash
+cp .env.example .env
+```
+
+-   Generate an app encryption key
+
+```bash
+php artisan key:generate
+```
+
+-   In the .env file, add database information to allow Laravel to connect to the database
+
+```bash
+...
+```
+
+-   Migrate the database
+
+```bash
+php artisan migrate
+```
+
+-   Seed the database
+
+```bash
+php artisan db:seed
+```
+
+-   Have fun running your project
+
+```bash
+php artisan serve --port=8000
+```

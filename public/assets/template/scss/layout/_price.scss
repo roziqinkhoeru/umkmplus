@@ -1,0 +1,161 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  21. PRICE CSS START
+/*----------------------------------------*/
+
+.price{
+    &__banner{
+        @include border-radius(14px);
+        padding: 50px 30px 275px;
+        &-content{
+            & h3{
+                font-size: 30px;
+                color: var(--tp-common-white);
+                margin-bottom: 15px;
+                & span{
+                    display: block;
+                    color: rgba($color: #fff, $alpha: .6);
+                    font-weight: 400;
+                }
+            }
+            & p{
+                font-size: 16px;
+                font-weight: 500;
+                color: rgba($color: #fff, $alpha: .8);
+                margin-bottom: 25px;
+                padding-right: 50px;
+            }
+        }
+    }
+    &__item{
+        border: 2px solid rgba($color: #031220, $alpha: .06);
+        @include border-radius(14px);
+
+        &:hover{
+            border-color: var(--tp-theme-3);
+        }
+        &.active{
+            border-color: var(--tp-theme-3);
+            & .price__btn{
+                & .tp-btn-9.tp-btn-12{
+                    background-color: var(--tp-theme-3);
+                    border-color: var(--tp-theme-3);
+                    color: var(--tp-common-white);
+                }
+            }
+        }
+    }
+    &__thumb{
+        position: absolute;
+        bottom: 0;
+        right: 15px;
+
+        @media #{$md}{
+            bottom: -35px;
+            right: 0;
+
+        }
+
+        @media #{$xs}{
+            bottom: -80px;
+            right: -20px;
+        }
+
+        &::after{
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: luminosity;
+        }
+        & img{
+            mix-blend-mode: luminosity;
+            filter: grayscale(100%);
+        }
+    }
+    &__shape{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    &__title{
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--tp-common-black-3);
+        background-color: var(--tp-grey-3);
+        margin-bottom: 0;
+        padding: 20px 40px;
+    }
+    &__list{
+        & ul{
+            & li{
+                list-style: none;
+                position: relative;
+                padding-left: 14px;
+                padding-bottom: 10px;
+                margin-bottom: 18px;
+                border-bottom: 1.5px solid rgba($color: #031220, $alpha: .06);
+                color: var(--tp-common-black);
+                font-size: 15px;
+                &::after{
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    top: 37%;
+                    @include transform(tranlateY(-50%));
+                    width: 3px;
+                    height: 3px;
+                    @include border-radius(50%);
+                    background-color: var(--tp-common-black-3);
+                }
+
+                & span{
+                    float: right;
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    line-height: 14px;
+                    text-align: center;
+                    background-color: var(--tp-theme-3);
+                    color: var(--tp-common-white);
+                    @include border-radius(50%);
+                    font-size: 10px;
+                    margin-top: 5px;
+                    border: 1px solid var(--tp-theme-3);
+                }
+                &.unavailable{
+                    color: var(--tp-text-13);
+
+                    &::after{
+                        background-color: var(--tp-text-13);
+                    }
+
+                    & span{
+                        background-color: transparent;
+                        border-color: var(--tp-text-13);
+                        color: var(--tp-text-13);
+                    }
+                }
+            }
+        }
+    }
+    &__content{
+        padding: 30px 40px 45px;
+    }
+    &__amount{
+        & h4{
+            font-size: 34px;
+            font-weight: 700;
+
+            & span{
+                font-size: 16px;
+                color: var(--tp-text-11);
+                opacity: .7;
+                font-weight: 400;
+            }
+        }
+    }
+}

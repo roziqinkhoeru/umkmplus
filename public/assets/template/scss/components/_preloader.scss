@@ -1,0 +1,52 @@
+#loading{
+	background-color: #fff;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 999999;
+	margin-top: 0px;
+	top: 0px;
+}
+
+
+#loader {
+	height: 50px;
+	width:50px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+  }
+
+#loading-center{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	}
+#loading-center-absolute {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 25%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+
+}
+
+
+#corners {
+	fill: none;
+	stroke-width: 7;
+	stroke: var(--tp-theme-1);
+	stroke-dasharray: 25;
+	animation: dash infinite 1.5s ease;
+	-webkit-animation: dash infinite 1.5s ease;
+}
+
+@keyframes dash {
+	100% {
+	  stroke-dashoffset: -50;
+	}
+  }

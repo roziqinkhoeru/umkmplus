@@ -1,0 +1,222 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  25. TEACHER CSS START
+/*----------------------------------------*/
+
+.teacher{
+    &__item{
+        @include border-radius(6px);
+        padding: 30px;
+        &:hover{
+            background: var(--tp-common-white);
+            @include box-shadow(0px 30px 40px 0px rgba(1, 11, 60, 0.1));
+
+            & .teacher__thumb{
+                & img{
+                    @include transform(scale(1.1));
+                }
+            }
+        }
+    }
+    &__content{
+        padding-top: 25px;
+        & span{
+            font-size: 16px;
+            color: var(--tp-text-11);
+        }
+    }
+    &__title{
+        display: inline-block;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    &__social{
+        & ul{
+            & li{
+                display: inline-block;
+                margin: 0 5px;
+                & a{
+                    display: inline-block;
+                    width: 36px;
+                    height: 36px;
+                    line-height: 36px;
+                    font-size: 13px;
+                    text-align: center;
+                    border: 2px solid var(--tp-grey-2);
+                    @include border-radius(4px);
+                    color: var(--tp-common-black);
+                    &:hover{
+                        background: var(--tp-theme-1);
+                        color: var(--tp-common-white);
+                        border-color: var(--tp-theme-1);
+                    }
+                }
+            }
+        }
+        &-2{
+            @media #{$sm}{
+                margin-bottom: 30px;
+            }
+            @media #{$xs}{
+                margin-bottom: 30px;
+            }
+            & h4{
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--tp-text-11);
+                margin-bottom: 0;
+            }
+            & ul{
+                & li{
+                    display: inline-block;
+                    margin-right: 5px;
+                    & a{
+                        font-size: 14px;
+                        color: #898a93;
+                        &:hover{
+                            color: var(--tp-theme-1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__rating{
+        @media #{$sm}{
+            margin-bottom: 30px;
+        }
+        @media #{$xs}{
+            margin-bottom: 30px;
+        }
+        & span{
+            font-size: 16px;
+            & i{
+                padding-right: 5px;
+                color: var(--tp-common-yellow);
+            }
+        }
+        & h5{
+            font-size: 14px;
+            color: var(--tp-text-11);
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        & ul{
+            & li{
+                display: inline-block;
+                & a{
+                    font-size: 14px;
+                    color: var(--tp-common-yellow);
+                }
+            }
+        }
+        &-inner{
+            & p{
+                font-size: 16px;
+                color: var(--tp-common-black);
+                font-weight: 600;
+                margin-bottom: 0;
+                padding-left: 3px;
+            }
+        }
+    }
+    &__info{
+        @media #{$sm}{
+            margin-bottom: 30px;
+        }
+        @media #{$xs}{
+            margin-bottom: 30px;
+        }
+        & h4{
+            font-size: 40px;
+            margin-bottom: 0;
+        }
+        & span{
+            font-size: 16px;
+            color: var(--tp-text-11);
+        }
+    }
+    &__follow{
+        &-btn{
+            display: inline-block;
+            height: 40px;
+            line-height: 36px;
+            text-align: center;
+            padding: 0 25px;
+            border: 2px solid #eef0f6;
+            @include border-radius(4px);
+            color: var(--tp-common-black);
+            font-weight: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            background: var(--tp-common-white);
+            &:hover{
+                background: var(--tp-theme-1);
+                color: var(--tp-common-white);
+                border-color: var(--tp-theme-1);
+            }
+        }
+    }
+    &__top{
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e8eaf0;
+    }
+    &__bio{
+        padding-bottom: 50px;
+        padding-top: 35px;
+        border-bottom: 1px solid #e8eaf0;
+        & h3{
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        & p{
+            font-size: 16px;
+            line-height: 26px;
+            color: var(--tp-text-11);
+            margin-bottom: 0;
+        }
+    }
+    &__courses{
+        & .section__title{
+            font-size: 30px;
+        }
+    }
+    &__details{
+        &-thumb{
+            & .team-thumb{
+                @media #{$lg, $md, $sm, $xs}{
+                    width: 100%;
+                }
+            }
+            & img{
+                @include border-radius(6px);
+            }
+            @media #{$md}{
+                margin-bottom: 50px;
+            }
+            @media #{$sm}{
+                margin-bottom: 50px;
+            }
+            @media #{$xs}{
+                margin-bottom: 50px;
+                padding-right: 0;
+            }
+        }
+        &-shape{
+            & img{
+                position: absolute;
+                z-index: -1;
+                width: auto;
+                &.teacher-details-shape-1{
+                    right: 0px;
+                    bottom: 70px;
+                }
+                &.teacher-details-shape-2{
+                    left: -27px;
+                    top: 55px;
+                }
+            }
+        }
+    }
+}

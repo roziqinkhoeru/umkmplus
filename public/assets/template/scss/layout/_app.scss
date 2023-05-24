@@ -1,0 +1,99 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  23. APP CSS START
+/*----------------------------------------*/
+
+.app{
+    &__wrapper{
+        @media #{$md, $sm, $xs}{
+            margin-bottom: 50px;
+        }
+    }
+    &__bg{
+        position: relative;
+
+        &::after{
+            position: absolute;
+            content: '';
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--tp-grey-9);
+            z-index: -1;
+        }
+    }
+    &__inner{
+        padding: 50px 70px;
+        @include border-radius(14px);
+        @include box-shadow(0px 40px 50px rgba(2, 29, 26, 0.14));
+
+        @media #{$sm}{
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+        @media #{$xs}{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    &__title{
+        font-size: 44px;
+        font-weight: 800;
+        color: var(--tp-common-white);
+        margin-bottom: 0;
+
+        @media #{$sm}{
+            font-size: 35px;
+        }
+        @media #{$xs}{
+            font-size: 23px;
+        }
+    }
+    &__item{
+        @media #{$xs}{
+            margin-bottom: 15px;
+        }
+        & a{
+            font-size: 18px;
+            line-height: 1;
+            font-weight: 600;
+            color: var(--tp-common-white);
+            border: 2px solid rgba($color: #fff, $alpha: .3);
+            @include border-radius(6px);
+            display: inline-block;
+            padding: 5px 24px;
+            padding-left: 20px;
+            & img{
+                margin-right: 5px;
+            }
+
+            &:hover,
+            &.active{
+                background-color: var(--tp-common-white);
+                border-color: var(--tp-common-white);
+                color: var(--tp-common-black);
+            }
+
+            & .apple {
+                transform: translateY(-3px);
+                display: inline-block;
+            }
+        }
+    }
+    &__shape{
+        &-1{
+            position: absolute;
+            top: 0;
+            left: 45px;
+        }
+        &-2{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            mix-blend-mode: luminosity;
+        }
+    }
+}
