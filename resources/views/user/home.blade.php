@@ -9,7 +9,7 @@
                 <div class="row align-items-center row-gap-5">
                     <div class="col-xxl-6 col-lg-6">
                         <div class="slider__content-2 mt-30">
-                            <span>#BertumbuhBersama</span>
+                            <span class="text-green fw-semibold">#BertumbuhBersama</span>
                             <h3 class="slider__title-2">Belajar Bisnis Menarik dan Inovatif Bersama Kami</h3>
                             <p>Kembangkan bisnis anda dengan belajar di umkmverse dengan bisnis expert untuk membangun
                                 bisnis anda yang profitable dan sustainable.</p>
@@ -24,7 +24,7 @@
                     <div class="col-xxl-6 col-lg-6">
                         <div class="slider__thumb-2 p-relative">
                             <div class="slider__shape">
-                                <img class="img-fluid header-image-animation"
+                                <img class="img-fluid header-image-animation-1"
                                     src="{{ asset('assets/img/brand/header-hexa.png') }}" alt="header-hex">
                             </div>
                         </div>
@@ -33,7 +33,6 @@
             </div>
         </section>
         {{-- slider area end --}}
-
 
         {{-- brand area start --}}
         <section class="pt-55">
