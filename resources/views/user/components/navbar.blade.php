@@ -16,11 +16,11 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="">
-                                        <a href="/course-category">Kategori Kelas</a>
+                                    <li class="{{ request()->is('category*') ? 'active' : ''}}">
+                                        <a href="{{ route('category') }}">Kategori Kelas</a>
                                     </li>
-                                    <li class="">
-                                        <a href="/mentor">Mentor</a>
+                                    <li class="{{ request()->is('mentor*') ? 'active' : ''}}">
+                                        <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
                                     <li class="">
                                         <a href="/blog">Blog</a>

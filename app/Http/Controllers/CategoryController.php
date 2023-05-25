@@ -21,6 +21,18 @@ class CategoryController extends Controller
         return view('categories.index', $data);
     }
 
+    public function dashboardCategory()
+    {
+        $categories = Category::all();
+        $data =
+        [
+            'title' => 'Kategori Kelas | UMKMPlus',
+            'categories' => $categories
+        ];
+
+        return view('user.courses.category', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

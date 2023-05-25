@@ -87,7 +87,7 @@ class DiscountFactory extends Factory
                     'category_id' => $this->faker->numberBetween(1, 3),
                     'title' => $this->faker->sentence(3),
                     'description' => $this->faker->paragraph(3),
-                    'thumbnail' => $this->faker->imageUrl(),
+                    'thumbnail' => "dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
                 ];
                 $course = Course::create($courseRecord);
