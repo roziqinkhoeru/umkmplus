@@ -21,9 +21,9 @@ use App\Http\Controllers\DashboardController;
 */
 
 // user
-Route::get('/', function () {
-    return view('user.home', ['title' => 'UMKMPlus']);
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+// Dashboard
+Route::get('/course-category', [DashboardController::class, 'getCourseCategory'])->name('course.category');
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
@@ -51,8 +51,7 @@ Route::controller(GoogleAuthController::class)->group(function () {
     Route::get('/auth/google/callback', 'handleGoogleCallback');
 });
 
-// Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
 // Course
 Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');

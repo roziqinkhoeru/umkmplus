@@ -1,6 +1,10 @@
 @extends('user.layout.app')
 
 @section('content')
+    @php
+        $categoryUrl = request()->get('category');
+    @endphp
+
     <main>
         {{-- slider area start --}}
         <section class="slider__area slider-height-2 include-bg d-flex align-items-center"
@@ -72,19 +76,12 @@
                 <!-- Tab Katogori Kelas-->
                 <div class="row gx-5 d-none d-lg-flex">
                     <ul class="nav nav-underline justify-content-center ">
-                        <li class="nav-item px-3 ">
-                            <a class="nav-link active text-primary" aria-current="page"
-                                href="/category/branding">Branding</a>
-                        </li>
-                        <li class="nav-item px-3">
-                            <a class="nav-link text-body-tertiary" href="/list-kategori">Marketing</a>
-                        </li>
-                        <li class="nav-item px-3">
-                            <a class="nav-link text-body-tertiary" href="/list-kategori">Bisnis</a>
-                        </li>
-                        <li class="nav-item px-3">
-                            <a class="nav-link text-body-tertiary" href="/list-kategori">Desain</a>
-                        </li>
+                        @foreach ($categories as $category)
+                            <li class="nav-item px-3 ">
+                                <button class="nav-link  {{ $category->slug }}-item" aria-current="page"
+                                    onclick="course('{{ $category->slug }}')">{{ $category->name }}</button>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="d-flex d-lg-none align-items-center justify-content-center">
@@ -94,15 +91,17 @@
                             Pilih Kategori
                         </button>
                         <ul class="dropdown-menu dropdown-menu-category">
-                            <li><a class="dropdown-item" href="/category?category=branding">Branding</a></li>
-                            <li><a class="dropdown-item" href="/category?category=marketing">Maketing</a></li>
-                            <li><a class="dropdown-item" href="/category?category=bisnis">Bisnis</a></li>
-                            <li><a class="dropdown-item" href="/category?category=desain">Desain</a></li>
+                            @foreach ($categories as $category)
+                                <li><button class="dropdown-item {{ $category->slug }}-item"
+                                        onclick="course('{{ $category->slug }}')">{{ $category->name }}</button>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-                <div class="row mt-30">
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+
+                <div class="row mt-30" id="courseCategory">
+                    {{-- <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="course/name"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
@@ -241,7 +240,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -262,102 +261,34 @@
                 </div>
                 <div class="mb-4">
                     <div class="row">
-                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
-                                class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
-                                </div>
-                                <div class="course__content p-relative">
-                                    <h5 class="course__title text-lg mb-1 text-center">
-                                        Verdian Galang
-                                    </h5>
-                                    <p class="mb-2 text-center">Personal Branding</p>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="me-3 d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">school</i>2000<span
-                                                class="text-gray ms-1">Students</span>
-                                        </p>
-                                        <p class="d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">group</i>3<span
-                                                class="text-gray ms-1">Kelas</span>
-                                        </p>
+                        @foreach ($mentorPopulars as $mentorPopular)
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                                <a href="/mentor/detail"
+                                    class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
+                                    <div class="mentor-card-thumbnail mt-3">
+                                        <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
-                                class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}" alt="mentor-1">
-                                </div>
-                                <div class="course__content p-relative">
-                                    <h5 class="course__title text-lg mb-1 text-center">
-                                        Muhammad Dwi Akbar
-                                    </h5>
-                                    <p class="mb-2 text-center">Sale Manager</p>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="me-3 d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">school</i>2000<span
-                                                class="text-gray ms-1">Students</span>
-                                        </p>
-                                        <p class="d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">group</i>3<span
-                                                class="text-gray ms-1">Kelas</span>
-                                        </p>
+                                    <div class="course__content p-relative">
+                                        <h5 class="course__title text-lg mb-1 text-center">
+                                            {{ $mentorPopular->name }}
+                                        </h5>
+                                        <p class="mb-2 text-center">{{ $mentorPopular->job }}</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="me-3 d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">school</i>{{ $mentorPopular->total_student }}<span
+                                                    class="text-gray ms-1">Students</span>
+                                            </p>
+                                            <p class="d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">group</i>{{ $mentorPopular->total_course }}<span
+                                                    class="text-gray ms-1">Kelas</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
-                                class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('assets/img/dummy/mentor-3.jpg') }}" alt="mentor-3">
-                                </div>
-                                <div class="course__content p-relative">
-                                    <h5 class="course__title text-lg mb-1 text-center">
-                                        Raden tri Buana
-                                    </h5>
-                                    <p class="mb-2 text-center">Creative Director</p>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="me-3 d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">school</i>2000<span
-                                                class="text-gray ms-1">Students</span>
-                                        </p>
-                                        <p class="d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">group</i>3<span
-                                                class="text-gray ms-1">Kelas</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
-                                class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('assets/img/dummy/mentor-4.jpg') }}" alt="mentor-4">
-                                </div>
-                                <div class="course__content p-relative">
-                                    <h5 class="course__title text-lg mb-1 text-center">
-                                        Hanum
-                                    </h5>
-                                    <p class="mb-2 text-center">Campaign Marketing Specialist</p>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="me-3 d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">school</i>2000<span
-                                                class="text-gray ms-1">Students</span>
-                                        </p>
-                                        <p class="d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">group</i>3<span
-                                                class="text-gray ms-1">Kelas</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="text-center">
@@ -382,78 +313,39 @@
                 </div>
                 <div class="testimoni-container">
                     <div class="row">
-                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-                            <div class="course__item white-bg transition-3 mb-30 rounded-4">
-                                <div class="course__content p-relative pt-3 pb-2">
-                                    <div class="mb-4 d-flex align-items-center">
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                    </div>
-                                    <p>I was not really into code but after they teach me how to train my logic then I was
-                                        really fall in love with code.</p>
-                                    <div class="course__bottom d-sm-flex align-items-center justify-content-between">
-                                        <div class="testimoni-author-wrapper">
-                                            <img src="{{ asset('assets/img/dummy/testimoni-1.png') }}" alt="testimoni-1">
-                                            <div>
-                                                <p class="testimoni-author-name">Fanny</p>
-                                                <p class="testimoni-author-job">Developer at Google</p>
+                        @foreach ($testimonials as $testimonial)
+                            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+                                <div class="course__item white-bg transition-3 mb-30 rounded-4">
+                                    <div class="course__content p-relative pt-3 pb-2">
+                                        <div class="mb-4 d-flex align-items-center">
+                                            @for ($i = 0; $i < $testimonial->rating; $i++)
+                                                <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
+                                            @endfor
+                                            @for ($i = 0; $i < 5 - $testimonial->rating; $i++)
+                                                <i class="fa-solid fa-star text-3xl me-2 text-gray"></i>
+                                            @endfor
+                                        </div>
+                                        <p>{{ $testimonial->testimonial }}</p>
+                                        <div class="course__bottom d-sm-flex align-items-center justify-content-between">
+                                            <div class="testimoni-author-wrapper">
+                                                <img src="{{ asset('assets/img/dummy/testimoni-1.png') }}"
+                                                    alt="testimoni-1">
+                                                <div>
+                                                    <p class="testimoni-author-name">{{ $testimonial->student->name }}</p>
+                                                    <p class="testimoni-author-job">
+                                                        @if ($testimonial->student->job != null)
+                                                            {{ $testimonial->student->job }}
+                                                        @else
+                                                            Pelaku Usaha
+                                                        @endif
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-                            <div class="course__item white-bg transition-3 mb-30 rounded-4">
-                                <div class="course__content p-relative pt-3 pb-2">
-                                    <div class="mb-4 d-flex align-items-center">
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                    </div>
-                                    <p>Code is really important if we want to build a company and strike to the win.</p>
-                                    <div class="course__bottom d-sm-flex align-items-center justify-content-between">
-                                        <div class="testimoni-author-wrapper">
-                                            <img src="{{ asset('assets/img/dummy/testimoni-2.png') }}" alt="testimoni-2">
-                                            <div>
-                                                <p class="testimoni-author-name">Angga</p>
-                                                <p class="testimoni-author-job">CEO at BWA Corp</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-                            <div class="course__item white-bg transition-3 mb-30 rounded-4">
-                                <div class="course__content p-relative pt-3 pb-2">
-                                    <div class="mb-4 d-flex align-items-center">
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                        <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                    </div>
-                                    <p>My background is design and art but I do really love how to make my design working in
-                                        the
-                                        development phase.</p>
-                                    <div class="course__bottom d-sm-flex align-items-center justify-content-between">
-                                        <div class="testimoni-author-wrapper">
-                                            <img src="{{ asset('assets/img/dummy/testimoni-3.png') }}" alt="testimoni-3">
-                                            <div>
-                                                <p class="testimoni-author-name">Jully</p>
-                                                <p class="testimoni-author-job">QA at Facebook</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -463,4 +355,77 @@
 @endsection
 
 @section('script')
+    <script>
+        let categoryUrl = "{{ request()->get('category') }}"
+        if (categoryUrl == "") {
+            course("branding")
+        } else {
+            course(categoryUrl)
+        }
+
+        function course(category) {
+            // Mendapatkan parameter dari URL
+            var urlParams = new URLSearchParams(window.location.search);
+            // Mengambil nilai parameter dengan nama tertentu
+            var categoryUrl = urlParams.get('category');
+            // Membuat permintaan AJAX dan mengubah URL
+            var request = `category=${category}`; // Request yang ingin ditambahkan
+            var url = "{{ url('/') }}"; // Mendapatkan URL saat ini
+            var newUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + request; // Menambahkan request ke URL
+
+            // Mengubah URL tanpa melakukan reload halaman
+            history.pushState(null, null, newUrl);
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('course.category') }}",
+                data: {
+                    category: category
+                },
+                success: function(response) {
+                    $(`.${categoryUrl}-item`).removeClass("active text-primary");
+                    $(`.${category}-item`).addClass("active text-primary");
+                    let htmlString = ``;
+                    $.map(response.data, function(courseData, index) {
+                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                        <a href="course/name"
+                            class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
+                            <div class="course-wrapper-image rounded-top-3 position-relative">
+                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
+                                <div class="course-tag-wrapper">
+                                    <div class="course__tag">
+                                        <span class="course-badge">${courseData.category.name}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course__content p-relative" style="padding: 18px 20px 24px">
+                                <div class="course__bottom d-sm-flex align-items-center justify-content-between"
+                                    style="padding-bottom: 12px">
+                                    <div class="course__tutor">
+                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
+                                                alt="mentor-course">${courseData.mentor.name}</figure>
+                                    </div>
+                                </div>
+                                <h3 class="course__title">
+                                    <p class="course-title text-lg mb-3">${courseData.title}</p>
+                                </h3>
+                                <div class="d-flex align-items-center mt-3 mb-2">
+                                    <i class="material-symbols-rounded me-2">sell</i>
+                                    <h5 class="mb-0" style="color: #186d4b;">Rp. ${courseData.price}</h5>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="material-symbols-rounded me-2">school</i>
+                                    <div class="text-muted me-4">${courseData.modules_count} Modul</div>
+                                    <i class="material-symbols-rounded me-2">group</i>
+                                    <div class="text-muted ">${courseData.course_enrolls_count} Enroll</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>`
+                    });
+                    $("#courseCategory").html(htmlString);
+                }
+            });
+        }
+    </script>
 @endsection

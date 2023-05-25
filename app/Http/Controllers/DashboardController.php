@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Customer;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,32 +14,41 @@ class DashboardController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $coursePopular = Course::with('mentor')
-            ->withCount('courseEnrolls')
-            // ->groupBy('mentor_id')
-            ->orderBy('course_enrolls_count', 'desc')
-            // ->select('mentor_id', DB::raw('MAX(courses.id) as id'))
-            ->limit(5)
+        $mentorPopulars = Customer::select('customers.id', 'customers.name', 'customers.job', DB::raw('count(course_enrolls.id) as total_student'))
+            ->leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
+            ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
+            ->groupBy('customers.id')
+            ->orderBy('total_student', 'desc')
+            ->limit(4)
             ->get();
-        // $mentor = Customer::select('customers.id', 'customers.name')
-        //     ->count('course_enroll.id')
-        //     ->mentor()
-        //     ->join('courses', 'courses.mentor_id', '=', 'customers.id')
-        //     ->join('course_enroll', 'course_enroll.course_id', '=', 'courses.id')
-        //     ->groupBy('customers.id', 'customers.name')
-        //     ->limit(5)
-        //     ->get();
-        dd($coursePopular);
+        foreach ($mentorPopulars as $mentorPopular) {
+            $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentorPopular->id)->count();
+            $mentorPopular->total_course = $totalCourse;
+        }
+        $testimonials = Testimonial::with('student')->where('status', 'tampilkan')->limit(3)->get();
         $data =
             [
                 'title' => 'Dashboard | UMKM Plus',
                 'categories' => $categories,
+                'mentorPopulars' => $mentorPopulars,
+                'testimonials' => $testimonials
             ];
 
-        return view('dashboard', $data);
+        return view('user.home', $data);
     }
 
-    public function getCourseCategory()
+    public function getCourseCategory(Request $request)
     {
+        $courses = Course::with('mentor', 'category',)
+        ->withCount("modules", "courseEnrolls")
+        ->whereHas('category', function ($query) use ($request) {
+            $query->where('slug', $request->category);
+        })->orderBy("course_enrolls_count", "desc")
+        ->limit(4)
+        ->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $courses
+        ]);
     }
 }

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->string('profile_picture',255)->nullable()->after('phone');
-            $table->string('job', 255)->nullable()->after('profile_picture');
+        Schema::table('Categories', function (Blueprint $table) {
+            $table->string('slug', 20)->after('name');
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn('profile_picture');
-            $table->dropColumn('job');
+        Schema::table('Category', function (Blueprint $table) {
+            $table->dropColumn('slug');
         });
     }
 };

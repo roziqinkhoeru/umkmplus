@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+    public function scopeFindCategoryBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug);
+    }
 }
