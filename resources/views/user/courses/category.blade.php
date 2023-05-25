@@ -30,7 +30,7 @@
         {{-- slider area end --}}
 
         {{-- category area start --}}
-        <section class="bg-white pb-70 pt-40">
+        <section class="bg-white pb-60 pt-40">
             <div class="container">
                 <div class="row row-gap-4">
                     <div class="col-xxl-4 col-xl-4 col-md-6">
