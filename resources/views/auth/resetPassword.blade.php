@@ -53,11 +53,12 @@
                                             <div class="toggle-eye-wrapper-confirm-new"><i
                                                     class="fa-regular fa-eye toggle-eye icon-toggle-password"></i></div>
                                             <input type="password" placeholder="Masukan Konfirmasi Password Baru"
-                                                name="password_confirmation" id="password_confirmation" required value=""
-                                                class="input-form">
+                                                name="password_confirmation" id="password_confirmation" required
+                                                value="" class="input-form">
                                         </div>
                                     </div>
-                                    <button type="submit" class="tp-btn w-100 rounded-pill" id="resetPasswordButton">Reset password</button>
+                                    <button type="submit" class="tp-btn w-100 rounded-pill" id="resetPasswordButton">Reset
+                                        password</button>
                                     <div class="sign__new text-center mt-20">
                                         <p>Mengalami kesulitan? Hubungi<a href="#"> kami</a></p>
                                     </div>
@@ -101,7 +102,7 @@
                 },
             },
             submitHandler: function(form) {
-                $('#resetPasswordButton').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#resetPasswordButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#resetPasswordButton').prop('disabled', true);
                 console.log($('#password').val());
                 $.ajax({
@@ -123,16 +124,17 @@
                         $('#resetPasswordButton').html('Reset password');
                         $('#resetPasswordButton').prop('disabled', false);
                         if (xhr.responseJSON)
-                        Swal.fire({
+                            Swal.fire({
                                 icon: 'error',
                                 title: 'RESET PASSWORD GAGAL!',
                                 text: xhr.responseJSON.meta.message,
                             })
                         else
-                        Swal.fire({
+                            Swal.fire({
                                 icon: 'error',
                                 title: 'RESET PASSWORD GAGAL!',
-                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
                             })
                         return false;
                     }

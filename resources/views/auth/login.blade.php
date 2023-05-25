@@ -29,8 +29,8 @@
                         <div class="sign__wrapper white-bg">
                             <div class="sign__header mb-25">
                                 <div class="sign__in text-center">
-                                    <a href="{{ route('google.redirect') }}" class="sign__social g-plus text-start mb-15"
-                                        ><i class="fab fa-google-plus-g"></i>Login with
+                                    <a href="{{ route('google.redirect') }}" class="sign__social g-plus text-start mb-15"><i
+                                            class="fab fa-google-plus-g"></i>Login with
                                         Google</a>
                                     <p>OR</p>
                                 </div>
@@ -70,7 +70,7 @@
                                             <a href="/forgot-password">Lupa kata sandi?</a>
                                         </div>
                                     </div>
-                                    <button class="tp-btn w-100 rounded-pill">Masuk</button>
+                                    <button id="loginButton" class="tp-btn w-100 rounded-pill">Masuk</button>
                                     <div class="sign__new text-center mt-20">
                                         <p>Belum Punya Akun? <a href="/register">Daftar disini!</a></p>
                                     </div>
@@ -106,8 +106,8 @@
                 }
             },
             submitHandler: function(form) {
-                $('#login-button').html('<i class="fas fa-circle-notch text-base spinners"></i>');
-                $('#login-button').prop('disabled', true);
+                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#loginButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ url('login') }}",
                     type: "POST",
@@ -117,24 +117,25 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        $('#login-button').html('Masuk');
-                        $('#login-button').prop('disabled', false);
+                        $('#loginButton').html('Masuk');
+                        $('#loginButton').prop('disabled', false);
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        $('#login-button').html('Masuk');
-                        $('#login-button').prop('disabled', false);
+                        $('#loginButton').html('Masuk');
+                        $('#loginButton').prop('disabled', false);
                         if (xhr.responseJSON)
                             Swal.fire({
                                 icon: 'error',
                                 title: 'LOGIN GAGAL!',
                                 text: xhr.responseJSON.meta.message,
                             })
-                            else
+                        else
                             Swal.fire({
                                 icon: 'error',
                                 title: 'LOGIN GAGAL!',
-                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
                             })
                         return false;
                     }

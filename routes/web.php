@@ -22,7 +22,7 @@ use App\Http\Controllers\DashboardController;
 
 // user
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.home', ['title' => 'UMKMPlus']);
 });
 
 // Auth

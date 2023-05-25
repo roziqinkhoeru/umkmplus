@@ -22,7 +22,7 @@ class NewPasswordController extends Controller
     public function create(string $token, Request $request): View
     {
         $data = [
-            'title' => 'Reset Password | UMKM Plus',
+            'title' => 'Reset Password | UMKMPlus',
             'ptSection' => '54px',
             'token' => $token,
             'email' => $request->email

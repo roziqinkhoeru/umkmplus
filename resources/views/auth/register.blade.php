@@ -205,7 +205,7 @@
                 },
             },
             submitHandler: function(form) {
-                $('#registerButton').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#registerButton').prop('disabled', true);
                 console.log('form submitted');
                 $.ajax({
@@ -221,12 +221,12 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        // $('#registerButton').html('Masuk');
+                        $('#registerButton').html('Daftar');
                         $('#registerButton').prop('disabled', false);
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        // $('#registerButton').html('Masuk');
+                        $('#registerButton').html('Daftar');
                         $('#registerButton').prop('disabled', false);
                         if (xhr.responseJSON)
                             Swal.fire({
