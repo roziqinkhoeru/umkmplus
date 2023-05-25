@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,10 @@ Route::controller(PasswordResetLinkController::class)->group(function () {
 Route::controller(NewPasswordController::class)->group(function () {
     Route::get('/reset-password/{token}', 'create')->name('password.reset');
     Route::post('/reset-password', 'store')->name('resetPassword');
+});
+
+// Auth Google
+Route::controller(GoogleAuthController::class)->group(function () {
+    Route::get('/auth/google', 'redirectToGoogle')->name('google.redirect');
+    Route::get('/auth/google/callback', 'handleGoogleCallback');
 });

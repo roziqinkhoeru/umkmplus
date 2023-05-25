@@ -50,7 +50,6 @@ class LoginController extends Controller
             }
 
             $credentials = $request->only('username', 'password');
-
             if (Auth::attempt($credentials)) {
                 $redirect = redirect()->intended('register');
                 $request->session()->regenerate();

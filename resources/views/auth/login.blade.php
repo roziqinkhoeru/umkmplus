@@ -29,8 +29,8 @@
                         <div class="sign__wrapper white-bg">
                             <div class="sign__header mb-25">
                                 <div class="sign__in text-center">
-                                    <a href="javascript:void(0);" class="sign__social g-plus text-start mb-15"
-                                        style="cursor: not-allowed"><i class="fab fa-google-plus-g"></i>Login with
+                                    <a href="{{ route('google.redirect') }}" class="sign__social g-plus text-start mb-15"
+                                        ><i class="fab fa-google-plus-g"></i>Login with
                                         Google</a>
                                     <p>OR</p>
                                 </div>
