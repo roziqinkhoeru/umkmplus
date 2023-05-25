@@ -23,7 +23,7 @@ use App\Http\Controllers\DashboardController;
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
-Route::get('/course-category', [DashboardController::class, 'getCourseCategory'])->name('course.category');
+Route::get('/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.course.category');
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {

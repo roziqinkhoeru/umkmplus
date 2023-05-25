@@ -378,7 +378,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ route('course.category') }}",
+                url: "{{ route('get.course.category') }}",
                 data: {
                     category: category
                 },
