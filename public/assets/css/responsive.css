@@ -1,0 +1,27 @@
+@import url(./global.css);
+@import url(./components.css);
+@import url(./utilities.css);
+
+@media screen and (max-width: 1200px) {
+    .testimoni-container {
+        padding: 0 2.25rem;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .testimoni-container {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .brand-logo-user {
+        height: 28px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .brand-logo-user {
+        height: 24px;
+    }
+}

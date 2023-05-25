@@ -1,4 +1,22 @@
 /* font */
+.text-base {
+    font-size: 1rem !important;
+}
+.text-lg {
+    font-size: 1.125rem !important;
+}
+.text-xl {
+    font-size: 1.25rem !important;
+}
+.text-2xl {
+    font-size: 1.5rem !important;
+}
+.text-3xl {
+    font-size: 1.875rem !important;
+}
+.text-4xl {
+    font-size: 2.25rem !important;
+}
 
 /* input */
 .input-form {
@@ -68,16 +86,100 @@ label.error {
 .mr-6 {
     margin-right: 6px !important;
 }
+.mb-6 {
+    margin-bottom: 6px !important;
+}
+.mb-18 {
+    margin-bottom: 18px !important;
+}
 .mb-22 {
     margin-bottom: 22px !important;
 }
 .mb-32 {
     margin-bottom: 32px !important;
 }
+.mt-30 {
+    margin-top: 30px !important;
+}
+.mt-36 {
+    margin-top: 36px !important;
+}
+.mb-48 {
+    margin-bottom: 48px !important;
+}
 
 /* right */
 .r-5 {
     right: 20px !important;
+}
+
+/* color */
+.text-green {
+    color: #31b380 !important;
+}
+.text-star {
+    color: #f3a939;
+}
+.text-gray {
+    color: #9093ac !important;
+}
+.bg-secondaries {
+    background-color: #f7f7fb !important;
+}
+
+/* border */
+.border-light-2 {
+    border: 1px solid #f2f2f2 !important;
+}
+.border-light-3 {
+    border: 1px solid #e6e6e6 !important;
+}
+
+/* shape */
+.rounded-2-5 {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.rounded-4 {
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+.rounded-top-4 {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    -webkit-border-top-left-radius: 12px;
+    -webkit-border-top-right-radius: 12px;
+    -moz-border-radius-topleft: 12px;
+    -moz-border-radius-topright: 12px;
+    -ms-border-radius-topleft: 12px;
+    -ms-border-radius-topright: 12px;
+    -o-border-radius-topleft: 12px;
+    -o-border-radius-topright: 12px;
+}
+.rounded-3 {
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.rounded-top-3 {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -ms-border-radius-topleft: 8px;
+    -ms-border-radius-topright: 8px;
+    -o-border-radius-topleft: 8px;
+    -o-border-radius-topright: 8px;
 }
 
 /* others */
