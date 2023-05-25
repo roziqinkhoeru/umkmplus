@@ -20,7 +20,7 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 
 // user
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.home', ['title' => 'UMKMPlus']);
 });
 
 // Auth

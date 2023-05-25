@@ -17,7 +17,7 @@ class RegisterController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Register | UMKM Plus',
+            'title' => 'Register | UMKMPlus',
             'ptSection' => '54px'
         ];
         return view('auth.register', $data);
