@@ -1,0 +1,4 @@
+.spinners {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin 1s infinite linear;
+}

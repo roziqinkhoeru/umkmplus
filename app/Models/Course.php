@@ -30,4 +30,9 @@ class Course extends Model
     {
         return $this->hasMany(Module::class);
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

@@ -29,14 +29,15 @@
                         <div class="sign__wrapper white-bg">
                             <div class="sign__header mb-25">
                                 <div class="sign__in text-center">
-                                    <a href="javascript:void(0);" class="sign__social g-plus text-start mb-15"
-                                        style="cursor: not-allowed"><i class="fab fa-google-plus-g"></i>Login with
+                                    <a href="{{ route('google.redirect') }}" class="sign__social g-plus text-start mb-15"
+                                        ><i class="fab fa-google-plus-g"></i>Login with
                                         Google</a>
                                     <p>OR</p>
                                 </div>
                             </div>
                             <div class="sign__form">
-                                <form action="#" id="loginForm">
+                                <form action="{{ url('login') }}" method="POST" id="loginForm">
+                                    @csrf
                                     <div class="sign__input-wrapper mb-22">
                                         <label for="username">
                                             <h5>Username</h5>
@@ -104,6 +105,41 @@
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi tidak boleh kosong',
                 }
             },
+            submitHandler: function(form) {
+                $('#login-button').html('<i class="fas fa-circle-notch text-base spinners"></i>');
+                $('#login-button').prop('disabled', true);
+                $.ajax({
+                    url: "{{ url('login') }}",
+                    type: "POST",
+                    data: {
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#login-button').html('Masuk');
+                        $('#login-button').prop('disabled', false);
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        $('#login-button').html('Masuk');
+                        $('#login-button').prop('disabled', false);
+                        if (xhr.responseJSON)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
+                            else
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                            })
+                        return false;
+                    }
+                });
+            }
         });
 
         // toggle-eye-wrapper

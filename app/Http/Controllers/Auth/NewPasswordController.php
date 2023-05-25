@@ -27,7 +27,7 @@ class NewPasswordController extends Controller
             'token' => $token,
             'email' => $request->email
         ];
-        return view('auth.reset-password', $data);
+        return view('auth.resetPassword', $data);
     }
 
     /**
@@ -38,11 +38,11 @@ class NewPasswordController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'email' => 'required|email|exists:users',
             'token' => 'required',
             'password' => 'required|min:8|confirmed',
         ];
         $validator = Validator::make($request->all(), $rules);
+        // dd($validator->errors());
         if ($validator->fails()) {
             // Form salah diisi
             return $request->ajax()
@@ -54,7 +54,8 @@ class NewPasswordController extends Controller
                     400,
                 )
                 : back()->with(['error' => $validator->errors()]);
-        }
+            }
+            // dd($request->all());
 
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
@@ -73,14 +74,13 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        $redirectSuccess = redirect(route('signin'))->with('status', __($status));
-        $redirectError = back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => __($status)]);
+
+        $redirectSuccess = redirect(route('login'))->with('status', __($status));
+        $redirectError = back()->withErrors(['error' => __($status)]);
         if ($status == Password::PASSWORD_RESET) {
-            return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirectSuccess->getTargetUrl()], __($status)) : redirect(route('signin'))->with('status', __($status));
+            return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirectSuccess->getTargetUrl()], __($status)) : $redirectSuccess;
         } else {
-            return $request->ajax() ? ResponseFormatter::error(['redirect' => $redirectError->getTargetUrl()], __($status), 400) : redirect(route('signin'))->with('status', __($status));
+            return $request->ajax() ? ResponseFormatter::error(['redirect' => $redirectError->getTargetUrl()], __($status), 400) : $redirectError;
         }
     }
 }

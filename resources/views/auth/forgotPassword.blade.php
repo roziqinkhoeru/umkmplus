@@ -27,9 +27,10 @@
                 </div>
                 <div class="row">
                     <div class="col-xxl-6 offset-xxl-3 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
-                        <div class="sign__wrapper white-bg">
+                        <div class="sign__wrapper white-bg" id="forgotPasswordContent">
                             <div class="sign__form">
-                                <form action="#" id="forgotPasswordForm">
+                                <form action="{{ url('forgot-password') }}" method="POST" id="forgotPasswordForm">
+                                    @csrf
                                     <div class="sign__input-wrapper mb-32">
                                         <label for="email">
                                             <h5>Email</h5>
@@ -40,13 +41,15 @@
                                                 required value="" class="input-form">
                                         </div>
                                     </div>
-                                    <button class="tp-btn w-100 rounded-pill">Kirim tautan</button>
-                                    <div class="sign__new text-center mt-20">
-                                        <p>Ingat kata sandi? <a href="/login"> Masuk</a></p>
-                                    </div>
+                                    <button class="tp-btn w-100 rounded-pill" type="submit" id="forgotPasswordButton">Kirim
+                                        tautan</button>
                                 </form>
                             </div>
+                            <div class="sign__new text-center mt-20">
+                                <p>Ingat kata sandi? <a href="/login"> Masuk</a></p>
+                            </div>
                         </div>
+                        <div id="forgotPasswordSuccess"></div>
                     </div>
                 </div>
             </div>
@@ -56,7 +59,67 @@
 @endsection
 
 @section('script')
+    @if (session()->has('error'))
+        <script>
+            console.log({{ session('error') }});
+        </script>
+    @endif
+    @error('email')
+        <script>
+            console.log({{ $message }});
+        </script>
+    @enderror
     <script>
+        let isResendLinkResetPassword = false;
+
+        function submitForgotPasswordAjax(isResend) {
+            $.ajax({
+                url: "{{ route('forgotPassword') }}",
+                type: "POST",
+                data: {
+                    email: $('#email').val(),
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    $('#forgotPasswordButton').html('Tautan terkirim');
+                    $('#forgotPasswordButton').prop('disabled', true);
+                    toastr.success('{{ session('success') }}', 'KIRIM TAUTAN BERHASIL!');
+                    if (isResend) {
+                        $('#resend_link').html(
+                            'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}">coba alamat email lain</a>.'
+                        );
+                    } else {
+                        $('#forgotPasswordSuccess').html(
+                            `<div class="card card-auth mb-3"><div class="card-body card-body-auth" id="forgotPasswordContent"><h5 class ="text-center font-bold mb-3">Tautan telah dikirim</h5><p class="text-center mb-3">Tautan untuk reset password dikirim ke <span style="font-weight: 600">${$('#email').val()}</span>. Silahkan cek email Anda. </p><div style="margin-top: 28px"> <a href="{{ route('login') }}" class="btn btn-login">Masuk</a></div><p class="mt-4 text-center" id="resend_link">Tidak menerima tautan? <button onclick="submitForgotPassword()" class="btn-anchor">Kirim ulang</bu>.</p></div>`
+                        );
+                        $('#forgotPasswordContent').hide();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#forgotPasswordButton').html('Kirim tautan');
+                    $('#forgotPasswordButton').prop('disabled', false);
+                    if (xhr.responseJSON)
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'KIRIM TAUTAN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
+                    else
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'KIRIM TAUTAN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                            })
+                    return false;
+                }
+            });
+        }
+
+        function submitForgotPassword() {
+            isResendLinkResetPassword = true;
+            $('#forgotPasswordForm').submit();
+        }
+
         // validate form
         $("#forgotPasswordForm").validate({
             rules: {
@@ -71,6 +134,13 @@
                     email: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak valid',
                 }
             },
+            submitHandler: function(form) {
+                $('#forgotPasswordButton').html(
+                    '<i class="fas fa-circle-notch text-base spinners"></i> Menunggu...'
+                );
+                $('#forgotPasswordButton').prop('disabled', true);
+                submitForgotPasswordAjax(isResendLinkResetPassword);
+            }
         });
     </script>
 @endsection
