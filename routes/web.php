@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,10 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 */
 
 // user
-Route::get('/', function () {
-    return view('user.home', ['title' => 'UMKMPlus']);
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+// Dashboard
+Route::get('/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.course.category');
+
 Route::get('/course-category', function () {
     return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
 });
@@ -54,3 +57,9 @@ Route::controller(GoogleAuthController::class)->group(function () {
     Route::get('/auth/google', 'redirectToGoogle')->name('google.redirect');
     Route::get('/auth/google/callback', 'handleGoogleCallback');
 });
+
+
+
+// Course
+Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
+

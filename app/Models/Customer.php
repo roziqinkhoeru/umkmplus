@@ -40,4 +40,17 @@ class Customer extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public static function scopeMentor($query)
+    {
+        return $query->join('users', 'users.customer_id', '=', 'customers.id')
+        ->join('role_users', 'role_users.user_id', '=', 'users.id')
+            ->where('role_users.role_id', 2);
+    }
+    public static function scopeStudent($query)
+    {
+        return $query->join('users', 'users.customer_id', '=', 'customers.id')
+        ->join('role_users', 'role_users.user_id', '=', 'users.id')
+            ->where('role_users.role_id', 3);
+    }
 }
