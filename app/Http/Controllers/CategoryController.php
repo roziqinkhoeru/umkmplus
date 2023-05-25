@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -13,10 +15,10 @@ class CategoryController extends Controller
     public function index()
     {
         $data =
-        [
-            'title' => 'Kategori | UMKM Plus',
-            'categories' => Category::all()
-        ];
+            [
+                'title' => 'Kategori | UMKM Plus',
+                'categories' => Category::all()
+            ];
 
         return view('categories.index', $data);
     }
@@ -25,10 +27,10 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $data =
-        [
-            'title' => 'Kategori Kelas | UMKMPlus',
-            'categories' => $categories
-        ];
+            [
+                'title' => 'Kategori Kelas | UMKMPlus',
+                'categories' => $categories
+            ];
 
         return view('user.courses.category', $data);
     }
@@ -39,9 +41,9 @@ class CategoryController extends Controller
     public function create()
     {
         $data =
-        [
-            'title' => 'Tambah Kategori | UMKM Plus',
-        ];
+            [
+                'title' => 'Tambah Kategori | UMKM Plus',
+            ];
 
         return view('categories.create', $data);
     }
@@ -51,7 +53,47 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules =
+            [
+                'name' => 'required|unique:categories,name',
+                'description' => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            // Form salah diisi
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => $validator->errors(),
+                    ],
+                    'Harap isi form dengan benar',
+                    400,
+                )
+                : back()->with(['error' => $validator->errors()]);
+        }
+
+        $category = Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => str_replace(' ', '-', $request->slug)
+        ]);
+
+        if ($category) {
+            return $request->ajax() ? ResponseFormatter::success(
+                [
+                    'redirect' => redirect('/admin/category/index')->getTargetUrl(),
+                ],
+                'Berhasil menambahkan kategori',
+            ) : redirect('//admin/category/index')->with('success', 'Berhasil menambahkan kategori');
+        } else {
+            return $request->ajax() ? ResponseFormatter::error(
+                [
+                    'error' => $validator->errors(),
+                ],
+                'Gagal menambahkan kategori',
+                400,
+            ) : back()->with('error', 'Gagal menambahkan kategori');
+        }
     }
 
     /**
@@ -60,10 +102,10 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $data =
-        [
-            'title' => 'Kategori | UMKM Plus',
-            'category' => $category
-        ];
+            [
+                'title' => 'Kategori | UMKM Plus',
+                'category' => $category
+            ];
 
         return view('categories.show', $data);
     }
@@ -74,10 +116,10 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $data =
-        [
-            'title' => 'Edit Kategori | UMKM Plus',
-            'category' => $category
-        ];
+            [
+                'title' => 'Edit Kategori | UMKM Plus',
+                'category' => $category
+            ];
 
         return view('categories.edit', $data);
     }

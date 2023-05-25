@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Customer;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -26,13 +27,26 @@ class DashboardController extends Controller
             $mentorPopular->total_course = $totalCourse;
         }
         $testimonials = Testimonial::with('student')->where('status', 'tampilkan')->limit(3)->get();
-        $data =
-            [
-                'title' => 'Dashboard | UMKM Plus',
-                'categories' => $categories,
-                'mentorPopulars' => $mentorPopulars,
-                'testimonials' => $testimonials
-            ];
+        if (Auth::check()) {
+            $countCart = Customer::countCart();
+            $data =
+                [
+                    'title' => 'Dashboard | UMKM Plus',
+                    'categories' => $categories,
+                    'mentorPopulars' => $mentorPopulars,
+                    'testimonials' => $testimonials,
+                    'countCart' => $countCart,
+                ];
+        } else {
+
+            $data =
+                [
+                    'title' => 'Dashboard | UMKM Plus',
+                    'categories' => $categories,
+                    'mentorPopulars' => $mentorPopulars,
+                    'testimonials' => $testimonials
+                ];
+        }
 
         return view('user.home', $data);
     }
@@ -40,12 +54,12 @@ class DashboardController extends Controller
     public function getCourseCategory(Request $request)
     {
         $courses = Course::with('mentor', 'category',)
-        ->withCount("modules", "courseEnrolls")
-        ->whereHas('category', function ($query) use ($request) {
-            $query->where('slug', $request->category);
-        })->orderBy("course_enrolls_count", "desc")
-        ->limit(4)
-        ->get();
+            ->withCount("modules", "courseEnrolls")
+            ->whereHas('category', function ($query) use ($request) {
+                $query->where('slug', $request->category);
+            })->orderBy("course_enrolls_count", "desc")
+            ->limit(4)
+            ->get();
         return response()->json([
             'status' => 'success',
             'data' => $courses

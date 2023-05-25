@@ -42,6 +42,14 @@ class Customer extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public static function scopeCountCart($query)
+    {
+        return $query->leftJoin('carts','carts.student_id','=','customers.id')
+        ->where('carts.student_id', auth()->user()->customer->id)
+        ->groupBy('customers.id')
+        ->count();
+    }
+
     public static function scopeMentor($query)
     {
         return $query->join('users', 'users.customer_id', '=', 'customers.id')

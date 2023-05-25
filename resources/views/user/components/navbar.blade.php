@@ -69,11 +69,12 @@
                                 <div class="ms-4">
                                     <a href="/cart" class="d-flex align-items-center nav-icon-cart position-relative">
                                         <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
-                                        {{-- condition::ifCountCart>0 --}}
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
-                                            <span class="visually-hidden">New alerts</span>
-                                        </span>
+                                        @if ($countCart > 0)
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
+                                                <span class="visually-hidden">New alerts</span>
+                                            </span>
+                                        @endif
                                     </a>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
@@ -82,7 +83,8 @@
                                     </a>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
-                                    <a href="/logout" onclick="logout()" class="d-flex align-items-center nav-icon-user">
+                                    <a href="/logout" onclick="logout()"
+                                        class="d-flex align-items-center nav-icon-user">
                                         <i class="fa-sharp fa-solid fa-right-from-bracket" style="font-size: 20px"></i>
                                     </a>
                                 </div>

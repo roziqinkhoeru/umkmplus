@@ -151,7 +151,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <a href="{{route('mentor')}}" class="tp-btn tp-btn-2 rounded-pill" type="button">Lihat Seluruh Mentor</a>
+                    <a href="{{ route('mentor') }}" class="tp-btn tp-btn-2 rounded-pill" type="button">Lihat Seluruh
+                        Mentor</a>
                 </div>
             </div>
         </section>
@@ -187,7 +188,7 @@
                                         <p>{{ $testimonial->testimonial }}</p>
                                         <div class="course__bottom d-sm-flex align-items-center justify-content-between">
                                             <div class="testimoni-author-wrapper">
-                                                <img src="{{ asset('assets/img/'.$testimonial->student->profile_picture) }}"
+                                                <img src="{{ asset('assets/img/' . $testimonial->student->profile_picture) }}"
                                                     alt="testimoni-1">
                                                 <div>
                                                     <p class="testimoni-author-name">{{ $testimonial->student->name }}</p>
@@ -215,7 +216,8 @@
 
 @section('script')
     <script>
-            course("branding")
+        course("branding")
+
         function course(category) {
             // Mendapatkan parameter dari URL
             var urlParams = new URLSearchParams(window.location.search);
@@ -240,7 +242,10 @@
                     $(`.${category}-item`).addClass("active text-primary");
                     let htmlString = ``;
                     $.map(response.data, function(courseData, index) {
-                        let coursePrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(courseData.price);
+                        let coursePrice = new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }).format(courseData.price);
 
                         htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="course/name"
@@ -281,6 +286,53 @@
                     $("#courseCategory").html(htmlString);
                 }
             });
+        }
+
+        function addCart(course) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan memasukkan ke keranjang!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('cart.store') }}",
+                        data: {
+                            course_id: course,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Berhasil!',
+                                'Anda telah memasukkan ke keranjang.',
+                                'success'
+                            )
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    xhr.responseJSON.meta.message
+                                )
+                            else
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    error
+                                )
+                            return false;
+                        }
+                    })
+                }
+            })
         }
     </script>
 @endsection
