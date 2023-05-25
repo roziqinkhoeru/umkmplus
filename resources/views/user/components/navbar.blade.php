@@ -16,13 +16,13 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li>
-                                        <a href="/category">Kategori Kelas</a>
+                                    <li class="">
+                                        <a href="/course-category">Kategori Kelas</a>
                                     </li>
-                                    <li>
+                                    <li class="">
                                         <a href="/mentor">Mentor</a>
                                     </li>
-                                    <li>
+                                    <li class="">
                                         <a href="/blog">Blog</a>
                                     </li>
                                     {{-- condition::isLoggedIn=false --}}
