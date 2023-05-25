@@ -19,7 +19,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 // user
 Route::get('/', function () {
-    return view('user.home', ['title' => 'UMKM Plus']);
+    return view('user.home', ['title' => 'UMKMPlus']);
 });
 
 Route::controller(RegisterController::class)->group(function () {

@@ -17,7 +17,7 @@ class RegisterController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Register | UMKM Plus',
+            'title' => 'Register | UMKMPlus',
             'ptSection' => '54px'
         ];
         return view('auth.register', $data);
@@ -71,12 +71,12 @@ class RegisterController extends Controller
 
         if ($user) {
             return $request->ajax()
-            ? ResponseFormatter::success(
-                [
-                    'redirect' => redirect('/login'),
-                ],
-                'Register success',
-            ) : redirect('/login')->with('success', 'Register success');
+                ? ResponseFormatter::success(
+                    [
+                        'redirect' => redirect('/login'),
+                    ],
+                    'Register success',
+                ) : redirect('/login')->with('success', 'Register success');
         }
 
         return $request->ajax()

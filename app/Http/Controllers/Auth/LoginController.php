@@ -21,7 +21,7 @@ class LoginController extends Controller
         }
 
         $data =  [
-            'title' => 'Login | UMKM Plus',
+            'title' => 'Login | UMKMPlus',
             'ptSection' => '54px'
         ];
 
