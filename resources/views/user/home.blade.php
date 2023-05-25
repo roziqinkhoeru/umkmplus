@@ -35,7 +35,7 @@
         {{-- slider area end --}}
 
         {{-- brand area start --}}
-        <section class="pt-55">
+        <section class="pt-35">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-center column-gap-5 row-gap-4 flex-wrap">
                     <a href="https://www.apple.com" class="d-block" target="_blank" rel="noopener noreferrer"><img
