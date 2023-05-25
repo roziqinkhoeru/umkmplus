@@ -99,17 +99,17 @@
                     $('#forgotPasswordButton').html('Kirim tautan');
                     $('#forgotPasswordButton').prop('disabled', false);
                     if (xhr.responseJSON)
-                    Swal.fire({
-                                icon: 'error',
-                                title: 'KIRIM TAUTAN GAGAL!',
-                                text: xhr.responseJSON.meta.message,
-                            })
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'KIRIM TAUTAN GAGAL!',
+                            text: xhr.responseJSON.meta.message,
+                        })
                     else
-                    Swal.fire({
-                                icon: 'error',
-                                title: 'KIRIM TAUTAN GAGAL!',
-                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
-                            })
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'KIRIM TAUTAN GAGAL!',
+                            text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " + error,
+                        })
                     return false;
                 }
             });
@@ -136,7 +136,7 @@
             },
             submitHandler: function(form) {
                 $('#forgotPasswordButton').html(
-                    '<i class="fas fa-circle-notch text-base spinners"></i> Menunggu...'
+                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
                 );
                 $('#forgotPasswordButton').prop('disabled', true);
                 submitForgotPasswordAjax(isResendLinkResetPassword);
