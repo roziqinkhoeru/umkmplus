@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('assets/template/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/template/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    {{-- Sweet alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- title --}}
     <title>{{ $title }}</title>

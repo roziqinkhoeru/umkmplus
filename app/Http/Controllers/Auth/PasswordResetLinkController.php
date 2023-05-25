@@ -21,7 +21,7 @@ class PasswordResetLinkController extends Controller
             'title' => 'Forgot Password | UMKMPlus',
             'ptSection' => '54px',
         ];
-        return view('auth.forgot-password', $data);
+        return view('auth.forgotPassword', $data);
     }
 
     /**
@@ -53,10 +53,25 @@ class PasswordResetLinkController extends Controller
         // need to show to the user. Finally, we'll send out a proper response.
         $status = Password::sendResetLink($request->only('email'));
 
-        return $status == Password::RESET_LINK_SENT
-            ? back()->with('success', __($status))
-            : back()
-            ->withInput($request->only('email'))
-            ->withErrors(['error' => __($status)]);
+        if ($status == Password::RESET_LINK_SENT) {
+            return $request->ajax()
+                ? ResponseFormatter::success(
+                    [
+                        'message' => __($status),
+                    ],
+                    __($status),
+                )
+                : back()->with(['success' => __($status)]);
+        } else {
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => __($status),
+                    ],
+                    __($status),
+                    400,
+                )
+                : back()->withInput($request->only('email'))->withErrors(['error' => __($status)]);
+        }
     }
 }

@@ -27,9 +27,7 @@ class RegisterController extends Controller
     {
         $rules = [
             'name' => 'required|min:3',
-            'address' => 'required',
             'phone' => 'required|numeric',
-            'dob' => 'required',
             'username' => 'required|min:3|max:25|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
@@ -51,9 +49,7 @@ class RegisterController extends Controller
         // create customer
         $customer = Customer::create([
             'name' => $request->name,
-            'address' => $request->address,
             'phone' => $request->phone,
-            'dob' => $request->dob,
         ]);
 
         // create user
@@ -66,26 +62,26 @@ class RegisterController extends Controller
 
         RoleUser::create([
             'user_id' => $user->id,
-            'role_id' => $request->role_id,
+            'role_id' => 3,
         ]);
 
         if ($user) {
             return $request->ajax()
-                ? ResponseFormatter::success(
-                    [
-                        'redirect' => redirect('/login'),
-                    ],
-                    'Register success',
-                ) : redirect('/login')->with('success', 'Register success');
+            ? ResponseFormatter::success(
+                [
+                    'redirect' => redirect('/login')->getTargetUrl(),
+                ],
+                'Pendaftaran berhasil',
+            ) : redirect('/login')->with('success', 'Pendaftaran berhasil');
         }
 
         return $request->ajax()
             ? ResponseFormatter::error(
                 [
-                    'error' => 'Register failed',
+                    'error' => 'Pendaftaran gagal',
                 ],
-                'Register failed',
+                'Pendaftaran gagal',
                 400,
-            ) : back()->withInput($request->only('email'))->withErrors(['error' => 'Register failed']);
+            ) : back()->withInput()->withErrors(['error' => 'Pendaftaran gagal']);
     }
 }

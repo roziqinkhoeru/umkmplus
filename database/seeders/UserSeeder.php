@@ -48,19 +48,19 @@ class UserSeeder extends Seeder
         [
             [
                 'customer_id' => 1,
-                'username' => 1,
+                'username' => "admin",
                 'email' => "admin@gmail.com",
                 'password' => bcrypt('=Secret1234'),
             ],
             [
                 'customer_id' =>2,
-                'username' => 2,
+                'username' => "mentor",
                 'email' => "mentor@gmail.com",
                 'password' => bcrypt('=Secret1234'),
             ],
             [
                 'customer_id' => 3,
-                'username' => 3,
+                'username' => "student",
                 'email' => "student@gmail.com",
                 'password' => bcrypt('=Secret1234'),
             ],
