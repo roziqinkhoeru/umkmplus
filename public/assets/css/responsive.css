@@ -28,11 +28,14 @@
 
 @media screen and (max-width: 575px) {
     .slider-height-2 {
-        min-height: 700px;
+        min-height: 840px;
     }
 }
 
 @media screen and (max-width: 479px) {
+    .slider-height-2 {
+        min-height: 740px;
+    }
     .brand-logo-user {
         height: 24px;
     }

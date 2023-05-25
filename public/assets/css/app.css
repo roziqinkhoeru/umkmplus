@@ -36,8 +36,8 @@
     -moz-transform: scale(0.9);
     -ms-transform: scale(0.9);
     -o-transform: scale(0.9);
-    filter: drop-shadow(0 0 0.5rem rgba(61, 108, 231, 0.13));
-    -webkit-filter: drop-shadow(0 0 0.5rem rgba(61, 108, 231, 0.13));
+    filter: drop-shadow(0 0 0.5rem rgba(61, 108, 231, 0.14));
+    -webkit-filter: drop-shadow(0 0 0.5rem rgba(61, 108, 231, 0.14));
 }
 /* course */
 .dropdown.dropdown-category {
