@@ -22,6 +22,12 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 Route::get('/', function () {
     return view('user.home', ['title' => 'UMKMPlus']);
 });
+Route::get('/course-category', function () {
+    return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
+});
+Route::get('/mentor', function () {
+    return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
+});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
