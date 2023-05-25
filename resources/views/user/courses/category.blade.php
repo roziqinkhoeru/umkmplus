@@ -33,81 +33,21 @@
         <section class="bg-white pb-60 pt-40">
             <div class="container">
                 <div class="row row-gap-4">
+                    @foreach ($categories as $category)
                     <div class="col-xxl-4 col-xl-4 col-md-6">
                         <div class="card card-list-category">
                             <div class="card-body">
                                 <figure class="list-category-img-wrapper mb-30"><img
                                         src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
                                 </figure>
-                                <h3 class="mb-10">Kategori</h3>
-                                <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                    pariatur quod
-                                    adipisci laboriosam voluptatum.</p>
+                                <h3 class="mb-10">{{ $category->name }}</h3>
+                                <p class="mb-15">{{ $category->description }}</p>
                                 <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-4 col-xl-4 col-md-6">
-                        <div class="card card-list-category">
-                            <div class="card-body">
-                                <figure class="list-category-img-wrapper mb-30"><img
-                                        src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
-                                </figure>
-                                <h3 class="mb-10">Kategori</h3>
-                                <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                    pariatur quod
-                                    adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
-                                            class="fa-solid fa-arrow-right ms-2"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-md-6">
-                        <div class="card card-list-category">
-                            <div class="card-body">
-                                <figure class="list-category-img-wrapper mb-30"><img
-                                        src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
-                                </figure>
-                                <h3 class="mb-10">Kategori</h3>
-                                <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                    pariatur quod
-                                    adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
-                                            class="fa-solid fa-arrow-right ms-2"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-md-6">
-                        <div class="card card-list-category">
-                            <div class="card-body">
-                                <figure class="list-category-img-wrapper mb-30"><img
-                                        src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
-                                </figure>
-                                <h3 class="mb-10">Kategori</h3>
-                                <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                    pariatur quod
-                                    adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
-                                            class="fa-solid fa-arrow-right ms-2"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-4 col-xl-4 col-md-6">
-                        <div class="card card-list-category">
-                            <div class="card-body">
-                                <figure class="list-category-img-wrapper mb-30"><img
-                                        src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
-                                </figure>
-                                <h3 class="mb-10">Kategori</h3>
-                                <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                    pariatur quod
-                                    adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
-                                            class="fa-solid fa-arrow-right ms-2"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

@@ -80,6 +80,7 @@
     <script src="{{ asset('assets/template/js/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('assets/template/js/ajax-form.js') }}"></script>
     <script src="{{ asset('assets/template/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- script custom --}}
     @yield('script')

@@ -28,13 +28,13 @@ class GoogleAuthController extends Controller
             $finduserGoogleEmail = User::where('email', $user->email)->first();
             if ($finduserGoogleId) {
                 Auth::login($finduserGoogleId);
-                return redirect()->intended('home');
+                return redirect()->intended();
             } else if ($finduserGoogleEmail) {
                 User::updated([
                     'google_id' => $user->id
                 ]);
                 Auth::login($finduserGoogleEmail);
-                return redirect()->intended('home');
+                return redirect()->intended();
             } else {
                 $newCustomer = Customer::create([
                     'name' => $user->name,
@@ -54,7 +54,7 @@ class GoogleAuthController extends Controller
                 ]);
 
                 Auth::login($newUser);
-                return redirect()->intended('home');
+                return redirect()->intended();
             }
         } catch (\Throwable $th) {
             return redirect('/login')->with('error', 'Terjadi kesalahan saat melakukan autentikasi Google.');

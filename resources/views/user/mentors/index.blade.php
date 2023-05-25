@@ -14,10 +14,10 @@
                             <p>Belajar langsung dari para Professional dan Practitioners Business Expert dengan pengalaman
                                 selama puluhan tahun di dunia bisnis.</p>
                             <div class="slider__search mb-20">
-                                <form action="#">
+                                <form action="#" id="formSearchMentor">
                                     <div class="slider__search-input p-relative">
                                         <input type="text" placeholder="Cari mentor..." name="searchMentor"
-                                            id="searchMentor" style="background: #F1F1F1">
+                                            id="searchMentor" onkeyup="mentor()" style="background: #F1F1F1">
                                         <button type="submit" class="tp-btn-search-header">Search</button>
                                         <div class="slider__search-input-icon"
                                             style="transform: translateY(-57%) !important;">
@@ -54,7 +54,7 @@
         <section class="pt-40 pb-60 bg-white">
             <div class="container">
                 <p class="mb-30 fw-semibold text-xl">Ada 200+ Mentor Ahli Untukmu</p>
-                <div class="row">
+                <div class="row" id="mentorData">
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="/mentor/detail"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
@@ -79,78 +79,6 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
-                            class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                            <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}" alt="mentor-1">
-                            </div>
-                            <div class="course__content p-relative">
-                                <h5 class="course__title text-lg mb-1 text-center">
-                                    Muhammad Dwi Akbar
-                                </h5>
-                                <p class="mb-2 text-center">Sale Manager</p>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="me-3 d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">school</i>2000<span
-                                            class="text-gray ms-1">Students</span>
-                                    </p>
-                                    <p class="d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">group</i>3<span
-                                            class="text-gray ms-1">Kelas</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
-                            class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                            <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('assets/img/dummy/mentor-3.jpg') }}" alt="mentor-3">
-                            </div>
-                            <div class="course__content p-relative">
-                                <h5 class="course__title text-lg mb-1 text-center">
-                                    Raden tri Buana
-                                </h5>
-                                <p class="mb-2 text-center">Creative Director</p>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="me-3 d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">school</i>2000<span
-                                            class="text-gray ms-1">Students</span>
-                                    </p>
-                                    <p class="d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">group</i>3<span
-                                            class="text-gray ms-1">Kelas</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
-                            class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                            <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('assets/img/dummy/mentor-4.jpg') }}" alt="mentor-4">
-                            </div>
-                            <div class="course__content p-relative">
-                                <h5 class="course__title text-lg mb-1 text-center">
-                                    Hanum
-                                </h5>
-                                <p class="mb-2 text-center">Campaign Marketing Specialist</p>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="me-3 d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">school</i>2000<span
-                                            class="text-gray ms-1">Students</span>
-                                    </p>
-                                    <p class="d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">group</i>3<span
-                                            class="text-gray ms-1">Kelas</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
@@ -159,4 +87,59 @@
 @endsection
 
 @section('script')
+    <script>
+        mentor()
+        $("#formSearchMentor").submit(function (e) {
+            e.preventDefault();
+            mentor()
+        });
+        function mentor() {
+            let name = $("#searchMentor").val()
+            // Membuat permintaan AJAX dan mengubah URL
+            var request = `name=${name}`; // Request yang ingin ditambahkan
+            var url = "{{ url('/mentor') }}"; // Mendapatkan URL saat ini
+            var newUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + request; // Menambahkan request ke URL
+
+            // Mengubah URL tanpa melakukan reload halaman
+            history.pushState(null, null, newUrl);
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('get.mentor') }}",
+                data: {
+                    name: name
+                },
+                success: function(response) {
+                    let htmlString = ``;
+                    $.map(response.data, function(mentorData, index) {
+                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                        <a href="/mentor/detail"
+                            class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
+                            <div class="mentor-card-thumbnail mt-3">
+                                <img src="{{ asset('assets/img/${mentorData.profile_picture}') }}" alt="mentor-1">
+                            </div>
+                            <div class="course__content p-relative">
+                                <h5 class="course__title text-lg mb-1 text-center">
+                                    ${mentorData.name}
+                                </h5>
+                                <p class="mb-2 text-center">Personal Branding</p>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <p class="me-3 d-flex align-items-center mb-0">
+                                        <i class="material-symbols-rounded me-2">school</i>${mentorData.total_student}<span
+                                            class="text-gray ms-1">Students</span>
+                                    </p>
+                                    <p class="d-flex align-items-center mb-0">
+                                        <i class="material-symbols-rounded me-2">group</i>${mentorData.total_course}<span
+                                            class="text-gray ms-1">Kelas</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>`
+                    });
+                    $("#mentorData").html(htmlString);
+                }
+            });
+        }
+    </script>
 @endsection

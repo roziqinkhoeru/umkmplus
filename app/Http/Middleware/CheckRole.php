@@ -23,7 +23,7 @@ class CheckRole
         }
         foreach ($roles as $role) {
             foreach ($user->roles()->get() as $roleUser) {
-                if ($roleUser->nama == $role) {
+                if ($roleUser->name == $role) {
                     return $next($request);
                 }
             }

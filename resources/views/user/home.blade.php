@@ -100,146 +100,6 @@
                 </div>
 
                 <div class="row mt-30" id="courseCategory">
-                    {{-- <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
-                            class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
-                            <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
-                                <div class="course-tag-wrapper">
-                                    <div class="course__tag">
-                                        <span class="course-badge">Branding</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course__content p-relative" style="padding: 18px 20px 24px">
-                                <div class="course__bottom d-sm-flex align-items-center justify-content-between"
-                                    style="padding-bottom: 12px">
-                                    <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
-                                                alt="mentor-course">Jack Morkel</figure>
-                                    </div>
-                                </div>
-                                <h3 class="course__title">
-                                    <p class="course-title text-lg mb-3">The Bran Masterclass</p>
-                                </h3>
-                                <div class="d-flex align-items-center mt-3 mb-2">
-                                    <i class="material-symbols-rounded me-2">sell</i>
-                                    <h5 class="mb-0" style="color: #186d4b;">Rp. 850.000</h5>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="material-symbols-rounded me-2">school</i>
-                                    <div class="text-muted me-4">6 Modul</div>
-                                    <i class="material-symbols-rounded me-2">group</i>
-                                    <div class="text-muted ">149 Enroll</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
-                            class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
-                            <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
-                                <div class="course-tag-wrapper">
-                                    <div class="course__tag">
-                                        <span class="course-badge">Branding</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course__content p-relative" style="padding: 18px 20px 24px">
-                                <div class="course__bottom d-sm-flex align-items-center justify-content-between"
-                                    style="padding-bottom: 12px">
-                                    <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
-                                                alt="mentor-course">Jack Morkel</figure>
-                                    </div>
-                                </div>
-                                <h3 class="course__title">
-                                    <p class="course-title text-lg mb-3">The Bran Masterclass</p>
-                                </h3>
-                                <div class="d-flex align-items-center mt-3 mb-2">
-                                    <i class="material-symbols-rounded me-2">sell</i>
-                                    <h5 class="mb-0" style="color: #186d4b;">Rp. 850.000</h5>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="material-symbols-rounded me-2">school</i>
-                                    <div class="text-muted me-4">6 Modul</div>
-                                    <i class="material-symbols-rounded me-2">group</i>
-                                    <div class="text-muted ">149 Enroll</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
-                            class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
-                            <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
-                                <div class="course-tag-wrapper">
-                                    <div class="course__tag">
-                                        <span class="course-badge">Branding</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course__content p-relative" style="padding: 18px 20px 24px">
-                                <div class="course__bottom d-sm-flex align-items-center justify-content-between"
-                                    style="padding-bottom: 12px">
-                                    <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
-                                                alt="mentor-course">Jack Morkel</figure>
-                                    </div>
-                                </div>
-                                <h3 class="course__title">
-                                    <p class="course-title text-lg mb-3">The Bran Masterclass</p>
-                                </h3>
-                                <div class="d-flex align-items-center mt-3 mb-2">
-                                    <i class="material-symbols-rounded me-2">sell</i>
-                                    <h5 class="mb-0" style="color: #186d4b;">Rp. 850.000</h5>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="material-symbols-rounded me-2">school</i>
-                                    <div class="text-muted me-4">6 Modul</div>
-                                    <i class="material-symbols-rounded me-2">group</i>
-                                    <div class="text-muted ">149 Enroll</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
-                            class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
-                            <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
-                                <div class="course-tag-wrapper">
-                                    <div class="course__tag">
-                                        <span class="course-badge">Branding</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course__content p-relative" style="padding: 18px 20px 24px">
-                                <div class="course__bottom d-sm-flex align-items-center justify-content-between"
-                                    style="padding-bottom: 12px">
-                                    <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
-                                                alt="mentor-course">Jack Morkel</figure>
-                                    </div>
-                                </div>
-                                <h3 class="course__title">
-                                    <p class="course-title text-lg mb-3">The Bran Masterclass</p>
-                                </h3>
-                                <div class="d-flex align-items-center mt-3 mb-2">
-                                    <i class="material-symbols-rounded me-2">sell</i>
-                                    <h5 class="mb-0" style="color: #186d4b;">Rp. 850.000</h5>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="material-symbols-rounded me-2">school</i>
-                                    <div class="text-muted me-4">6 Modul</div>
-                                    <i class="material-symbols-rounded me-2">group</i>
-                                    <div class="text-muted ">149 Enroll</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div> --}}
                 </div>
             </div>
         </section>
@@ -291,7 +151,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <a href="/mentor" class="tp-btn tp-btn-2 rounded-pill" type="button">Lihat Seluruh Mentor</a>
+                    <a href="{{ route('mentor') }}" class="tp-btn tp-btn-2 rounded-pill" type="button">Lihat Seluruh
+                        Mentor</a>
                 </div>
             </div>
         </section>
@@ -327,7 +188,7 @@
                                         <p>{{ $testimonial->testimonial }}</p>
                                         <div class="course__bottom d-sm-flex align-items-center justify-content-between">
                                             <div class="testimoni-author-wrapper">
-                                                <img src="{{ asset('assets/img/dummy/testimoni-1.png') }}"
+                                                <img src="{{ asset('assets/img/' . $testimonial->student->profile_picture) }}"
                                                     alt="testimoni-1">
                                                 <div>
                                                     <p class="testimoni-author-name">{{ $testimonial->student->name }}</p>
@@ -355,12 +216,7 @@
 
 @section('script')
     <script>
-        let categoryUrl = "{{ request()->get('category') }}"
-        if (categoryUrl == "") {
-            course("branding")
-        } else {
-            course(categoryUrl)
-        }
+        course("branding")
 
         function course(category) {
             // Mendapatkan parameter dari URL
@@ -386,11 +242,16 @@
                     $(`.${category}-item`).addClass("active text-primary");
                     let htmlString = ``;
                     $.map(response.data, function(courseData, index) {
+                        let coursePrice = new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }).format(courseData.price);
+
                         htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="course/name"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
+                                <img src="{{ asset('assets/img/${courseData.thumbnail}') }}" alt="course-thumbnail">
                                 <div class="course-tag-wrapper">
                                     <div class="course__tag">
                                         <span class="course-badge">${courseData.category.name}</span>
@@ -401,7 +262,7 @@
                                 <div class="course__bottom d-sm-flex align-items-center justify-content-between"
                                     style="padding-bottom: 12px">
                                     <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}"
+                                        <figure class="mb-0"><img src="{{ asset('assets/img/${courseData.mentor.profile_picture}') }}"
                                                 alt="mentor-course">${courseData.mentor.name}</figure>
                                     </div>
                                 </div>
@@ -410,7 +271,7 @@
                                 </h3>
                                 <div class="d-flex align-items-center mt-3 mb-2">
                                     <i class="material-symbols-rounded me-2">sell</i>
-                                    <h5 class="mb-0" style="color: #186d4b;">Rp. ${courseData.price}</h5>
+                                    <h5 class="mb-0" style="color: #186d4b;">${coursePrice}</h5>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <i class="material-symbols-rounded me-2">school</i>
@@ -425,6 +286,53 @@
                     $("#courseCategory").html(htmlString);
                 }
             });
+        }
+
+        function addCart(course) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan memasukkan ke keranjang!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('cart.store') }}",
+                        data: {
+                            course_id: course,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Berhasil!',
+                                'Anda telah memasukkan ke keranjang.',
+                                'success'
+                            )
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    xhr.responseJSON.meta.message
+                                )
+                            else
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    error
+                                )
+                            return false;
+                        }
+                    })
+                }
+            })
         }
     </script>
 @endsection

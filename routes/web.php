@@ -6,8 +6,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MentorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +28,6 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
 Route::get('/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.course.category');
 
-Route::get('/course-category', function () {
-    return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
-});
-Route::get('/mentor', function () {
-    return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
-});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
@@ -41,7 +38,7 @@ Route::controller(RegisterController::class)->group(function () {
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate');
-    Route::get('/logout', 'logout');
+    Route::get('/logout', 'logout')->name('logout');
 });
 Route::controller(PasswordResetLinkController::class)->group(function () {
     Route::get('/forgot-password', 'create')->name('password.forgot');
@@ -58,8 +55,27 @@ Route::controller(GoogleAuthController::class)->group(function () {
     Route::get('/auth/google/callback', 'handleGoogleCallback');
 });
 
-
-
 // Course
 Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
 
+// Category
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'dashboardCategory')->name('category');
+});
+
+// Mentor
+Route::controller(MentorController::class)->group(function () {
+    Route::get('/mentor', 'dashboardMentor')->name('mentor');
+    Route::get('/get-dashboard-mentor', 'getDashboardMentor')->name('get.mentor');
+});
+
+// Student Role
+Route::group(['middleware' => ['auth']], function () {
+    // Cart
+    Route::group(['middleware' => ['checkRole:admin,student']], function () {
+        Route::controller(CartController::class)->group(function () {
+            Route::post('/cart', 'store')->name('cart.store');
+        });
+    });
+});
+// Cart
