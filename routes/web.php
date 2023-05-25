@@ -25,6 +25,13 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
 Route::get('/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.course.category');
 
+Route::get('/course-category', function () {
+    return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
+});
+Route::get('/mentor', function () {
+    return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
+});
+
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');

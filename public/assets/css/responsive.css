@@ -3,23 +3,39 @@
 @import url(./utilities.css);
 
 @media screen and (max-width: 1200px) {
+    /* HOMEPAGE */
+    /* testimoni */
     .testimoni-container {
         padding: 0 2.25rem;
     }
 }
 
 @media screen and (max-width: 990px) {
+    /* HOMEPAGE */
+    /* header */
     .slider-height-2 {
         min-height: 1100px;
     }
+    /* testimoni */
     .testimoni-container {
         padding: 0;
+    }
+
+    /* LIST CATEGORY */
+    /* header */
+    .slider-height-3 {
+        min-height: 990px;
     }
 }
 
 @media screen and (max-width: 767px) {
+    /* HOMEPAGE */
+    /* header */
     .slider-height-2 {
         min-height: 900px;
+    }
+    .slider-height-3 {
+        min-height: 860px;
     }
     .brand-logo-user {
         height: 28px;
@@ -30,11 +46,17 @@
     .slider-height-2 {
         min-height: 840px;
     }
+    .slider-height-3 {
+        min-height: 820px;
+    }
 }
 
 @media screen and (max-width: 479px) {
     .slider-height-2 {
         min-height: 740px;
+    }
+    .slider-height-3 {
+        min-height: 720px;
     }
     .brand-logo-user {
         height: 24px;
