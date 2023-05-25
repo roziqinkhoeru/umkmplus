@@ -28,7 +28,7 @@ class Course extends Model
 
     public function courseEnrolls()
     {
-        return $this->hasMany(Module::class);
+        return $this->hasMany(CourseEnroll::class);
     }
 
     public function carts()

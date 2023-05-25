@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +50,10 @@ Route::controller(GoogleAuthController::class)->group(function () {
     Route::get('/auth/google', 'redirectToGoogle')->name('google.redirect');
     Route::get('/auth/google/callback', 'handleGoogleCallback');
 });
+
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Course
+Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
+
