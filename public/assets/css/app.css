@@ -212,3 +212,12 @@
     -ms-transform: translateX(10px);
     -o-transform: translateX(10px);
 }
+
+/* MENTOR */
+/* header */
+.tp-btn-search-header {
+    background: #3d6ce7 !important;
+}
+.tp-btn-search-header:hover {
+    background: #031220 !important;
+}
