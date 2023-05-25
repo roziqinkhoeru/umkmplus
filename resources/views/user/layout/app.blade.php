@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/template/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/template/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
     {{-- title --}}
     <title>{{ $title }}</title>

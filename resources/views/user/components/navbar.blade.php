@@ -100,7 +100,7 @@
     <div class="modal fade" id="offcanvasmodal" tabindex="-1" aria-labelledby="offcanvasmodal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="offcanvas__wrapper">
+                <div class="offcanvas__wrapper" style="min-height: 100vh">
                     <div class="offcanvas__content">
                         <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
                             <div class="offcanvas__logo logo">
