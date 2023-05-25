@@ -16,23 +16,27 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="{{ request()->is('category*') ? 'active' : ''}}">
+                                    <li class="{{ request()->is('category*') ? 'active' : '' }}">
                                         <a href="{{ route('category') }}">Kategori Kelas</a>
                                     </li>
-                                    <li class="{{ request()->is('mentor*') ? 'active' : ''}}">
+                                    <li class="{{ request()->is('mentor*') ? 'active' : '' }}">
                                         <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
                                     <li class="">
                                         <a href="/blog">Blog</a>
                                     </li>
-                                    {{-- condition::isLoggedIn=false --}}
-                                    <li class="d-block d-sm-none">
-                                        <a href="/login">Masuk</a>
-                                    </li>
-                                    {{-- condition::isLoggedIn=true --}}
-                                    {{-- <li class="d-block d-sm-none">
-                                        <a href="/profile">Profile</a>
-                                    </li> --}}
+                                    @if (!Auth::check())
+                                        <li class="d-block d-sm-none">
+                                            <a href="/login">Masuk</a>
+                                        </li>
+                                    @else
+                                        <li class="d-block d-sm-none">
+                                            <a href="/profile">Profile</a>
+                                        </li>
+                                        <li class="d-block d-sm-none">
+                                            <a href="/logout">Keluar</a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -57,26 +61,32 @@
                                 </form>
                             </div>
                             {{-- condition::isloggedIn=false --}}
-                            <div class="ms-4 d-none d-sm-block"><a href="/login"
-                                    class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
-                            </div>
-
-                            {{-- condition::isLoggedIn=true --}}
-                            {{-- <div class="ms-4">
-                                <a href="/cart" class="d-flex align-items-center nav-icon-cart position-relative">
-                                    <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
-                                    condition::ifCountCart>0
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
-                                        <span class="visually-hidden">New alerts</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="ms-4 d-none d-sm-block">
-                                <a href="/profile" class="d-flex align-items-center nav-icon-user">
-                                    <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
-                                </a>
-                            </div> --}}
+                            @if (!Auth::check())
+                                <div class="ms-4 d-none d-sm-block"><a href="/login"
+                                        class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
+                                </div>
+                            @else
+                                <div class="ms-4">
+                                    <a href="/cart" class="d-flex align-items-center nav-icon-cart position-relative">
+                                        <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
+                                        {{-- condition::ifCountCart>0 --}}
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
+                                            <span class="visually-hidden">New alerts</span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="ms-4 d-none d-sm-block">
+                                    <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                        <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                    </a>
+                                </div>
+                                <div class="ms-4 d-none d-sm-block">
+                                    <a href="/logout" onclick="logout()" class="d-flex align-items-center nav-icon-user">
+                                        <i class="fa-sharp fa-solid fa-right-from-bracket" style="font-size: 20px"></i>
+                                    </a>
+                                </div>
+                            @endif
 
                             <div class="header__hamburger ms-4 ms-sm-5 d-xl-none">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#offcanvasmodal"
@@ -187,3 +197,27 @@
 <!-- offcanvas area end -->
 <div class="body-overlay"></div>
 <!-- offcanvas area end -->
+
+<script>
+    function logout() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Anda akan keluar dari akun ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Keluar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Berhasil!',
+                    'Anda telah keluar dari akun ini.',
+                    'success'
+                )
+                window.location.href = "{{ route('logout') }}";
+            }
+        })
+    }
+</script>
