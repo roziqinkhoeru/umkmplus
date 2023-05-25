@@ -21,6 +21,10 @@
 }
 
 /* homepage */
+/* header */
+.slider-height-2 {
+    min-height: 700px;
+}
 /* brand */
 .brand-logo-user {
     height: 36px;

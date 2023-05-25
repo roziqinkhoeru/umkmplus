@@ -9,14 +9,26 @@
 }
 
 @media screen and (max-width: 990px) {
+    .slider-height-2 {
+        min-height: 1100px;
+    }
     .testimoni-container {
         padding: 0;
     }
 }
 
 @media screen and (max-width: 767px) {
+    .slider-height-2 {
+        min-height: 900px;
+    }
     .brand-logo-user {
         height: 28px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .slider-height-2 {
+        min-height: 700px;
     }
 }
 
