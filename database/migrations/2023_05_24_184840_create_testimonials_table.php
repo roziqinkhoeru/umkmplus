@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade');
             $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
             $table->text('testimonial');
+            $table->integer('rating');
             $table->enum('status', ['tampilkan', 'sembunyikan'])->default('sembunyikan');
             $table->timestamps();
         });

@@ -25,6 +25,21 @@ class CourseController extends Controller
         return view('courses.mentor', $data);
     }
 
+    public function getCourseCategory(Request $request)
+    {
+        $courses = Course::with('mentor', 'category',)
+            ->withCount("modules", "courseEnrolls")
+            ->whereHas('category', function ($query) use ($request) {
+                $query->where('slug', $request->category);
+            })->orderBy("course_enrolls_count", "desc")
+            ->limit(4)
+            ->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $courses
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

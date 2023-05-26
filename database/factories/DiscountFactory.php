@@ -30,11 +30,12 @@ class DiscountFactory extends Factory
         $customerRecord = [
             'name' => $this->faker->name(),
             'address' => $this->faker->address(),
+            'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+            'job' => $this->faker->jobTitle(),
             'phone' => $this->faker->phoneNumber(),
             'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years')
         ];
         $customer = Customer::create($customerRecord);
-        print($customer->id . "\n");
 
         // User factory
         $userRecord = [
@@ -55,12 +56,12 @@ class DiscountFactory extends Factory
         $roleUser = RoleUser::create($roleUserRecord);
 
         // CustomerSpecialist factory
-        if ($roleUserRecord['role_id'] == 2) {
+        if ($roleUserRecord['role_id'] == 3) {
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([1, 2]),
             ];
-        } else if ($roleUserRecord['role_id'] == 3) {
+        } else if ($roleUserRecord['role_id'] == 2) {
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([3, 4, 5]),
@@ -87,7 +88,7 @@ class DiscountFactory extends Factory
                     'category_id' => $this->faker->numberBetween(1, 3),
                     'title' => $this->faker->sentence(3),
                     'description' => $this->faker->paragraph(3),
-                    'thumbnail' => "dummy/thumbnail-course.png",
+                    'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
                 ];
                 $course = Course::create($courseRecord);

@@ -104,7 +104,6 @@ class CategoryController extends Controller
         $data =
             [
                 'title' => 'Kategori | UMKM Plus',
-                'category' => $category
             ];
 
         return view('categories.show', $data);

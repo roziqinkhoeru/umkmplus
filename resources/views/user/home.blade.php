@@ -119,35 +119,7 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                    <div class="row">
-                        @foreach ($mentorPopulars as $mentorPopular)
-                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                                <a href="/mentor/detail"
-                                    class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                    <div class="mentor-card-thumbnail mt-3">
-                                        <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
-                                    </div>
-                                    <div class="course__content p-relative">
-                                        <h5 class="course__title text-lg mb-1 text-center">
-                                            {{ $mentorPopular->name }}
-                                        </h5>
-                                        <p class="mb-2 text-center">{{ $mentorPopular->job }}</p>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <p class="me-3 d-flex align-items-center mb-0">
-                                                <i
-                                                    class="material-symbols-rounded me-2">school</i>{{ $mentorPopular->total_student }}<span
-                                                    class="text-gray ms-1">Students</span>
-                                            </p>
-                                            <p class="d-flex align-items-center mb-0">
-                                                <i
-                                                    class="material-symbols-rounded me-2">group</i>{{ $mentorPopular->total_course }}<span
-                                                    class="text-gray ms-1">Kelas</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                    <div class="row" id="mentorPopular">
                     </div>
                 </div>
                 <div class="text-center">
@@ -188,7 +160,7 @@
                                         <p>{{ $testimonial->testimonial }}</p>
                                         <div class="course__bottom d-sm-flex align-items-center justify-content-between">
                                             <div class="testimoni-author-wrapper">
-                                                <img src="{{ asset('assets/img/' . $testimonial->student->profile_picture) }}"
+                                                <img src="{{ asset($testimonial->student->profile_picture) }}"
                                                     alt="testimoni-1">
                                                 <div>
                                                     <p class="testimoni-author-name">{{ $testimonial->student->name }}</p>
@@ -216,7 +188,10 @@
 
 @section('script')
     <script>
-        course("branding")
+        $(document).ready(function() {
+            course("branding")
+            mentorPopular()
+        });
 
         function course(category) {
             // Mendapatkan parameter dari URL
@@ -233,7 +208,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ route('get.course.category') }}",
+                url: "{{ route('get.dashboard.course.category') }}",
                 data: {
                     category: category
                 },
@@ -251,7 +226,7 @@
                         <a href="course/name"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
-                                <img src="{{ asset('assets/img/${courseData.thumbnail}') }}" alt="course-thumbnail">
+                                <img src="{{ asset('${courseData.thumbnail}') }}" alt="course-thumbnail">
                                 <div class="course-tag-wrapper">
                                     <div class="course__tag">
                                         <span class="course-badge">${courseData.category.name}</span>
@@ -262,7 +237,7 @@
                                 <div class="course__bottom d-sm-flex align-items-center justify-content-between"
                                     style="padding-bottom: 12px">
                                     <div class="course__tutor">
-                                        <figure class="mb-0"><img src="{{ asset('assets/img/${courseData.mentor.profile_picture}') }}"
+                                        <figure class="mb-0"><img src="{{ asset('${courseData.mentor.profile_picture}') }}"
                                                 alt="mentor-course">${courseData.mentor.name}</figure>
                                     </div>
                                 </div>
@@ -287,6 +262,45 @@
                 }
             });
         }
+
+        function mentorPopular() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('get.dashboard.mentor.popular') }}",
+                success: function(response) {
+                    let htmlString = ``;
+                    $.map(response.data, function(mentorData, index) {
+                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                                <a href="/mentor/detail"
+                                    class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
+                                    <div class="mentor-card-thumbnail mt-3">
+                                        <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
+                                    </div>
+                                    <div class="course__content p-relative">
+                                        <h5 class="course__title text-lg mb-1 text-center">
+                                            ${mentorData.name}
+                                        </h5>
+                                        <p class="mb-2 text-center">${mentorData.job}</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="me-3 d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">school</i>${mentorData.total_student}<span
+                                                    class="text-gray ms-1">Students</span>
+                                            </p>
+                                            <p class="d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">group</i>${mentorData.total_course}<span
+                                                    class="text-gray ms-1">Kelas</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>`
+                    });
+                    $("#mentorPopular").html(htmlString);
+                }
+            })
+         }
 
         function addCart(course) {
             event.preventDefault();

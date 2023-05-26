@@ -16,14 +16,17 @@ class CategorySeeder extends Seeder
         $records = [
             [
                 'name' => 'Branding',
+                'slug' => 'branding',
                 'description' => 'Kategori Branding',
             ],
             [
                 'name' => 'Desain',
+                'slug' => 'desain',
                 'description' => 'Kategori Desain',
             ],
             [
                 'name' => 'Marketing',
+                'slug' => 'marketing',
                 'description' => 'Kategori Marketing',
             ],
         ];

@@ -9,19 +9,24 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the cart.
      */
-    public function index()
+    public function getCart()
     {
-        //
-    }
+        $carts = Cart::with('course')->where('student_id', auth()->user()->customer_id)->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        if ($carts) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mendapatkan data keranjang',
+                'data' => $carts
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mendapatkan data keranjang',
+        ], 500);
     }
 
     /**
@@ -49,34 +54,18 @@ class CartController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(carts $carts)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(carts $carts)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, carts $carts)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(carts $carts)
     {
-        //
+        $cart = Cart::destroy($carts->id);
+
+        return $cart ? response()->json([
+            'success' => true,
+            'message' => 'Berhasil menghapus dari keranjang',
+        ], 200) : response()->json([
+            'success' => false,
+            'message' => 'Gagal menghapus dari keranjang',
+        ], 500);
     }
 }

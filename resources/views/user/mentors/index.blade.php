@@ -55,30 +55,6 @@
             <div class="container">
                 <p class="mb-30 fw-semibold text-xl">Ada 200+ Mentor Ahli Untukmu</p>
                 <div class="row" id="mentorData">
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
-                            class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                            <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
-                            </div>
-                            <div class="course__content p-relative">
-                                <h5 class="course__title text-lg mb-1 text-center">
-                                    Verdian Galang
-                                </h5>
-                                <p class="mb-2 text-center">Personal Branding</p>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="me-3 d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">school</i>2000<span
-                                            class="text-gray ms-1">Students</span>
-                                    </p>
-                                    <p class="d-flex align-items-center mb-0">
-                                        <i class="material-symbols-rounded me-2">group</i>3<span
-                                            class="text-gray ms-1">Kelas</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
@@ -88,7 +64,9 @@
 
 @section('script')
     <script>
-        mentor()
+        $(document).ready(function () {
+            mentor()
+        });
         $("#formSearchMentor").submit(function (e) {
             e.preventDefault();
             mentor()
@@ -116,7 +94,7 @@
                         <a href="/mentor/detail"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('assets/img/${mentorData.profile_picture}') }}" alt="mentor-1">
+                                <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
                             </div>
                             <div class="course__content p-relative">
                                 <h5 class="course__title text-lg mb-1 text-center">
