@@ -8,6 +8,18 @@
     .testimoni-container {
         padding: 0 2.25rem;
     }
+
+    /* COURSE */
+    /* course */
+    .col-span-4-course {
+        grid-column: span 6 / span 6;
+    }
+
+    /* MENTOR DETAIL */
+    /* course */
+    .col-span-3-course {
+        grid-column: span 4 / span 4;
+    }
 }
 
 @media screen and (max-width: 990px) {
@@ -29,6 +41,11 @@
 }
 
 @media screen and (max-width: 767px) {
+    /* UTILITIES */
+    .grid-cols-12 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
     /* HOMEPAGE */
     /* header */
     .slider-height-2 {
@@ -40,18 +57,45 @@
     .brand-logo-user {
         height: 28px;
     }
+
+    /* MENTOR DETAIL */
+    /* course */
+    .col-span-3-course {
+        grid-column: span 3 / span 3;
+    }
 }
 
 @media screen and (max-width: 575px) {
+    /* HOMEPAGE */
+    /* header */
     .slider-height-2 {
         min-height: 840px;
     }
     .slider-height-3 {
         min-height: 820px;
     }
+
+    /* MENTOR DETAIL */
+    /* mentor */
+    .mentor-image-wrapper {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+    .mentor-content-wrapper > h2 {
+        font-size: 1.5rem;
+    }
+    .mentor-content-wrapper > h6 {
+        font-size: 1rem;
+    }
+    .mentor-image-circle {
+        width: 100px;
+        height: 100px;
+    }
 }
 
 @media screen and (max-width: 479px) {
+    /* HOMEPAGE */
+    /* header */
     .slider-height-2 {
         min-height: 740px;
     }
@@ -60,5 +104,11 @@
     }
     .brand-logo-user {
         height: 24px;
+    }
+
+    /* MENTOR DETAIL */
+    /* course */
+    .col-span-3-course {
+        grid-column: span 6 / span 6;
     }
 }
