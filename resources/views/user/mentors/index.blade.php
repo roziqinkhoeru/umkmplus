@@ -56,7 +56,7 @@
                 <p class="mb-30 fw-semibold text-xl">Ada 200+ Mentor Ahli Untukmu</p>
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
+                        <a href="/mentor/mentorName"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
@@ -80,7 +80,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
+                        <a href="/mentor/mentorName"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}" alt="mentor-1">
@@ -104,7 +104,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
+                        <a href="/mentor/mentorName"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('assets/img/dummy/mentor-3.jpg') }}" alt="mentor-3">
@@ -128,7 +128,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail"
+                        <a href="/mentor/mentorName"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('assets/img/dummy/mentor-4.jpg') }}" alt="mentor-4">
