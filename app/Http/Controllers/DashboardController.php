@@ -38,20 +38,6 @@ class DashboardController extends Controller
         return view('user.home', $data);
     }
 
-    public function getCourseCategory(Request $request)
-    {
-        $courses = Course::with('mentor', 'category',)
-            ->withCount("modules", "courseEnrolls")
-            ->whereHas('category', function ($query) use ($request) {
-                $query->where('slug', $request->category);
-            })->orderBy("course_enrolls_count", "desc")
-            ->limit(4)
-            ->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $courses
-        ]);
-    }
 
     public function getMentorPopular()
     {

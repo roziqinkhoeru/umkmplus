@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DiscountController extends Controller
 {
@@ -20,7 +22,12 @@ class DiscountController extends Controller
      */
     public function create()
     {
-        //
+        $data =
+            [
+                'title' => 'Tambah Diskon | UMKM Plus',
+            ];
+
+        return view('discounts.create', $data);
     }
 
     /**
@@ -28,7 +35,36 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules =
+        [
+            'code' => 'required|unique:discounts,code',
+            'discount' => 'required|numeric',
+            'status' => 'required|in:true,false',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ], 'Harap isi form dengan benar', 400);
+        }
+
+        $discount = Discount::create([
+            'mentor_id' => auth()->user()->customer->id,
+            'code' => $request->code,
+            'discount' => $request->discount,
+            'status' => $request->status,
+        ]);
+
+        if ($discount) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+            ], 'Discount berhasil ditambahkan');
+        }
+
+        return ResponseFormatter::error([
+            'error' => $validator->errors()
+        ], 'Discount gagal ditambahkan', 400);
     }
 
     /**
@@ -44,7 +80,13 @@ class DiscountController extends Controller
      */
     public function edit(Discount $discount)
     {
-        //
+        $data =
+        [
+            'title' => 'Edit Diskon | UMKM Plus',
+            'discount' => $discount
+        ];
+
+        return view('discounts.edit', $data);
     }
 
     /**
@@ -52,7 +94,35 @@ class DiscountController extends Controller
      */
     public function update(Request $request, Discount $discount)
     {
-        //
+        $rules =
+        [
+            'code' => 'required|unique:discounts,code,' . $discount->id,
+            'discount' => 'required|numeric',
+            'status' => 'required|in:true,false',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ], 'Harap isi form dengan benar', 400);
+        }
+
+        $discount->update([
+            'code' => $request->code,
+            'discount' => $request->discount,
+            'status' => $request->status,
+        ]);
+
+        if ($discount) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+            ], 'Discount berhasil diupdate');
+        }
+
+        return ResponseFormatter::error([
+            'error' => $validator->errors()
+        ], 'Discount gagal diupdate', 400);
     }
 
     /**
@@ -60,6 +130,16 @@ class DiscountController extends Controller
      */
     public function destroy(Discount $discount)
     {
-        //
+        $discount->delete();
+
+        if ($discount) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+            ], 'Discount berhasil dihapus');
+        }
+
+        return ResponseFormatter::error([
+            'error' => "Discount gagal dihapus"
+        ], 'Discount gagal dihapus', 400);
     }
 }

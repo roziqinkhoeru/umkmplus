@@ -17,14 +17,6 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -49,34 +41,18 @@ class CartController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(carts $carts)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(carts $carts)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, carts $carts)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(carts $carts)
     {
-        //
+        $cart = Cart::destroy($carts->id);
+
+        return $cart ? response()->json([
+            'success' => true,
+            'message' => 'Berhasil menghapus dari keranjang',
+        ], 200) : response()->json([
+            'success' => false,
+            'message' => 'Gagal menghapus dari keranjang',
+        ], 500);
     }
 }

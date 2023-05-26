@@ -26,7 +26,7 @@ use App\Http\Controllers\MentorController;
 /*  USER  */
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
-Route::get('/dashboard/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
+Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
 Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
 // Category
 Route::controller(CategoryController::class)->group(function () {
