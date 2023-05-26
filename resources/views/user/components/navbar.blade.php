@@ -67,7 +67,7 @@
                                 </div>
                             @else
                                 <div class="ms-4">
-                                    <a href="/cart" class="d-flex align-items-center nav-icon-cart position-relative">
+                                    <a href="/cart" onclick="getCart()" class="d-flex align-items-center nav-icon-cart position-relative">
                                         <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
                                         @if ($countCart > 0)
                                             <span
@@ -201,6 +201,9 @@
 <!-- offcanvas area end -->
 
 <script>
+    // $(document).ready(function () {
+    //     gatCart();
+    // });
     function logout() {
         event.preventDefault();
         Swal.fire({
@@ -222,4 +225,16 @@
             }
         })
     }
+
+    function getCart() {
+        event.preventDefault();
+        $.ajax({
+            url: "{{ route('get.cart') }}",
+            type: "GET",
+            success: function(data) {
+                console.log(data);
+                // $('#cart').html(data);
+            }
+        });
+     }
 </script>

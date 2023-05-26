@@ -9,11 +9,24 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the cart.
      */
-    public function index()
+    public function getCart()
     {
-        //
+        $carts = Cart::with('course')->where('student_id', auth()->user()->customer_id)->get();
+
+        if ($carts) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mendapatkan data keranjang',
+                'data' => $carts
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mendapatkan data keranjang',
+        ], 500);
     }
 
     /**

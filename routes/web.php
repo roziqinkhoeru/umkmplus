@@ -23,22 +23,6 @@ use App\Http\Controllers\MentorController;
 |
 */
 
-/*  USER  */
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-// Dashboard
-Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
-Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
-// Category
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/category', 'dashboardCategory')->name('category');
-});
-// Mentor
-Route::controller(MentorController::class)->group(function () {
-    Route::get('/mentor', 'dashboardMentor')->name('mentor');
-    Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
-});
-
-
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
@@ -68,12 +52,29 @@ Route::controller(GoogleAuthController::class)->group(function () {
 // Course
 Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
 
+
+/*  USER  */
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+// Dashboard
+Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
+Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
+// Category
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'dashboardCategory')->name('category');
+});
+// Mentor
+Route::controller(MentorController::class)->group(function () {
+    Route::get('/mentor', 'dashboardMentor')->name('mentor');
+    Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
+});
+
 // Student Role
 Route::group(['middleware' => ['auth']], function () {
     // Cart
     Route::group(['middleware' => ['checkRole:admin,student']], function () {
         Route::controller(CartController::class)->group(function () {
             Route::post('/cart', 'store')->name('cart.store');
+            Route::get('/get-cart', 'getCart')->name('get.cart');
         });
     });
 });
