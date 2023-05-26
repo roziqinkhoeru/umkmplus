@@ -63,7 +63,7 @@ class DiscountController extends Controller
         }
 
         return ResponseFormatter::error([
-            'error' => $validator->errors()
+            'error' => 'Discount gagal ditambahkan'
         ], 'Discount gagal ditambahkan', 400);
     }
 
@@ -117,12 +117,12 @@ class DiscountController extends Controller
         if ($discount) {
             return ResponseFormatter::success([
                 'redirect' => redirect()->route('discount.index')->getTargetUrl()
-            ], 'Discount berhasil diupdate');
+            ], 'Discount berhasil diubah');
         }
 
         return ResponseFormatter::error([
             'error' => $validator->errors()
-        ], 'Discount gagal diupdate', 400);
+        ], 'Discount gagal diubah', 400);
     }
 
     /**

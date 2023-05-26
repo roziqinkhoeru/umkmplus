@@ -20,4 +20,10 @@ class Cart extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    public static function scopeCountCart($query)
+    {
+        return $query->where('student_id', auth()->user()->customer->id)
+        ->groupBy('student_id')
+        ->count();
+    }
 }

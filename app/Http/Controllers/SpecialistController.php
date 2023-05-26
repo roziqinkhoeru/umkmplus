@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Specialist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SpecialistController extends Controller
 {
@@ -20,7 +22,12 @@ class SpecialistController extends Controller
      */
     public function create()
     {
-        //
+        $data =
+            [
+                'title' => 'Tambah Spesialis | UMKM Plus',
+            ];
+
+        return view('specialists.create', $data);
     }
 
     /**
@@ -28,7 +35,31 @@ class SpecialistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules =
+            [
+                'name' => 'required|unique:specialists,name',
+                'description' => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ], 'Harap isi form dengan benar', 400);
+        }
+
+        $specialist = Specialist::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        if ($specialist) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('specialist.index')->getTargetUrl()
+            ], 'Spesialis berhasil ditambahkan');
+        }
+        return ResponseFormatter::error([
+            'error' => 'Spesialis gagal ditambahkan'
+        ], 'Spesialis gagal ditambahkan', 400);
     }
 
     /**
@@ -44,7 +75,13 @@ class SpecialistController extends Controller
      */
     public function edit(Specialist $specialist)
     {
-        //
+        $data =
+        [
+            'title' => 'Edit Spesialis | UMKM Plus',
+            'specialist' => $specialist
+        ];
+
+        return view('specialists.edit', $data);
     }
 
     /**
@@ -52,7 +89,32 @@ class SpecialistController extends Controller
      */
     public function update(Request $request, Specialist $specialist)
     {
-        //
+
+        $rules =
+            [
+                'name' => 'required|unique:specialists,name',
+                'description' => 'required'
+            ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ], 'Harap isi form dengan benar', 400);
+        }
+
+        $specialist->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        if ($specialist) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('specialist.index')->getTargetUrl()
+            ], 'Spesialis berhasil diubah');
+        }
+        return ResponseFormatter::error([
+            'error' => 'Spesialis gagal diubah'
+        ], 'Spesialis gagal diubah', 400);
     }
 
     /**
@@ -60,6 +122,15 @@ class SpecialistController extends Controller
      */
     public function destroy(Specialist $specialist)
     {
-        //
+        $specialist->delete();
+        if ($specialist) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('specialist.index')->getTargetUrl()
+            ], 'Spesialis berhasil dihapus');
+        }
+
+        return ResponseFormatter::error([
+            'error' => 'Spesialis gagal dihapus'
+        ], 'Spesialis gagal dihapus', 400);
     }
 }

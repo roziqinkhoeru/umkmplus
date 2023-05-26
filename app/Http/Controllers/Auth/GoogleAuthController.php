@@ -34,7 +34,7 @@ class GoogleAuthController extends Controller
                     'google_id' => $user->id
                 ]);
                 Auth::login($finduserGoogleEmail);
-                return redirect()->intended();
+                return redirect()->intended('/');
             } else {
                 $newCustomer = Customer::create([
                     'name' => $user->name,
