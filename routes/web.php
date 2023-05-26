@@ -23,10 +23,20 @@ use App\Http\Controllers\MentorController;
 |
 */
 
-// user
+/*  USER  */
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
-Route::get('/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.course.category');
+Route::get('/dashboard/get-course-category', [DashboardController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
+Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
+// Category
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'dashboardCategory')->name('category');
+});
+// Mentor
+Route::controller(MentorController::class)->group(function () {
+    Route::get('/mentor', 'dashboardMentor')->name('mentor');
+    Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
+});
 
 
 // Auth
@@ -57,17 +67,6 @@ Route::controller(GoogleAuthController::class)->group(function () {
 
 // Course
 Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
-
-// Category
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/category', 'dashboardCategory')->name('category');
-});
-
-// Mentor
-Route::controller(MentorController::class)->group(function () {
-    Route::get('/mentor', 'dashboardMentor')->name('mentor');
-    Route::get('/get-dashboard-mentor', 'getDashboardMentor')->name('get.mentor');
-});
 
 // Student Role
 Route::group(['middleware' => ['auth']], function () {

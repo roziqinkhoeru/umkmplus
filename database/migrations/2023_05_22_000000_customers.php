@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->text('address')->nullable();
+            $table->string('profile_picture',255)->nullable();
+            $table->string('job', 255)->nullable();
             $table->string('phone', 20);
             $table->date('dob')->nullable();
             $table->timestamps();
