@@ -47,7 +47,7 @@
     /* DETAIL COURSE */
     /* header */
     .image-detail-course-header-wrapper {
-        width: 320px;
+        width: 280px;
     }
     .image-detail-course-header-wrapper.left {
         left: -128px;
@@ -92,11 +92,11 @@
     .px-header-detail-course {
         padding: 0;
     }
-    #headerDetailCourse.pt-85 {
-        padding-top: 56px;
+    #headerDetailCourse.pt-70 {
+        padding-top: 54px;
     }
-    #headerDetailCourse.pb-85 {
-        padding-bottom: 56px;
+    #headerDetailCourse.pb-70 {
+        padding-bottom: 54px;
     }
 }
 
@@ -130,6 +130,23 @@
     .mentor-image-circle {
         width: 100px;
         height: 100px;
+    }
+
+    /* DETAIL COURSE */
+    /* course */
+    .thumbnail-course-wrapper {
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+    .thumbnail-course-wrapper .popup-video {
+        width: 36px;
+        height: 36px;
+    }
+    .thumbnail-course-wrapper .popup-video i {
+        font-size: 0.875rem;
     }
 }
 
@@ -184,10 +201,16 @@
 
     /* MENTOR DETAIL */
     /* course */
-    #headerDetailCourse.pt-85 {
+    #headerDetailCourse.pt-70 {
         padding-top: 48px;
     }
-    #headerDetailCourse.pb-85 {
+    #headerDetailCourse.pb-70 {
         padding-bottom: 48px;
+    }
+
+    /* COURSE DETAIL */
+    /* course */
+    .card.card-course-detail-wrapper .card-body {
+        padding: 1.25rem 1.25rem 0.625rem;
     }
 }
