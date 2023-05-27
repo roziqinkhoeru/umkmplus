@@ -2,7 +2,7 @@
 @import url(./components.css);
 @import url(./utilities.css);
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1199px) {
     /* HOMEPAGE */
     /* testimoni */
     .testimoni-container {
@@ -19,6 +19,12 @@
     /* course */
     .col-span-3-course {
         grid-column: span 4 / span 4;
+    }
+
+    /* CHECKOUT */
+    /* checkout */
+    .card.card-checkout {
+        margin-bottom: 32px;
     }
 }
 
@@ -104,6 +110,9 @@
     /* utilities */
     .course__sidebar {
         margin-top: 0;
+    }
+    .mb-sm-22 {
+        margin-bottom: 22px;
     }
 
     /* HOMEPAGE */
@@ -212,5 +221,11 @@
     /* course */
     .card.card-course-detail-wrapper .card-body {
         padding: 1.25rem 1.25rem 0.625rem;
+    }
+
+    /* CHECKOUT */
+    /* checkout */
+    .card.card-checkout .card-body {
+        padding: 1.5rem;
     }
 }

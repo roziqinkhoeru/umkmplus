@@ -375,3 +375,24 @@
 .card.card-course-detail-wrapper .card-body {
     padding: 2rem 2rem 1.5rem;
 }
+
+/* CHECKOUT */
+/* checkout */
+.card.card-checkout {
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+.card.card-checkout .card-body {
+    padding: 2rem 2rem 2rem;
+}
+.checkout-support-method-wrapper {
+    width: 80px;
+    display: block;
+    margin-bottom: 0;
+}
+.checkout-support-method-wrapper img {
+    width: 100%;
+}
