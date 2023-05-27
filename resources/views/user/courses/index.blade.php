@@ -6,7 +6,7 @@
         <section class="pt-60 pb-50" style="background: #3083FF;">
             <div class="container">
                 <div class="d-sm-flex align-items-sm-center">
-                    <div class="me-sm-4 mb-22 mb-sm-0">
+                    <div class="mb-sm-22 me-sm-4">
                         <figure class="image-header-category-wrapper">
                             <img src="{{ asset('assets/img/dummy/good-job-hands-white.svg') }}" alt="good-job-hands-white">
                         </figure>

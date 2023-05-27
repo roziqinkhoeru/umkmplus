@@ -31,6 +31,11 @@ Route::get('/course/category/categoryName', function () {
 Route::get('/course/courseName', function () {
     return view('user.courses.detail', ['title' => '_courseName_ | UMKMPlus']);
 });
+
+Route::get('/checkout/courseName', function () {
+    return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
+});
+
 Route::get('/mentor', function () {
     return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
 });
