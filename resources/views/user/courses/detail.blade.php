@@ -63,8 +63,7 @@
                                     <p class="mb-0">Ujian</p>
                                 </div>
                                 <div class="">
-                                    <a href="/course-playing/courseName"
-                                        class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
+                                    <a href="/checkout/courseName" class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
                                         Belajar</a>
                                     <button type="button" class="tp-btn tp-btn-3 rounded-pill"><i
                                             class="fa-regular fa-cart-plus"></i></button>
