@@ -24,6 +24,31 @@ use App\Http\Controllers\MentorController;
 |
 */
 
+// user
+Route::get('/', function () {
+    return view('user.home', ['title' => 'UMKMPlus']);
+});
+Route::get('/course/category', function () {
+    return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
+});
+Route::get('/course/category/categoryName', function () {
+    return view('user.courses.index', ['title' => 'Kelas _categoryName_ | UMKMPlus']);
+});;
+Route::get('/course/courseName', function () {
+    return view('user.courses.detail', ['title' => '_courseName_ | UMKMPlus']);
+});
+
+Route::get('/checkout/courseName', function () {
+    return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
+});
+
+Route::get('/mentor', function () {
+    return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
+});
+Route::get('/mentor/mentorName', function () {
+    return view('user.mentors.detail', ['title' => 'Mentor _namaMentor_ | UMKMPlus']);
+});
+
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');

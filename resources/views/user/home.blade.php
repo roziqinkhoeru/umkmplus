@@ -18,7 +18,8 @@
                             <p>Kembangkan bisnis anda dengan belajar di umkmverse dengan bisnis expert untuk membangun
                                 bisnis anda yang profitable dan sustainable.</p>
                             <div class="">
-                                <a href="/course" class="tp-btn tp-btn-2 mb-15 me-4 rounded-pill">Mulai Belajar</a>
+                                <a href="/course/category/categoryName" class="tp-btn tp-btn-2 mb-15 me-4 rounded-pill">Mulai
+                                    Belajar</a>
                                 <a href="/mentor" class="tp-btn tp-btn-3 rounded-pill"
                                     style="height: 45px;line-height: 45px;">Jadi
                                     Mentor</a>
@@ -98,7 +99,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="row mt-30" id="courseCategory">
                 </div>
             </div>

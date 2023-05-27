@@ -32,7 +32,7 @@
                                         <a href="/about">About</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/course">Course</a>
+                                        <a href="/course/category">Course</a>
                                     </li>
                                     <li class="hover-right">
                                         <a href="/mentor">Mentor</a>
