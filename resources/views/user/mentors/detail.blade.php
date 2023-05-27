@@ -49,7 +49,7 @@
                 <h4 class="mb-32">Ada 7 Kelas dari mentor ini</h4>
                 <div class="d-grid gap-5 grid-cols-12">
                     <div class="col-span-3-course">
-                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/nameCourse">
+                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/courseName">
                             {{-- course item image --}}
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">
@@ -125,7 +125,7 @@
                         </a>
                     </div>
                     <div class="col-span-3-course">
-                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/nameCourse">
+                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/courseName">
                             {{-- course item image --}}
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">
@@ -203,7 +203,7 @@
                         </a>
                     </div>
                     <div class="col-span-3-course">
-                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/nameCourse">
+                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/courseName">
                             {{-- course item image --}}
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">
@@ -282,7 +282,7 @@
                         </a>
                     </div>
                     <div class="col-span-3-course">
-                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/nameCourse">
+                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/courseName">
                             {{-- course item image --}}
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">

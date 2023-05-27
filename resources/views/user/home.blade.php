@@ -14,7 +14,8 @@
                             <p>Kembangkan bisnis anda dengan belajar di umkmverse dengan bisnis expert untuk membangun
                                 bisnis anda yang profitable dan sustainable.</p>
                             <div class="">
-                                <a href="/course" class="tp-btn tp-btn-2 mb-15 me-4 rounded-pill">Mulai Belajar</a>
+                                <a href="/course/category/categoryName" class="tp-btn tp-btn-2 mb-15 me-4 rounded-pill">Mulai
+                                    Belajar</a>
                                 <a href="/mentor" class="tp-btn tp-btn-3 rounded-pill"
                                     style="height: 45px;line-height: 45px;">Jadi
                                     Mentor</a>
@@ -102,7 +103,7 @@
                 </div>
                 <div class="row mt-30">
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
+                        <a href="course/nameCourse"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
                                 <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
@@ -137,7 +138,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
+                        <a href="course/nameCourse"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
                                 <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
@@ -172,7 +173,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
+                        <a href="course/nameCourse"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
                                 <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
@@ -207,7 +208,7 @@
                         </a>
                     </div>
                     <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="course/name"
+                        <a href="course/nameCourse"
                             class="course__item white-bg transition-3 mb-30 d-block p-0 border border-1 border-light-2 rounded-3">
                             <div class="course-wrapper-image rounded-top-3 position-relative">
                                 <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="course-thumbnail">
@@ -262,7 +263,7 @@
                 <div class="mb-4">
                     <div class="row">
                         <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
+                            <a href="/mentor/mentorName"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="mentor-1">
@@ -286,7 +287,7 @@
                             </a>
                         </div>
                         <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
+                            <a href="/mentor/mentorName"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset('assets/img/dummy/mentor-2.jpg') }}" alt="mentor-1">
@@ -310,7 +311,7 @@
                             </a>
                         </div>
                         <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
+                            <a href="/mentor/mentorName"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset('assets/img/dummy/mentor-3.jpg') }}" alt="mentor-3">
@@ -334,7 +335,7 @@
                             </a>
                         </div>
                         <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
+                            <a href="/mentor/mentorName"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset('assets/img/dummy/mentor-4.jpg') }}" alt="mentor-4">

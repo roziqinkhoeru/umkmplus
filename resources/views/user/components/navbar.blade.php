@@ -17,7 +17,7 @@
                             <nav id="mobile-menu">
                                 <ul>
                                     <li class="">
-                                        <a href="/course-category">Kategori Kelas</a>
+                                        <a href="/course/category">Kategori Kelas</a>
                                     </li>
                                     <li class="">
                                         <a href="/mentor">Mentor</a>

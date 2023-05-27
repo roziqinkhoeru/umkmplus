@@ -43,7 +43,8 @@
                                 <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
                                     pariatur quod
                                     adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="/course/category/categoryName"
+                                        class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
@@ -58,7 +59,8 @@
                                 <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
                                     pariatur quod
                                     adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="/course/category/categoryName"
+                                        class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
@@ -73,7 +75,8 @@
                                 <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
                                     pariatur quod
                                     adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="/course/category/categoryName"
+                                        class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
@@ -88,7 +91,8 @@
                                 <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
                                     pariatur quod
                                     adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="/course/category/categoryName"
+                                        class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
@@ -103,7 +107,8 @@
                                 <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
                                     pariatur quod
                                     adipisci laboriosam voluptatum.</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="/course/category/categoryName"
+                                        class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>
