@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('midtrans_histrories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->text('address')->nullable();
-            $table->string('profile_picture',255)->nullable();
-            $table->string('job', 255)->nullable();
-            $table->string('phone', 20);
-            $table->date('dob')->nullable();
+            $table->uuid('course_enroll_id');
+            $table->foreign('course_enroll_id')->references('id')->on('course_enrolls')->onUpdate('cascade');
+            $table->string('transaction_status', 50);
+            $table->text('payload');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('midtrans_histrories');
     }
 };

@@ -80,9 +80,32 @@
     <script src="{{ asset('assets/template/js/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('assets/template/js/ajax-form.js') }}"></script>
     <script src="{{ asset('assets/template/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- script custom --}}
     @yield('script')
+    <script>
+
+    $(document).ready(function() {
+        getCart();
+    });
+
+    function getCart() {
+        // event.preventDefault();
+        $.ajax({
+            url: "{{ route('get.cart') }}",
+            type: "GET",
+            success: function(response) {
+                if (response.data.countCart > 0) {
+                    $('#cart').html(`<i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i><span
+                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
+                                                <span class="visually-hidden">New alerts</span>
+                                            </span>`);
+                }
+            }
+        });
+    }
+    </script>
 </body>
 
 </html>

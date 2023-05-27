@@ -17,7 +17,7 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            return redirect()->intended('home');
+            return redirect()->intended();
         }
 
         $data =  [
@@ -51,10 +51,10 @@ class LoginController extends Controller
 
             $credentials = $request->only('username', 'password');
             if (Auth::attempt($credentials)) {
-                $redirect = redirect()->intended('register');
+                $redirect = redirect()->intended('/');
                 $request->session()->regenerate();
                 return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirect->getTargetUrl()], 'Authenticated') : $redirect;
-                // return redirect()->intended('dashboard');
+                // return redirect()->intended();
             } else {
                 $msg = 'Mohon maaf username/password Anda tidak sesuai';
                 return $request->ajax()

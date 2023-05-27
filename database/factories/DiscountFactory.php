@@ -30,11 +30,12 @@ class DiscountFactory extends Factory
         $customerRecord = [
             'name' => $this->faker->name(),
             'address' => $this->faker->address(),
+            'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+            'job' => $this->faker->jobTitle(),
             'phone' => $this->faker->phoneNumber(),
             'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years')
         ];
         $customer = Customer::create($customerRecord);
-        print($customer->id . "\n");
 
         // User factory
         $userRecord = [
@@ -55,12 +56,12 @@ class DiscountFactory extends Factory
         $roleUser = RoleUser::create($roleUserRecord);
 
         // CustomerSpecialist factory
-        if ($roleUserRecord['role_id'] == 2) {
+        if ($roleUserRecord['role_id'] == 3) {
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([1, 2]),
             ];
-        } else if ($roleUserRecord['role_id'] == 3) {
+        } else if ($roleUserRecord['role_id'] == 2) {
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([3, 4, 5]),
@@ -87,7 +88,7 @@ class DiscountFactory extends Factory
                     'category_id' => $this->faker->numberBetween(1, 3),
                     'title' => $this->faker->sentence(3),
                     'description' => $this->faker->paragraph(3),
-                    'thumbnail' => $this->faker->imageUrl(),
+                    'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
                 ];
                 $course = Course::create($courseRecord);
@@ -117,16 +118,18 @@ class DiscountFactory extends Factory
             // Course enroll factory
             for ($i = 0; $i < 3; $i++) {
                 # code...
-                $courses = Course::pluck('id')->toArray();
+                $coursesID = Course::pluck('id')->toArray();
+                $course = Course::find($this->faker->randomElement($coursesID));
                 $courseEnrollRecord = [
+                    'id' => $this->faker->unique()->uuid(),
                     'student_id' => $customer->id,
-                    'course_id' => $this->faker->randomElement($courses),
+                    'course_id' => $course->id,
                     'status' => $this->faker->randomElement(['menunggu pembayaran', 'proses', 'aktif', 'selesai']),
-                    'payment_proof' => $this->faker->imageUrl(),
                     'upto_no_module' => 1,
                     'upto_no_media' => 1,
                     'started_at' => $this->faker->dateTimeBetween('-1 years', '-4 months'),
                     'finished_at' => $this->faker->dateTimeBetween('-4 months', 'now'),
+                    'total_price' => $course->price,
                 ];
                 $courseEnroll = CourseEnroll::create($courseEnrollRecord);
             }
