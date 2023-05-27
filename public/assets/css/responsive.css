@@ -23,6 +23,11 @@
 }
 
 @media screen and (max-width: 990px) {
+    /* utilities */
+    .course__tab-inner {
+        margin-top: 40px;
+    }
+
     /* HOMEPAGE */
     /* header */
     .slider-height-2 {
@@ -66,6 +71,11 @@
 }
 
 @media screen and (max-width: 575px) {
+    /* utilities */
+    .course__sidebar {
+        margin-top: 0;
+    }
+
     /* HOMEPAGE */
     /* header */
     .slider-height-2 {
@@ -94,6 +104,29 @@
 }
 
 @media screen and (max-width: 479px) {
+    /* utilities */
+    .pt-60 {
+        padding-top: 48px;
+    }
+    .pt-70 {
+        padding-top: 64px;
+    }
+    .pt-80 {
+        padding-top: 72px;
+    }
+    .pb-60 {
+        padding-bottom: 48px;
+    }
+    .pb-70 {
+        padding-bottom: 64px;
+    }
+    .pb-80 {
+        padding-bottom: 72px;
+    }
+    .text-4xl {
+        font-size: 2rem;
+    }
+
     /* HOMEPAGE */
     /* header */
     .slider-height-2 {
@@ -104,6 +137,13 @@
     }
     .brand-logo-user {
         height: 24px;
+    }
+
+    /* COURSE */
+    /* header */
+    .image-header-category-wrapper {
+        width: 64px;
+        height: 64px;
     }
 
     /* MENTOR DETAIL */
