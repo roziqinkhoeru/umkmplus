@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Cart;
 use App\Models\carts;
 use Illuminate\Http\Request;
@@ -14,19 +15,19 @@ class CartController extends Controller
     public function getCart()
     {
         $carts = Cart::with('course')->where('student_id', auth()->user()->customer_id)->get();
+        $countCart = Cart::countCart();
 
         if ($carts) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Berhasil mendapatkan data keranjang',
-                'data' => $carts
-            ], 200);
+            return ResponseFormatter::success([
+                'carts' => $carts,
+                'countCart' => $countCart
+            ], 'Berhasil mendapatkan data keranjang');
         }
 
-        return response()->json([
-            'success' => false,
-            'message' => 'Gagal mendapatkan data keranjang',
-        ], 500);
+        return ResponseFormatter::error([
+            'carts' => null,
+            'countCart' => null
+        ], 'Gagal mendapatkan data keranjang', 500);
     }
 
     /**
@@ -56,7 +57,7 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(carts $carts)
+    public function destroy(Cart $carts)
     {
         $cart = Cart::destroy($carts->id);
 

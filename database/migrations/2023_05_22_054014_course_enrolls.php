@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_enrolls', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade');
             $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
-            $table->enum('status', ['menunggu pembayaran', 'proses', 'aktif', 'selesai']);
-            $table->string('payment_proof', 255);
+            $table->foreignId('discount_id')->nullable()->constrained('discounts')->onUpdate('restrict')->onDelete('restrict');
+            $table->enum('status', ['menunggu pembayaran', 'proses', 'aktif', 'selesai'])->default('menunggu pembayaran');
             $table->integer('upto_no_module')->default(0);
             $table->integer('upto_no_media')->default(0);
-            $table->date('started_at');
+            $table->date('started_at')->nullable();
             $table->date('finished_at')->nullable();
+            $table->bigInteger('total_price');
             $table->timestamps();
         });
     }

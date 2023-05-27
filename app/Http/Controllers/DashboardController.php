@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Customer;
@@ -17,7 +18,7 @@ class DashboardController extends Controller
         $categories = Category::all();
         $testimonials = Testimonial::with('student')->where('status', 'tampilkan')->limit(3)->get();
         if (Auth::check()) {
-            $countCart = Customer::countCart();
+            $countCart = Cart::countCart();
             $data =
                 [
                     'title' => 'Dashboard | UMKM Plus',

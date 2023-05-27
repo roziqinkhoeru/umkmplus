@@ -118,16 +118,18 @@ class DiscountFactory extends Factory
             // Course enroll factory
             for ($i = 0; $i < 3; $i++) {
                 # code...
-                $courses = Course::pluck('id')->toArray();
+                $coursesID = Course::pluck('id')->toArray();
+                $course = Course::find($this->faker->randomElement($coursesID));
                 $courseEnrollRecord = [
+                    'id' => $this->faker->unique()->uuid(),
                     'student_id' => $customer->id,
-                    'course_id' => $this->faker->randomElement($courses),
+                    'course_id' => $course->id,
                     'status' => $this->faker->randomElement(['menunggu pembayaran', 'proses', 'aktif', 'selesai']),
-                    'payment_proof' => $this->faker->imageUrl(),
                     'upto_no_module' => 1,
                     'upto_no_media' => 1,
                     'started_at' => $this->faker->dateTimeBetween('-1 years', '-4 months'),
                     'finished_at' => $this->faker->dateTimeBetween('-4 months', 'now'),
+                    'total_price' => $course->price,
                 ];
                 $courseEnroll = CourseEnroll::create($courseEnrollRecord);
             }
