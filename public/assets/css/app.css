@@ -299,3 +299,34 @@
 .col-span-3-course {
     grid-column: span 3 / span 3;
 }
+
+/* DETAIL COURSE */
+/* header */
+.image-detail-course-header-wrapper {
+    margin-bottom: 0;
+    position: absolute;
+    width: 400px;
+    top: 50%;
+}
+.image-detail-course-header-wrapper img {
+    width: 100%;
+}
+.image-detail-course-header-wrapper.left {
+    left: -128px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+.image-detail-course-header-wrapper.right {
+    right: -128px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+.px-header-detail-course {
+    padding: 0 8rem;
+}
