@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MentorController;
 
@@ -71,10 +72,19 @@ Route::controller(MentorController::class)->group(function () {
 // Student Role
 Route::group(['middleware' => ['auth']], function () {
     // Cart
-    Route::group(['middleware' => ['checkRole:admin,student']], function () {
+    Route::group(['middleware' => ['checkRole:student']], function () {
         Route::controller(CartController::class)->group(function () {
             Route::post('/cart', 'store')->name('cart.store');
             Route::get('/get-cart', 'getCart')->name('get.cart');
+        });
+    });
+
+    // Course Enroll
+    Route::group(['middleware' => ['checkRole:student']], function () {
+        Route::controller(CourseEnrollController::class)->group(function () {
+            Route::post('/checkout/{course:title}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
+            Route::get('/checkout/{course:title}', 'getCheckoutCourse')->name('course.get.checkout');
+            Route::post('/checkout/{course:title}', 'checkoutCourse')->name('course.checkout');
         });
     });
 });
