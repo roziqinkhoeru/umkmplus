@@ -22,11 +22,20 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 Route::get('/', function () {
     return view('user.home', ['title' => 'UMKMPlus']);
 });
-Route::get('/course-category', function () {
+Route::get('/course/category', function () {
     return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
+});
+Route::get('/course/category/categoryName', function () {
+    return view('user.courses.index', ['title' => 'Kelas _categoryName_ | UMKMPlus']);
+});;
+Route::get('/course/courseName', function () {
+    return view('user.courses.detail', ['title' => '_courseName_ | UMKMPlus']);
 });
 Route::get('/mentor', function () {
     return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
+});
+Route::get('/mentor/mentorName', function () {
+    return view('user.mentors.detail', ['title' => 'Mentor _namaMentor_ | UMKMPlus']);
 });
 
 // Auth
