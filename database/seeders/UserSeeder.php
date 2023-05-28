@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                 'job' => "Admin",
                 'phone' => "0123456789",
-                'dob' => "2000-01-01"
+                'dob' => "2000-01-01",
             ],
             [
                 'name' => "Mentor",
@@ -34,7 +34,8 @@ class UserSeeder extends Seeder
                 'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                 'job' => "Mentor",
                 'phone' => "0123456789",
-                'dob' => "2000-01-01"
+                'dob' => "2000-01-01",
+                'about' => "Inventore reprehenderit aut doloremque voluptatem. Rem nihil voluptatem voluptatem sunt voluptas. Eos debitis et amet ut. Impedit aperiam ducimus et totam qui deleniti."
             ],
             [
                 'name' => "Student",

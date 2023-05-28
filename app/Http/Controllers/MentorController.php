@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,4 +45,34 @@ class MentorController extends Controller
             'data' => $mentors
         ]);
     }
+
+    public function show(Customer $customer)
+    {
+        $mentor = Customer::join('users', 'users.customer_id', '=', 'customers.id')
+            ->join('role_users', 'role_users.user_id', '=', 'users.id')->whereName($customer->name)->first();
+        if ($mentor->role_id != '2') {
+            return abort(404);
+        }
+        $countCourse = Course::where('mentor_id', $mentor->id)->count();
+        $countStudent = Customer::leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
+        ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
+        ->where('courses.mentor_id', $mentor->id)
+        ->where(function ($query) {
+            $query->where('course_enrolls.status', 'aktif')
+                ->orWhere('course_enrolls.status', 'selesai');
+        })
+        ->count();
+
+        $mentor->joinDate = date_format($mentor->created_at, 'd F Y');
+        $data =
+            [
+                'title' => 'Mentor ' . $mentor->name . ' | UMKMPlus',
+                'mentor' => $mentor,
+                'countCourse' => $countCourse,
+                'countStudent' => $countStudent,
+            ];
+
+        return view('user.mentors.detail', $data);
+    }
+
 }

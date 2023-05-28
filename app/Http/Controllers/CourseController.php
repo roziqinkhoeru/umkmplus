@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Course;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,21 +19,20 @@ class CourseController extends Controller
         $courses = Course::with('category')->where('mentor_id', $userID)->get();
 
         $data =
-        [
-            'title' => 'Kelas Saya | UMKM Plus',
-            'courses' => $courses,
-        ];
+            [
+                'title' => 'Kelas Saya | UMKM Plus',
+                'courses' => $courses,
+            ];
 
         return view('courses.mentor', $data);
     }
 
     public function getCourseCategory(Request $request)
     {
-        $courses = Course::with('mentor', 'category',)
-            ->withCount("modules", "courseEnrolls")
+        $courses = Course::dataMentorCategory()
             ->whereHas('category', function ($query) use ($request) {
                 $query->where('slug', $request->category);
-            })->orderBy("course_enrolls_count", "desc")
+            })
             ->limit(4)
             ->get();
         return response()->json([
@@ -40,15 +41,29 @@ class CourseController extends Controller
         ]);
     }
 
+
+    public function getCourseMentorCategory(Customer $customer)
+    {
+        $courses = Course::dataMentorCategory()
+            ->whereMentorId($customer->id)
+            ->limit(4)
+            ->get();
+
+        return ResponseFormatter::success(
+            $courses,
+            'Data list kelas berhasil diambil'
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         $data =
-        [
-            'title' => 'Tambah Kelas | UMKM Plus',
-        ];
+            [
+                'title' => 'Tambah Kelas | UMKM Plus',
+            ];
 
         return view('courses.create', $data);
     }
