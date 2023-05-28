@@ -1,0 +1,7 @@
+## USER PAGE
+❎/blog
+❎/blog/:blogName
+❎/profile/:username
+❎/profile/mentor/:username
+
+## ADMIN PAGE
