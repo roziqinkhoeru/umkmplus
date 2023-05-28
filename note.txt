@@ -1,5 +1,6 @@
 ## USER PAGE
 ❎/profile/:username
 ❎/profile/mentor/:username
+❎/course-playing/:courseName
 
 ## ADMIN PAGE

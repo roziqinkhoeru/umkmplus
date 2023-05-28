@@ -243,11 +243,17 @@ label.error {
 .gap-8 {
     grid-gap: 32px !important;
 }
+.column-gap-15 {
+    column-gap: 60px !important;
+}
 .col-span-2 {
     grid-column: span 2 / span 2;
 }
 .col-span-4 {
     grid-column: span 4 / span 4;
+}
+.col-span-full {
+    grid-column: 1 / -1;
 }
 
 /* others */
