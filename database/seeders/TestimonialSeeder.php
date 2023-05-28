@@ -16,9 +16,8 @@ class TestimonialSeeder extends Seeder
         $courseEnrolls = \App\Models\CourseEnroll::all();
         $i = 0;
         foreach ($courseEnrolls as $courseEnroll) {
-            # code...
             if ($courseEnroll->status == "selesai") {
-                if ($i % 5 == 0 && $i != 0) {
+                if ($i++ % 5 == 0) {
                     $status = 'tampilkan';
                 } else {
                     $status = 'sembunyikan';
