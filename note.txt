@@ -1,0 +1,5 @@
+## USER PAGE
+❎/profile/:username
+❎/profile/mentor/:username
+
+## ADMIN PAGE
