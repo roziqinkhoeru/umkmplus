@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('profile_picture',255)->nullable();
             $table->string('job', 255)->nullable();
+            $table->text('about')->nullable();
             $table->string('phone', 20);
             $table->date('dob')->nullable();
             $table->boolean('status')->nullable();

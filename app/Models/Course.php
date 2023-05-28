@@ -35,4 +35,11 @@ class Course extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public static function scopeDataMentorCategory($query)
+    {
+        return $query->with('mentor', 'category')
+        ->withCount("modules", "courseEnrolls")
+        ->orderBy("course_enrolls_count", "desc");
+    }
 }

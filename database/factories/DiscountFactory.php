@@ -65,6 +65,7 @@ class DiscountFactory extends Factory
         } else if ($roleUserRecord['role_id'] == 2) {
             $customer->update([
                 'status' => 1,
+                'about' => $this->faker->paragraph(3),
             ]);
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,

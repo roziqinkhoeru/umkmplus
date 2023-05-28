@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MentorController;
+use Symfony\Component\Routing\RouteCompiler;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +41,6 @@ Route::get('/course/courseName', function () {
 
 Route::get('/checkout/courseName', function () {
     return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
-});
-
-Route::get('/mentor', function () {
-    return view('user.mentors.index', ['title' => 'Mentor Terpopuler | UMKMPlus']);
-});
-Route::get('/mentor/mentorName', function () {
-    return view('user.mentors.detail', ['title' => 'Mentor _namaMentor_ | UMKMPlus']);
 });
 
 Route::get('/blog', function () {
@@ -83,7 +77,10 @@ Route::controller(GoogleAuthController::class)->group(function () {
 });
 
 // Course
-Route::get('/course/mentor', [CourseController::class, 'courseMentor'])->name('course.mentor');
+Route::controller(CourseController::class)->group(function () {
+    Route::get('/course/mentor', 'courseMentor')->name('course.mentor');
+    Route::get('/course/mentor/{customer:name}', 'getCourseMentorCategory')->name('course.mentor.category');
+});
 
 
 /*  USER  */
@@ -99,6 +96,7 @@ Route::controller(CategoryController::class)->group(function () {
 Route::controller(MentorController::class)->group(function () {
     Route::get('/mentor', 'dashboardMentor')->name('mentor');
     Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
+    Route::get('/mentor/{customer:name}', 'show')->name('mentor.show');
 });
 
 // Student Role
