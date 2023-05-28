@@ -237,6 +237,12 @@ label.error {
 .gap-6 {
     grid-gap: 24px !important;
 }
+.gap-7 {
+    grid-gap: 28px !important;
+}
+.gap-8 {
+    grid-gap: 32px !important;
+}
 .col-span-2 {
     grid-column: span 2 / span 2;
 }
@@ -286,6 +292,12 @@ label.error {
     -ms-transform: translateX(0px);
     -o-transform: translateX(0px);
     -webkit-animation: float2 10s ease-out infinite;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .line-clamp-3-hover {
     display: -webkit-box;
