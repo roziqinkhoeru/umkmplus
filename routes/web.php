@@ -49,6 +49,10 @@ Route::get('/mentor/mentorName', function () {
     return view('user.mentors.detail', ['title' => 'Mentor _namaMentor_ | UMKMPlus']);
 });
 
+Route::get('/blog', function () {
+    return view('user.blog.index', ['title' => 'Blog | UMKMPlus']);
+});
+
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
