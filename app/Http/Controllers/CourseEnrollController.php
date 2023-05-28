@@ -15,15 +15,31 @@ use Illuminate\Support\Str;
 
 class CourseEnrollController extends Controller
 {
+    public $serverKey;
+
+    public function __construct()
+    {
+        $this->serverKey = config('midtrans.server_key');
+    }
     public function getCheckoutCourse(Course $course)
     {
+        $student = Auth::user()->customer;
+        $status = "";
+        $dataTransaction = null;
+        $courseEnroll = CourseEnroll::whereStudentId($student->id)->whereCourseId($course->id)->first();
+        if ($courseEnroll && ($courseEnroll->status == 'proses' || $courseEnroll->status == 'menunggu pembayaran')) {
+            $status = "pending";
+            $dataTransaction = Http::withBasicAuth($this->serverKey, '')->get('https://api.sandbox.midtrans.com/v2/' . $courseEnroll->id . '/status');
+        }
         $data =
             [
                 'title' => 'Pembelian Kelas | UMKM Plus',
                 'course' => $course,
+                'status' => $status,
+                'dataTransaction' => $dataTransaction,
             ];
 
-        return view('user.courseEnroll.enroll', $data);
+        return view('user.courseEnroll.checkout', $data);
     }
 
     public function getDiscountCourse(Request $request, Course $course)
@@ -66,24 +82,6 @@ class CourseEnrollController extends Controller
 
             $orderID = Str::uuid()->toString();
             $discount_id = $request->discountID;
-            // $discount_id = null;
-            // $discount_code = $request->discount;
-            // if ($discount_code) {
-            //     $discount = Discount::whereCode($discount_code)->first();
-            //     if (!$discount || $discount->mentor_id != $course->mentor_id) {
-            //         return ResponseFormatter::error(
-            //             [
-            //                 'message' => 'Kode diskon tidak valid',
-            //             ],
-            //             'Kode diskon tidak valid',
-            //             400
-            //         );
-            //     }
-            //     $discount_id = $discount->id;
-            //     $grossAmount = intval($course->price * $discount->discount / 100);
-            // } else {
-            //     $grossAmount = $course->price;
-            // }
             $grossAmount = $request->priceDiscount;
 
             $params = array(
@@ -147,16 +145,17 @@ class CourseEnrollController extends Controller
     }
     public function midtransCallback(Request $request)
     {
-        $isProduction = config('midtrans.is_production');
-        $serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        $notif = new \Midtrans\Notification();
 
-        $verifSignatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+        $verifSignatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . \Midtrans\Config::$serverKey);
 
         if ($verifSignatureKey == $request->signature_key) {
-            $transaction = $request->transaction_status;
-            $type = $request->payment_type;
-            $order_id = $request->order_id;
-            $fraud = $request->fraud_status;
+            $transaction = $notif->transaction_status;
+            $type = $notif->payment_type;
+            $order_id = $notif->order_id;
+            $fraud = $notif->fraud_status;
             $courseEnroll = CourseEnroll::find($order_id);
 
             if ($transaction == 'capture') {
@@ -180,5 +179,16 @@ class CourseEnrollController extends Controller
                 $courseEnroll->delete();
             }
         }
+    }
+
+    public function destroy(CourseEnroll $courseEnroll)
+    {
+        $courseEnroll->delete();
+        return ResponseFormatter::success(
+            [
+                'message' => 'Transaksi berhasil dibatalkan',
+            ],
+            'Transaksi berhasil dibatalkan'
+        );
     }
 }

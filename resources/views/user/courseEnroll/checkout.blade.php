@@ -16,33 +16,38 @@
                                         src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
                                 </figure>
                                 <h3 class="mb-10">{{ $course->title }} </h3>
-                                <p class="mb-15" id="price">{{ $course->price }} </p>
-                                <p class="mb-15" id="priceDiscount">{{ $course->price }}</p>
-                                <form action="{{ url('/checkout/' . $course->title . '/getDiscount') }}" method="POST"
-                                    id="discountCourse">
-                                    @csrf
-                                    <div class="sign__input-wrapper mb-15">
-                                        <label for="password">
-                                            <h5>Voucher</h5>
-                                        </label>
-                                        <div class="d-flex">
-                                            <div class="sign__input">
-                                                <i class="fal fa-lock icon-form"></i>
-                                                <div class="toggle-eye-wrapper"></div>
-                                                <input type="text" placeholder="Masukan voucher" value=""
-                                                    name="discount" id="discount" class="input-form">
+                                @if ($status == '')
+                                    <p class="mb-15" id="price">{{ $course->price }} </p>
+                                    <p class="mb-15" id="priceDiscount">{{ $course->price }}</p>
+                                    <form action="{{ url('/checkout/' . $course->title . '/getDiscount') }}" method="POST"
+                                        id="discountCourse">
+                                        @csrf
+                                        <div class="sign__input-wrapper mb-15">
+                                            <label for="password">
+                                                <h5>Voucher</h5>
+                                            </label>
+                                            <div class="d-flex">
+                                                <div class="sign__input">
+                                                    <i class="fal fa-lock icon-form"></i>
+                                                    <div class="toggle-eye-wrapper"></div>
+                                                    <input type="text" placeholder="Masukan voucher" value=""
+                                                        name="discount" id="discount" class="input-form">
+                                                </div>
+                                                <button type="submit" id="discount-button"
+                                                    class="tp-btn rounded-pill">Klaim</button>
                                             </div>
-                                            <button type="submit" id="discount-button"
-                                                class="tp-btn rounded-pill">Klaim</button>
                                         </div>
-                                    </div>
-                                </form>
-                                <form action="{{ url('/checkout/' . $course->title) }}" method="POST" id="checkoutCourse">
-                                    @csrf
-                                    <input hidden type="text" placeholder="Masukan voucher" value="null"
-                                        name="discountID" id="discountID" class="input-form">
-                                    <button type="submit" id="pay-button" class="tp-btn w-100 rounded-pill">Bayar</button>
-                                </form>
+                                    </form>
+                                    <form action="{{ url('/checkout/' . $course->title) }}" method="POST"
+                                        id="checkoutCourse">
+                                        @csrf
+                                        <input hidden type="text" placeholder="Masukan voucher" value="null"
+                                            name="discountID" id="discountID" class="input-form">
+                                        <button type="submit" id="pay-button"
+                                            class="tp-btn w-100 rounded-pill">Bayar</button>
+                                    </form>
+                                @elseif($status == 'pending')
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -104,11 +109,8 @@
                 }
             });
         })
-        $("#checkoutCourse").submit(function(e) {
-            e.preventDefault();
-            $('#pay-button').html(
-                '<i class="fas fa-circle-notch text-lg spinners"></i>'
-            );
+
+        function checkoutPayment() {
             $.ajax({
                 type: "POST",
                 url: "{{ url('/checkout/' . $course->title) }}",
@@ -136,21 +138,14 @@
                             alert("payment failed!");
                         },
                         onClose: function() {
-                            Swal.fire({
-                                title: 'Yakin?',
-                                text: "Kamu menutup popup tanpa menyelesaikan pembayaran!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Ya, keluar!',
-                                cancelButtonText: 'Tidak, lanjutkan!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $('#pay-button').html(
-                                        'Bayar'
-                                    ).prop("disabled", false);
-                                }
+                            Swal.fire('Keluar dari pembayaran')
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('/checkout/') }}" +
+                                    "/" + response.data.orderID,
+                                data: {
+                                    _token: "{{ csrf_token() }}"
+                                },
                             })
                         }
                     })
@@ -175,6 +170,13 @@
                     return false;
                 }
             })
+        }
+        $("#checkoutCourse").submit(function(e) {
+            e.preventDefault();
+            $('#pay-button').html(
+                '<i class="fas fa-circle-notch text-lg spinners"></i>'
+            );
+            checkoutPayment();
         })
     </script>
 @endsection

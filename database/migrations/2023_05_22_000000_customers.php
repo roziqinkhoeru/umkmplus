@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('job', 255)->nullable();
             $table->string('phone', 20);
             $table->date('dob')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
