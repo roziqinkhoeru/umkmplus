@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('thumbnail', 255);
             $table->integer('price');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

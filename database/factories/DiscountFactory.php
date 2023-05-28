@@ -57,11 +57,15 @@ class DiscountFactory extends Factory
 
         // CustomerSpecialist factory
         if ($roleUserRecord['role_id'] == 3) {
+
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([1, 2]),
             ];
         } else if ($roleUserRecord['role_id'] == 2) {
+            $customer->update([
+                'status' => 1,
+            ]);
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
                 'specialist_id' => $this->faker->randomElement([3, 4, 5]),
@@ -90,6 +94,7 @@ class DiscountFactory extends Factory
                     'description' => $this->faker->paragraph(3),
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
+                    'status' => 1,
                 ];
                 $course = Course::create($courseRecord);
 

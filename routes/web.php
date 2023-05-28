@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/checkout/{course:title}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
             Route::get('/checkout/{course:title}', 'getCheckoutCourse')->name('course.get.checkout');
             Route::post('/checkout/{course:title}', 'checkoutCourse')->name('course.checkout');
+            Route::delete('/checkout/{courseEnroll:id}', 'destroy');
         });
     });
 });
