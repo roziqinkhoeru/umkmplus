@@ -206,7 +206,7 @@
             // Mengubah URL tanpa melakukan reload halaman
             history.pushState(null, null, newUrl);
 
-            $("#courseCategory").html(`<p class="text-center text-base col-span-full">Loading...</p>`);
+            $("#courseCategory").html(`<p class="text-center text-base col-span-full pt-65 pb-25">Loading...</p>`);
 
             $.ajax({
                 type: "GET",
@@ -319,7 +319,7 @@
         }
 
         function mentorPopular() {
-            $("#mentorPopular").html(`<p class="text-center text-base">Loading...</p>`);
+            $("#mentorPopular").html(`<p class="text-center text-base pt-30 pb-35">Loading...</p>`);
             $.ajax({
                 type: "GET",
                 url: "{{ route('get.dashboard.mentor.popular') }}",
