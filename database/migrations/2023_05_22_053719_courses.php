@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('thumbnail', 255);
             $table->integer('price');
             $table->boolean('status')->default(false);
+            $table->integer('discount')->nullable();
             $table->timestamps();
         });
     }

@@ -96,6 +96,7 @@ class DiscountFactory extends Factory
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
                     'status' => 1,
+                    'discount' => 5
                 ];
                 $course = Course::create($courseRecord);
 

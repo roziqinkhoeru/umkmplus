@@ -98,6 +98,8 @@ class CourseController extends Controller
             $courses->orderBy('price', 'asc');
         } else if ($request->expensiveCourse == "true") {
             $courses->orderBy('price', 'desc');
+        } else if ($request->freeCourse == "true") {
+            $courses->where('price', 0);
         }
         $courses = $courses->get();
 
@@ -135,10 +137,13 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $course->load('mentor', 'modules', 'modules.mediaModules')->loadCount('modules');
+        $course->load('mentor', 'modules', 'modules.mediaModules', 'courseEnrolls')->loadCount('modules');
         $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
         $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
         $countStudent = Customer::countStudent($course->mentor_id);
+        if (Auth::check()) {
+            $courseEnroll = $course->courseEnrolls()->where('student_id', Auth::user()->id)->first();
+        }
         $countMentor = [
             "countCourse" => $countCourse,
             "countStudent" => $countStudent
@@ -148,7 +153,8 @@ class CourseController extends Controller
             'title' => $course->title . ' | UMKM Plus',
             'course' => $course,
             'countMediaModule' => $countMediaModule,
-            'countMentor' => $countMentor
+            'countMentor' => $countMentor,
+            'courseEnroll' => $courseEnroll ?? null
         ];
 
         return view('user.courses.detail', $data);

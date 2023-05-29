@@ -186,6 +186,7 @@
                     popular: $("#popular").is(":checked"),
                     cheapestCourse: $("#cheapestCourse").is(":checked"),
                     expensiveCourse: $("#expensiveCourse").is(":checked"),
+                    freeCourse: $("#freeCourse").is(":checked"),
                 },
                 success: function(response) {
                     let htmlString = ``;

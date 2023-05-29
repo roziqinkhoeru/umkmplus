@@ -47,7 +47,7 @@
                         <div class="card card-course-detail-wrapper">
                             <div class="card-body">
                                 <h4 class="text-2xl mb-10">{{ $course->title }}</h4>
-                                <h4 class="mb-10 text-green">{{ $course->price }}</h4>
+                                <h4 class="mb-10 text-green">Rp. {{ number_format($course->price, 0, ',', '.') }}</h4>
                                 <p class="mb-10 text-base">Kelas terdiri dari</p>
                                 <div class="d-flex align-items-center mb-5">
                                     <i class="text-tp-theme-1 fa-regular fa-book-open me-2 text-base"></i>
@@ -62,10 +62,16 @@
                                     <p class="mb-0">Ujian</p>
                                 </div>
                                 <div class="">
-                                    <a href="{{ url('/checkout/' . $course->title) }}" class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
-                                        Belajar</a>
-                                    <button type="button" class="tp-btn tp-btn-3 rounded-pill"><i
-                                            class="fa-regular fa-cart-plus"></i></button>
+                                    @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
+                                        <a href="{{ url('/course/' . $course->title) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
+                                            Belajar</a>
+                                    @else
+                                        <a href="{{ url('/checkout/' . $course->title) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
+                                        <button type="button" class="tp-btn tp-btn-3 rounded-pill"><i
+                                                class="fa-regular fa-cart-plus"></i></button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -158,11 +164,13 @@
                                     <p class="mb-2 text-center">{{ $course->mentor->job }}</p>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="me-3 d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">school</i>{{ $countMentor['countStudent'] }}<span
+                                            <i
+                                                class="material-symbols-rounded me-2">school</i>{{ $countMentor['countStudent'] }}<span
                                                 class="text-gray ms-1">Students</span>
                                         </p>
                                         <p class="d-flex align-items-center mb-0">
-                                            <i class="material-symbols-rounded me-2">group</i>{{ $countMentor['countCourse'] }}<span
+                                            <i
+                                                class="material-symbols-rounded me-2">group</i>{{ $countMentor['countCourse'] }}<span
                                                 class="text-gray ms-1">Kelas</span>
                                         </p>
                                     </div>

@@ -104,9 +104,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/checkout/{course:title}', 'getCheckoutCourse')->name('course.get.checkout');
             Route::post('/checkout/{course:title}', 'checkoutCourse')->name('course.checkout');
             Route::delete('/checkout/{courseEnroll:id}', 'destroy');
-            Route::get('/checkout/courseName', function () {
-                return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
-            });
         });
     });
 });

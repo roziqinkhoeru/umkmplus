@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\Discount;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,13 +40,16 @@ class CourseEnrollController extends Controller
                 'dataTransaction' => $dataTransaction,
             ];
 
-        return view('user.courseEnroll.checkout', $data);
+        return view('user.checkout', $data);
     }
 
     public function getDiscountCourse(Request $request, Course $course)
     {
         $discount = Discount::whereCode($request->discount_code)->first();
         $priceDiscount = $course->price;
+        if ($course->discount > 0) {
+            $priceDiscount = ceil($priceDiscount * (1 - $course->discount/100));
+        }
         if (!$discount || $discount->mentor_id != $course->mentor_id) {
             return ResponseFormatter::error(
                 [
@@ -55,12 +59,12 @@ class CourseEnrollController extends Controller
                 400
             );
         } else {
-            $priceDiscount = intval($course->price * $discount->discount / 100);
+            $priceDiscount = intval($priceDiscount * $discount->discount / 100);
         }
         return ResponseFormatter::success(
             [
                 'priceDiscount' => $priceDiscount,
-                'discountID' => $discount->id,
+                'discount' => $discount,
             ],
             'Kode diskon berhasil didapatkan'
         );
@@ -82,7 +86,7 @@ class CourseEnrollController extends Controller
 
             $orderID = Str::uuid()->toString();
             $discount_id = $request->discountID;
-            $grossAmount = $request->priceDiscount;
+            $grossAmount = $request->priceCheckout;
 
             $params = array(
                 'transaction_details' => [
@@ -134,7 +138,7 @@ class CourseEnrollController extends Controller
                 [
                     'snapToken' => $snapToken,
                     'orderID' => $orderID,
-                    'priceDiscount' => $grossAmount,
+                    'priceCheckout' => $grossAmount,
                 ];
 
             return response()->json(['data' => $data,]);
@@ -168,12 +172,14 @@ class CourseEnrollController extends Controller
                     } else {
                         $courseEnroll->update([
                             'status' => 'aktif',
+                            'started_at' => Carbon::now(),
                         ]);
                     }
                 }
             } else if ($transaction == 'settlement') {
                 $courseEnroll->update([
                     'status' => 'aktif',
+                    'started_at' => Carbon::now(),
                 ]);
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
