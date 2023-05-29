@@ -65,7 +65,23 @@ class Customer extends Model
         ->with('specialists')
         ->leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
         ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
+        ->where(function ($query) {
+            $query->where('course_enrolls.status', 'aktif')
+                ->orWhere('course_enrolls.status', 'selesai');
+        })
         ->groupBy('customers.id')
         ->orderBy('total_student', 'desc');
+    }
+
+    public static function scopeCountStudent($query, $mentorId)
+    {
+        return $query->leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
+        ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
+        ->where('courses.mentor_id', $mentorId)
+        ->where(function ($query) {
+            $query->where('course_enrolls.status', 'aktif')
+                ->orWhere('course_enrolls.status', 'selesai');
+        })
+        ->count();
     }
 }

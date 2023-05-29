@@ -33,7 +33,7 @@ class CourseEnrollController extends Controller
         }
         $data =
             [
-                'title' => 'Pembelian Kelas | UMKM Plus',
+                'title' => 'Checkout Kelas ' . $course->title .' | UMKMPlus',
                 'course' => $course,
                 'status' => $status,
                 'dataTransaction' => $dataTransaction,

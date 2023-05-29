@@ -29,19 +29,6 @@ use Symfony\Component\Routing\RouteCompiler;
 Route::get('/', function () {
     return view('user.home', ['title' => 'UMKMPlus']);
 });
-Route::get('/course/category', function () {
-    return view('user.courses.category', ['title' => 'Kategori Kelas | UMKMPlus']);
-});
-Route::get('/course/category/categoryName', function () {
-    return view('user.courses.index', ['title' => 'Kelas _categoryName_ | UMKMPlus']);
-});;
-Route::get('/course/courseName', function () {
-    return view('user.courses.detail', ['title' => '_courseName_ | UMKMPlus']);
-});
-
-Route::get('/checkout/courseName', function () {
-    return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
-});
 
 Route::get('/blog', function () {
     return view('user.blog.index', ['title' => 'Blog | UMKMPlus']);
@@ -79,19 +66,20 @@ Route::controller(GoogleAuthController::class)->group(function () {
 // Course
 Route::controller(CourseController::class)->group(function () {
     Route::get('/course/mentor', 'courseMentor')->name('course.mentor');
-    Route::get('/course/mentor/{customer:name}', 'getCourseMentorCategory')->name('course.mentor.category');
+    Route::get('/course/mentor/{customer:name}', 'getCourseMentor')->name('course.mentor.category');
+    Route::get('/course/category', 'category')->name('category');
+    Route::get('/course/category/{category:slug}', 'courseCategory')->name('course.category');
+    Route::get('/course/category/{category:slug}/data', 'getCourseCategory')->name('course.category');
+    Route::get('/course/{course:title}', 'show')->name('course.show');
 });
 
 
 /*  USER  */
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
-Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategory'])->name('get.dashboard.course.category');
+Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategoryDashboard'])->name('get.dashboard.course.category');
 Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
 // Category
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/category', 'dashboardCategory')->name('category');
-});
 // Mentor
 Route::controller(MentorController::class)->group(function () {
     Route::get('/mentor', 'dashboardMentor')->name('mentor');
@@ -116,6 +104,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/checkout/{course:title}', 'getCheckoutCourse')->name('course.get.checkout');
             Route::post('/checkout/{course:title}', 'checkoutCourse')->name('course.checkout');
             Route::delete('/checkout/{courseEnroll:id}', 'destroy');
+            Route::get('/checkout/courseName', function () {
+                return view('user.checkout', ['title' => 'Checkout Kelas _courseName_ | UMKMPlus']);
+            });
         });
     });
 });

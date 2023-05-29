@@ -42,7 +42,7 @@
                                 </figure>
                                 <h3 class="mb-10">{{ $category->name }}</h3>
                                 <p class="mb-15">{{ $category->description }}</p>
-                                <div class="d-flex"><a href="/course" class="card-list-category-link">Jelajahi<i
+                                <div class="d-flex"><a href="{{ url('/course/category/'.$category->slug) }}" class="card-list-category-link">Jelajahi<i
                                             class="fa-solid fa-arrow-right ms-2"></i></a></div>
                             </div>
                         </div>

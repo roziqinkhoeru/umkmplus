@@ -91,7 +91,7 @@
                     let htmlString = ``;
                     $.map(response.data, function(mentorData, index) {
                         htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/detail" 
+                        <a href="/mentor/${mentorData.name}"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
