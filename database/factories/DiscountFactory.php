@@ -80,7 +80,7 @@ class DiscountFactory extends Factory
             $discountRecord = [
                 'mentor_id' => $customer->id,
                 'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
-                'discount' => $this->faker->numberBetween(1, 100),
+                'discount' => $this->faker->numberBetween(100000, 300000),
                 'status' => $this->faker->randomElement([0, 1]),
             ];
             $discount = Discount::create($discountRecord);

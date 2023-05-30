@@ -36,7 +36,8 @@
                                     <h4 class="mb-10 text-2xl">{{ $course->title }}</h4>
                                     <p class="mb-5">Sub Total</p>
                                     <p class="mb-15 text-xl fw-bold">
-                                        Rp {{ number_format(ceil($course->price * (1 - $course->discount / 100)), 0, ',', '.') }}
+                                        Rp
+                                        {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                         {{-- condition::isDiscount=true --}}
                                         <span class="text-green text-decoration-line-through text-xs">
                                             Rp {{ number_format($course->price, 0, ',', '.') }}
@@ -77,14 +78,15 @@
                                         <p class="col-span-2 mb-6">Subtotal</p>
                                         <p class="col-span-2 text-right mb-6">Rp
                                             <span>
-                                                {{ number_format(ceil($course->price * (1 - $course->discount / 100)), 0, ',', '.') }}
+                                                {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                             </span>
-                                            <input hidden type="number" id="subtotal" value="{{ ceil($course->price * (1 - $course->discount / 100)) }}">
+                                            <input hidden type="number" id="subtotal"
+                                                value="{{ $course->price - $course->discountPrice }}">
                                         </p>
                                         @if ($course->discount)
                                             <p class="col-span-2 mb-6">Discount</p>
                                             <p class="col-span-2 text-right mb-6">Rp
-                                                {{ number_format(($course->price * $course->discount) / 100, 0, ',', '.') }}
+                                                {{ number_format($course->discountPrice, 0, ',', '.') }}
                                                 ({{ $course->discount }}%)</p>
                                         @endif
                                     </div>
@@ -111,13 +113,13 @@
                                         </p>
                                         <p class="col-span-2 mb-30 font-semibold">Total</p>
                                         <p class="col-span-2 mb-30 text-right fw-bold text-xl text-green" id="totalPrice">Rp
-                                            {{ number_format(ceil($course->price * (1 - $course->discount / 100)), 0, ',', '.') }}
+                                            {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                         </p>
                                         <form action="{{ url('/checkout/' . $course->title) }}" method="post"
                                             class="mb-15 col-span-4" id="checkoutCourse">
                                             <input hidden type="number"
-                                                value="{{ ceil($course->price * (1 - $course->discount / 100)) }}"
-                                                name="priceCheckout" id="priceCheckout" class="input-form">
+                                                value="{{ $course->price - $course->discountPrice }}" name="priceCheckout"
+                                                id="priceCheckout" class="input-form">
                                             <input hidden type="text" value="" name="discountID" id="discountID"
                                                 class="input-form">
                                             <div class="col-span-4">
@@ -163,14 +165,15 @@
                             currency: 'IDR',
                             maximumFractionDigits: 0
                         }
-                        let coursePrice = new Intl.NumberFormat('id-ID', option).format(response.data.priceDiscount);
-                        $("#discountReferral").html(`${coursePrice} (${response.data.discount.discount}%)`);
+                        let discountReferral = new Intl.NumberFormat('id-ID', option).format(response.data
+                            .priceDiscount);
+                        $("#discountReferral").html(`${discountReferral}`);
                         $("#discountID").val(response.data.discount.id);
 
-                        let subtotal = Math.ceil(parseFloat($("#subtotal").val()));
-                        let totalPrice = parseInt(response.data.priceDiscount);
-                        let newTotalPrice = subtotal - totalPrice;
-                        let newTotalPriceFormat = new Intl.NumberFormat('id-ID', option).format(newTotalPrice);
+                        let subtotal = $("#subtotal").val();
+                        let newTotalPrice = subtotal - response.data.priceDiscount;
+                        let newTotalPriceFormat = new Intl.NumberFormat('id-ID', option).format(
+                            newTotalPrice);
                         $("#totalPrice").html(`${newTotalPriceFormat}`);
                         $("#priceCheckout").val(`${newTotalPrice}`);
                         Swal.fire({
@@ -202,7 +205,6 @@
             })
 
             function checkoutPayment() {
-                console.log($("#priceCheckout").val());
                 $.ajax({
                     type: "POST",
                     url: "{{ url('/checkout/' . $course->title) }}",
@@ -215,36 +217,38 @@
                         $('#pay-button').html(
                             'Proses Pembayaran...'
                         ).prop("disabled", true);
+                        window.open(response.data.snapURL, '_blank');
+
                         // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-                        window.snap.pay(response.data.snapToken, {
-                            onSuccess: function(result) {
-                                /* You may add your own implementation here */
-                                Swal.fire('Pembayaran berhasil')
-                                window.location.href = "{{ url('/course/'. $course->title) }}"
-                            },
-                            onPending: function(result) {
-                                /* You may add your own implementation here */
-                                alert("wating your payment!");
-                            },
-                            onError: function(result) {
-                                /* You may add your own implementation here */
-                                Swal.fire('Pembayaran gagal')
-                                $.ajax({
-                                    type: "DELETE",
-                                    url: "{{ url('/checkout/') }}" +
-                                        "/" + response.data.orderID,
-                                    data: {
-                                        _token: "{{ csrf_token() }}"
-                                    },
-                                })
-                                $('#pay-button').html(
-                                    'Bayar Sekarang'
-                                ).prop("disabled", false);
-                            },
-                            onClose: function() {
-                                Swal.fire('Keluar dari pembayaran')
-                            }
-                        })
+                        // window.snap.pay(response.data.snapToken, {
+                        //     onSuccess: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         Swal.fire('Pembayaran berhasil')
+                        //         window.location.href = "{{ url('/course/' . $course->title) }}"
+                        //     },
+                        //     onPending: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         alert("wating your payment!");
+                        //     },
+                        //     onError: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         Swal.fire('Pembayaran gagal')
+                        //         $.ajax({
+                        //             type: "DELETE",
+                        //             url: "{{ url('/checkout/') }}" +
+                        //                 "/" + response.data.orderID,
+                        //             data: {
+                        //                 _token: "{{ csrf_token() }}"
+                        //             },
+                        //         })
+                        //         $('#pay-button').html(
+                        //             'Bayar Sekarang'
+                        //         ).prop("disabled", false);
+                        //     },
+                        //     onClose: function() {
+                        //         Swal.fire('Keluar dari pembayaran')
+                        //     }
+                        // })
                     },
                     error: function(xhr, status, error) {
                         $('#pay-button').html(
