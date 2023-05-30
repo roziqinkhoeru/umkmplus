@@ -7,11 +7,14 @@ use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\Discount;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Nette\Utils\Strings;
+use Ramsey\Uuid\Uuid;
 
 class CourseEnrollController extends Controller
 {
@@ -24,19 +27,21 @@ class CourseEnrollController extends Controller
     public function getCheckoutCourse(Course $course)
     {
         $student = Auth::user()->customer;
-        $status = "";
-        $dataTransaction = null;
+        // $status = "";
+        // $dataTransaction = null;
         $courseEnroll = CourseEnroll::whereStudentId($student->id)->whereCourseId($course->id)->first();
         if ($courseEnroll && ($courseEnroll->status == 'proses' || $courseEnroll->status == 'menunggu pembayaran')) {
-            $status = "pending";
-            $dataTransaction = Http::withBasicAuth($this->serverKey, '')->get('https://api.sandbox.midtrans.com/v2/' . $courseEnroll->id . '/status');
+            return redirect($courseEnroll->snap_url);
+        } else if ($courseEnroll && ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai') ) {
+            return back()->with('error', 'Anda sudah terdaftar di kelas ini');
         }
+        $course->discountPrice = ceil($course->price * $course->discount / 100);
         $data =
             [
-                'title' => 'Pembelian Kelas | UMKM Plus',
+                'title' => 'Checkout Kelas ' . $course->title .' | UMKMPlus',
                 'course' => $course,
-                'status' => $status,
-                'dataTransaction' => $dataTransaction,
+                // 'status' => $status,
+                // 'dataTransaction' => $dataTransaction,
             ];
 
         return view('user.courseEnroll.checkout', $data);
@@ -45,7 +50,6 @@ class CourseEnrollController extends Controller
     public function getDiscountCourse(Request $request, Course $course)
     {
         $discount = Discount::whereCode($request->discount_code)->first();
-        $priceDiscount = $course->price;
         if (!$discount || $discount->mentor_id != $course->mentor_id) {
             return ResponseFormatter::error(
                 [
@@ -54,13 +58,12 @@ class CourseEnrollController extends Controller
                 'Kode diskon tidak valid',
                 400
             );
-        } else {
-            $priceDiscount = intval($course->price * $discount->discount / 100);
         }
+
         return ResponseFormatter::success(
             [
-                'priceDiscount' => $priceDiscount,
-                'discountID' => $discount->id,
+                'priceDiscount' => $discount->discount,
+                'discount' => $discount,
             ],
             'Kode diskon berhasil didapatkan'
         );
@@ -82,7 +85,7 @@ class CourseEnrollController extends Controller
 
             $orderID = Str::uuid()->toString();
             $discount_id = $request->discountID;
-            $grossAmount = $request->priceDiscount;
+            $grossAmount = $request->priceCheckout;
 
             $params = array(
                 'transaction_details' => [
@@ -96,7 +99,9 @@ class CourseEnrollController extends Controller
                 ],
             );
 
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $midtransTransaction = \Midtrans\Snap::createTransaction($params);
+            $snapToken = $midtransTransaction->token;
+            $snapURL = $midtransTransaction->redirect_url;
 
             if (!$snapToken) {
                 return ResponseFormatter::error(
@@ -115,6 +120,8 @@ class CourseEnrollController extends Controller
                 'discount_id' => $discount_id,
                 'status' => 'menunggu pembayaran',
                 'total_price' => $grossAmount,
+                'snap_token' => $snapToken,
+                'snap_url' => $snapURL,
             ]);
 
             if (!$courseEnroll) {
@@ -133,8 +140,9 @@ class CourseEnrollController extends Controller
             $data =
                 [
                     'snapToken' => $snapToken,
+                    'snapURL' => $snapURL,
                     'orderID' => $orderID,
-                    'priceDiscount' => $grossAmount,
+                    'priceCheckout' => $grossAmount,
                 ];
 
             return response()->json(['data' => $data,]);
@@ -168,12 +176,14 @@ class CourseEnrollController extends Controller
                     } else {
                         $courseEnroll->update([
                             'status' => 'aktif',
+                            'started_at' => Carbon::now(),
                         ]);
                     }
                 }
             } else if ($transaction == 'settlement') {
                 $courseEnroll->update([
                     'status' => 'aktif',
+                    'started_at' => Carbon::now(),
                 ]);
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();

@@ -11,6 +11,10 @@ class CourseEnroll extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function course()
     {
         return $this->belongsTo(Course::class);

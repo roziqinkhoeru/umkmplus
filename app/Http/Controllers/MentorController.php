@@ -54,14 +54,7 @@ class MentorController extends Controller
             return abort(404);
         }
         $countCourse = Course::where('mentor_id', $mentor->id)->count();
-        $countStudent = Customer::leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
-        ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
-        ->where('courses.mentor_id', $mentor->id)
-        ->where(function ($query) {
-            $query->where('course_enrolls.status', 'aktif')
-                ->orWhere('course_enrolls.status', 'selesai');
-        })
-        ->count();
+        $countStudent = Customer::countStudent($mentor->id);
 
         $mentor->joinDate = date_format($mentor->created_at, 'd F Y');
         $data =

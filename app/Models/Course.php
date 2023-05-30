@@ -39,7 +39,10 @@ class Course extends Model
     public static function scopeDataMentorCategory($query)
     {
         return $query->with('mentor', 'category')
-        ->withCount("modules", "courseEnrolls")
+        ->withCount("modules")
+        ->withCount(["courseEnrolls as course_enrolls_count" => function ($query) {
+            $query->where("status", "aktif")->orWhere("status", "selesai");
+        }])
         ->orderBy("course_enrolls_count", "desc");
     }
 }

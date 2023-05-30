@@ -23,6 +23,8 @@ return new class extends Migration
             $table->date('started_at')->nullable();
             $table->date('finished_at')->nullable();
             $table->bigInteger('total_price');
+            $table->string('snap_token', 255)->nullable();
+            $table->string('snap_url', 255)->nullable();
             $table->timestamps();
         });
     }

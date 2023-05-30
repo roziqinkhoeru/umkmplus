@@ -16,7 +16,7 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="{{ request()->is('category*') ? 'active' : '' }}">
+                                    <li class="{{ request()->is('course/category*') ? 'active' : '' }}">
                                         <a href="{{ route('category') }}">Kategori Kelas</a>
                                     </li>
                                     <li class="{{ request()->is('mentor*') ? 'active' : '' }}">
