@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('assets/template/admin/img/icon.ico') }}" type="image/x-icon" />
 
     {{-- Fonts and icons --}}
-    <script src="assets/template/admin/js/plugin/webfont/webfont.min.js"></script>
+    <script src="{{ asset('assets/template/admin/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
         WebFont.load({
             google: {
@@ -18,7 +18,7 @@
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
                     "simple-line-icons"
                 ],
-                urls: ['assets/template/admin/css/fonts.min.css']
+                urls: ['{{ asset('assets/template/admin/css/fonts.min.css') }}']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -29,6 +29,7 @@
     {{-- CSS Files --}}
     <link rel="stylesheet" href="{{ asset('assets/template/admin/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/template/admin/css/atlantis.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     {{-- <link rel="stylesheet" href="{{ asset('assets/template/admin/css/demo.css') }}"> --}}
