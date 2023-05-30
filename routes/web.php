@@ -136,3 +136,6 @@ Route::get('/admin', function () {
 Route::get('/admin/mentor', function () {
     return view('admin.mentor.index', ['title' => 'Mentor | Admin UMKMPlus', 'active' => 'mentor']);
 });
+Route::get('/admin/mentor/add', function () {
+    return view('admin.mentor.add', ['title' => 'Add Mentor | Admin UMKMPlus', 'active' => 'mentor']);
+});
