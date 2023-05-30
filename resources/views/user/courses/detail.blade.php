@@ -67,10 +67,19 @@
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
                                             Belajar</a>
                                     @else
+                                    <div id="buttonCart">
                                         <a href="{{ url('/checkout/' . $course->title) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
-                                        <button type="button" class="tp-btn tp-btn-3 rounded-pill"><i
+                                        @if ($cartCourse)
+                                                <button type="button" class="tp-btn tp-btn-3 rounded-pill"
+                                                onclick="deleteCart({{ $cartCourse }})" style="background-color: #FC4C56 !important"><i
+                                                class="fa-regular fa-cart-xmark"></i></button>
+                                                @else
+                                                <button type="button" class="tp-btn tp-btn-3 rounded-pill"
+                                                onclick="addCart({{ $course->id }})"><i
                                                 class="fa-regular fa-cart-plus"></i></button>
+                                                @endif
+                                            </div>
                                     @endif
                                 </div>
                             </div>
@@ -186,4 +195,110 @@
 @endsection
 
 @section('script')
+    <script>
+        function addCart(course) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan memasukkan ke keranjang!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('cart.store') }}",
+                        data: {
+                            course_id: course,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            console.log(response.data);
+                            Swal.fire(
+                                'Berhasil!',
+                                'Anda telah memasukkan ke keranjang.',
+                                'success'
+                            );
+                            getCart();
+                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->title) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
+                                            <button type="button" class="tp-btn tp-btn-3 rounded-pill"
+                                                onclick="deleteCart(${response.data})" style="background-color: #FC4C56 !important"><i
+                                                class="fa-regular fa-cart-xmark"></i></button>`);
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    xhr.responseJSON.meta.message
+                                )
+                            else
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal memasukkan ke keranjang.',
+                                    error
+                                )
+                            return false;
+                        }
+                    })
+                }
+            })
+        }
+
+        function deleteCart(cart) {
+            event.preventDefault();
+            console.log(cart);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan menghapus kelas dari keranjang!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: `{{ url('/cart/${cart}') }}`,
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Berhasil!',
+                                'Anda telah menghapus kelas dari keranjang.',
+                                'success'
+                            );
+                            getCart();
+                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->title) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
+                                            <button type="button" class="tp-btn tp-btn-3 rounded-pill"
+                                                onclick="addCart({{ $course->id }})"><i
+                                                class="fa-regular fa-cart-plus"></i></button>`);
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal menghapus kelas dari keranjang.',
+                                    xhr.responseJSON.meta.message
+                                )
+                            else
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Anda gagal menghapus kelas dari keranjang.',
+                                    error
+                                )
+                            return false;
+                        }
+                    })
+                }
+            })
+        }
+    </script>
 @endsection

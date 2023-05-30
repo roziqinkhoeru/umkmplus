@@ -225,7 +225,7 @@
                         }).format(courseData.price);
                         htmlString += `<div class="col-span-3-course">
                             <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block border-1 border-light-2"
-                                                        href="/course/courseName">
+                                                        href="/course/${courseData.title}">
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
                                                                 <img src="{{ asset('${courseData.thumbnail}') }}"
@@ -327,7 +327,7 @@
                     let htmlString = ``;
                     $.map(response.data, function(mentorData, index) {
                         htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/detail"
+                            <a href="/mentor/${mentorData.name}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
@@ -358,51 +358,5 @@
             })
         }
 
-        function addCart(course) {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Anda akan memasukkan ke keranjang!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('cart.store') }}",
-                        data: {
-                            course_id: course,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(response) {
-                            Swal.fire(
-                                'Berhasil!',
-                                'Anda telah memasukkan ke keranjang.',
-                                'success'
-                            )
-                            console.log(response);
-                        },
-                        error: function(xhr, status, error) {
-                            if (xhr.responseJSON)
-                                Swal.fire(
-                                    'Gagal!',
-                                    'Anda gagal memasukkan ke keranjang.',
-                                    xhr.responseJSON.meta.message
-                                )
-                            else
-                                Swal.fire(
-                                    'Gagal!',
-                                    'Anda gagal memasukkan ke keranjang.',
-                                    error
-                                )
-                            return false;
-                        }
-                    })
-                }
-            })
-        }
     </script>
 @endsection

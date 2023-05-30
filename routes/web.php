@@ -26,9 +26,7 @@ use Symfony\Component\Routing\RouteCompiler;
 */
 
 // user
-Route::get('/', function () {
-    return view('user.home', ['title' => 'UMKMPlus']);
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/blog', function () {
     return view('user.blog.index', ['title' => 'Blog | UMKMPlus']);
@@ -75,7 +73,6 @@ Route::controller(CourseController::class)->group(function () {
 
 
 /*  USER  */
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // Dashboard
 Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategoryDashboard'])->name('get.dashboard.course.category');
 Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
@@ -94,6 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(CartController::class)->group(function () {
             Route::post('/cart', 'store')->name('cart.store');
             Route::get('/get-cart', 'getCart')->name('get.cart');
+            Route::delete('/cart/{cart:id}', 'destroy')->name('cart.destroy');
         });
     });
 

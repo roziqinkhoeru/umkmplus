@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Customer;
@@ -141,6 +142,7 @@ class CourseController extends Controller
         $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
         $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
         $countStudent = Customer::countStudent($course->mentor_id);
+        $cartCourse = Cart::where('student_id', auth()->user()->customer_id)->where('course_id', $course->id)->first();
         if (Auth::check()) {
             $courseEnroll = $course->courseEnrolls()->where('student_id', Auth::user()->id)->first();
         }
@@ -154,7 +156,8 @@ class CourseController extends Controller
             'course' => $course,
             'countMediaModule' => $countMediaModule,
             'countMentor' => $countMentor,
-            'courseEnroll' => $courseEnroll ?? null
+            'courseEnroll' => $courseEnroll ?? null,
+            'cartCourse' => $cartCourse->id ?? null
         ];
 
         return view('user.courses.detail', $data);

@@ -44,7 +44,7 @@ class CartController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil menambahkan ke keranjang',
-                'data' => $cart
+                'data' => $cart->id
             ], 200);
         } else {
             return response()->json([
@@ -57,16 +57,11 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $carts)
+    public function destroy(Cart $cart)
     {
-        $cart = Cart::destroy($carts->id);
+        $cart = Cart::destroy($cart->id);
 
-        return $cart ? response()->json([
-            'success' => true,
-            'message' => 'Berhasil menghapus dari keranjang',
-        ], 200) : response()->json([
-            'success' => false,
-            'message' => 'Gagal menghapus dari keranjang',
-        ], 500);
+        return $cart ? ResponseFormatter::success($cart, 'Berhasil menghapus kelas dari keranjang')
+        : ResponseFormatter::error(null, 'Gagal menghapus kelas dari keranjang', 500);
     }
 }

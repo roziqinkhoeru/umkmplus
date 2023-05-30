@@ -17,7 +17,7 @@
                                 <form action="#" id="formSearchMentor">
                                     <div class="slider__search-input p-relative">
                                         <input type="text" placeholder="Cari mentor..." name="searchMentor"
-                                            id="searchMentor" onkeyup="mentor()" style="background: #F1F1F1">
+                                            id="searchMentor" style="background: #F1F1F1">
                                         <button type="submit" class="tp-btn-search-header">Search</button>
                                         <div class="slider__search-input-icon"
                                             style="transform: translateY(-57%) !important;">
