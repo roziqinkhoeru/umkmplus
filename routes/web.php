@@ -120,3 +120,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 // Cart
+
+// ADMIN
+Route::get('/dashboard', function () {
+    return view('admin.dashboard', ['title' => 'Dashboard Admin | UMKMPlus']);
+});
