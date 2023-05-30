@@ -1,0 +1,18 @@
+/* text */
+.space-nowrap {
+    white-space: nowrap !important;
+}
+
+/* input */
+.form-control.error {
+    border-color: #f25961;
+    background: rgba(220, 53, 69, 0.05);
+}
+.login .show-password {
+    top: 8px !important;
+    transform: unset !important;
+    -webkit-transform: unset !important;
+    -moz-transform: unset !important;
+    -ms-transform: unset !important;
+    -o-transform: unset !important;
+}

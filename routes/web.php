@@ -108,3 +108,22 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 // Cart
+
+// ADMIN
+// auth
+Route::get('/admin/login', function () {
+    return view('admin.auth.login', ['title' => 'Login | Admin UMKMPlus']);
+});
+Route::get('/admin/forgot-password', function () {
+    return view('admin.auth.forgotPassword', ['title' => 'Forgot Password | Admin UMKMPlus']);
+});
+// main
+Route::get('/admin', function () {
+    return view('admin.dashboard', ['title' => 'Dashboard Admin | Admin UMKMPlus', 'active' => 'dashboard']);
+});
+Route::get('/admin/mentor', function () {
+    return view('admin.mentor.index', ['title' => 'Mentor | Admin UMKMPlus', 'active' => 'mentor']);
+});
+Route::get('/admin/mentor/add', function () {
+    return view('admin.mentor.add', ['title' => 'Add Mentor | Admin UMKMPlus', 'active' => 'mentor']);
+});

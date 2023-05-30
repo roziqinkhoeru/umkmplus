@@ -1,0 +1,8 @@
+@import url("utilities.css");
+
+.table td {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    min-height: 60px !important;
+    height: auto !important;
+}
