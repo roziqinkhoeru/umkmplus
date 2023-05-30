@@ -122,6 +122,17 @@ Route::group(['middleware' => ['auth']], function () {
 // Cart
 
 // ADMIN
-Route::get('/dashboard', function () {
-    return view('admin.dashboard', ['title' => 'Dashboard Admin | UMKMPlus']);
+// auth
+Route::get('/admin/login', function () {
+    return view('admin.auth.login', ['title' => 'Login | Admin UMKMPlus']);
+});
+Route::get('/admin/forgot-password', function () {
+    return view('admin.auth.forgotPassword', ['title' => 'Forgot Password | Admin UMKMPlus']);
+});
+// main
+Route::get('/admin', function () {
+    return view('admin.dashboard', ['title' => 'Dashboard Admin | Admin UMKMPlus', 'active' => 'dashboard']);
+});
+Route::get('/admin/mentor', function () {
+    return view('admin.mentor.index', ['title' => 'Mentor | Admin UMKMPlus', 'active' => 'mentor']);
 });
