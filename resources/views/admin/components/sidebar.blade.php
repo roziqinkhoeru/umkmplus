@@ -1,4 +1,5 @@
 <div class="sidebar-content">
+    {{-- user --}}
     <div class="user">
         <div class="avatar-sm float-left mr-2">
             <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user0umkmplus-admin"
@@ -35,69 +36,24 @@
             </div>
         </div>
     </div>
+
+    {{-- sidebar --}}
     <ul class="nav nav-primary">
-        <li class="nav-item active">
-            <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+        {{-- dashboard --}}
+        <li class="nav-item @if ($active == 'dashboard') active @endif">
+            <a href="/admin">
                 <i class="fas fa-home"></i>
                 <p>Dashboard</p>
-                <span class="caret"></span>
             </a>
-            <div class="collapse" id="dashboard">
-                <ul class="nav nav-collapse">
-                    <li>
-                        <a href="../demo1/index.html">
-                            <span class="sub-item">Dashboard 1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo2/index.html">
-                            <span class="sub-item">Dashboard 2</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo3/index.html">
-                            <span class="sub-item">Dashboard 3</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo4/index.html">
-                            <span class="sub-item">Dashboard 4</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo5/index.html">
-                            <span class="sub-item">Dashboard 5</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo6/index.html">
-                            <span class="sub-item">Dashboard 6</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo7/index.html">
-                            <span class="sub-item">Dashboard 7</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo8/index.html">
-                            <span class="sub-item">Dashboard 8</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../demo9/index.html">
-                            <span class="sub-item">Dashboard 9</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </li>
-        <li class="nav-section">
-            <span class="sidebar-mini-icon">
-                <i class="fa fa-ellipsis-h"></i>
-            </span>
-            <h4 class="text-section">Components</h4>
+        {{-- mentor --}}
+        <li class="nav-item @if ($active == 'mentor') active @endif">
+            <a href="/admin/mentor">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <p>Mentor</p>
+            </a>
         </li>
+
         <li class="nav-item">
             <a data-toggle="collapse" href="#base">
                 <i class="fas fa-layer-group"></i>
@@ -319,13 +275,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a href="calendar.html">
-                <i class="far fa-calendar-alt"></i>
-                <p>Calendar</p>
-                <span class="badge badge-info">1</span>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="widgets.html">
                 <i class="fas fa-desktop"></i>
