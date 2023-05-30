@@ -44,7 +44,7 @@ class CourseEnrollController extends Controller
                 // 'dataTransaction' => $dataTransaction,
             ];
 
-        return view('user.checkout', $data);
+        return view('user.courseEnroll.checkout', $data);
     }
 
     public function getDiscountCourse(Request $request, Course $course)
