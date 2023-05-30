@@ -101,6 +101,8 @@
                                                 class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
                                                 <span class="visually-hidden">New alerts</span>
                                             </span>`);
+                } else {
+                    $('#cart').html(`<i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>`);
                 }
             }
         });

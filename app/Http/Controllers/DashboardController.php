@@ -21,7 +21,7 @@ class DashboardController extends Controller
             $countCart = Cart::countCart();
             $data =
                 [
-                    'title' => 'Dashboard | UMKM Plus',
+                    'title' => 'UMKM Plus',
                     'categories' => $categories,
                     'testimonials' => $testimonials,
                     'countCart' => $countCart,
@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
             $data =
                 [
-                    'title' => 'Dashboard | UMKM Plus',
+                    'title' => 'UMKM Plus',
                     'categories' => $categories,
                     'testimonials' => $testimonials
                 ];
