@@ -29,7 +29,7 @@
                             <div class="footer__widget-content">
                                 <ul>
                                     <li class="hover-right">
-                                        <a href="/about">About</a>
+                                        <a href="/">About</a>
                                     </li>
                                     <li class="hover-right">
                                         <a href="/course/category">Course</a>
@@ -50,19 +50,19 @@
                             <div class="footer__widget-content">
                                 <ul>
                                     <li class="hover-right">
-                                        <a href="/help">Help</a>
+                                        <a href="/">Help</a>
                                     </li>
                                     <li class="hover-right">
                                         <a href="/join-mentor">Become Our Mentor</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/faq">FAQ's</a>
+                                        <a href="/">FAQ's</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/tutorial">Tutorial</a>
+                                        <a href="/">Tutorial</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/terms">Syarat dan Ketentuan</a>
+                                        <a href="/">Syarat dan Ketentuan</a>
                                     </li>
                                 </ul>
                             </div>
