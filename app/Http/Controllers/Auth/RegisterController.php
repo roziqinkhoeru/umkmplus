@@ -50,6 +50,7 @@ class RegisterController extends Controller
         $customer = Customer::create([
             'name' => $request->name,
             'phone' => $request->phone,
+            'slug' => str_replace(' ', '-', $request->name)
         ]);
 
         // create user

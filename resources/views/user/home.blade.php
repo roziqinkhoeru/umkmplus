@@ -187,6 +187,21 @@
 @endsection
 
 @section('script')
+@if (session('error'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Berhasil',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        });
+
+    </script>
+
+@endif
     <script>
         $(document).ready(function() {
             course("branding")

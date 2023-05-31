@@ -13,6 +13,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\MentorRegistrationController;
 use Symfony\Component\Routing\RouteCompiler;
 
 /*
@@ -79,6 +80,15 @@ Route::get('/dashboard/get-course-category', [CourseController::class, 'getCours
 Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
 // Category
 // Mentor
+Route::group(['middleware' => ['auth']], function () {
+    // Register Mentor
+    Route::group(['middleware' => ['checkRole:student']], function () {
+        Route::controller(MentorRegistrationController::class)->group(function () {
+            Route::get('/mentor/register', 'register')->name('mentor.register');
+            Route::post('/mentor/register', 'storeRegister')->name('mentor.register');
+        });
+    });
+});
 Route::controller(MentorController::class)->group(function () {
     Route::get('/mentor', 'dashboardMentor')->name('mentor');
     Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
@@ -128,6 +138,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Mentor
         Route::controller(MentorController::class)->group(function () {
             Route::get('/admin/mentor', 'adminMentor')->name('admin.mentor');
+            Route::get('/admin/mentor/registration', 'listRegistration')->name('admin.mentor.list');
             Route::get('/admin/mentor/create', 'adminCreateMentor')->name('admin.mentor.create');
             Route::post('/admin/mentor/create', 'adminStoreMentor')->name('admin.mentor.store');
             Route::get('/admin/mentor/{customer:slug}', 'adminMentorShow')->name('admin.mentor.show');

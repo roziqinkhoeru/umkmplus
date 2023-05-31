@@ -29,11 +29,11 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Mentor</div>
                                 <div class="card-tools">
-                                    <a href="{{ route('admin.mentor.create') }}"
+                                    <a href="{{ route('admin.mentor.list') }}"
                                         class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
-                                        Tambah Mentor
+                                        Pendaftar Mentor
                                     </a>
                                 </div>
                             </div>
