@@ -64,13 +64,20 @@
 
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             mentor()
         });
-        $("#formSearchMentor").submit(function (e) {
+        $("#formSearchMentor").submit(function(e) {
             e.preventDefault();
             mentor()
         });
+
+        function createSlug(title) {
+            let slug = title.toLowerCase().replace(/ /g, "-");
+            slug = slug.replace(/[^a-z0-9-]/g, "");
+            return slug;
+        }
+
         function mentor() {
             let name = $("#searchMentor").val()
             // Membuat permintaan AJAX dan mengubah URL
@@ -91,7 +98,7 @@
                     let htmlString = ``;
                     $.map(response.data, function(mentorData, index) {
                         htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <a href="/mentor/${mentorData.name}"
+                        <a href="/mentor/${createSlug(mentorData.name)}"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
                                 <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
