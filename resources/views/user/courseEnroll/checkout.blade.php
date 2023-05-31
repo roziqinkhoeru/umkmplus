@@ -93,7 +93,7 @@
                                     <hr class="mb-20">
                                     <div class="d-grid grid-cols-4">
                                         <form class="mb-15 col-span-4"
-                                            action="{{ url('/checkout/' . $course->title . '/getDiscount') }}"
+                                            action="{{ url('/checkout/' . $course->slug . '/getDiscount') }}"
                                             method="POST" id="formReferral">
                                             @csrf
                                             <label for="referral" class="mb-5">
@@ -115,7 +115,7 @@
                                         <p class="col-span-2 mb-30 text-right fw-bold text-xl text-green" id="totalPrice">Rp
                                             {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                         </p>
-                                        <form action="{{ url('/checkout/' . $course->title) }}" method="post"
+                                        <form action="{{ url('/checkout/' . $course->slug) }}" method="post"
                                             class="mb-15 col-span-4" id="checkoutCourse">
                                             <input hidden type="number"
                                                 value="{{ $course->price - $course->discountPrice }}" name="priceCheckout"
@@ -148,7 +148,7 @@
                 );
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('/checkout/' . $course->title . '/getDiscount') }}",
+                    url: "{{ url('/checkout/' . $course->slug . '/getDiscount') }}",
                     data: {
                         discount_code: $("#referral").val(),
                         _token: "{{ csrf_token() }}"
@@ -207,7 +207,7 @@
             function checkoutPayment() {
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('/checkout/' . $course->title) }}",
+                    url: "{{ url('/checkout/' . $course->slug) }}",
                     data: {
                         discountID: $("#discountID").val(),
                         priceCheckout: $("#priceCheckout").val(),
@@ -219,36 +219,6 @@
                         ).prop("disabled", true);
                         window.open(response.data.snapURL, '_blank');
 
-                        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-                        // window.snap.pay(response.data.snapToken, {
-                        //     onSuccess: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         Swal.fire('Pembayaran berhasil')
-                        //         window.location.href = "{{ url('/course/' . $course->title) }}"
-                        //     },
-                        //     onPending: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         alert("wating your payment!");
-                        //     },
-                        //     onError: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         Swal.fire('Pembayaran gagal')
-                        //         $.ajax({
-                        //             type: "DELETE",
-                        //             url: "{{ url('/checkout/') }}" +
-                        //                 "/" + response.data.orderID,
-                        //             data: {
-                        //                 _token: "{{ csrf_token() }}"
-                        //             },
-                        //         })
-                        //         $('#pay-button').html(
-                        //             'Bayar Sekarang'
-                        //         ).prop("disabled", false);
-                        //     },
-                        //     onClose: function() {
-                        //         Swal.fire('Keluar dari pembayaran')
-                        //     }
-                        // })
                     },
                     error: function(xhr, status, error) {
                         $('#pay-button').html(

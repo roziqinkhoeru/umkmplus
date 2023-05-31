@@ -28,7 +28,7 @@ class CourseController extends Controller
                 'courses' => $courses,
             ];
 
-        return view('courses.mentor', $data);
+        return view('user.mentor.index', $data);
     }
 
     public function getCourseCategoryDashboard(Request $request)
@@ -74,7 +74,7 @@ class CourseController extends Controller
     public function courseCategory(Category $category)
     {
         $data = [
-            'title' => 'Kelas' . $category->name . ' | UMKMPlus',
+            'title' => 'Kelas ' . $category->name . ' | UMKMPlus',
             'category' => $category
         ];
         return view('user.courses.index', $data);
@@ -142,7 +142,9 @@ class CourseController extends Controller
         $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
         $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
         $countStudent = Customer::countStudent($course->mentor_id);
-        $cartCourse = Cart::where('student_id', auth()->user()->customer_id)->where('course_id', $course->id)->first();
+        if (Auth::check()) {
+            $cartCourse = Cart::where('student_id', auth()->user()->customer_id)->where('course_id', $course->id)->first();
+        }
         if (Auth::check()) {
             $courseEnroll = $course->courseEnrolls()->where('student_id', Auth::user()->id)->first();
         }

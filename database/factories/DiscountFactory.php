@@ -66,6 +66,7 @@ class DiscountFactory extends Factory
             $customer->update([
                 'status' => 1,
                 'about' => $this->faker->paragraph(3),
+                'slug' => str_replace(" ","-",$customer->name),
             ]);
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
@@ -99,6 +100,9 @@ class DiscountFactory extends Factory
                     'discount' => 5
                 ];
                 $course = Course::create($courseRecord);
+                $course->update([
+                    'slug' => str_replace(" ","-",$course->title),
+                ]);
 
                 // module factory
                 $moduleRecord = [
@@ -108,6 +112,9 @@ class DiscountFactory extends Factory
                     'no_module' => 1
                 ];
                 $module = Module::create($moduleRecord);
+                $module->update([
+                    'slug' => str_replace(" ","-",$module->title),
+                ]);
 
                 // media module factory
                 $mediaModuleRecord = [

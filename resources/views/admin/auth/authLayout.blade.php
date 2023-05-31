@@ -52,7 +52,7 @@
     <script src="{{ asset('assets/template/admin/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/template/admin/js/plugin/jquery.validate/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/template/admin/js/atlantis.min.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('authScript')
 </body>
 

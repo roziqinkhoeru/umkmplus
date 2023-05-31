@@ -25,7 +25,7 @@
                     <input type="checkbox" class="custom-control-input" id="rememberme" name="rememberme">
                     <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
                 </div>
-                <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Masuk</button>
+                <button type="submit" id="loginButton" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Masuk</button>
             </div>
         </form>
     </div>
@@ -50,6 +50,43 @@
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Kata sandi tidak boleh kosong',
                 },
             },
+            submitHandler: function(form) {
+                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#loginButton').prop('disabled', true);
+                $.ajax({
+                    url: "{{ url('/admin/login') }}",
+                    type: "POST",
+                    data: {
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#loginButton').html('Masuk');
+                        $('#loginButton').prop('disabled', false);
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        $('#loginButton').html('Masuk');
+                        $('#loginButton').prop('disabled', false);
+                        if (xhr.responseJSON)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: xhr.responseJSON.meta.message,
+                            })
+                        else
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'LOGIN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
+                            })
+                        return false;
+                    }
+                });
+            }
         });
     </script>
 @endsection

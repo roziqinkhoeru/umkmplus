@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('mentor_registrations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
-            $table->string('title', 255);
-            $table->string('slug', 255)->nullable();
-            $table->string('file', 255);
-            $table->integer('no_module');
+            $table->string('name', 100);
+            $table->string('email', 100);
+            $table->string('phone', 100);
+            $table->string('address', 255);
+            $table->string('file_cv', 255);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('mentor_registrations');
     }
 };

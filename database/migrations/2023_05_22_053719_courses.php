@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('mentor_id')->references('id')->on('customers')->onUpdate('cascade');
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('restrict');
             $table->string('title', 255);
+            $table->string('slug', 255)->nullable();
             $table->text('description');
             $table->string('thumbnail', 255);
             $table->integer('price');

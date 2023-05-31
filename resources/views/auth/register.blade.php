@@ -128,11 +128,6 @@
 @endsection
 
 @section('script')
-    @if (session()->has('error'))
-        <script>
-            console.log({{ session('error') }});
-        </script>
-    @endif
     <script>
         // add method validation only letters
         $.validator.addMethod('alphabetOnly', function(value, element) {
@@ -207,7 +202,6 @@
             submitHandler: function(form) {
                 $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#registerButton').prop('disabled', true);
-                console.log('form submitted');
                 $.ajax({
                     url: "{{ url('register') }}",
                     type: "POST",
@@ -223,6 +217,11 @@
                     success: function(response) {
                         $('#registerButton').html('Daftar');
                         $('#registerButton').prop('disabled', false);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'PENDAFTARAN BERHASIL!',
+                            text: response.meta.message,
+                        })
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {

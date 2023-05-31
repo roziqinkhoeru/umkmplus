@@ -150,6 +150,8 @@
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     {{-- <script src="{{ asset('assets/template/admin/js/setting-demo.js') }}"></script>
     <script src="{{ asset('assets/template/admin/js/demo.js') }}"></script> --}}
+    {{-- Sweet Alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('script')
 </body>
 
