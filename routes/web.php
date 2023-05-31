@@ -34,6 +34,9 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
+Route::get('/join-mentor', function () {
+    return view('user.mentors.join', ['title' => 'Become Our Mentor | UMKMPlus']);
+});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
