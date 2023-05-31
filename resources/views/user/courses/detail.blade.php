@@ -63,12 +63,12 @@
                                 </div>
                                 <div class="">
                                     @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
-                                        <a href="{{ url('/course/' . $course->title) }}"
+                                        <a href="{{ url('/course/' . $course->slug) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
                                             Belajar</a>
                                     @else
                                     <div id="buttonCart">
-                                        <a href="{{ url('/checkout/' . $course->title) }}"
+                                        <a href="{{ url('/checkout/' . $course->slug) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
                                         @if ($cartCourse)
                                                 <button type="button" class="tp-btn tp-btn-3 rounded-pill"
@@ -143,7 +143,7 @@
                                                                 x2="8" y2="17" />
                                                             <polyline class="st0" points="10,9 9,9 8,9 " />
                                                         </svg>
-                                                        <h3> <span>Materi:</span> {{ $module->title }}</h3>
+                                                        <h3> <span>Materi:</span> {{ $module->slug }}</h3>
                                                     </div>
                                                     <div class="course__curriculum-meta text-left text-sm-right">
                                                         <span class="time"> <i
@@ -161,7 +161,7 @@
                     <div class="col-xl-3">
                         <h3 class="mt-10 mb-20 text-3xl d-xl-none">Mentor Kelas</h3>
                         <div style="max-width: 420px">
-                            <a href="/mentor/{{ $course->mentor->name }}"
+                            <a href="/mentor/{{ $course->mentor->slug }}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
                                     <img src="{{ asset($course->mentor->profile_picture) }}" alt="mentor-1">
@@ -223,7 +223,7 @@
                                 'success'
                             );
                             getCart();
-                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->title) }}"
+                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->slug) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
                                             <button type="button" class="tp-btn tp-btn-3 rounded-pill"
                                                 onclick="deleteCart(${response.data})" style="background-color: #FC4C56 !important"><i
@@ -275,7 +275,7 @@
                                 'success'
                             );
                             getCart();
-                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->title) }}"
+                            $("#buttonCart").html(`<a href="{{ url('/checkout/' . $course->slug) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
                                             <button type="button" class="tp-btn tp-btn-3 rounded-pill"
                                                 onclick="addCart({{ $course->id }})"><i

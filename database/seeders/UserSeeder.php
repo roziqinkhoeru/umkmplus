@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => "Mentor",
+                'slug' => "Mentor",
                 'address' => "Mentor Address",
                 'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                 'job' => "Mentor",
@@ -104,7 +105,8 @@ class UserSeeder extends Seeder
             [
                 'mentor_id' => 2,
                 'category_id' => $faker->numberBetween(1, 3),
-                'title' => $faker->sentence(3),
+                'title' => "course 1",
+                'slug' => 'course-1',
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
@@ -112,7 +114,8 @@ class UserSeeder extends Seeder
             [
                 'mentor_id' => 2,
                 'category_id' => $faker->numberBetween(1, 3),
-                'title' => $faker->sentence(3),
+                'title' => "course 2",
+                'slug' => 'course-2',
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
@@ -120,7 +123,8 @@ class UserSeeder extends Seeder
             [
                 'mentor_id' => 2,
                 'category_id' => $faker->numberBetween(1, 3),
-                'title' => $faker->sentence(3),
+                'title' => "course 3",
+                'slug' => 'course-3',
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
@@ -128,7 +132,8 @@ class UserSeeder extends Seeder
             [
                 'mentor_id' => 2,
                 'category_id' => $faker->numberBetween(1, 3),
-                'title' => $faker->sentence(3),
+                'title' => "course 4",
+                'slug' => 'course-4',
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
@@ -136,7 +141,8 @@ class UserSeeder extends Seeder
             [
                 'mentor_id' => 2,
                 'category_id' => $faker->numberBetween(1, 3),
-                'title' => $faker->sentence(3),
+                'title' => "course 5",
+                'slug' => 'course-5',
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),

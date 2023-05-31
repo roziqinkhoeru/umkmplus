@@ -61,7 +61,7 @@
         function getCourseMentor() {
             $.ajax({
                 type: "GET",
-                url: "{{ url('course/mentor') }}" + "/" + "{{ $mentor->name }}",
+                url: "{{ url('course/mentor') }}" + "/" + "{{ $mentor->slug }}",
                 success: function (response) {
                     let htmlString = "";
                     $.map(response.data, function (courseData, index) {
@@ -70,7 +70,7 @@
                             currency: 'IDR'
                         }).format(courseData.price);
                         htmlString += `<div class="col-span-3-course">
-                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/${courseData.title}">
+                        <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/${courseData.slug}">
                             {{-- course item image --}}
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">

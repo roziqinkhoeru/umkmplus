@@ -249,10 +249,34 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{{ url('logout') }}"  onclick="logout()">Logout</a>
                     </li>
                 </div>
             </ul>
         </li>
     </ul>
 </div>
+
+<script>
+    function logout() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Anda akan keluar dari akun ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Keluar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Berhasil!',
+                    'Anda telah keluar dari akun ini.',
+                    'success'
+                )
+                window.location.href = "{{ route('logout') }}";
+            }
+        })
+    }
+</script>

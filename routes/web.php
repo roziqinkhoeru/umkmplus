@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -64,11 +65,11 @@ Route::controller(GoogleAuthController::class)->group(function () {
 // Course
 Route::controller(CourseController::class)->group(function () {
     Route::get('/course/mentor', 'courseMentor')->name('course.mentor');
-    Route::get('/course/mentor/{customer:name}', 'getCourseMentor')->name('course.mentor.category');
+    Route::get('/course/mentor/{customer:slug}', 'getCourseMentor')->name('course.mentor.category');
     Route::get('/course/category', 'category')->name('category');
     Route::get('/course/category/{category:slug}', 'courseCategory')->name('course.category');
     Route::get('/course/category/{category:slug}/data', 'getCourseCategory')->name('course.category');
-    Route::get('/course/{course:title}', 'show')->name('course.show');
+    Route::get('/course/{course:slug}', 'show')->name('course.show');
 });
 
 
@@ -81,7 +82,7 @@ Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMen
 Route::controller(MentorController::class)->group(function () {
     Route::get('/mentor', 'dashboardMentor')->name('mentor');
     Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
-    Route::get('/mentor/{customer:name}', 'show')->name('mentor.show');
+    Route::get('/mentor/{customer:slug}', 'show')->name('mentor.show');
 });
 
 // Student Role
@@ -93,14 +94,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/get-cart', 'getCart')->name('get.cart');
             Route::delete('/cart/{cart:id}', 'destroy')->name('cart.destroy');
         });
-    });
 
-    // Course Enroll
-    Route::group(['middleware' => ['checkRole:student']], function () {
+        // Course Enroll
         Route::controller(CourseEnrollController::class)->group(function () {
-            Route::post('/checkout/{course:title}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
-            Route::get('/checkout/{course:title}', 'getCheckoutCourse')->name('course.get.checkout');
-            Route::post('/checkout/{course:title}', 'checkoutCourse')->name('course.checkout');
+            Route::post('/checkout/{course:slug}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
+            Route::get('/checkout/{course:slug}', 'getCheckoutCourse')->name('course.get.checkout');
+            Route::post('/checkout/{course:slug}', 'checkoutCourse')->name('course.checkout');
             Route::delete('/checkout/{courseEnroll:id}', 'destroy');
         });
     });
@@ -108,20 +107,31 @@ Route::group(['middleware' => ['auth']], function () {
 // Cart
 
 // ADMIN
+
 // auth
-Route::get('/admin/login', function () {
-    return view('admin.auth.login', ['title' => 'Login | Admin UMKMPlus']);
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/admin/login', 'adminLogin')->name('admin.login');
+    Route::post('/admin/login', 'adminAuthenticate');
 });
-Route::get('/admin/forgot-password', function () {
-    return view('admin.auth.forgotPassword', ['title' => 'Forgot Password | Admin UMKMPlus']);
+
+Route::controller(PasswordResetLinkController::class)->group(function () {
+    Route::get('/admin/forgot-password', 'adminCreate')->name('admin.password.forgot');
+    Route::post('/admin/forgot-password', 'adminStore')->name('admin.forgotPassword');
 });
+
 // main
-Route::get('/admin', function () {
-    return view('admin.dashboard', ['title' => 'Dashboard Admin | Admin UMKMPlus', 'active' => 'dashboard']);
-});
-Route::get('/admin/mentor', function () {
-    return view('admin.mentor.index', ['title' => 'Mentor | Admin UMKMPlus', 'active' => 'mentor']);
-});
-Route::get('/admin/mentor/add', function () {
-    return view('admin.mentor.add', ['title' => 'Add Mentor | Admin UMKMPlus', 'active' => 'mentor']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['checkRole:admin']], function () {
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('/admin', 'index')->name('admin.dashboard');
+        });
+        // Mentor
+        Route::controller(MentorController::class)->group(function () {
+            Route::get('/admin/mentor', 'adminMentor')->name('admin.mentor');
+            Route::get('/admin/mentor/create', 'adminCreateMentor')->name('admin.mentor.create');
+            Route::post('/admin/mentor/create', 'adminStoreMentor')->name('admin.mentor.store');
+            Route::get('/admin/mentor/{customer:slug}', 'adminMentorShow')->name('admin.mentor.show');
+            Route::put('/admin/mentor/{customer:slug}', 'adminNonaktifMentor')->name('admin.mentor.nonaktif');
+        });
+    });
 });

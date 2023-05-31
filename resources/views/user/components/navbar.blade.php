@@ -34,7 +34,7 @@
                                             <a href="/profile">Profile</a>
                                         </li>
                                         <li class="d-block d-sm-none">
-                                            <a href="/logout">Keluar</a>
+                                            <a href="/logout"  onclick="logout()">Keluar</a>
                                         </li>
                                     @endif
                                 </ul>

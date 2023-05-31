@@ -207,7 +207,6 @@
             submitHandler: function(form) {
                 $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#registerButton').prop('disabled', true);
-                console.log('form submitted');
                 $.ajax({
                     url: "{{ url('register') }}",
                     type: "POST",

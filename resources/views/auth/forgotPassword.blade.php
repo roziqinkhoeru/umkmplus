@@ -83,14 +83,18 @@
                 success: function(response) {
                     $('#forgotPasswordButton').html('Tautan terkirim');
                     $('#forgotPasswordButton').prop('disabled', true);
-                    toastr.success('{{ session('success') }}', 'KIRIM TAUTAN BERHASIL!');
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'KIRIM TAUTAN BERHASIL!',
+                            text: {{ session('success') }},
+                        });
                     if (isResend) {
                         $('#resend_link').html(
                             'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}">coba alamat email lain</a>.'
                         );
                     } else {
                         $('#forgotPasswordSuccess').html(
-                            `<div class="card card-auth mb-3"><div class="card-body card-body-auth" id="forgotPasswordContent"><h5 class ="text-center font-bold mb-3">Tautan telah dikirim</h5><p class="text-center mb-3">Tautan untuk reset password dikirim ke <span style="font-weight: 600">${$('#email').val()}</span>. Silahkan cek email Anda. </p><div style="margin-top: 28px"> <a href="{{ route('login') }}" class="btn btn-login">Masuk</a></div><p class="mt-4 text-center" id="resend_link">Tidak menerima tautan? <button onclick="submitForgotPassword()" class="btn-anchor">Kirim ulang</bu>.</p></div>`
+                            `<div class="card card-auth mb-3"><div class="card-body card-body-auth" id="forgotPasswordContent"><h5 class ="text-center font-bold mb-3">Tautan telah dikirim</h5><p class="text-center mb-3">Tautan untuk reset password dikirim ke <span style="font-weight: 600">${$('#email').val()}</span>. Silahkan cek email Anda. </p><div style="margin-top: 28px"> <a href="{{ route('login') }}" class="btn btn-primary text-align-center">Masuk</a></div><p class="mt-4 text-center" id="resend_link">Tidak menerima tautan? <a href="#" onclick="submitForgotPassword()" class="btn-anchor">Kirim ulang</a>.</p></div>`
                         );
                         $('#forgotPasswordContent').hide();
                     }
@@ -116,6 +120,7 @@
         }
 
         function submitForgotPassword() {
+            event.preventDefault();
             isResendLinkResetPassword = true;
             $('#forgotPasswordForm').submit();
         }
