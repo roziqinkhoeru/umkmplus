@@ -333,6 +333,10 @@ label.error {
     animation: spin 0.75s infinite linear;
     -webkit-animation: spin 0.75s infinite linear;
 }
+.spinners-3 {
+    animation: spin 0.6s infinite linear;
+    -webkit-animation: spin 0.6s infinite linear;
+}
 
 @-webkit-keyframes spin {
     0% {
