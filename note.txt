@@ -2,5 +2,6 @@
 ❎/profile/:username
 ❎/profile/mentor/:username
 ❎/course-playing/:courseName
+❎Masalah pada slug mentor
 
 ## ADMIN PAGE
