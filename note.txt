@@ -3,5 +3,6 @@
 ❎/profile/mentor/:username
 ❎/course-playing/:courseName
 ❎Masalah pada slug mentor
+❎/become-our-mentor::kirim nama, email, CV
 
 ## ADMIN PAGE

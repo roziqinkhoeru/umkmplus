@@ -401,3 +401,27 @@
 .checkout-support-method-wrapper img {
     width: 100%;
 }
+
+/* JOIN MENTOR */
+/* join */
+.card-join-mentor {
+    position: absolute;
+    top: -300px;
+    right: 48px;
+}
+.card-join-mentor .card {
+    width: 480px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+.card-join-mentor .card .card-body {
+    padding: 3.5rem;
+}
+.join-info-wrapper {
+    padding-top: 40px;
+    width: 400px;
+}

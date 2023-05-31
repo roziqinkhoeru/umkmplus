@@ -79,6 +79,9 @@
         }
 
         function mentor() {
+            $("#mentorData").html(
+                `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
+            );
             let name = $("#searchMentor").val()
             // Membuat permintaan AJAX dan mengubah URL
             var request = `name=${name}`; // Request yang ingin ditambahkan
@@ -96,8 +99,12 @@
                 },
                 success: function(response) {
                     let htmlString = ``;
-                    $.map(response.data, function(mentorData, index) {
-                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                    if (response.countMentor === 0) {
+                        htmlString =
+                            `<div class="text-center text-4xl col-span-full pt-100 pb-65"><p class="text-xl font-semibold">Maaf, Mentor tidak ditemukan</p></div>`
+                    } else {
+                        $.map(response.data, function(mentorData, index) {
+                            htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="/mentor/${createSlug(mentorData.name)}"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
@@ -121,7 +128,8 @@
                             </div>
                         </a>
                     </div>`
-                    });
+                        });
+                    }
                     $("#mentorData").html(htmlString);
                 }
             });

@@ -42,7 +42,8 @@ class MentorController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $mentors
+            'data' => $mentors,
+            'countMentor' => $mentors->count(),
         ]);
     }
 
@@ -67,5 +68,4 @@ class MentorController extends Controller
 
         return view('user.mentors.detail', $data);
     }
-
 }
