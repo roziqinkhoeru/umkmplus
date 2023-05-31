@@ -64,14 +64,24 @@
 
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             mentor()
         });
-        $("#formSearchMentor").submit(function (e) {
+        $("#formSearchMentor").submit(function(e) {
             e.preventDefault();
             mentor()
         });
+
+        function createSlug(title) {
+            let slug = title.toLowerCase().replace(/ /g, "-");
+            slug = slug.replace(/[^a-z0-9-]/g, "");
+            return slug;
+        }
+
         function mentor() {
+            $("#mentorData").html(
+                `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
+            );
             let name = $("#searchMentor").val()
             // Membuat permintaan AJAX dan mengubah URL
             var request = `name=${name}`; // Request yang ingin ditambahkan
@@ -114,7 +124,8 @@
                             </div>
                         </a>
                     </div>`
-                    });
+                        });
+                    }
                     $("#mentorData").html(htmlString);
                 }
             });

@@ -32,6 +32,12 @@
     #blogItemWrapper.grid-cols-12 .col-span-4 {
         grid-column: span 6 / span 6;
     }
+
+    /* JOIN MENTOR */
+    /* join */
+    .card-join-mentor {
+        right: 0;
+    }
 }
 
 @media screen and (max-width: 990px) {
@@ -69,6 +75,25 @@
     }
     .px-header-detail-course {
         padding: 0 5rem;
+    }
+
+    /* JOIN MENTOR */
+    /* join */
+    .join-info-wrapper {
+        width: 100%;
+        padding-top: 0;
+    }
+    .card-join-mentor {
+        position: static;
+        top: unset;
+        right: unset;
+        margin-bottom: 32px;
+    }
+    .card-join-mentor .card {
+        width: 100%;
+    }
+    .card-join-mentor .card .card-body {
+        padding: 3rem;
     }
 }
 
@@ -111,6 +136,12 @@
     #headerDetailCourse.pb-70,
     #headerBlog.pb-70 {
         padding-bottom: 54px;
+    }
+
+    /* JOIN MENTOR */
+    /* join */
+    .card-join-mentor .card .card-body {
+        padding: 2rem;
     }
 }
 
@@ -237,5 +268,20 @@
     /* checkout */
     .card.card-checkout .card-body {
         padding: 1.5rem;
+    }
+
+    /* JOIN MENTOR */
+    /* join */
+    .card-join-mentor .card {
+        border: none;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        box-shadow: none;
+    }
+    .card-join-mentor .card .card-body {
+        padding: 0;
     }
 }
