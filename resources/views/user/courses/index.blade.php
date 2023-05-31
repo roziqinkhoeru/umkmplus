@@ -52,62 +52,68 @@
                                 </div>
                             </div>
                             {{-- sorting --}}
-                            <div class="course__sidebar-widget white-bg">
-                                <div class="course__sidebar-info">
-                                    <h3 class="course__sidebar-title">Sorting</h3>
-                                    <ul id="sorting">
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="sorting m-check-input" type="checkbox" id="newRelease"
-                                                    name="newRelease" id="newRelease">
-                                                <label class="m-check-label" for="newRelease">Baru Rilis</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="sorting m-check-input" type="checkbox" id="promotion"
-                                                    name="promotion" id="promotion">
-                                                <label class="m-check-label" for="promotion">Sedang Promo</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="sorting m-check-input" type="checkbox" id="popular"
-                                                    name="popular">
-                                                <label class="m-check-label" for="popular">Paling Populer</label>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            <form action="">
+                                {{-- sort --}}
+                                <div class="course__sidebar-widget white-bg">
+                                    <div class="course__sidebar-info">
+                                        <h3 class="course__sidebar-title">Sorting</h3>
+                                        <ul id="sorting">
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="sorting m-check-input" type="radio" name="sort"
+                                                        value="newRelease" id="newReleaseIn">
+                                                    <label class="m-check-label" for="newReleaseIn">Baru Rilis</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="sorting m-check-input" type="radio" name="sort"
+                                                        value="promotion" id="promotionIn">
+                                                    <label class="m-check-label" for="promotionIn">Sedang Promo</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="sorting m-check-input" type="radio" name="sort"
+                                                        value="popular" id="popularIn">
+                                                    <label class="m-check-label" for="popularIn">Paling Populer</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            {{-- price --}}
-                            <div class="course__sidebar-widget white-bg">
-                                <div class="course__sidebar-info">
-                                    <h3 class="course__sidebar-title">Price Filter</h3>
-                                    <ul id="priceFilter">
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="priceFilter m-check-input" type="checkbox" id="cheapestCourse">
-                                                <label class="m-check-label" for="cheapestCourse">Termurah -
-                                                    Termahal</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="priceFilter m-check-input" type="checkbox" id="expensiveCourse">
-                                                <label class="m-check-label" for="expensiveCourse">Termahal -
-                                                    Termurah</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="course__sidebar-check mb-10 d-flex align-items-center">
-                                                <input class="priceFilter m-check-input" type="checkbox" id="freeCourse">
-                                                <label class="m-check-label" for="freeCourse">Gratis</label>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                {{-- price --}}
+                                <div class="course__sidebar-widget white-bg">
+                                    <div class="course__sidebar-info">
+                                        <h3 class="course__sidebar-title">Price Filter</h3>
+                                        <ul id="priceFilter">
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="priceFilter m-check-input" type="radio" name="sort"
+                                                        value="cheapestCourse" id="cheapestCourseIn">
+                                                    <label class="m-check-label" for="cheapestCourseIn">Termurah -
+                                                        Termahal</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="priceFilter m-check-input" type="radio"
+                                                        value="expensiveCourse" name="sort" id="expensiveCourseIn">
+                                                    <label class="m-check-label" for="expensiveCourseIn">Termahal -
+                                                        Termurah</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                    <input class="priceFilter m-check-input" type="radio"
+                                                        value="freeCourse" name="sort" id="freeCourseIn">
+                                                    <label class="m-check-label" for="freeCourseIn">Gratis</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     {{-- course --}}
@@ -120,8 +126,8 @@
                                     <ul class="nav nav-tabs" id="courseTab" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link active" id="grid-tab" data-bs-toggle="tab"
-                                                data-bs-target="#grid" type="button" role="tab" aria-controls="grid"
-                                                aria-selected="true">
+                                                data-bs-target="#grid" type="button" role="tab"
+                                                aria-controls="grid" aria-selected="true">
                                                 <svg class="grid" viewBox="0 0 24 24">
                                                     <rect x="3" y="3" class="st0" width="7"
                                                         height="7" />
@@ -175,37 +181,53 @@
             getCourse()
         });
 
+        function createSlug(title) {
+            let slug = title.toLowerCase().replace(/ /g, "-");
+            slug = slug.replace(/[^a-z0-9-]/g, "");
+            return slug;
+        }
+
         function getCourse() {
+            $("#courseCategory").html(
+                `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
+            );
             $.ajax({
                 type: "GET",
                 url: "{{ url('/course/category/' . $category->slug . '/data') }}",
                 data: {
                     searchCourse: $("#searchCourse").val(),
-                    newRelease: $("#newRelease").is(":checked"),
-                    promotion: $("#promotion").is(":checked"),
-                    popular: $("#popular").is(":checked"),
-                    cheapestCourse: $("#cheapestCourse").is(":checked"),
-                    expensiveCourse: $("#expensiveCourse").is(":checked"),
-                    freeCourse: $("#freeCourse").is(":checked"),
+                    newRelease: $("#newReleaseIn").is(":checked"),
+                    promotion: $("#promotionIn").is(":checked"),
+                    popular: $("#popularIn").is(":checked"),
+                    cheapestCourse: $("#cheapestCourseIn").is(":checked"),
+                    expensiveCourse: $("#expensiveCourseIn").is(":checked"),
+                    freeCourse: $("#freeCourseIn").is(":checked"),
                 },
                 success: function(response) {
                     let htmlString = ``;
                     $("#countCourse").html(`<h4>Showing ${response.courseCount} Courses</h4>`);
-                    $.map(response.data, function(courseData, index) {
-                        let coursePrice = new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR'
-                        }).format(courseData.price);
-                        let date = new Date(courseData.created_at);
-                        let options = {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric'
-                        };
-                        let createAt = date.toLocaleDateString('id-ID', options);
-                        htmlString += `<div class="col-span-4-course">
+                    if (response.courseCount === 0) {
+                        htmlString =
+                            `<div class="text-center text-4xl col-span-full pt-100 pb-65"><p class="text-xl font-semibold">Maaf, kelas belum tersedia</p></div>`
+                    } else {
+                        $.map(response.data, function(courseData, index) {
+                            let coursePrice = courseData?.price?.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            });
+                            let date = new Date(courseData.created_at);
+                            let options = {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric'
+                            };
+                            let createAt = date.toLocaleDateString('id-ID', options);
+                            htmlString += `<div class="col-span-4-course">
                                                     <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block"
-                                                        href="{{ url('/course/${courseData.title}') }}">
+                                                        href="{{ url('/course/${createSlug(courseData.title)}') }}">
                                                         {{-- course item image --}}
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
@@ -225,7 +247,6 @@
                                                                 ${courseData.title}
                                                             </h3>
                                                             <p class="mb-10 fw-medium text-green-2">${coursePrice}</p>
-                                                            <p class="mb-0 line-clamp-2">${createAt}</p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
                                                                 <div class="course__action">
@@ -249,7 +270,7 @@
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="course__action-content">
-                                                                                    <span>${courseData.modules_count}</span>
+                                                                                    <span>${courseData.modules_count} Modul</span>
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -294,7 +315,8 @@
                                                         </div>
                                                     </a>
                                                 </div>`
-                    });
+                        });
+                    }
                     $("#courseCategory").html(htmlString);
                 }
             });
