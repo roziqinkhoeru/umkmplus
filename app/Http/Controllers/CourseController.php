@@ -28,7 +28,7 @@ class CourseController extends Controller
                 'courses' => $courses,
             ];
 
-        return view('courses.mentor', $data);
+        return view('user.mentor.index', $data);
     }
 
     public function getCourseCategoryDashboard(Request $request)
@@ -74,7 +74,7 @@ class CourseController extends Controller
     public function courseCategory(Category $category)
     {
         $data = [
-            'title' => 'Kelas' . $category->name . ' | UMKMPlus',
+            'title' => 'Kelas ' . $category->name . ' | UMKMPlus',
             'category' => $category
         ];
         return view('user.courses.index', $data);
