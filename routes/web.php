@@ -36,9 +36,6 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
-Route::get('/join-mentor', function () {
-    return view('user.mentors.join', ['title' => 'Become Our Mentor | UMKMPlus']);
-});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
@@ -66,6 +63,7 @@ Route::controller(GoogleAuthController::class)->group(function () {
     Route::get('/auth/google/callback', 'handleGoogleCallback');
 });
 
+/*  USER  */
 // Course
 Route::controller(CourseController::class)->group(function () {
     Route::get('/course/mentor', 'courseMentor')->name('course.mentor');
@@ -77,21 +75,19 @@ Route::controller(CourseController::class)->group(function () {
 });
 
 
-/*  USER  */
 // Dashboard
+// Category
 Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategoryDashboard'])->name('get.dashboard.course.category');
 Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
-// Category
+
 // Mentor
-Route::group(['middleware' => ['auth']], function () {
-    // Register Mentor
-    Route::group(['middleware' => ['checkRole:student']], function () {
-        Route::controller(MentorRegistrationController::class)->group(function () {
-            Route::get('/mentor/register', 'register')->name('mentor.register');
-            Route::post('/mentor/register', 'storeRegister')->name('mentor.register');
-        });
+Route::middleware(['guest'])->group(function () {
+    Route::controller(MentorRegistrationController::class)->group(function () {
+        Route::get('/mentor/register', 'register')->name('mentor.register');
+        Route::post('/mentor/register', 'storeRegister')->name('mentor.register');
     });
 });
+
 Route::controller(MentorController::class)->group(function () {
     Route::get('/mentor', 'dashboardMentor')->name('mentor');
     Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
@@ -120,7 +116,6 @@ Route::group(['middleware' => ['auth']], function () {
 // Cart
 
 // ADMIN
-
 // auth
 Route::controller(LoginController::class)->group(function () {
     Route::get('/admin/login', 'adminLogin')->name('admin.login');
@@ -141,11 +136,12 @@ Route::group(['middleware' => ['auth']], function () {
         // Mentor
         Route::controller(MentorController::class)->group(function () {
             Route::get('/admin/mentor', 'adminMentor')->name('admin.mentor');
-            Route::get('/admin/mentor/registration', 'listRegistration')->name('admin.mentor.list');
-            Route::get('/admin/mentor/create', 'adminCreateMentor')->name('admin.mentor.create');
-            Route::post('/admin/mentor/create', 'adminStoreMentor')->name('admin.mentor.store');
+            Route::get('/admin/mentor/registration', 'listRegistration')->name('admin.mentor.registration');
             Route::get('/admin/mentor/{customer:slug}', 'adminMentorShow')->name('admin.mentor.show');
             Route::put('/admin/mentor/{customer:slug}', 'adminNonaktifMentor')->name('admin.mentor.nonaktif');
+            Route::get('/admin/mentor/registration/{mentorRegistration:id}', 'createAccountMentor')->name('admin.mentor.registration.account');
+            Route::post('/admin/mentor/registration/{mentorRegistration:id}', 'StoreAccountMentor')->name('admin.mentor.registration.store');
+            Route::put('/admin/mentor/registration/{mentorRegistration:id}/rejected', 'rejectedMentor')->name('admin.mentor.registration.rejected');
         });
     });
 });

@@ -29,7 +29,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Mentor</div>
                                 <div class="card-tools">
-                                    <a href="{{ route('admin.mentor.list') }}"
+                                    <a href="{{ route('admin.mentor.registration') }}"
                                         class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>

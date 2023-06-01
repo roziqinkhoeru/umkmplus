@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Add Mentor
+                        Form Tambah Mentor
                     </li>
                 </ul>
             </div>
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Form Add Mentor</div>
+                            <div class="card-title">Form Tambah Mentor</div>
                             <div class="card-category">
                                 Form ini digunakan untuk menambah data mentor
                             </div>
@@ -46,7 +46,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="fullname" name="fullname"
-                                            value="{{ old('fullname') }}" placeholder="Masukkan Nama Lengkap" required>
+                                            value="{{ $mentorRegistration->fullname }}" placeholder="Masukkan Nama Lengkap" required>
                                     </div>
                                 </div>
                                 {{-- username --}}
@@ -70,7 +70,16 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="phone" class="form-control" id="phone"
-                                            placeholder="Enter phone" value="{{ old('phone') }}" required>
+                                            placeholder="Enter phone" value="{{ $mentorRegistration->phone }}" required>
+                                    </div>
+                                </div>
+                                {{-- address --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <input type="text" name="address" class="form-control" id="address"
+                                            placeholder="Enter address" value="{{ $mentorRegistration->address }}" required>
                                     </div>
                                 </div>
                                 {{-- email --}}
@@ -79,7 +88,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="email" name="email" class="form-control" id="email"
-                                            placeholder="Enter Email" value="{{ old('email') }}" required>
+                                            placeholder="Enter Email" value="{{ $mentorRegistration->email }}" required>
                                     </div>
                                 </div>
                                 {{-- password --}}
@@ -89,6 +98,13 @@
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="password" class="form-control" id="password" name="password"
                                             placeholder="Enter Password" required>
+                                    </div>
+                                </div>
+                                {{-- file cv --}}
+                                <div class="form-group form-show-validation row">
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <input hidden type="text" class="form-control" id="file_cv" name="file_cv"
+                                            placeholder="Enter File CV" required>
                                     </div>
                                 </div>
                             </div>
@@ -133,6 +149,11 @@
                     minlength: 10,
                     maxlength: 13,
                 },
+                address: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 100,
+                },
                 password: {
                     required: true,
                     minlength: 8,
@@ -149,15 +170,20 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username minimal 3 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username maksimal 50 karakter',
                 },
+                email: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak boleh kosong',
+                    email: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak valid',
+                },
                 phone: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone tidak boleh kosong',
                     number: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone hanya boleh berisi angka',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone minimal 10 digit',
                     maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone maksimal 13 digit',
                 },
-                email: {
-                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak boleh kosong',
-                    email: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak valid',
+                address: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat tidak boleh kosong',
+                    minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat minimal 3 karakter',
+                    maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat maksimal 100 karakter',
                 },
                 password: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Password tidak boleh kosong',
@@ -174,14 +200,16 @@
                 $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#createButton').prop('disabled', true);
                 $.ajax({
-                    url: "{{ url('/admin/mentor/create') }}",
+                    url: "{{ route('admin.mentor.registration.account', $mentorRegistration->id) }}",
                     type: "POST",
                     data: {
                         name: $('#fullname').val(),
                         username: $('#username').val(),
                         email: $('#email').val(),
                         phone: $('#phone').val(),
+                        address: $('#address').val(),
                         password: $('#password').val(),
+                        file_cv: $('#file_cv').val(),
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
@@ -202,7 +230,6 @@
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseJSON.data);
                         $('#createButton').html('Tambah');
                         $('#createButton').prop('disabled', false);
                         if (xhr.responseJSON)

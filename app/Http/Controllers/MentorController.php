@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class MentorController extends Controller
@@ -104,17 +105,49 @@ class MentorController extends Controller
         return view('admin.mentor.show', $data);
     }
 
-    public function adminCreateMentor()
+    public function adminNonaktifMentor(Request $request, Customer $customer)
+    {
+        $update = $customer->update([
+            'status' => $request->status
+        ]);
+        if ($update) {
+            return ResponseFormatter::success(
+                $customer,
+                'success nonaktif mentor'
+            );
+        }
+
+        return ResponseFormatter::error(
+            null,
+            'Gagal menonaktifkan mentor',
+            500
+        );
+    }
+
+    public function listRegistration()
+    {
+        $mentors = MentorRegistration::all();
+        $data = [
+            'title' => 'Pendaftaran Mentor | Admin UMKMPlus',
+            'active' => 'mentor',
+            'mentors' => $mentors
+        ];
+
+        return view('admin.mentor.listRegistration', $data);
+    }
+
+    public function createAccountMentor(MentorRegistration $mentorRegistration)
     {
         $data = [
-            'title' => 'Tambah Mentor | Admin UMKMPlus',
-            'active' => 'mentor'
+            'title' => 'Buat Akun Mentor | Admin UMKMPlus',
+            'active' => 'mentor',
+            'mentorRegistration' => $mentorRegistration
         ];
 
         return view('admin.mentor.create', $data);
     }
 
-    public function adminStoreMentor(Request $request)
+    public function StoreAccountMentor(Request $request, MentorRegistration $mentorRegistration)
     {
         try {
             DB::beginTransaction();
@@ -122,6 +155,7 @@ class MentorController extends Controller
             $rules = [
                 'name' => 'required|min:3',
                 'phone' => 'required|numeric',
+                'address' => 'required|min:3',
                 'username' => 'required|min:3|max:25|unique:users',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:8',
@@ -140,10 +174,16 @@ class MentorController extends Controller
                     : back()->with(['error' => $validator->errors()]);
             }
 
+            $mentorRegistration->update([
+                'status' => 'diterima'
+            ]);
+
             // create customer
             $customer = Customer::create([
                 'name' => $request->name,
                 'phone' => $request->phone,
+                'address' => $request->address,
+                'file_cv' => $request->file_cv,
             ]);
 
             if (!$customer) {
@@ -189,34 +229,22 @@ class MentorController extends Controller
         }
     }
 
-    public function adminNonaktifMentor(Request $request, Customer $customer)
+    public function rejectedMentor(MentorRegistration $mentorRegistration)
     {
-        $update = $customer->update([
-            'status' => $request->status
+        $update = $mentorRegistration->update([
+            'status' => 'ditolak'
         ]);
         if ($update) {
             return ResponseFormatter::success(
-                $customer,
-                'success nonaktif mentor'
+                $mentorRegistration,
+                'Berhasil menolak mentor'
             );
         }
 
         return ResponseFormatter::error(
             null,
-            'Gagal menonaktifkan mentor',
+            'Gagal menolak mentor',
             500
         );
-    }
-
-    public function listRegistration()
-    {
-        $mentors = MentorRegistration::all();
-        $data = [
-            'title' => 'Pendaftaran Mentor | Admin UMKMPlus',
-            'active' => 'mentor',
-            'mentors' => $mentors
-        ];
-
-        return view('admin.mentor.listRegistration', $data);
     }
 }
