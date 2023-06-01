@@ -82,7 +82,7 @@ class MentorController extends Controller
         $mentors = Customer::mentor()->get()->load('mentorCourses', 'mentorCourses.category')->map(function ($mentor) {
             $mentor->mentorCourses = $mentor->mentorCourses->take(3); // Mengambil 5 mentorCourses
             return $mentor;
-        });;
+        });
         $data = [
             'title' => 'Mentor | Admin UMKMPlus',
             'active' => 'mentor',
@@ -94,13 +94,14 @@ class MentorController extends Controller
 
     public function adminMentorShow(Customer $customer)
     {
+        $customer->load('mentorCourses', 'mentorCourses.category');
+        dd($customer);
         $data =
             [
                 'title' => 'Detail Mentor | Admin UMKMPlus',
                 'active' => 'mentor',
                 'mentor' => $customer
             ];
-        dd($customer);
 
         return view('admin.mentor.show', $data);
     }
@@ -126,7 +127,7 @@ class MentorController extends Controller
 
     public function listRegistration()
     {
-        $mentors = MentorRegistration::all();
+        $mentors = MentorRegistration::get();
         $data = [
             'title' => 'Pendaftaran Mentor | Admin UMKMPlus',
             'active' => 'mentor',

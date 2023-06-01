@@ -6,6 +6,7 @@ use App\Helpers\ResponseFormatter;
 use App\Models\Cart;
 use App\Models\carts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -35,10 +36,16 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $cart = Cart::create([
-            'student_id' => auth()->user()->customer_id,
-            'course_id' => $request->course_id,
-        ]);
+        if (Auth::check()) {
+            $cart = Cart::create([
+                'student_id' => auth()->user()->customer_id,
+                'course_id' => $request->course_id,
+            ]);
+        } else {
+            return ResponseFormatter::error([
+                'redirect' => redirect('/login')->getTargetUrl(),
+            ], 'Gagal menambahkan ke keranjang', 500);
+        }
 
         if ($cart) {
             return response()->json([
@@ -62,6 +69,6 @@ class CartController extends Controller
         $cart = Cart::destroy($cart->id);
 
         return $cart ? ResponseFormatter::success($cart, 'Berhasil menghapus kelas dari keranjang')
-        : ResponseFormatter::error(null, 'Gagal menghapus kelas dari keranjang', 500);
+            : ResponseFormatter::error(null, 'Gagal menghapus kelas dari keranjang', 500);
     }
 }

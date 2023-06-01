@@ -57,7 +57,7 @@
                                                     <a href="{{ asset('storage/' . $mentor->file_cv) }}"
                                                         class="btn btn-primary btn-sm" download>Download File</a>
                                                     @if ($mentor->status == 'pending')
-                                                        <button onclick="registrationAccount()"
+                                                        <button onclick="acceptRegistration('{{ $mentor->id }}')"
                                                             class="btn btn-success btn-sm" id="acceptButton">Terima</button>
                                                         <button class="btn btn-danger btn-sm" id="rejectedButton"
                                                             onclick="rejectedRegistration('{{ $mentor->id }}')">Ditolak</button>
@@ -77,7 +77,7 @@
 @endsection
 @section('script')
     <script>
-        function registrationAccount() {
+        function acceptRegistration(mentorID) {
             event.preventDefault();
             $('#acceptButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
             swal.fire({
@@ -95,7 +95,7 @@
                         'Form akun mentor akan dibuatkan.',
                         'success'
                     )
-                    window.location.href = "{{ route('admin.mentor.registration.account', $mentor->id) }}";
+                    window.location.href = `{{ url('admin/mentor/registration/${mentorID}') }}`;
 
                 }
             })
