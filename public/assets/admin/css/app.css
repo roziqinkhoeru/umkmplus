@@ -6,3 +6,20 @@
     min-height: 60px !important;
     height: auto !important;
 }
+
+/* LOGIN */
+/* layout */
+.auth-image-wrapper {
+    margin-bottom: 0;
+    padding: 14px 24px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    background: #ffffff;
+}
+
+.auth-image-wrapper img {
+    height: 28px;
+}
