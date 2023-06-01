@@ -47,6 +47,9 @@ Route::get('/admin/student', function () {
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
 });
+Route::get('/admin/nameAdmin', function () {
+    return view('admin.profile.index', ['title' => 'Profile _nameAdmin_ | Admin UMKMPlus', 'active' => 'profile']);
+});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
