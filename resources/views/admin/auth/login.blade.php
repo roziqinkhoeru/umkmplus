@@ -25,7 +25,8 @@
                     <input type="checkbox" class="custom-control-input" id="rememberme" name="rememberme">
                     <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
                 </div>
-                <button type="submit" id="loginButton" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Masuk</button>
+                <button type="submit" id="loginButton"
+                    class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Masuk</button>
             </div>
         </form>
     </div>
@@ -51,7 +52,7 @@
                 },
             },
             submitHandler: function(form) {
-                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#loginButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ url('/admin/login') }}",

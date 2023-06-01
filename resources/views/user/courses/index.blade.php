@@ -188,6 +188,7 @@
         }
 
         function getCourse() {
+            // loading state
             $("#courseCategory").html(
                 `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
             );
@@ -207,9 +208,10 @@
                     let htmlString = ``;
                     $("#countCourse").html(`<h4>Showing ${response.courseCount} Courses</h4>`);
                     if (response.courseCount === 0) {
-                        htmlString =
-                            `<div class="text-center text-4xl col-span-full pt-100 pb-65"><p class="text-xl font-semibold">Maaf, kelas belum tersedia</p></div>`
+                        // empty state
+                        htmlString = emptyState('Maaf, kelas belum tersedia');
                     } else {
+                        // success state
                         $.map(response.data, function(courseData, index) {
                             let coursePrice = courseData?.price?.toLocaleString('id-ID', {
                                 style: 'currency',
@@ -318,6 +320,10 @@
                         });
                     }
                     $("#courseCategory").html(htmlString);
+                },
+                // error state
+                error: function() {
+                    $("#courseCategory").html(errorState());
                 }
             });
         }

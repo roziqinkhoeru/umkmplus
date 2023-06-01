@@ -62,11 +62,17 @@ class CourseController extends Controller
     public function category()
     {
         $categories = Category::all();
-        $data =
-            [
+        if ($categories->isEmpty()) {
+            $data = [
+                'title' => 'Kategori Kelas | UMKMPlus',
+                'categories' => null
+            ];
+        } else {
+            $data = [
                 'title' => 'Kategori Kelas | UMKMPlus',
                 'categories' => $categories
             ];
+        }
 
         return view('user.courses.category', $data);
     }
@@ -153,14 +159,14 @@ class CourseController extends Controller
             "countStudent" => $countStudent
         ];
         $data =
-        [
-            'title' => $course->title . ' | UMKM Plus',
-            'course' => $course,
-            'countMediaModule' => $countMediaModule,
-            'countMentor' => $countMentor,
-            'courseEnroll' => $courseEnroll ?? null,
-            'cartCourse' => $cartCourse->id ?? null
-        ];
+            [
+                'title' => $course->title . ' | UMKM Plus',
+                'course' => $course,
+                'countMediaModule' => $countMediaModule,
+                'countMentor' => $countMentor,
+                'courseEnroll' => $courseEnroll ?? null,
+                'cartCourse' => $cartCourse->id ?? null
+            ];
 
         return view('user.courses.detail', $data);
     }

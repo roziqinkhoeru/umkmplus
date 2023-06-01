@@ -33,21 +33,35 @@
         <section class="bg-white pb-60 pt-40">
             <div class="container">
                 <div class="row row-gap-4">
-                    @foreach ($categories as $category)
-                    <div class="col-xxl-4 col-xl-4 col-md-6">
-                        <div class="card card-list-category">
-                            <div class="card-body">
-                                <figure class="list-category-img-wrapper mb-30"><img
-                                        src="{{ asset('assets/img/dummy/good-job-hand.svg') }}" alt="category-thumbnail">
-                                </figure>
-                                <h3 class="mb-10">{{ $category->name }}</h3>
-                                <p class="mb-15">{{ $category->description }}</p>
-                                <div class="d-flex"><a href="{{ url('/course/category/'.$category->slug) }}" class="card-list-category-link">Jelajahi<i
-                                            class="fa-solid fa-arrow-right ms-2"></i></a></div>
+                    @if ($categories == null)
+                        {{-- empty state --}}
+                        <div class="text-center text-4xl col-span-full pt-30 pb-30">
+                            <div class="text-center w-100 d-flex justify-content-center">
+                                <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
+                                    <p class="text-xl font-semibold mb-0">Maaf, kategori belum tersedia</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
+                    @else
+                        {{-- success state --}}
+                        @foreach ($categories as $category)
+                            <div class="col-xxl-4 col-xl-4 col-md-6">
+                                <div class="card card-list-category">
+                                    <div class="card-body">
+                                        <figure class="list-category-img-wrapper mb-30"><img
+                                                src="{{ asset('assets/img/dummy/good-job-hand.svg') }}"
+                                                alt="category-thumbnail">
+                                        </figure>
+                                        <h3 class="mb-10">{{ $category->name }}</h3>
+                                        <p class="mb-15">{{ $category->description }}</p>
+                                        <div class="d-flex"><a href="{{ url('/course/category/' . $category->slug) }}"
+                                                class="card-list-category-link">Jelajahi<i
+                                                    class="fa-solid fa-arrow-right ms-2"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </section>

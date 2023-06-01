@@ -37,6 +37,11 @@
         {{-- left container --}}
         <section
             class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
+            <div class="d-flex justify-content-center mb-4">
+                <figure class="auth-image-wrapper"><img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
+                        alt="umkmplus-letter-logo">
+                </figure>
+            </div>
             <h1 class="title fw-bold text-white mb-3">Join Our Comunity</h1>
             <p class="subtitle text-white op-7">Ayo bergabung dengan komunitas kami untuk masa depan yang lebih baik</p>
         </section>

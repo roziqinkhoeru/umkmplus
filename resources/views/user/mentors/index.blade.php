@@ -79,6 +79,7 @@
         }
 
         function mentor() {
+            // loading state
             $("#mentorData").html(
                 `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
             );
@@ -99,8 +100,13 @@
                 },
                 success: function(response) {
                     let htmlString = ``;
-                    $.map(response.data, function(mentorData, index) {
-                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                    if (response.countMentor === 0) {
+                        // empty state
+                        htmlString = emptyState('Maaf, mentor belum tersedia');
+                    } else {
+                        // success state
+                        $.map(response.data, function(mentorData, index) {
+                            htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                         <a href="/mentor/${mentorData.slug}"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
@@ -126,6 +132,10 @@
                     </div>`
                     });
                     $("#mentorData").html(htmlString);
+                },
+                // error state
+                error: function() {
+                    $("#mentorData").html(errorState());
                 }
             });
         }

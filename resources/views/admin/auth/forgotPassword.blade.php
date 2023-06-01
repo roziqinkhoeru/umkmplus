@@ -100,8 +100,8 @@
         function submitForgotPassword() {
             event.preventDefault();
             $('#buttonResendLink').html(
-                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
-                );
+                '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
+            );
             isResendLinkResetPassword = true;
             submitForgotPasswordAjax(isResendLinkResetPassword);
             $('#forgotPasswordForm').submit();
