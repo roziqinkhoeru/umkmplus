@@ -33,7 +33,7 @@
         <section class="bg-white pb-60 pt-40">
             <div class="container">
                 <div class="row row-gap-4">
-                    @if ($categories == null)
+                    @if (count($categories) == 0)
                         {{-- empty state --}}
                         <div class="text-center text-4xl col-span-full pt-30 pb-30">
                             <div class="text-center w-100 d-flex justify-content-center">

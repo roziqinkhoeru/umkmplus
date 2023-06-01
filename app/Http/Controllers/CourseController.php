@@ -62,17 +62,11 @@ class CourseController extends Controller
     public function category()
     {
         $categories = Category::all();
-        if ($categories->isEmpty()) {
-            $data = [
-                'title' => 'Kategori Kelas | UMKMPlus',
-                'categories' => null
-            ];
-        } else {
-            $data = [
-                'title' => 'Kategori Kelas | UMKMPlus',
-                'categories' => $categories
-            ];
-        }
+
+        $data = [
+            'title' => 'Kategori Kelas | UMKMPlus',
+            'categories' => $categories
+        ];
 
         return view('user.courses.category', $data);
     }
