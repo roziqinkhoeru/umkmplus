@@ -95,7 +95,7 @@
         </li>
         {{-- logout --}}
         <li class="nav-item">
-            <a href="/logout">
+            <a href="/logout" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <p>Logout</p>
             </a>

@@ -184,7 +184,7 @@ class MentorController extends Controller
             // create customer
             $customer = Customer::create([
                 'name' => $request->name,
-                'slug' => Str::slug($request->name, '-'),
+                'slug' => Str::lower(Str::slug($request->name, '-')),
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'job' => $request->job,
