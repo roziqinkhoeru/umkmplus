@@ -184,6 +184,7 @@ class MentorController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'file_cv' => $request->file_cv,
+                'status' => 1,
             ]);
 
             if (!$customer) {

@@ -190,4 +190,16 @@ class CourseController extends Controller
 
         return redirect()->route('courses.index')->with('success', 'Kelas berhasil dihapus');
     }
+
+    public function studentCourse(Course $course)
+    {
+        $course->load('courseEnrolls');
+        dd($course->courseEnrolls);
+        $data = [
+            'title' => $course->title . ' | UMKM Plus',
+            'course' => $course
+        ];
+
+        return view('admin.courses.student', $data);
+    }
 }
