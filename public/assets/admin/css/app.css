@@ -7,6 +7,17 @@
     height: auto !important;
 }
 
+/* NAVBAR */
+.hover-logout:hover {
+    background-color: #f2596129 !important;
+    color: #f25961 !important;
+    font-weight: 600 !important;
+}
+.hover-logout:hover p,
+.nav-item .hover-logout:hover p {
+    color: #f25961 !important;
+}
+
 /* LOGIN */
 /* layout */
 .auth-image-wrapper {
