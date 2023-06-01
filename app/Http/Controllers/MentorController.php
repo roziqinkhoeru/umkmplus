@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class MentorController extends Controller
 {
@@ -157,6 +158,7 @@ class MentorController extends Controller
                 'name' => 'required|min:3',
                 'phone' => 'required|numeric',
                 'address' => 'required|min:3',
+                'job' => 'required',
                 'username' => 'required|min:3|max:25|unique:users',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:8',
@@ -182,9 +184,12 @@ class MentorController extends Controller
             // create customer
             $customer = Customer::create([
                 'name' => $request->name,
+                'slug' => Str::slug($request->name, '-'),
                 'phone' => $request->phone,
                 'address' => $request->address,
+                'job' => $request->job,
                 'file_cv' => $request->file_cv,
+                'profile_picture' => 'assets/img/dummy/mentor-1.jpg', // default profile photo
                 'status' => 1,
             ]);
 
