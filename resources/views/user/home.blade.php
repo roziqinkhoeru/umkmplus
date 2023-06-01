@@ -145,7 +145,7 @@
                 </div>
                 <div class="testimoni-container">
                     <div class="row">
-                        @if ($testimonials == null)
+                        @if (count($testimonials) == 0)
                             {{-- empty state --}}
                             <div class="text-center col-span-full pt-30 pb-30">
                                 <div class="text-center w-100 d-flex justify-content-center">
