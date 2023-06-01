@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin">Data Mentor</a>
+                        <a href="/admin/mentor">Data Mentor</a>
                     </li>
                 </ul>
             </div>
