@@ -32,7 +32,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="mentorTable" class="display table table-striped table-hover">
+                                <table id="registrationTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -40,6 +40,7 @@
                                             <th>Email</th>
                                             <th>No Telepon</th>
                                             <th>Alamat</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -51,9 +52,16 @@
                                                 <td>{{ $mentor->email }}</td>
                                                 <td>{{ $mentor->phone }}</td>
                                                 <td>{{ $mentor->address }}</td>
+                                                <td>{{ $mentor->status }}</td>
                                                 <td class="space-nowrap">
-                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}" class="btn btn-primary btn-sm" download>Download File</a>
-                                                    <a href="#" onclick="registrationAccount()" class="btn btn-success btn-sm">Terima</a>
+                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}"
+                                                        class="btn btn-primary btn-sm" download>Download File</a>
+                                                    @if ($mentor->status == 'pending')
+                                                        <button onclick="registrationAccount()"
+                                                            class="btn btn-success btn-sm" id="acceptButton">Terima</button>
+                                                        <button class="btn btn-danger btn-sm" id="rejectedButton"
+                                                            onclick="rejectedRegistration('{{ $mentor->id }}')">Ditolak</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -69,12 +77,9 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#mentorTable').DataTable({});
-        });
-
         function registrationAccount() {
             event.preventDefault();
+            $('#acceptButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
             swal.fire({
                 title: 'Apakah anda yakin mentor diterima?',
                 text: "Akun mentor akan dibuatkan",
@@ -84,15 +89,60 @@
                 cancelButtonColor: '#d33'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $('#acceptButton').html('Terima');
                     swal.fire(
                         'Berhasil!',
                         'Form akun mentor akan dibuatkan.',
                         'success'
                     )
-                window.location.href = "{{ route('admin.mentor.registration.account', $mentor->id) }}";
+                    window.location.href = "{{ route('admin.mentor.registration.account', $mentor->id) }}";
 
                 }
             })
+        };
+
+        function rejectedRegistration(registrationID) {
+            event.preventDefault();
+            $('#rejectedButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+            swal.fire({
+                title: 'Apakah anda yakin pendaftar ditolak?',
+                text: "Akun mentor tidak akan dibuatkan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "PUT",
+                        url: `{{ url('/admin/mentor/registration/${registrationID}/rejected') }}`,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            $('#rejectedButton').html('Ditolak');
+                            swal.fire(
+                                'Berhasil!',
+                                'Pendaftar berhasil ditolak.',
+                                'success'
+                            )
+                        },
+                        error: function(response) {
+                            $('#rejectedButton').html('Ditolak');
+                            swal.fire(
+                                'Gagal!',
+                                'Pendaftar gagal ditolak, silahkan coba lagi.',
+                                response.error
+                            )
+                        }
+                    });
+                }
+            })
         }
+
+
+        $(document).ready(function() {
+            $('#registrationTable').DataTable({});
+        });
     </script>
 @endsection
