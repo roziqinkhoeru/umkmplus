@@ -14,6 +14,7 @@ use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\MentorRegistrationController;
+use App\Http\Controllers\StudentController;
 use Symfony\Component\Routing\RouteCompiler;
 
 /*
@@ -152,7 +153,13 @@ Route::group(['middleware' => ['auth']], function () {
         });
         // Course
         Route::controller(CourseController::class)->group(function () {
+            Route::get('/admin/course', 'adminCourse')->name('admin.course');
             Route::get('/admin/course/{course:slug}/student', 'studentCourse')->name('admin.course.student');
+        });
+        // Student
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/admin/student', 'adminStudent')->name('admin.student');
+            Route::get('/admin/student/{customer:slug}', 'adminStudentShow')->name('admin.student.show');
         });
     });
 });

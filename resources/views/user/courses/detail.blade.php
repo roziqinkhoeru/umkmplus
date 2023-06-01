@@ -67,19 +67,20 @@
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
                                             Belajar</a>
                                     @else
-                                    <div id="buttonCart">
-                                        <a href="{{ url('/checkout/' . $course->slug) }}"
-                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
-                                        @if ($cartCourse)
+                                        <div id="buttonCart">
+                                            <a href="{{ url('/checkout/' . $course->slug) }}"
+                                                class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Beli kelas</a>
+                                            @if ($cartCourse)
                                                 <button type="button" class="tp-btn tp-btn-3 rounded-pill"
-                                                onclick="deleteCart({{ $cartCourse }})" style="background-color: #FC4C56 !important"><i
-                                                class="fa-regular fa-cart-xmark"></i></button>
-                                                @else
+                                                    onclick="deleteCart({{ $cartCourse }})"
+                                                    style="background-color: #FC4C56 !important"><i
+                                                        class="fa-regular fa-cart-xmark"></i></button>
+                                            @else
                                                 <button type="button" class="tp-btn tp-btn-3 rounded-pill"
-                                                onclick="addCart({{ $course->id }})"><i
-                                                class="fa-regular fa-cart-plus"></i></button>
-                                                @endif
-                                            </div>
+                                                    onclick="addCart({{ $course->id }})"><i
+                                                        class="fa-regular fa-cart-plus"></i></button>
+                                            @endif
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -216,7 +217,6 @@
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(response) {
-                            console.log(response.data);
                             Swal.fire(
                                 'Berhasil!',
                                 'Anda telah memasukkan ke keranjang.',
@@ -230,19 +230,25 @@
                                                 class="fa-regular fa-cart-xmark"></i></button>`);
                         },
                         error: function(xhr, status, error) {
-                            if (xhr.responseJSON)
-                                Swal.fire(
-                                    'Gagal!',
+                            if (xhr.responseJSON) {
+                                console.log(xhr.responseJSON.message);
+                                if (xhr.responseJSON.message == "Unauthenticated.") {
+                                    window.location.href = "{{ route('login') }}";
+                                } else {
+                                    Swal.fire(
+                                        'Gagal!',
                                     'Anda gagal memasukkan ke keranjang.',
-                                    xhr.responseJSON.meta.message
-                                )
-                            else
+                                    xhr.responseJSON.message
+                                    )
+                                }
+                            } else {
                                 Swal.fire(
                                     'Gagal!',
                                     'Anda gagal memasukkan ke keranjang.',
                                     error
                                 )
-                            return false;
+                                return false;
+                            }
                         }
                     })
                 }
