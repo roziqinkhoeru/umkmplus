@@ -30,11 +30,17 @@
                                             <a href="/login">Masuk</a>
                                         </li>
                                     @else
+                                        @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                            <li class="d-block d-sm-none">
+                                                <a href="/admin">Profile</a>
+                                            </li>
+                                        @else
+                                            <li class="d-block d-sm-none">
+                                                <a href="/profile">Profile</a>
+                                            </li>
+                                        @endif
                                         <li class="d-block d-sm-none">
-                                            <a href="/profile">Profile</a>
-                                        </li>
-                                        <li class="d-block d-sm-none">
-                                            <a href="/logout"  onclick="logout()">Keluar</a>
+                                            <a href="/logout" onclick="logout()">Keluar</a>
                                         </li>
                                     @endif
                                 </ul>
@@ -79,9 +85,15 @@
                                     </a>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
+                                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                    <a href="/admin" class="d-flex align-items-center nav-icon-user">
+                                        <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                    </a>
+                                    @else
                                     <a href="/profile" class="d-flex align-items-center nav-icon-user">
                                         <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                     </a>
+                                    @endif
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     <a href="/logout" onclick="logout()"

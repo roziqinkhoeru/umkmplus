@@ -51,17 +51,6 @@
                                             required value="{{ old('email') }}" class="input-form">
                                     </div>
                                 </div>
-                                {{-- domicile --}}
-                                <div class="sign__input-wrapper mb-22">
-                                    <label for="domicile">
-                                        <h5>Alamat</h5>
-                                    </label>
-                                    <div class="sign__input">
-                                        <i class="fal fa-map-marked icon-form"></i>
-                                        <input type="text" placeholder="Masukan alamat domisili" name="address"
-                                            id="address" required value="{{ old('address') }}" class="input-form">
-                                    </div>
-                                </div>
                                 {{-- phone --}}
                                 <div class="sign__input-wrapper mb-22">
                                     <label for="phone">
@@ -71,6 +60,28 @@
                                         <i class="fal fa-phone icon-form"></i>
                                         <input type="text" placeholder="Masukan nomor telepon" name="phone"
                                             id="phone" required value="{{ old('phone') }}" class="input-form">
+                                    </div>
+                                </div>
+                                {{-- address --}}
+                                <div class="sign__input-wrapper mb-22">
+                                    <label for="address">
+                                        <h5>Alamat</h5>
+                                    </label>
+                                    <div class="sign__input">
+                                        <i class="fal fa-map-marked icon-form"></i>
+                                        <input type="text" placeholder="Masukan alamat domisili" name="address"
+                                            id="address" required value="{{ old('address') }}" class="input-form">
+                                    </div>
+                                </div>
+                                {{-- job --}}
+                                <div class="sign__input-wrapper mb-22">
+                                    <label for="job">
+                                        <h5>Pekerjaan</h5>
+                                    </label>
+                                    <div class="sign__input">
+                                        <i class="fal fa-map-marked icon-form"></i>
+                                        <input type="text" placeholder="Masukan pekerjaan domisili" name="job"
+                                            id="job" required value="{{ old('job') }}" class="input-form">
                                     </div>
                                 </div>
                                 {{-- cv --}}

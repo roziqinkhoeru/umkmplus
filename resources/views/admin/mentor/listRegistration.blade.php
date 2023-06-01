@@ -96,7 +96,8 @@
                         'success'
                     )
                     window.location.href = `{{ url('admin/mentor/registration/${mentorID}') }}`;
-
+                } else {
+                    $('#acceptButton').html('Terima');
                 }
             })
         };
@@ -136,6 +137,8 @@
                             )
                         }
                     });
+                } else {
+                    $('#rejectedButton').html('Ditolak');
                 }
             })
         }
