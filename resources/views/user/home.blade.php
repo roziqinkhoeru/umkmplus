@@ -145,39 +145,53 @@
                 </div>
                 <div class="testimoni-container">
                     <div class="row">
-                        @foreach ($testimonials as $testimonial)
-                            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-                                <div class="course__item white-bg transition-3 mb-30 rounded-4">
-                                    <div class="course__content p-relative pt-3 pb-2">
-                                        <div class="mb-4 d-flex align-items-center">
-                                            @for ($i = 0; $i < $testimonial->rating; $i++)
-                                                <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                            @endfor
-                                            @for ($i = 0; $i < 5 - $testimonial->rating; $i++)
-                                                <i class="fa-solid fa-star text-3xl me-2 text-gray"></i>
-                                            @endfor
-                                        </div>
-                                        <p>{{ $testimonial->testimonial }}</p>
-                                        <div class="course__bottom d-sm-flex align-items-center justify-content-between">
-                                            <div class="testimoni-author-wrapper">
-                                                <img src="{{ asset($testimonial->student->profile_picture) }}"
-                                                    alt="testimoni-1">
-                                                <div>
-                                                    <p class="testimoni-author-name">{{ $testimonial->student->name }}</p>
-                                                    <p class="testimoni-author-job">
-                                                        @if ($testimonial->student->job != null)
-                                                            {{ $testimonial->student->job }}
-                                                        @else
-                                                            Pelaku Usaha
-                                                        @endif
-                                                    </p>
+                        @if ($testimonials == null)
+                            {{-- empty state --}}
+                            <div class="text-center col-span-full pt-30 pb-30">
+                                <div class="text-center w-100 d-flex justify-content-center">
+                                    <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
+                                        <p class="text-xl font-semibold mb-0">Maaf, Testimoni belum tersedia</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            {{-- success state --}}
+                            @foreach ($testimonials as $testimonial)
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+                                    <div class="course__item white-bg transition-3 mb-30 rounded-4">
+                                        <div class="course__content p-relative pt-3 pb-2">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                @for ($i = 0; $i < $testimonial->rating; $i++)
+                                                    <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
+                                                @endfor
+                                                @for ($i = 0; $i < 5 - $testimonial->rating; $i++)
+                                                    <i class="fa-solid fa-star text-3xl me-2 text-gray"></i>
+                                                @endfor
+                                            </div>
+                                            <p>{{ $testimonial->testimonial }}</p>
+                                            <div
+                                                class="course__bottom d-sm-flex align-items-center justify-content-between">
+                                                <div class="testimoni-author-wrapper">
+                                                    <img src="{{ asset($testimonial->student->profile_picture) }}"
+                                                        alt="testimoni-1">
+                                                    <div>
+                                                        <p class="testimoni-author-name">{{ $testimonial->student->name }}
+                                                        </p>
+                                                        <p class="testimoni-author-job">
+                                                            @if ($testimonial->student->job != null)
+                                                                {{ $testimonial->student->job }}
+                                                            @else
+                                                                Pelaku Usaha
+                                                            @endif
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -187,21 +201,19 @@
 @endsection
 
 @section('script')
-@if (session('error'))
-    <script>
-        $(document).ready(function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Berhasil',
-                text: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        });
-
-    </script>
-
-@endif
+    @if (session('error'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Berhasil',
+                    text: '{{ session('error') }}',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            });
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             course("branding")
@@ -221,6 +233,7 @@
             // Mengubah URL tanpa melakukan reload halaman
             history.pushState(null, null, newUrl);
 
+            // loading state
             $("#courseCategory").html(
                 `<div class="text-center text-3xl col-span-full pt-65 pb-25"><i class="fas fa-spinner-third spinners-2"></i></div>`
             );
@@ -235,12 +248,19 @@
                     $(`.${categoryUrl}-item`).removeClass("active text-primary");
                     $(`.${category}-item`).addClass("active text-primary");
                     let htmlString = ``;
-                    $.map(response.data, function(courseData, index) {
-                        let coursePrice = new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR'
-                        }).format(courseData.price);
-                        htmlString += `<div class="col-span-3-course">
+
+                    if (response.data.length === 0) {
+                        // empty state
+                        htmlString =
+                            `<div class="text-center col-span-full pt-65 pb-35"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-3 px-5 py-4" style="background: #0e0e0e10"><p class="text-xl font-semibold mb-0">Maaf, Kelas belum tersedia</p></div></div></div>`
+                    } else {
+                        // success state
+                        $.map(response.data, function(courseData, index) {
+                            let coursePrice = new Intl.NumberFormat('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }).format(courseData.price);
+                            htmlString += `<div class="col-span-3-course">
                             <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block border-1 border-light-2"
                                                         href="/course/${courseData.slug}">
                                                         <div class="course__thumb-2 w-img fix">
@@ -329,22 +349,39 @@
                                                         </div>
                                                     </a>
                             </div>`
-                    });
+                        });
+                    }
+
                     $("#courseCategory").html(htmlString);
+                },
+                // error state
+                error: function() {
+                    $("#courseCategory").html(
+                        `<div class="text-center col-span-full pt-45 pb-15"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-4 px-5 py-4" style="background: #0e0e0e10"><i class="fa fa-exclamation-circle text-3xl" aria-hidden="true"></i><p class="text-2xl text-muted mt-15 mb-5 fw-bold">Tidak ada item di sini!</p><p class="text-muted mb-5">Silakan periksa koneksi Anda atau segarkan halaman ini.</p></div></div></div>`
+                    );
                 }
             });
         }
 
         function mentorPopular() {
+            // loading state
             $("#mentorPopular").html(
                 `<div class="text-center text-3xl pt-30 pb-35"><i class="fas fa-spinner-third spinners-2"></i></div>`);
+
             $.ajax({
                 type: "GET",
                 url: "{{ route('get.dashboard.mentor.popular') }}",
                 success: function(response) {
                     let htmlString = ``;
-                    $.map(response.data, function(mentorData, index) {
-                        htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+
+                    if (response.data.length === 0) {
+                        // empty state
+                        htmlString =
+                            `<div class="text-center col-span-full pt-40 pb-45"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-3 px-5 py-4" style="background: #0e0e0e10"><p class="text-xl font-semibold mb-0">Maaf, Mentor belum tersedia</p></div></div></div>`
+                    } else {
+                        // success state
+                        $.map(response.data, function(mentorData, index) {
+                            htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
                             <a href="/mentor/${mentorData.slug}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
@@ -370,11 +407,18 @@
                                 </div>
                             </a>
                         </div>`
-                    });
+                        });
+                    }
+
                     $("#mentorPopular").html(htmlString);
+                },
+                // error state
+                error: function() {
+                    $("#mentorPopular").html(
+                        `<div class="text-center pt-30 pb-35 d-flex justify-content-center"><div class="rounded-4 px-5 py-4" style="background: #0e0e0e10"><i class="fa fa-exclamation-circle text-3xl" aria-hidden="true"></i><p class="text-2xl text-muted mt-15 mb-5 fw-bold">Tidak ada item di sini!</p><p class="text-muted mb-5">Silakan periksa koneksi Anda atau segarkan halaman ini.</p></div></div>`
+                    );
                 }
             })
         }
-
     </script>
 @endsection

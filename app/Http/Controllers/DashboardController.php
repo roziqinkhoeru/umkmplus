@@ -17,6 +17,10 @@ class DashboardController extends Controller
     {
         $categories = Category::all();
         $testimonials = Testimonial::with('student')->where('status', 'tampilkan')->limit(3)->get();
+        if ($testimonials->isEmpty()) {
+            $testimonials = null;
+        }
+
         if (Auth::check()) {
             $countCart = Cart::countCart();
             $data =
