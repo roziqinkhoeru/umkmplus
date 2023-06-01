@@ -74,6 +74,8 @@ Route::controller(GoogleAuthController::class)->group(function () {
 /*  USER  */
 // Course
 Route::controller(CourseController::class)->group(function () {
+    Route::get('/course', 'index')->name('course.index');
+    Route::get('/course/data', 'getCourse')->name('course.data');
     Route::get('/course/mentor', 'courseMentor')->name('course.mentor');
     Route::get('/course/mentor/{customer:slug}', 'getCourseMentor')->name('course.mentor.category');
     Route::get('/course/category', 'category')->name('category');

@@ -46,7 +46,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="fullname" name="fullname"
-                                            value="{{ $mentorRegistration->fullname }}" placeholder="Masukkan Nama Lengkap" required>
+                                            value="{{ $mentorRegistration->fullname }}" placeholder="Masukkan Nama Lengkap"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- username --}}
@@ -75,11 +76,20 @@
                                 </div>
                                 {{-- address --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Alamat
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="address" class="form-control" id="address"
                                             placeholder="Enter address" value="{{ $mentorRegistration->address }}" required>
+                                    </div>
+                                </div>
+                                {{-- job --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="job" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Pekerjaan
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <input type="text" name="job" class="form-control" id="job"
+                                            placeholder="Enter job" value="{{ $mentorRegistration->job }}" required>
                                     </div>
                                 </div>
                                 {{-- email --}}
@@ -104,7 +114,8 @@
                                 <div class="form-group form-show-validation row">
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input hidden type="text" class="form-control" id="file_cv" name="file_cv"
-                                            placeholder="Enter File CV" required>
+                                            value="{{ $mentorRegistration->file_cv }}" placeholder="Enter File CV"
+                                            required>
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +138,9 @@
 
 @section('script')
     <script>
+        $.validator.addMethod("nowhitespace", function(value, element) {
+            return this.optional(element) || /^\S+$/i.test(value);
+        }, "Username tidak boleh ada spasi");
         $("#addMentorForm").validate({
             rules: {
                 fullname: {
@@ -138,6 +152,7 @@
                     required: true,
                     minlength: 3,
                     maxlength: 50,
+                    nowhitespace: true,
                 },
                 email: {
                     required: true,
@@ -154,6 +169,9 @@
                     minlength: 3,
                     maxlength: 100,
                 },
+                job: {
+                    required: true,
+                },
                 password: {
                     required: true,
                     minlength: 8,
@@ -169,6 +187,7 @@
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username minimal 3 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username maksimal 50 karakter',
+                    nowhitespace: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username tidak boleh ada spasi',
                 },
                 email: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak boleh kosong',
@@ -185,6 +204,9 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat minimal 3 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat maksimal 100 karakter',
                 },
+                job: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Pekerjaan tidak boleh kosong',
+                },
                 password: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Password tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Password minimal 8 karakter',
@@ -196,11 +218,12 @@
             success: function(element) {
                 $(element).closest('.form-group').removeClass('has-error');
             },
-            submitHandler: function(form) {
+            submitHandler: function(form, event) {
+                event.preventDefault();
                 $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
                 $('#createButton').prop('disabled', true);
                 $.ajax({
-                    url: "{{ route('admin.mentor.registration.account', $mentorRegistration->id) }}",
+                    url: "{{ route('admin.mentor.registration.store', $mentorRegistration->id) }}",
                     type: "POST",
                     data: {
                         name: $('#fullname').val(),
@@ -208,6 +231,7 @@
                         email: $('#email').val(),
                         phone: $('#phone').val(),
                         address: $('#address').val(),
+                        job: $('#job').val(),
                         password: $('#password').val(),
                         file_cv: $('#file_cv').val(),
                         _token: "{{ csrf_token() }}"

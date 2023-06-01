@@ -52,9 +52,14 @@
                                     <li class="hover-right">
                                         <a href="/">Help</a>
                                     </li>
-                                    <li class="hover-right">
-                                        <a href="/mentor/register">Become Our Mentor</a>
-                                    </li>
+                                    @if (!Auth::check())
+                                        {{-- <li class="hover-right">
+                                            <a href="/user/profile">My Account</a>
+                                        </li>  --}}
+                                        <li class="hover-right">
+                                            <a href="/mentor/register">Become Our Mentor</a>
+                                        </li>
+                                    @endif
                                     <li class="hover-right">
                                         <a href="/">FAQ's</a>
                                     </li>

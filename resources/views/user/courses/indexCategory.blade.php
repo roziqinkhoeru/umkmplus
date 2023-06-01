@@ -2,6 +2,23 @@
 
 @section('content')
     <main>
+        {{-- header area start --}}
+        <section class="pt-60 pb-50" style="background: #3083FF;">
+            <div class="container">
+                <div class="d-sm-flex align-items-sm-center">
+                    <div class="mb-sm-22 me-sm-4">
+                        <figure class="image-header-category-wrapper">
+                            <img src="{{ asset('assets/img/dummy/good-job-hands-white.svg') }}" alt="good-job-hands-white">
+                        </figure>
+                    </div>
+                    <div class="">
+                        <h3 class="text-white text-4xl">Kelas {{ $category->name }}</h3>
+                        <p class="fw-medium text-base mb-0" style="color: #ffffffc5">#BelajarLangsungDariAhli</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{-- header area end --}}
 
         {{-- course area start --}}
         <section class="course__area pt-80 pb-70 grey-bg-3">
@@ -10,6 +27,30 @@
                     {{-- filter --}}
                     <div class="col-xxl-3 col-xl-3 col-lg-4">
                         <div class="course__sidebar">
+                            {{-- search --}}
+                            <div class="course__sidebar-widget white-bg">
+                                <div class="course__sidebar-search">
+                                    <form id="formSearchCourse">
+                                        <input type="text" placeholder="Cari kelas..." name="searchCourse"
+                                            id="searchCourse">
+                                        <button type="submit" onclick="course()">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                viewBox="0 0 584.4 584.4" style="enable-background:new 0 0 584.4 584.4;"
+                                                xml:space="preserve">
+                                                <g>
+                                                    <g>
+                                                        <path class="st0"
+                                                            d="M565.7,474.9l-61.1-61.1c-3.8-3.8-8.8-5.9-13.9-5.9c-6.3,0-12.1,3-15.9,8.3c-16.3,22.4-36,42.1-58.4,58.4    c-4.8,3.5-7.8,8.8-8.3,14.5c-0.4,5.6,1.7,11.3,5.8,15.4l61.1,61.1c12.1,12.1,28.2,18.8,45.4,18.8c17.1,0,33.3-6.7,45.4-18.8    C590.7,540.6,590.7,499.9,565.7,474.9z" />
+                                                        <path class="st1"
+                                                            d="M254.6,509.1c140.4,0,254.5-114.2,254.5-254.5C509.1,114.2,394.9,0,254.6,0C114.2,0,0,114.2,0,254.5    C0,394.9,114.2,509.1,254.6,509.1z M254.6,76.4c98.2,0,178.1,79.9,178.1,178.1s-79.9,178.1-178.1,178.1S76.4,352.8,76.4,254.5    S156.3,76.4,254.6,76.4z" />
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                             {{-- sorting --}}
                             <form action="">
                                 {{-- sort --}}
@@ -135,7 +176,7 @@
             getCourse()
         });
 
-        $("#formSearchNavbar").submit(function(e) {
+        $("#formSearchCourse").submit(function(e) {
             e.preventDefault();
             getCourse()
         });
@@ -153,9 +194,9 @@
             );
             $.ajax({
                 type: "GET",
-                url: "{{ url('/course/data') }}",
+                url: "{{ url('/course/category/' . $category->slug . '/data') }}",
                 data: {
-                    searchNavbar: $("#searchNavbar").val(),
+                    searchCourse: $("#searchCourse").val(),
                     newRelease: $("#newReleaseIn").is(":checked"),
                     promotion: $("#promotionIn").is(":checked"),
                     popular: $("#popularIn").is(":checked"),
@@ -191,7 +232,7 @@
                             let createAt = date.toLocaleDateString('id-ID', options);
                             htmlString += `<div class="col-span-4-course">
                                                     <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block"
-                                                        href="{{ url('/course/${createSlug(courseData.title)}') }}">
+                                                        href="{{ url('/course/${courseData.slug}') }}">
                                                         {{-- course item image --}}
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
@@ -210,10 +251,8 @@
                                                                 class="course__title-2 line-clamp-3-hover text-lg leading-lg mb-2">
                                                                 ${courseData.title}
                                                             </h3>
-
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Free'}
                                                             <span class="text-decoration-line-through text-xs">${courseData.price != 0 ? coursePrice : ''}</span>
-                                                        </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
                                                                 <div class="course__action">

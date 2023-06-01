@@ -29,7 +29,7 @@ class Customer extends Model
 
     public function studentCourseEnrolls()
     {
-        return $this->hasMany(CourseEnroll::class);
+        return $this->hasMany(CourseEnroll::class, 'student_id');
     }
 
     public function mentorDiscounts()
@@ -55,8 +55,8 @@ class Customer extends Model
     }
     public static function scopeStudent($query)
     {
-        return $query->join('users', 'users.customer_id', '=', 'customers.id')
-        ->join('role_users', 'role_users.user_id', '=', 'users.id')
+        return $query->leftJoin('users', 'users.customer_id', '=', 'customers.id')
+        ->leftJoin('role_users', 'role_users.user_id', '=', 'users.id')
             ->where('role_users.role_id', 3);
     }
 

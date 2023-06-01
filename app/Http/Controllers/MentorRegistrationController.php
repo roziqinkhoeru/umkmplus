@@ -29,6 +29,7 @@ class MentorRegistrationController extends Controller
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|numeric',
             'address' => 'required',
+            'job' => 'required',
             'file_cv' => 'required|mimes:pdf|max:2048',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -53,6 +54,7 @@ class MentorRegistrationController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
+            'job' => $request->job,
             'file_cv' => $filePath,
         ]);
 

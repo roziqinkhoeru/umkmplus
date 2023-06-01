@@ -133,6 +133,9 @@
         $.validator.addMethod('alphabetOnly', function(value, element) {
             return this.optional(element) || value == value.match(/^[A-Za-z\s']+$/);
         });
+        $.validator.addMethod("nowhitespace", function(value, element) {
+            return this.optional(element) || /^\S+$/i.test(value);
+        }, "Username tidak boleh ada spasi");
         // validate form
         $("#registerForm").validate({
             rules: {

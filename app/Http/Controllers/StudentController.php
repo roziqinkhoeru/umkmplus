@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     public function adminStudent()
     {
-        $students = Customer::student()->get();
+        $students = Customer::student()->get()->load('studentCourseEnrolls');
         dd($students);
         $data = [
             'title' => 'Data Siswa | UMKM Plus',
