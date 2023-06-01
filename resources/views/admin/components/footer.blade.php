@@ -3,6 +3,11 @@
         <nav class="pull-left">
             <ul class="nav">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        UMKMPlus
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('category') }}">
                         UMKMPlus Category
                     </a>
