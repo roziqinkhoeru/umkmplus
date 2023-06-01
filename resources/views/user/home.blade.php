@@ -150,7 +150,7 @@
                             <div class="text-center col-span-full pt-30 pb-30">
                                 <div class="text-center w-100 d-flex justify-content-center">
                                     <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
-                                        <p class="text-xl font-semibold mb-0">Maaf, Testimoni belum tersedia</p>
+                                        <p class="text-xl font-semibold mb-0">Maaf, testimoni belum tersedia</p>
                                     </div>
                                 </div>
                             </div>
@@ -251,8 +251,7 @@
 
                     if (response.data.length === 0) {
                         // empty state
-                        htmlString =
-                            `<div class="text-center col-span-full pt-65 pb-35"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-3 px-5 py-4" style="background: #0e0e0e10"><p class="text-xl font-semibold mb-0">Maaf, Kelas belum tersedia</p></div></div></div>`
+                        htmlString = emptyState('Maaf, kelas belum tersedia');
                     } else {
                         // success state
                         $.map(response.data, function(courseData, index) {
@@ -376,8 +375,7 @@
 
                     if (response.data.length === 0) {
                         // empty state
-                        htmlString =
-                            `<div class="text-center col-span-full pt-40 pb-45"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-3 px-5 py-4" style="background: #0e0e0e10"><p class="text-xl font-semibold mb-0">Maaf, Mentor belum tersedia</p></div></div></div>`
+                        htmlString = emptyState('Maaf, mentor belum tersedia');
                     } else {
                         // success state
                         $.map(response.data, function(mentorData, index) {

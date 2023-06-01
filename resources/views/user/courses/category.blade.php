@@ -38,7 +38,7 @@
                         <div class="text-center text-4xl col-span-full pt-30 pb-30">
                             <div class="text-center w-100 d-flex justify-content-center">
                                 <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
-                                    <p class="text-xl font-semibold mb-0">Maaf, Kategori belum tersedia</p>
+                                    <p class="text-xl font-semibold mb-0">Maaf, kategori belum tersedia</p>
                                 </div>
                             </div>
                         </div>

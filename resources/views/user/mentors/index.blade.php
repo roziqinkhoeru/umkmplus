@@ -102,8 +102,7 @@
                     let htmlString = ``;
                     if (response.countMentor === 0) {
                         // empty state
-                        htmlString =
-                            `<div class="text-center text-4xl col-span-full pt-100 pb-65"><div class="text-center w-100 d-flex justify-content-center"><div class="rounded-3 px-5 py-4" style="background: #0e0e0e10"><p class="text-xl font-semibold mb-0">Maaf, Mentor belum tersedia</p></div></div></div>`
+                        htmlString = emptyState('Maaf, mentor belum tersedia');
                     } else {
                         // success state
                         $.map(response.data, function(mentorData, index) {
