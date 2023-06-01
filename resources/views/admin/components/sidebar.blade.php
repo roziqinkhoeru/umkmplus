@@ -18,18 +18,8 @@
             <div class="collapse in" id="collapseExample">
                 <ul class="nav">
                     <li>
-                        <a href="#profile">
+                        <a href="/admin/nameAdmin">
                             <span class="link-collapse">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#edit">
-                            <span class="link-collapse">Edit Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#settings">
-                            <span class="link-collapse">Settings</span>
                         </a>
                     </li>
                 </ul>
@@ -95,7 +85,7 @@
         </li>
         {{-- logout --}}
         <li class="nav-item">
-            <a href="/logout">
+            <a href="/logout" class="hover-logout">
                 <i class="fas fa-sign-out-alt"></i>
                 <p>Logout</p>
             </a>
