@@ -7,3 +7,7 @@ const emptyState = (msg) => {
     </div>
 </div>`;
 };
+
+const errorState = () => {
+    return `<div class="text-center pt-50 pb-45 d-flex justify-content-center"><div class="rounded-4 px-5 py-4" style="background: #0e0e0e10"><i class="fa fa-exclamation-circle text-3xl" aria-hidden="true"></i><p class="text-2xl text-muted mt-15 mb-5 fw-bold">Tidak ada item di sini!</p><p class="text-muted mb-5">Silakan periksa koneksi Anda atau segarkan halaman ini.</p></div></div>`;
+};
