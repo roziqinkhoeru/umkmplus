@@ -34,6 +34,7 @@
             <div class="container">
                 <div class="row row-gap-4">
                     @if ($categories == null)
+                        {{-- empty state --}}
                         <div class="text-center text-4xl col-span-full pt-30 pb-30">
                             <div class="text-center w-100 d-flex justify-content-center">
                                 <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
@@ -42,6 +43,7 @@
                             </div>
                         </div>
                     @else
+                        {{-- success state --}}
                         @foreach ($categories as $category)
                             <div class="col-xxl-4 col-xl-4 col-md-6">
                                 <div class="card card-list-category">
