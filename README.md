@@ -125,6 +125,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
+-   storage link
+
+```bash
+php artisan storage:link
+```
+
 -   Have fun running your project
 
 ```bash

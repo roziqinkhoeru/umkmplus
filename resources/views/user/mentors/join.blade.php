@@ -37,7 +37,7 @@
                                     <div class="sign__input">
                                         <i class="fal fa-user icon-form"></i>
                                         <input type="text" placeholder="Masukan nama lengkap" name="fullname"
-                                            id="fullname" required value="" class="input-form">
+                                            id="fullname" required value="{{ old('fullname') }}" class="input-form">
                                     </div>
                                 </div>
                                 {{-- email --}}
@@ -48,18 +48,18 @@
                                     <div class="sign__input">
                                         <i class="fal fa-envelope icon-form"></i>
                                         <input type="email" placeholder="Masukan email" name="email" id="email"
-                                            required value="" class="input-form">
+                                            required value="{{ old('email') }}" class="input-form">
                                     </div>
                                 </div>
                                 {{-- domicile --}}
                                 <div class="sign__input-wrapper mb-22">
                                     <label for="domicile">
-                                        <h5>Kota</h5>
+                                        <h5>Alamat</h5>
                                     </label>
                                     <div class="sign__input">
                                         <i class="fal fa-map-marked icon-form"></i>
-                                        <input type="text" placeholder="Masukan kota domisili" name="domicile"
-                                            id="domicile" required value="" class="input-form">
+                                        <input type="text" placeholder="Masukan alamat domisili" name="address"
+                                            id="address" required value="{{ old('address') }}" class="input-form">
                                     </div>
                                 </div>
                                 {{-- phone --}}
@@ -70,21 +70,21 @@
                                     <div class="sign__input">
                                         <i class="fal fa-phone icon-form"></i>
                                         <input type="text" placeholder="Masukan nomor telepon" name="phone"
-                                            id="phone" required value="" class="input-form">
+                                            id="phone" required value="{{ old('phone') }}" class="input-form">
                                     </div>
                                 </div>
                                 {{-- cv --}}
                                 <div class="sign__input-wrapper mb-35">
-                                    <label for="cv">
+                                    <label for="file_cv">
                                         <h5>CV</h5>
                                     </label>
                                     <div class="input-group mb-3">
-                                        <input type="file" class="form-control" id="cv" name="cv">
-                                        <label class="input-group-text" for="cv">Upload</label>
+                                        <input type="file" class="form-control" id="file_cv" name="file_cv" accept="application/pdf, application/msword">
+                                        <label class="input-group-text" for="file_cv">Upload</label>
                                     </div>
                                 </div>
                                 {{-- button --}}
-                                <button id="loginButton" class="tp-btn w-100 rounded-pill" type="submit">Daftar menjadi
+                                <button id="registerButton" class="tp-btn w-100 rounded-pill" type="submit">Daftar menjadi
                                     mentor</button>
                             </form>
                         </div>
@@ -124,6 +124,17 @@
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        // Menambahkan aturan validasi kustom untuk ukuran maksimum file
+        $.validator.addMethod('maxfilesize', function(value, element, param) {
+            var maxSize = param;
+
+            if (element.files.length > 0) {
+                var fileSize = element.files[0].size; // Ukuran file dalam byte
+                return fileSize <= maxSize;
+            }
+
+            return true;
+        }, '');
         // validate form
         $("#joinMentorForm").validate({
             rules: {
@@ -135,7 +146,7 @@
                     required: true,
                     email: true,
                 },
-                domicile: {
+                address: {
                     required: true,
                     pattern: /^[a-zA-Z\s]*$/,
                 },
@@ -145,9 +156,10 @@
                     minlength: 10,
                     maxlength: 13,
                 },
-                cv: {
+                file_cv: {
                     required: true,
                     extension: "pdf|doc|docx",
+                    maxfilesize: 2 * 1024 * 1024, // 2MB (dalam byte)
                 },
             },
             messages: {
@@ -159,7 +171,7 @@
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak boleh kosong',
                     email: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak valid',
                 },
-                domicile: {
+                address: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kota domisili tidak boleh kosong',
                     pattern: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kota domisili tidak valid',
                 },
@@ -169,11 +181,58 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon minimal 10 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon maksimal 13 karakter',
                 },
-                cv: {
+                file_cv: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>CV tidak boleh kosong',
                     extension: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>CV harus berupa file pdf, doc, atau docx',
+                    maxfilesize: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Ukuran file maksimum adalah 2MB',
                 },
             },
+            submitHandler: function(form, event) {
+                event.preventDefault();
+                var formData = new FormData(form);
+
+                // Menambahkan file PDF yang dipilih oleh pengguna ke objek FormData
+
+                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#registerButton').prop('disabled', true);
+                // Tindakan yang dilakukan ketika formulir valid dan siap dikirim
+                // form.submit();
+                $.ajax({
+                    url: "{{ url('/mentor/register') }}",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Tindakan yang dilakukan ketika permintaan berhasil
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'PENDAFTARAN BERHASIL!',
+                            text: response.meta.message,
+                        })
+                        window.location.href = response.data.redirect
+                    },
+                    error: function(xhr, status, error) {
+                        // Tindakan yang dilakukan ketika permintaan gagal
+                        $('#registerButton').html('Daftar menjadi mentor');
+                        $('#registerButton').prop('disabled', false);
+                        if (xhr.responseJSON)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'PENDAFTARAN GAGAL!',
+                                text: xhr.responseJSON.meta.message + ', Error: ' + xhr.responseJSON.error,
+                            })
+                        else
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'PENDAFTARAN GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
+                            })
+                        return false;
+                    }
+                });
+            }
         });
     </script>
 @endsection

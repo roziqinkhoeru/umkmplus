@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('mentor_registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('fullname', 100);
             $table->string('email', 100);
             $table->string('phone', 100);
             $table->string('address', 255);
             $table->string('file_cv', 255);
+            $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
             $table->timestamps();
         });
     }

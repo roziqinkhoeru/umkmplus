@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone', 20);
             $table->date('dob')->nullable();
             $table->boolean('status')->nullable();
+            $table->string('file_cv',255)->nullable();
             $table->timestamps();
         });
     }

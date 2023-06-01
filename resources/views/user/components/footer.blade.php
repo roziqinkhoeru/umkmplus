@@ -53,7 +53,7 @@
                                         <a href="/">Help</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/join-mentor">Become Our Mentor</a>
+                                        <a href="/mentor/register">Become Our Mentor</a>
                                     </li>
                                     <li class="hover-right">
                                         <a href="/">FAQ's</a>
