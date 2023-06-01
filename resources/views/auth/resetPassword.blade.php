@@ -102,7 +102,7 @@
                 },
             },
             submitHandler: function(form) {
-                $('#resetPasswordButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#resetPasswordButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#resetPasswordButton').prop('disabled', true);
                 console.log($('#password').val());
                 $.ajax({

@@ -46,7 +46,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="fullname" name="fullname"
-                                            value="{{ $mentorRegistration->fullname }}" placeholder="Masukkan Nama Lengkap" required>
+                                            value="{{ $mentorRegistration->fullname }}" placeholder="Masukkan Nama Lengkap"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- username --}}
@@ -197,7 +198,7 @@
                 $(element).closest('.form-group').removeClass('has-error');
             },
             submitHandler: function(form) {
-                $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#createButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ route('admin.mentor.registration.account', $mentorRegistration->id) }}",

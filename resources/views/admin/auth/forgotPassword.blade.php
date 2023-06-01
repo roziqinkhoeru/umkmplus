@@ -121,7 +121,7 @@
             },
             submitHandler: function(form) {
                 $('#forgotPasswordButton').html(
-                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
                 );
                 $('#forgotPasswordButton').prop('disabled', true);
                 submitForgotPasswordAjax(isResendLinkResetPassword);

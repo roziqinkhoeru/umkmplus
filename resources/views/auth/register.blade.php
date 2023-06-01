@@ -200,7 +200,7 @@
                 },
             },
             submitHandler: function(form) {
-                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#registerButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ url('register') }}",

@@ -81,7 +81,7 @@
         </li>
         {{-- application --}}
         <li class="nav-item @if ($active == 'application') active @endif">
-            <a href="/admin/application">
+            <a href="/admin/mentor/application">
                 <i class="fas fa-file-alt"></i>
                 <p>Application</p>
             </a>
