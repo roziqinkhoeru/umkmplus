@@ -95,7 +95,7 @@
                 type: "GET",
                 url: "{{ route('get.mentor') }}",
                 data: {
-                    name: name
+                    name: name,
                 },
                 success: function(response) {
                     let htmlString = ``;
@@ -124,8 +124,7 @@
                             </div>
                         </a>
                     </div>`
-                        });
-                    }
+                    });
                     $("#mentorData").html(htmlString);
                 }
             });

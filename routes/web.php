@@ -143,5 +143,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/admin/mentor/registration/{mentorRegistration:id}', 'StoreAccountMentor')->name('admin.mentor.registration.store');
             Route::put('/admin/mentor/registration/{mentorRegistration:id}/rejected', 'rejectedMentor')->name('admin.mentor.registration.rejected');
         });
+        // Course
+        Route::controller(CourseController::class)->group(function () {
+            Route::get('/admin/course/{course:slug}/student', 'studentCourse')->name('admin.course.student');
+        });
     });
 });
