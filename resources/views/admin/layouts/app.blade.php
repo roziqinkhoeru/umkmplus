@@ -63,10 +63,6 @@
             @include('admin.components.footer')
         </div>
         {{-- end main content --}}
-
-        {{-- quick sidebar --}}
-        @include('admin.components.quickSidebar')
-        {{-- end quick sidebar --}}
     </div>
 
     {{-- Core JS Files --}}
