@@ -45,7 +45,8 @@
                                                     <img src="{{ asset('assets/img/dummy/thumbnail-course-2.png') }}"
                                                         alt="thumbnail-course" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
-                                                        <p class="mb-5">University seminar series global.</p>
+                                                        <p class="mb-5 text-base fw-medium">University seminar series
+                                                            global.</p>
                                                         <p class="mb-0">Mentor: Jhon Doe</p>
                                                     </div>
                                                 </div>
@@ -64,7 +65,8 @@
                                                     <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}"
                                                         alt="thumbnail-course" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
-                                                        <p class="mb-5">University seminar series global.</p>
+                                                        <p class="mb-5 text-base fw-medium">University seminar series
+                                                            global.</p>
                                                         <p class="mb-0">Mentor: Jhon Doe</p>
                                                     </div>
                                                 </div>
