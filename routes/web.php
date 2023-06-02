@@ -40,6 +40,9 @@ Route::get('/blog/blogName', function () {
 Route::get('/nameUser', function () {
     return view('user.profile.index', ['title' => 'Profile _nameUser_ | Admin UMKMPlus']);
 });
+Route::get('/cart', function () {
+    return view('user.cart.index', ['title' => 'Cart | Admin UMKMPlus']);
+});
 
 Route::get('/admin/student', function () {
     return view('admin.students.index', ['title' => 'Student | Admin UMKMPlus', 'active' => 'student']);
