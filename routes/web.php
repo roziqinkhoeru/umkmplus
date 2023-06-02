@@ -37,6 +37,9 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
+Route::get('/nameUser', function () {
+    return view('user.profile.index', ['title' => 'Profile _nameUser_ | Admin UMKMPlus']);
+});
 
 Route::get('/admin/student', function () {
     return view('admin.students.index', ['title' => 'Student | Admin UMKMPlus', 'active' => 'student']);
