@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('thumbnail', 255);
             $table->integer('price');
             $table->enum('status', ['pending', 'aktif', 'nonaktif', 'ditolak'])->default('pending');
-            $table->integer('discount')->nullable();
+            $table->integer('discount')->default(0);
             $table->timestamps();
         });
     }

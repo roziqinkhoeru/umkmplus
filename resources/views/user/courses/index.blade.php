@@ -20,7 +20,7 @@
                                                 <li>
                                                     <div class="course__sidebar-check mb-10 d-flex align-items-center">
                                                         <input class="categoryFilter m-check-input" type="radio"
-                                                            name="sort" value="{{ $category->name }}Course"
+                                                            name="categorySort" value="{{ $category->slug }}"
                                                             id="{{ $category->name }}CourseIn">
                                                         <label class="m-check-label"
                                                             for="{{ $category->name }}CourseIn">{{ $category->name }}</label>
@@ -160,7 +160,7 @@
         )
         console.log(x);
 
-        $("#formSearchNavbar").submit(function(e) {
+        $("#formSearch").submit(function(e) {
             e.preventDefault();
             getCourse()
         });
@@ -179,11 +179,11 @@
             $.ajax({
                 type: "GET",
                 url: "{{ url('/course/data') }}",
-                data: Object.fromEntries(
-                    Object.entries($('.m-check-input')).map(
-                        ([k, v]) => [v.value, v.checked]
-                    )
-                ),
+                data: {
+                    sort: $("input[name='sort']:checked").val(),
+                    category: $("input[name='categorySort']:checked").val(),
+                    search: $("#search").val(),
+            },
                 success: function(response) {
                     let htmlString = ``;
                     $("#countCourse").html(`<h4>Showing ${response.courseCount} Courses</h4>`);
@@ -235,7 +235,7 @@
                                                             </h3>
 
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Free'}
-                                                            <span class="text-decoration-line-through text-xs">${courseData.price != 0 ? coursePrice : ''}</span>
+                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice : ''}</span>
                                                         </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">

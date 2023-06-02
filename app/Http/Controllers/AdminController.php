@@ -18,4 +18,16 @@ class AdminController extends Controller
         return view('admin.dashboard', $data);
     }
 
+    public function profile()
+    {
+        $user = Auth::user();
+        $data = [
+            'title' => 'Profile ' . $user->customer->name . ' | Admin UMKMPlus',
+            'active' => 'profile',
+            'user' => $user,
+        ];
+        dd($data);
+
+        return view('admin.profile.index', $data);
+    }
 }

@@ -50,10 +50,10 @@
                     <div class="col-xxl-5 col-xl-5 col-lg-2 col-md-6 col-6">
                         <div class="header__bottom-right d-flex justify-content-end align-items-center pl-30">
                             <div class="header__search w-100 d-none d-xl-block">
-                                <form action="{{ url('/course') }}" method="GET" id="formSearchNavbar">
+                                <form action="{{ url('/course') }}" method="GET" id="formSearch">
                                     <div class="header__search-input">
-                                        <input type="text" placeholder="Cari kelas..." class="rounded-pill" id="searchNavbar" name="searchNavbar" @if (request()->has('searchNavbar'))
-                                            value="{{ request()->searchNavbar }}"
+                                        <input type="text" placeholder="Cari kelas..." class="rounded-pill" id="search" name="search" @if (request()->has('search'))
+                                            value="{{ request()->search }}"
                                         @endif>
                                         <button class="header__search-btn r-5" onclick="getCourse()"><svg width="18" height="18"
                                                 viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
