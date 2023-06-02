@@ -30,13 +30,6 @@
                         <div class="card-header">
                             <div class="card-head-row">
                                 <div class="card-title">Data Kelas</div>
-                                <div class="card-tools">
-                                    <a href="{{ url('/admin/course/application') }}" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                        <span class="btn-label">
-                                        </span>
-                                        Tambah Kelas
-                                    </a>
-                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -63,23 +56,13 @@
                                                 <td>{{ $course->price }}</td>
                                                 <td>
                                                     <span
-                                                        class="badge @switch($course->status)
-                                                            @case('aktif')
-                                                                badge-diterima
-                                                                @break
-                                                            @case('nonaktif')
-                                                                badge-ditolak
-                                                                @break
-                                                        @endswitch"><i
+                                                        class="badge badge-pending"><i
                                                             class="fas fa-circle" style="font-size: 10px"></i>
                                                         {{ $course->status }}
                                                     </span>
                                                 </td>
                                                 <td class="space-nowrap">
-                                                    <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    <button onclick=""
-                                                        class="btn btn-danger btn-sm">Nonaktifkan</button>
-                                                    <button onclick="" class="btn btn-warning btn-sm">Aktifkan</button>
+                                                    <a href="{{ url('admin/course/application/' . $course->slug ) }}" class="btn btn-primary btn-sm">Detail</a>
                                                 </td>
                                             </tr>
                                         @endforeach

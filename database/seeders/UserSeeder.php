@@ -130,7 +130,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'nonaktif'
+                'status' => 'aktif'
             ],
             [
                 'mentor_id' => 2,
@@ -150,7 +150,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'nonaktif'
+                'status' => 'aktif'
             ],
         ];
 
