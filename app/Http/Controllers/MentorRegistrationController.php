@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Category;
 use App\Models\MentorRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,12 @@ class MentorRegistrationController extends Controller
 
     public function register()
     {
+        $categories = Category::all();
         $data =
             [
                 'title' => 'Become Our Mentor | UMKMPlus',
-                'active' => 'mentor'
+                'active' => 'mentor',
+                'categories' => $categories,
             ];
 
         return view('user.mentors.join', $data);
@@ -31,6 +34,7 @@ class MentorRegistrationController extends Controller
             'address' => 'required',
             'job' => 'required',
             'file_cv' => 'required|mimes:pdf|max:2048',
+            'specialist' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -56,6 +60,7 @@ class MentorRegistrationController extends Controller
             'address' => $request->address,
             'job' => $request->job,
             'file_cv' => $filePath,
+            'specialist' => $request->specialist,
         ]);
 
         if ($mentor) {

@@ -59,7 +59,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="username-addon">@</span>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="username"
+                                            <input type="text" class="form-control" placeholder="Masukkan Username"
                                                 value="{{ old('username') }}" aria-label="username"
                                                 aria-describedby="username-addon" id="username" name="username" required>
                                         </div>
@@ -71,7 +71,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="phone" class="form-control" id="phone"
-                                            placeholder="Enter phone" value="{{ $mentorRegistration->phone }}" required>
+                                            placeholder="Masukkan No Telepon" value="{{ $mentorRegistration->phone }}" required>
                                     </div>
                                 </div>
                                 {{-- address --}}
@@ -80,7 +80,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="address" class="form-control" id="address"
-                                            placeholder="Enter address" value="{{ $mentorRegistration->address }}" required>
+                                            placeholder="Masukkan Alamat" value="{{ $mentorRegistration->address }}" required>
                                     </div>
                                 </div>
                                 {{-- job --}}
@@ -89,7 +89,23 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="job" class="form-control" id="job"
-                                            placeholder="Enter job" value="{{ $mentorRegistration->job }}" required>
+                                            placeholder="Masukkan Pekerjaan" value="{{ $mentorRegistration->job }}" required>
+                                    </div>
+                                </div>
+                                {{-- specialist --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Spesialisasi
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <select class="form-control" aria-label="Default select example" name="specialist"
+                                            id="specialist" required>
+                                            {{-- <option hidden>Pilih Spesialisasi</option> --}}
+                                            @foreach ($categories as $category)
+                                                <option @if ($category->name == $mentorRegistration->specialist)
+                                                    selected
+                                                @endif value="{{ $category->name }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 {{-- email --}}
@@ -98,7 +114,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="email" name="email" class="form-control" id="email"
-                                            placeholder="Enter Email" value="{{ $mentorRegistration->email }}" required>
+                                            placeholder="Masukkan Email" value="{{ $mentorRegistration->email }}" required>
                                     </div>
                                 </div>
                                 {{-- password --}}
@@ -107,14 +123,14 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter Password" required>
+                                            placeholder="Masukkan Password" required>
                                     </div>
                                 </div>
                                 {{-- file cv --}}
                                 <div class="form-group form-show-validation row">
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input hidden type="text" class="form-control" id="file_cv" name="file_cv"
-                                            value="{{ $mentorRegistration->file_cv }}" placeholder="Enter File CV"
+                                            value="{{ $mentorRegistration->file_cv }}" placeholder="Masukkan File CV"
                                             required>
                                     </div>
                                 </div>
@@ -172,6 +188,9 @@
                 job: {
                     required: true,
                 },
+                specialist: {
+                    required: true,
+                },
                 password: {
                     required: true,
                     minlength: 8,
@@ -207,6 +226,9 @@
                 job: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Pekerjaan tidak boleh kosong',
                 },
+                specialist: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Spesialis tidak boleh kosong',
+                },
                 password: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Password tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Password minimal 8 karakter',
@@ -232,6 +254,7 @@
                         phone: $('#phone').val(),
                         address: $('#address').val(),
                         job: $('#job').val(),
+                        specialist: $('#specialist').val(),
                         password: $('#password').val(),
                         file_cv: $('#file_cv').val(),
                         _token: "{{ csrf_token() }}"

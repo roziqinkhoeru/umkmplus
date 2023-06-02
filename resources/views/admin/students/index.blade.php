@@ -30,13 +30,6 @@
                         <div class="card-header">
                             <div class="card-head-row">
                                 <div class="card-title">Data Pelajar</div>
-                                <div class="card-tools">
-                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                        <span class="btn-label">
-                                        </span>
-                                        Tambah Pelajar
-                                    </a>
-                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -49,7 +42,8 @@
                                             <th>Email</th>
                                             <th>No Telepon</th>
                                             <th>Alamat</th>
-                                            <th></th>
+                                            <th>Jumlah Kelas</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +54,7 @@
                                             <td>{{ $student->email }}</td>
                                             <td>{{ $student->phone }}</td>
                                             <td> {{ $student->address }} </td>
+                                            <td> {{ $student->student_course_enrolls_count }} </td>
                                             <td class="space-nowrap">
                                                 <a href="{{ url('admin/student/'. $student->id) }}" class="btn btn-primary btn-sm">Detail</a>
                                             </td>

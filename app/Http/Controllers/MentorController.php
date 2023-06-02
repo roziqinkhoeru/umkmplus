@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Customer;
+use App\Models\CustomerSpecialist;
 use App\Models\MentorRegistration;
 use App\Models\RoleUser;
+use App\Models\Specialist;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,10 +143,12 @@ class MentorController extends Controller
 
     public function createAccountMentor(MentorRegistration $mentorRegistration)
     {
+        $categories = Category::get();
         $data = [
             'title' => 'Buat Akun Mentor | Admin UMKMPlus',
             'active' => 'mentor',
-            'mentorRegistration' => $mentorRegistration
+            'mentorRegistration' => $mentorRegistration,
+            'categories' => $categories
         ];
 
         return view('admin.mentor.create', $data);
@@ -194,6 +199,18 @@ class MentorController extends Controller
             ]);
 
             if (!$customer) {
+                DB::rollBack();
+            }
+
+            // Create Specialist
+            $specialist = Specialist::whereName($request->specialist)->first();
+
+            $specialistCreate = CustomerSpecialist::create([
+                'customer_id' => $customer->id,
+                'specialist_id' => $specialist->id,
+            ]);
+
+            if (!$specialistCreate) {
                 DB::rollBack();
             }
 

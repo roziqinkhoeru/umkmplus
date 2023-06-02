@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('address', 255);
             $table->string('file_cv', 255);
             $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
+            $table->string('job', 100);
+            $table->string('specialist', 100);
             $table->timestamps();
         });
     }
