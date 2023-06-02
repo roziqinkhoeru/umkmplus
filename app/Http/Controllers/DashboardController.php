@@ -116,7 +116,7 @@ class DashboardController extends Controller
                 [
                     'error' => $validator->errors()->first(),
                 ],
-                $validator->errors(),
+                "Gagal mengubah data profile",
                 400
             );
         }
@@ -211,7 +211,7 @@ class DashboardController extends Controller
                     [
                         'error' => $validator->errors()->first(),
                     ],
-                    $validator->errors()->first(),
+                    "Gagal mengubah password",
                     400,
                 )
                 : back()->with(['error' => $validator->errors()]);

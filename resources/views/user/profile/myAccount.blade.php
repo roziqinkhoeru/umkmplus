@@ -259,7 +259,7 @@
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'UBAH PROFIL GAGAL!',
-                                            text: xhr.responseJSON.meta.message,
+                                            text: xhr.responseJSON.meta.message + ", Error: " + xhr.responseJSON.data.error,
                                         })
                                     } else {
                                         Swal.fire({
@@ -487,7 +487,7 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'UBAH PASSWORD GAGAL!',
-                                    text: xhr.responseJSON.meta.message,
+                                    text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
                                 })
                             } else {
                                 Swal.fire({
