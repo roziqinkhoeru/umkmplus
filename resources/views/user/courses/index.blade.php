@@ -2,7 +2,6 @@
 
 @section('content')
     <main>
-
         {{-- course area start --}}
         <section class="course__area pt-80 pb-70 grey-bg-3">
             <div class="container">
@@ -12,6 +11,25 @@
                         <div class="course__sidebar">
                             {{-- sorting --}}
                             <form action="">
+                                {{-- category --}}
+                                <div class="course__sidebar-widget white-bg">
+                                    <div class="course__sidebar-info">
+                                        <h3 class="course__sidebar-title">Category Filter</h3>
+                                        <ul id="categoryFilter">
+                                            @foreach ($categories as $category)
+                                                <li>
+                                                    <div class="course__sidebar-check mb-10 d-flex align-items-center">
+                                                        <input class="categoryFilter m-check-input" type="radio"
+                                                            name="sort" value="{{ $category->name }}Course"
+                                                            id="{{ $category->name }}CourseIn">
+                                                        <label class="m-check-label"
+                                                            for="{{ $category->name }}CourseIn">{{ $category->name }}</label>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                                 {{-- sort --}}
                                 <div class="course__sidebar-widget white-bg">
                                     <div class="course__sidebar-info">
@@ -85,8 +103,8 @@
                                     <ul class="nav nav-tabs" id="courseTab" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link active" id="grid-tab" data-bs-toggle="tab"
-                                                data-bs-target="#grid" type="button" role="tab"
-                                                aria-controls="grid" aria-selected="true">
+                                                data-bs-target="#grid" type="button" role="tab" aria-controls="grid"
+                                                aria-selected="true">
                                                 <svg class="grid" viewBox="0 0 24 24">
                                                     <rect x="3" y="3" class="st0" width="7"
                                                         height="7" />
@@ -135,6 +153,13 @@
             getCourse()
         });
 
+        const x = Object.fromEntries(
+            Object.entries($('.m-check-input')).map(
+                ([k, v]) => [v.value, v.checked]
+            )
+        )
+        console.log(x);
+
         $("#formSearchNavbar").submit(function(e) {
             e.preventDefault();
             getCourse()
@@ -154,15 +179,11 @@
             $.ajax({
                 type: "GET",
                 url: "{{ url('/course/data') }}",
-                data: {
-                    searchNavbar: $("#searchNavbar").val(),
-                    newRelease: $("#newReleaseIn").is(":checked"),
-                    promotion: $("#promotionIn").is(":checked"),
-                    popular: $("#popularIn").is(":checked"),
-                    cheapestCourse: $("#cheapestCourseIn").is(":checked"),
-                    expensiveCourse: $("#expensiveCourseIn").is(":checked"),
-                    freeCourse: $("#freeCourseIn").is(":checked"),
-                },
+                data: Object.fromEntries(
+                    Object.entries($('.m-check-input')).map(
+                        ([k, v]) => [v.value, v.checked]
+                    )
+                ),
                 success: function(response) {
                     let htmlString = ``;
                     $("#countCourse").html(`<h4>Showing ${response.courseCount} Courses</h4>`);
@@ -172,7 +193,8 @@
                     } else {
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let coursePriceDiscount = courseData.price - (courseData.price * courseData.discount / 100);
+                            let coursePriceDiscount = courseData.price - (courseData.price * courseData
+                                .discount / 100);
                             let option = {
                                 style: 'currency',
                                 currency: 'IDR',
@@ -181,7 +203,8 @@
                                 maximumFractionDigits: 0,
                             };
                             let coursePrice = courseData.price.toLocaleString('id-ID', option);
-                            let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID', option);
+                            let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
+                                option);
                             let date = new Date(courseData.created_at);
                             let options = {
                                 day: '2-digit',
@@ -293,6 +316,9 @@
             });
         }
 
+        $('#categoryFilter').on('change', '.categoryFilter', function() {
+            getCourse();
+        });
         $('#sorting').on('change', '.sorting', function() {
             getCourse();
         });
