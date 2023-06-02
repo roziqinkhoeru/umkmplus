@@ -57,6 +57,26 @@ Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
 });
 
+// mentor
+Route::get('/mentor/dashboard', function () {
+    return view('mentor.dashboard', ['title' => 'Dashboard Mentor | Mentor UMKMPlus', 'active' => 'dashboard']);
+});
+Route::get('/mentor/courses', function () {
+    return view('mentor.courses.index', ['title' => 'Courses | Mentor UMKMPlus', 'active' => 'course']);
+});
+Route::get('/mentor/courses/create', function () {
+    return view('mentor.courses.create', ['title' => 'Create Course | Mentor UMKMPlus', 'active' => 'course']);
+});
+Route::get('/mentor/blog', function () {
+    return view('mentor.blog.index', ['title' => 'Blog | Mentor UMKMPlus', 'active' => 'blog']);
+});
+Route::get('/mentor/blog/create', function () {
+    return view('mentor.blog.create', ['title' => 'Create Blog | Mentor UMKMPlus', 'active' => 'blog']);
+});
+Route::get('/mentor/students', function () {
+    return view('mentor.students.index', ['title' => 'Students | Mentor UMKMPlus', 'active' => 'student']);
+});
+
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
