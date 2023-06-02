@@ -124,19 +124,29 @@
                     error: function(xhr, status, error) {
                         $('#loginButton').html('Masuk');
                         $('#loginButton').prop('disabled', false);
-                        if (xhr.responseJSON)
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'LOGIN GAGAL!',
-                                text: xhr.responseJSON.meta.message,
-                            })
-                        else
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.message == "CSRF token mismatch.") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'LOGIN GAGAL!',
+                                    text: "Mohon maaf username/password Anda tidak sesuai",
+                                })
+                                location.reload()
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'LOGIN GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            }
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'LOGIN GAGAL!',
                                 text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
                                     error,
                             })
+                        }
                         return false;
                     }
                 });

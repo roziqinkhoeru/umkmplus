@@ -130,13 +130,14 @@
                             </div>
                         </a>
                     </div>`
-                    });
-                    $("#mentorData").html(htmlString);
+                        });
+                        $("#mentorData").html(htmlString);
+                    }
                 },
                 // error state
                 error: function() {
                     $("#mentorData").html(errorState());
-                }
+                },
             });
         }
     </script>

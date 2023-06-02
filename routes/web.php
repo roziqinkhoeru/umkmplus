@@ -61,6 +61,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate');
     Route::get('/logout', 'logout')->name('logout');
+    Route::get('/refresh-csrf-token', 'refreshCsrfToken');
 });
 Route::controller(PasswordResetLinkController::class)->group(function () {
     Route::get('/forgot-password', 'create')->name('password.forgot');
