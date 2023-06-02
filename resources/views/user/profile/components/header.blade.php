@@ -10,9 +10,9 @@
                         </div>
                         <div class="profile__basic-content">
                             <h3 class="profile__basic-title">
-                                Welcome Back <span>nameUser</span>
+                                Welcome Back <span>{{ $profile->name }}</span>
                             </h3>
-                            <p>2 Running Courses <a href="my-course.html">View Course</a></p>
+                            <p>{{ $profile->student_course_enrolls_count }} Running Courses <button onclick="getContent('course')">View Course</button></p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <div class="cart-item">
                             <a href="cart.html">
                                 <i class="fa-regular fa-basket-shopping"></i>
-                                <span class="cart-quantity">2</span>
+                                <span class="cart-quantity">{{ $profile->carts_count }}</span>
                             </a>
                         </div>
                     </div>

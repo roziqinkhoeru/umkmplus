@@ -39,7 +39,7 @@ class Customer extends Model
 
     public function carts()
     {
-        return $this->hasMany(Cart::class);
+        return $this->hasMany(Cart::class, 'student_id');
     }
     public function specialists()
     {

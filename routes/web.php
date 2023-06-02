@@ -37,15 +37,6 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
-Route::get('/profile', function () {
-    return view('user.profile.myAccount', ['title' => 'Akun Saya | UMKMPlus', 'active' => 'account']);
-});
-Route::get('/profile/my-courses', function () {
-    return view('user.profile.myCourses', ['title' => 'Kelas Saya | UMKMPlus', 'active' => 'courses']);
-});
-Route::get('/profile/transaction-history', function () {
-    return view('user.profile.transactionHistory', ['title' => 'Riwayat Transaksi | UMKMPlus', 'active' => 'transaction']);
-});
 Route::get('/profile/change-password', function () {
     return view('user.profile.changePassword', ['title' => 'Ubah Kata Sandi | UMKMPlus', 'active' => 'changePassword']);
 });
@@ -153,6 +144,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/checkout/{course:slug}', 'getCheckoutCourse')->name('course.get.checkout');
             Route::post('/checkout/{course:slug}', 'checkoutCourse')->name('course.checkout');
             Route::delete('/checkout/{courseEnroll:id}', 'destroy');
+        });
+
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get('/profile', 'profile')->name('profile');
+            Route::get('/profile/get-profile', 'getProfile')->name('get.profile');
+            Route::put('/profile/update-profile', 'updateProfile')->name('update.profile');
+            Route::get('/profile/get-courses', 'getCourseProfile')->name('get.profile.course');
+            Route::get('/profile/get-transaction-history', 'getTransactionHistory')->name('get.profile.transaction.history');
+            Route::put('/profile/change-password', 'changePassword')->name('profile.change.password');
         });
     });
 });

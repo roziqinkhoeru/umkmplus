@@ -181,7 +181,7 @@
                     required: true,
                     number: true,
                     minlength: 10,
-                    maxlength: 13,
+                    maxlength: 16,
                 },
                 job: {
                     required: true,
@@ -211,7 +211,7 @@
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon tidak boleh kosong',
                     number: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon tidak valid',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon minimal 10 karakter',
-                    maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon maksimal 13 karakter',
+                    maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon maksimal 16 karakter',
                 },
                 job: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Pekerjaan tidak boleh kosong',
