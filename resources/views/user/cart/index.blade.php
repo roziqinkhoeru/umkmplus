@@ -23,25 +23,27 @@
         {{-- cart-area start --}}
         <section class="cart-area pt-65 pb-70">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <form action="#">
+                {{-- cart dekstop --}}
+                <div class="d-none d-md-block">
+                    <div class="row">
+                        <div class="col-12">
                             <div class="table-content table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="cart-product-name">Product</th>
-                                            <th class="product-price">Unit Price</th>
-                                            <th class="product-price">Discount</th>
+                                            <th class="cart-product-name" style="min-width: 420px">Kelas</th>
+                                            <th class="product-price">Harga</th>
+                                            <th class="product-price">Diskon</th>
                                             <th class="product-subtotal">Total</th>
-                                            <th class="product-remove">Remove</th>
+                                            <th class="product-remove" style="min-width: 270px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
-                                                    <img src="{{ asset('assets/img/dummy/cart-1.jpg') }}" alt="">
+                                                    <img src="{{ asset('assets/img/dummy/thumbnail-course-2.png') }}"
+                                                        alt="thumbnail-course" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
                                                         <p class="mb-5">University seminar series global.</p>
                                                         <p class="mb-0">Mentor: Jhon Doe</p>
@@ -51,13 +53,16 @@
                                             <td class="product-price"><span class="amount">$130.00</span></td>
                                             <td class="product-discount"><span class="amount">$30.00</span></td>
                                             <td class="product-subtotal"><span class="amount">$100.00</span></td>
-                                            <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a>
+                                            <td class="product-remove space-nowrap">
+                                                <a href="#" class="tp-btn tp-btn-6 me-2 btn-delete">Hapus</a>
+                                                <a href="#" class="tp-btn tp-btn-6">Checkout</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
-                                                    <img src="{{ asset('assets/img/dummy/cart-1.jpg') }}" alt="">
+                                                    <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}"
+                                                        alt="thumbnail-course" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
                                                         <p class="mb-5">University seminar series global.</p>
                                                         <p class="mb-0">Mentor: Jhon Doe</p>
@@ -67,39 +72,38 @@
                                             <td class="product-price"><span class="amount">$120.50</span></td>
                                             <td class="product-discount"><span class="amount">$30.00</span></td>
                                             <td class="product-subtotal"><span class="amount">$90.50</span></td>
-                                            <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a>
+                                            <td class="product-remove space-nowrap">
+                                                <a href="#" class="tp-btn tp-btn-6 me-2 btn-delete">Hapus</a>
+                                                <a href="#" class="tp-btn tp-btn-6">Checkout</a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="coupon-all">
-                                        <div class="coupon">
-                                            <input id="coupon_code" class="input-text" name="coupon_code" value=""
-                                                placeholder="Coupon code" type="text">
-                                            <button class="tp-btn" name="apply_coupon" type="submit">Apply coupon</button>
-                                        </div>
-                                        <div class="coupon2">
-                                            <button class="tp-btn" name="update_cart" type="submit">Update cart</button>
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- cart mobile --}}
+                <div class="d-md-none">
+                    <div class="mb-25 card">
+                        <div class="card-header"><span class="badge text-bg-dark">nameCategory</span></div>
+                        <div class="card-body">
+                            <div class="d-flex gap-3">
+                                <div><img src="{{ asset('assets/img/dummy/thumbnail-course-2.png') }}"
+                                        alt="thumbnail-course-cart" class="thumbnail-course-cart-mobile"></div>
+                                <div class="">
+                                    <p class="text-base mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                                    <p class="text-base fw-semibold mb-0">Rp 720.000 <span
+                                            class="text-xs text-decoration-line-through text-green fw-semibold">Rp
+                                            240.000</span></p>
                                 </div>
                             </div>
-                            <div class="row justify-content-end">
-                                <div class="col-md-5">
-                                    <div class="cart-page-total">
-                                        <h2>Cart totals</h2>
-                                        <ul class="mb-20">
-                                            <li>Subtotal <span>$250.00</span></li>
-                                            <li>Total <span>$250.00</span></li>
-                                        </ul>
-                                        <a class="tp-btn" href="checkout.html">Proceed to checkout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="card-footer text-right">
+                            <a href="#" class="tp-btn tp-btn-6 me-2 btn-delete btn-sm text-xs">Hapus</a>
+                            <a href="#" class="tp-btn tp-btn-6 btn-sm text-xs">Checkout</a>
+                        </div>
                     </div>
                 </div>
             </div>
