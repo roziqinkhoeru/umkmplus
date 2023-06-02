@@ -40,9 +40,6 @@ Route::get('/blog/blogName', function () {
 Route::get('/profile/change-password', function () {
     return view('user.profile.changePassword', ['title' => 'Ubah Kata Sandi | UMKMPlus', 'active' => 'changePassword']);
 });
-Route::get('/cart', function () {
-    return view('user.cart.index', ['title' => 'Cart | Admin UMKMPlus']);
-});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
@@ -133,6 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Cart
     Route::group(['middleware' => ['checkRole:student']], function () {
         Route::controller(CartController::class)->group(function () {
+            Route::get('/cart', 'index')->name('cart.index');
             Route::post('/cart', 'store')->name('cart.store');
             Route::get('/get-cart', 'getCart')->name('get.cart');
             Route::delete('/cart/{cart:id}', 'destroy')->name('cart.destroy');

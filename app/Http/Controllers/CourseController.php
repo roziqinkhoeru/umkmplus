@@ -317,7 +317,7 @@ class CourseController extends Controller
 
     public function applicationDetail(Course $course)
     {
-        $course->load('modules.mediaModules', 'mentor', 'category');
+        $course->load('modules.mediaModules', 'mentor',);
         $data =
             [
                 'title' => 'Detail Pendaftaran Kelas | Admin UMKM Plus',
