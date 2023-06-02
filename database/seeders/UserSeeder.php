@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => "Mentor",
-                'slug' => "Mentor",
+                'slug' => "mentor",
                 'address' => "Mentor Address",
                 'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                 'job' => "Mentor",
@@ -110,6 +110,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
+                'status' => 'nonaktif'
             ],
             [
                 'mentor_id' => 2,
@@ -119,6 +120,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
+                'status' => 'nonaktif'
             ],
             [
                 'mentor_id' => 2,
@@ -128,6 +130,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
+                'status' => 'nonaktif'
             ],
             [
                 'mentor_id' => 2,
@@ -137,6 +140,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
+                'status' => 'nonaktif'
             ],
             [
                 'mentor_id' => 2,
@@ -146,6 +150,7 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
+                'status' => 'nonaktif'
             ],
         ];
 

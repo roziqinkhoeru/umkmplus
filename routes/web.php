@@ -38,9 +38,6 @@ Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
 
-Route::get('/admin/course', function () {
-    return view('admin.courses.index', ['title' => 'Course | Admin UMKMPlus', 'active' => 'course']);
-});
 Route::get('/admin/student', function () {
     return view('admin.students.index', ['title' => 'Student | Admin UMKMPlus', 'active' => 'student']);
 });
@@ -61,6 +58,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate');
     Route::get('/logout', 'logout')->name('logout');
+    Route::get('/refresh-csrf-token', 'refreshCsrfToken');
 });
 Route::controller(PasswordResetLinkController::class)->group(function () {
     Route::get('/forgot-password', 'create')->name('password.forgot');
