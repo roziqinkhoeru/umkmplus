@@ -450,3 +450,9 @@
     line-height: 1.5 !important;
     padding: 9px 16px !important;
 }
+
+/* PROFILE */
+/* sidebar */
+.menu-logout:hover {
+    color: #dc3545 !important;
+}
