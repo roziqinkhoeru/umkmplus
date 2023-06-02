@@ -21,9 +21,11 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $courses = Course::where('title', 'LIKE', '%' . $request->searchNavbar . '%')->get();
+        $categories = Category::all();
         $data = [
             'title' => 'Kelas | UMKMPlus',
-            'courses' => $courses
+            'courses' => $courses,
+            'categories' => $categories,
         ];
 
         return view('user.courses.index', $data);
