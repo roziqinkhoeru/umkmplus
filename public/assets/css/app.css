@@ -425,3 +425,28 @@
     padding-top: 40px;
     width: 400px;
 }
+
+/* CART */
+/* cart */
+.thumbnail-course-cart {
+    width: 120px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+.thumbnail-course-cart-mobile {
+    width: 100px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    display: block;
+}
+.tp-btn.btn-sm {
+    height: auto !important;
+    line-height: 1.5 !important;
+    padding: 9px 16px !important;
+}
