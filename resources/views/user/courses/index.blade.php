@@ -235,7 +235,7 @@
                                                             </h3>
 
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Free'}
-                                                            <span class="text-decoration-line-through text-xs">${courseData.price != 0 ? coursePrice : ''}</span>
+                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice : ''}</span>
                                                         </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">

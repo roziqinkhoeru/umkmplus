@@ -9,10 +9,10 @@ class StudentController extends Controller
 {
     public function adminStudent()
     {
-        $students = Customer::student()->get()->load('studentCourseEnrolls');
-        dd($students);
+        $students = Customer::select('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'users.email')->student()->get();
         $data = [
             'title' => 'Data Siswa | UMKM Plus',
+            'active' => 'student',
             'students' => $students,
         ];
 
@@ -21,11 +21,13 @@ class StudentController extends Controller
 
     public function adminStudentShow(Customer $customer)
     {
+        $customer->load(['studentCourseEnrolls.course.category', 'studentCourseEnrolls.course.mentor']);
         $data = [
             'title' => 'Detail Siswa | UMKM Plus',
+            'active' => 'student',
             'student' => $customer,
         ];
 
-        return view('admin.students.show', $data);
+        return view('admin.students.detail', $data);
     }
 }

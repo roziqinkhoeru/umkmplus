@@ -16,8 +16,16 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="{{ url('admin/student') }}">
                             Data Pelajar
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Data Kelas Pelajar
                         </a>
                     </li>
                 </ul>
@@ -29,14 +37,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Data Pelajar</div>
-                                <div class="card-tools">
-                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                        <span class="btn-label">
-                                        </span>
-                                        Tambah Pelajar
-                                    </a>
-                                </div>
+                                <div class="card-title">Data Kelas</div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -45,24 +46,22 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>No Telepon</th>
-                                            <th>Alamat</th>
-                                            <th></th>
+                                            <th>Judul</th>
+                                            <th>Mentor</th>
+                                            <th>Kategori</th>
+                                            <th>Harga</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($students as $student)
+                                        @foreach ($student->studentCourseEnrolls as $enroll)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->email }}</td>
-                                            <td>{{ $student->phone }}</td>
-                                            <td> {{ $student->address }} </td>
-                                            <td class="space-nowrap">
-                                                <a href="{{ url('admin/student/'. $student->id) }}" class="btn btn-primary btn-sm">Detail</a>
-                                            </td>
+                                            <td>{{ $enroll->course->title }}</td>
+                                            <td>{{ $enroll->course->mentor->name }}</td>
+                                            <td>{{ $enroll->course->category->name }}</td>
+                                            <td> {{ $enroll->course->price }} </td>
+                                            <td> {{ $enroll->status }} </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

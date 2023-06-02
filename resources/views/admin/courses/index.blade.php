@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Course</h4>
+                <h4 class="page-title">Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="/admin">

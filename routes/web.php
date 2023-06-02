@@ -38,14 +38,8 @@ Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
 
-Route::get('/admin/student', function () {
-    return view('admin.students.index', ['title' => 'Student | Admin UMKMPlus', 'active' => 'student']);
-});
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
-});
-Route::get('/admin/nameAdmin', function () {
-    return view('admin.profile.index', ['title' => 'Profile _nameAdmin_ | Admin UMKMPlus', 'active' => 'profile']);
 });
 
 // Auth
@@ -146,6 +140,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:admin']], function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/admin', 'index')->name('admin.dashboard');
+            Route::get('/admin/nameAdmin', 'profile')->name('admin.profile');
         });
         // Mentor
         Route::controller(MentorController::class)->group(function () {
@@ -168,7 +163,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Student
         Route::controller(StudentController::class)->group(function () {
             Route::get('/admin/student', 'adminStudent')->name('admin.student');
-            Route::get('/admin/student/{customer:slug}', 'adminStudentShow')->name('admin.student.show');
+            Route::get('/admin/student/{customer:id}', 'adminStudentShow')->name('admin.student.show');
         });
     });
 });
