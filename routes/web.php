@@ -37,8 +37,17 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
-Route::get('/nameUser', function () {
-    return view('user.profile.index', ['title' => 'Profile _nameUser_ | Admin UMKMPlus']);
+Route::get('/profile', function () {
+    return view('user.profile.myAccount', ['title' => 'Akun Saya | UMKMPlus', 'active' => 'account']);
+});
+Route::get('/profile/my-courses', function () {
+    return view('user.profile.myCourses', ['title' => 'Kelas Saya | UMKMPlus', 'active' => 'courses']);
+});
+Route::get('/profile/transaction-history', function () {
+    return view('user.profile.transactionHistory', ['title' => 'Riwayat Transaksi | UMKMPlus', 'active' => 'transaction']);
+});
+Route::get('/profile/change-password', function () {
+    return view('user.profile.changePassword', ['title' => 'Ubah Kata Sandi | UMKMPlus', 'active' => 'changePassword']);
 });
 Route::get('/cart', function () {
     return view('user.cart.index', ['title' => 'Cart | Admin UMKMPlus']);

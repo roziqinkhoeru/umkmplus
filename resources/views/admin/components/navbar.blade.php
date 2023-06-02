@@ -117,12 +117,6 @@
                 </div>
             </div>
         </li>
-        {{-- quick sidebar --}}
-        <li class="nav-item">
-            <a href="#" class="nav-link quick-sidebar-toggler">
-                <i class="fa fa-th"></i>
-            </a>
-        </li>
         {{-- profile --}}
         <li class="nav-item dropdown hidden-caret">
             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
