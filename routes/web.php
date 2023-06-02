@@ -160,6 +160,9 @@ Route::group(['middleware' => ['auth']], function () {
         // Course
         Route::controller(CourseController::class)->group(function () {
             Route::get('/admin/course', 'adminCourse')->name('admin.course');
+            Route::get('/admin/course/application', 'application')->name('admin.course.application');
+            Route::get('/admin/course/application/{course:slug}', 'applicationDetail')->name('admin.course.application.detail');
+            Route::put('/admin/course/application/{course:slug}', 'approvalApplication')->name('admin.course.application.approval');
             Route::get('/admin/course/{course:slug}/student', 'studentCourse')->name('admin.course.student');
         });
         // Student

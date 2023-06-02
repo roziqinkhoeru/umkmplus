@@ -11,6 +11,7 @@ use App\Models\MediaModule;
 use App\Models\Module;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -239,19 +240,86 @@ class CourseController extends Controller
     public function adminCourse()
     {
         $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status')
-        ->where('status', '=', 'aktif')
-        ->orWhere('status', '=', 'nonaktif')
-        ->with('category:id,name', 'mentor:id,name')
-        ->limit(20)
-        ->get();
+            ->where('status', '=', 'aktif')
+            ->orWhere('status', '=', 'nonaktif')
+            ->with('category:id,name', 'mentor:id,name')
+            ->get();
+
         $data =
-        [
-            'title' => 'Kelas | Admin UMKM Plus',
-             'active' => 'course',
-             'courses' => $courses
-        ];
+            [
+                'title' => 'Kelas | Admin UMKM Plus',
+                'active' => 'course',
+                'courses' => $courses
+            ];
 
         return view('admin.courses.index', $data);
+    }
+
+    public function application()
+    {
+        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status', 'slug')
+            ->where('status', '=', 'pending')
+            ->with('category:id,name', 'mentor:id,name')
+            ->get();
+
+        $data =
+            [
+                'title' => 'Pendaftaran Kelas | Admin UMKM Plus',
+                'active' => 'course',
+                'courses' => $courses
+            ];
+
+        return view('admin.courses.application', $data);
+    }
+
+    public function applicationDetail(Course $course)
+    {
+        $data =
+            [
+                'title' => 'Detail Pendaftaran Kelas | Admin UMKM Plus',
+                'active' => 'course',
+                'course' => $course
+            ];
+        dd($course);
+
+        return view('admin.courses.applicationDetail', $data);
+    }
+
+    public function approvalApplication(Request $request, Course $course)
+    {
+        $rules = [
+            'status' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Invalid input',
+                    'error' => $validator->errors()->first()
+                ],
+                'Validation Error',
+                422
+            );
+        }
+        $update = $course->update([
+            'status' => $request->status
+        ]);
+
+        if ($update) {
+            return ResponseFormatter::success(
+                [
+                    'message' => 'Kelas berhasil diaktifkan',
+                    'redirect' => redirect()->route('admin.courses.application')->getTargetUrl()
+                ],
+                'success'
+            );
+        }
+        return ResponseFormatter::error(
+            [
+                'message' => 'Kelas gagal diaktifkan',
+            ],
+            'error',
+        );
     }
 
     public function studentCourse(Course $course)

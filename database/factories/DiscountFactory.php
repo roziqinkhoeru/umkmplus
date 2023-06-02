@@ -96,13 +96,17 @@ class DiscountFactory extends Factory
                     'description' => $this->faker->paragraph(3),
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
-                    'status' => "aktif",
                     'discount' => 5
                 ];
                 $course = Course::create($courseRecord);
                 $course->update([
                     'slug' =>  Str::lower(Str::slug($course->title, '-')),
                 ]);
+                if ($i < 3) {
+                    $course->update([
+                        'status' =>  "aktif",
+                    ]);
+                }
 
                 // module factory
                 $moduleRecord = [
