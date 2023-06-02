@@ -220,7 +220,7 @@
             },
             submitHandler: function(form, event) {
                 event.preventDefault();
-                $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#createButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ route('admin.mentor.registration.store', $mentorRegistration->id) }}",

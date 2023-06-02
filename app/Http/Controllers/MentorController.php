@@ -126,16 +126,16 @@ class MentorController extends Controller
         );
     }
 
-    public function listRegistration()
+    public function application()
     {
         $mentors = MentorRegistration::get();
         $data = [
             'title' => 'Pendaftaran Mentor | Admin UMKMPlus',
-            'active' => 'mentor',
+            'active' => 'application',
             'mentors' => $mentors
         ];
 
-        return view('admin.mentor.listRegistration', $data);
+        return view('admin.mentor.application', $data);
     }
 
     public function createAccountMentor(MentorRegistration $mentorRegistration)

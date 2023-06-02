@@ -84,10 +84,10 @@
                     $('#forgotPasswordButton').html('Tautan terkirim');
                     $('#forgotPasswordButton').prop('disabled', true);
                     Swal.fire({
-                            icon: 'success',
-                            title: 'KIRIM TAUTAN BERHASIL!',
-                            text: {{ session('success') }},
-                        });
+                        icon: 'success',
+                        title: 'KIRIM TAUTAN BERHASIL!',
+                        text: {{ session('success') }},
+                    });
                     if (isResend) {
                         $('#resend_link').html(
                             'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}">coba alamat email lain</a>.'
@@ -141,7 +141,7 @@
             },
             submitHandler: function(form) {
                 $('#forgotPasswordButton').html(
-                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
                 );
                 $('#forgotPasswordButton').prop('disabled', true);
                 submitForgotPasswordAjax(isResendLinkResetPassword);

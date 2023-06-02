@@ -120,7 +120,7 @@
 
                 // Menambahkan file PDF yang dipilih oleh pengguna ke objek FormData
 
-                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#registerButton').prop('disabled', true);
                 // Tindakan yang dilakukan ketika formulir valid dan siap dikirim
                 // form.submit();

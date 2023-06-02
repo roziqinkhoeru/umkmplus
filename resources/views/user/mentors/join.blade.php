@@ -90,7 +90,8 @@
                                         <h5>CV</h5>
                                     </label>
                                     <div class="input-group mb-3">
-                                        <input type="file" class="form-control" id="file_cv" name="file_cv" accept="application/pdf, application/msword">
+                                        <input type="file" class="form-control" id="file_cv" name="file_cv"
+                                            accept="application/pdf, application/msword">
                                         <label class="input-group-text" for="file_cv">Upload</label>
                                     </div>
                                 </div>
@@ -159,7 +160,6 @@
                 },
                 address: {
                     required: true,
-                    pattern: /^[a-zA-Z\s]*$/,
                 },
                 phone: {
                     required: true,
@@ -184,7 +184,6 @@
                 },
                 address: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kota domisili tidak boleh kosong',
-                    pattern: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kota domisili tidak valid',
                 },
                 phone: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon tidak boleh kosong',
@@ -204,7 +203,7 @@
 
                 // Menambahkan file PDF yang dipilih oleh pengguna ke objek FormData
 
-                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#registerButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#registerButton').prop('disabled', true);
                 // Tindakan yang dilakukan ketika formulir valid dan siap dikirim
                 // form.submit();
@@ -231,7 +230,8 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'PENDAFTARAN GAGAL!',
-                                text: xhr.responseJSON.meta.message + ', Error: ' + xhr.responseJSON.error,
+                                text: xhr.responseJSON.meta.message + ', Error: ' + xhr
+                                    .responseJSON.error,
                             })
                         else
                             Swal.fire({

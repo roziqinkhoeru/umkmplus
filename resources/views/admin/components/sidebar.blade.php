@@ -18,18 +18,8 @@
             <div class="collapse in" id="collapseExample">
                 <ul class="nav">
                     <li>
-                        <a href="#profile">
+                        <a href="/admin/nameAdmin">
                             <span class="link-collapse">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#edit">
-                            <span class="link-collapse">Edit Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#settings">
-                            <span class="link-collapse">Settings</span>
                         </a>
                     </li>
                 </ul>
@@ -81,7 +71,7 @@
         </li>
         {{-- application --}}
         <li class="nav-item @if ($active == 'application') active @endif">
-            <a href="/admin/application">
+            <a href="/admin/mentor/application">
                 <i class="fas fa-file-alt"></i>
                 <p>Application</p>
             </a>
@@ -95,7 +85,7 @@
         </li>
         {{-- logout --}}
         <li class="nav-item">
-            <a href="/logout" onclick="logout()">
+            <a href="/logout" onclick="logout()" class="hover-logout">
                 <i class="fas fa-sign-out-alt"></i>
                 <p>Logout</p>
             </a>

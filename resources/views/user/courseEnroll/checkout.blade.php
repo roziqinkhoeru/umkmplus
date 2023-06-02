@@ -144,7 +144,7 @@
             $("#formReferral").submit(function(e) {
                 e.preventDefault();
                 $('#referral-button').html(
-                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
                 );
                 $.ajax({
                     type: "POST",
@@ -244,7 +244,7 @@
             $("#checkoutCourse").submit(function(e) {
                 e.preventDefault();
                 $('#pay-button').html(
-                    '<i class="fas fa-circle-notch text-lg spinners"></i>'
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
                 );
                 checkoutPayment();
             })

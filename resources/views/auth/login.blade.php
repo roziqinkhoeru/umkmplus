@@ -106,7 +106,7 @@
                 }
             },
             submitHandler: function(form) {
-                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+                $('#loginButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#loginButton').prop('disabled', true);
                 $.ajax({
                     url: "{{ url('login') }}",

@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Data Mentor
+                        <a href="/admin/mentor">Data Mentor</a>
                     </li>
                 </ul>
             </div>
@@ -29,7 +29,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Mentor</div>
                                 <div class="card-tools">
-                                    <a href="{{ route('admin.mentor.registration') }}"
+                                    <a href="{{ route('admin.mentor.application') }}"
                                         class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
@@ -42,43 +42,46 @@
                             <div class="table-responsive">
                                 <table id="mentorTable" class="display table table-striped table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
+                                        <tr class="align-middle">
+                                            <th class="text-center">#</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Kelas</th>
-                                            <th>Status</th>
-                                            <th></th>
+                                            <th class="fiter-none">Email</th>
+                                            <th class="filter-none">Kelas</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="filter-none text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($mentors as $mentor)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $mentor->name }}</td>
                                                 <td>{{ $mentor->email }}</td>
                                                 <td>
                                                     <ol class="mb-0 pl-3">
                                                         @foreach ($mentor->mentorCourses as $mentorCourse)
-                                                            <li class="mb-1">{{ $mentorCourse->title }}
-                                                                ({{ $mentorCourse->category->name }})
+                                                            <li class="mb-1">{{ $mentorCourse->title }} <span
+                                                                    class="badge badge-info badge-category">{{ $mentorCourse->category->name }}</span>
                                                             </li>
                                                         @endforeach
                                                     </ol>
                                                 </td>
-                                                <td>
-                                                    {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                                <td class="text-center">
+                                                    <span
+                                                        class="badge @if ($mentor->status == 1) badge-active
+                                                    @else
+                                                        badge-nonactive @endif"><i
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}</span>
                                                 </td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ url('/admin/mentor/' . $mentor->slug) }}"
-                                                        class="btn btn-primary btn-sm">Detail</a>
+                                                        class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     @if ($mentor->status == 1)
-                                                        <button
-                                                            onclick="nonaktifkanMentor('{{ $mentor->slug }}')"
-                                                            class="btn btn-danger btn-sm">Nonaktifkan</button>
+                                                        <button onclick="nonaktifkanMentor('{{ $mentor->slug }}')"
+                                                            class="btn btn-danger btn-sm mr-1">Nonaktifkan</button>
                                                     @else
-                                                        <button
-                                                            onclick="aktifkanMentor('{{ $mentor->slug }}')"
+                                                        <button onclick="aktifkanMentor('{{ $mentor->slug }}')"
                                                             class="btn btn-warning btn-sm">Aktifkan</button>
                                                     @endif
                                                 </td>
@@ -97,7 +100,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#mentorTable').DataTable({});
+            $('#mentorTable').DataTable({
+                columnDefs: [{
+                    targets: 'filter-none',
+                    orderable: false,
+                }, ],
+            });
         });
 
         function nonaktifkanMentor(mentor) {

@@ -7,11 +7,22 @@
     height: auto !important;
 }
 
+/* NAVBAR */
+.hover-logout:hover {
+    background-color: #f2596129 !important;
+    color: #f25961 !important;
+    font-weight: 600 !important;
+}
+.hover-logout:hover p,
+.nav-item .hover-logout:hover p {
+    color: #f25961 !important;
+}
+
 /* LOGIN */
 /* layout */
 .auth-image-wrapper {
     margin-bottom: 0;
-    padding: 14px 24px;
+    padding: 9px 16px;
     border-radius: 12px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
@@ -22,4 +33,36 @@
 
 .auth-image-wrapper img {
     height: 28px;
+}
+
+/* MENTOR */
+/* index */
+.badge.badge-category {
+    padding: 4px 5px !important;
+    border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    -ms-border-radius: 4px !important;
+    -o-border-radius: 4px !important;
+}
+.badge.badge-active {
+    background: #1571e827 !important;
+    color: #1572e8 !important;
+    font-weight: 500;
+}
+.badge.badge-nonactive,
+.badge.badge-ditolak {
+    background: #f2596127 !important;
+    color: #f25961 !important;
+    font-weight: 500;
+}
+.badge.badge-pending {
+    background: #e0a80027 !important;
+    color: #e0a800 !important;
+    font-weight: 500;
+}
+.badge.badge-diterima {
+    background: #0fae3427 !important;
+    color: #0fae34 !important;
+    font-weight: 500;
 }

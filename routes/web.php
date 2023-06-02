@@ -44,6 +44,12 @@ Route::get('/admin/course', function () {
 Route::get('/admin/student', function () {
     return view('admin.students.index', ['title' => 'Student | Admin UMKMPlus', 'active' => 'student']);
 });
+Route::get('/admin/blog', function () {
+    return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
+});
+Route::get('/admin/nameAdmin', function () {
+    return view('admin.profile.index', ['title' => 'Profile _nameAdmin_ | Admin UMKMPlus', 'active' => 'profile']);
+});
 
 // Auth
 Route::controller(RegisterController::class)->group(function () {
@@ -146,7 +152,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Mentor
         Route::controller(MentorController::class)->group(function () {
             Route::get('/admin/mentor', 'adminMentor')->name('admin.mentor');
-            Route::get('/admin/mentor/registration', 'listRegistration')->name('admin.mentor.registration');
+            Route::get('/admin/mentor/application', 'application')->name('admin.mentor.application');
             Route::get('/admin/mentor/{customer:slug}', 'adminMentorShow')->name('admin.mentor.show');
             Route::put('/admin/mentor/{customer:slug}', 'adminNonaktifMentor')->name('admin.mentor.nonaktif');
             Route::get('/admin/mentor/registration/{mentorRegistration:id}', 'createAccountMentor')->name('admin.mentor.registration.account');

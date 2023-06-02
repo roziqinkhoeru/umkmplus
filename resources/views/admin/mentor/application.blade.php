@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Mentor</h4>
+                <h4 class="page-title">Application</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="/admin">
@@ -16,7 +16,9 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Data Pendaftaran Mentor
+                        <a href="/admin/mentor/application">
+                            Data Pendaftaran Mentor
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -34,31 +36,48 @@
                             <div class="table-responsive">
                                 <table id="registrationTable" class="display table table-striped table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
+                                        <tr class="align-middle">
+                                            <th class="text-center">#</th>
                                             <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>No Telepon</th>
-                                            <th>Alamat</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th class="filter-none">Email</th>
+                                            <th class="filter-none">No Telepon</th>
+                                            <th class="filter-none">Alamat</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($mentors as $mentor)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $mentor->fullname }}</td>
                                                 <td>{{ $mentor->email }}</td>
                                                 <td>{{ $mentor->phone }}</td>
                                                 <td>{{ $mentor->address }}</td>
-                                                <td>{{ $mentor->status }}</td>
+                                                <td><span
+                                                        class="badge @switch($mentor->status)
+                                                            @case('pending')
+                                                                badge-pending
+                                                                @break
+                                                            @case('diterima')
+                                                                badge-diterima
+                                                                @break
+                                                            @case('ditolak')
+                                                                badge-ditolak
+                                                                @break
+                                                            @default
+                                                                badge-pending
+                                                                @break
+                                                        @endswitch"><i
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $mentor->status }}</span></td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ asset('storage/' . $mentor->file_cv) }}"
-                                                        class="btn btn-primary btn-sm" download>Download File</a>
+                                                        class="btn btn-primary btn-sm mr-1" download>Download File</a>
                                                     @if ($mentor->status == 'pending')
                                                         <button onclick="acceptRegistration('{{ $mentor->id }}')"
-                                                            class="btn btn-success btn-sm" id="acceptButton">Terima</button>
+                                                            class="btn btn-success btn-sm mr-1"
+                                                            id="acceptButton">Terima</button>
                                                         <button class="btn btn-danger btn-sm" id="rejectedButton"
                                                             onclick="rejectedRegistration('{{ $mentor->id }}')">Ditolak</button>
                                                     @endif
@@ -79,7 +98,7 @@
     <script>
         function acceptRegistration(mentorID) {
             event.preventDefault();
-            $('#acceptButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+            $('#acceptButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
             swal.fire({
                 title: 'Apakah anda yakin mentor diterima?',
                 text: "Akun mentor akan dibuatkan",
@@ -96,15 +115,14 @@
                         'success'
                     )
                     window.location.href = `{{ url('admin/mentor/registration/${mentorID}') }}`;
-                } else {
-                    $('#acceptButton').html('Terima');
                 }
+                $('#acceptButton').html('Terima');
             })
         };
 
         function rejectedRegistration(registrationID) {
             event.preventDefault();
-            $('#rejectedButton').html('<i class="fas fa-circle-notch text-lg spinners"></i>');
+            $('#rejectedButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
             swal.fire({
                 title: 'Apakah anda yakin pendaftar ditolak?',
                 text: "Akun mentor tidak akan dibuatkan",
@@ -137,15 +155,19 @@
                             )
                         }
                     });
-                } else {
-                    $('#rejectedButton').html('Ditolak');
                 }
+                $('#rejectedButton').html('Ditolak');
             })
         }
 
 
         $(document).ready(function() {
-            $('#registrationTable').DataTable({});
+            $('#registrationTable').DataTable({
+                columnDefs: [{
+                    targets: 'filter-none',
+                    orderable: false,
+                }, ],
+            });
         });
     </script>
 @endsection
