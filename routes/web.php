@@ -147,7 +147,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/mentor', 'adminMentor')->name('admin.mentor');
             Route::get('/admin/mentor/application', 'application')->name('admin.mentor.application');
             Route::get('/admin/mentor/{customer:slug}', 'adminMentorShow')->name('admin.mentor.show');
-            Route::put('/admin/mentor/{customer:slug}', 'adminNonaktifMentor')->name('admin.mentor.nonaktif');
+            Route::put('/admin/mentor/{customer:slug}', 'editStatusMentor')->name('admin.mentor.nonaktif');
             Route::get('/admin/mentor/registration/{mentorRegistration:id}', 'createAccountMentor')->name('admin.mentor.registration.account');
             Route::post('/admin/mentor/registration/{mentorRegistration:id}', 'StoreAccountMentor')->name('admin.mentor.registration.store');
             Route::put('/admin/mentor/registration/{mentorRegistration:id}/rejected', 'rejectedMentor')->name('admin.mentor.registration.rejected');
@@ -158,7 +158,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/course/application', 'application')->name('admin.course.application');
             Route::get('/admin/course/application/{course:slug}', 'applicationDetail')->name('admin.course.application.detail');
             Route::put('/admin/course/application/{course:slug}', 'approvalApplication')->name('admin.course.application.approval');
-            Route::get('/admin/course/{course:slug}/student', 'studentCourse')->name('admin.course.student');
+            Route::get('/admin/course/{course:slug}', 'adminShow')->name('admin.course.show');
+            Route::put('/admin/course/{course:slug}/status', 'editStatusCourse')->name('admin.course.status');
         });
         // Student
         Route::controller(StudentController::class)->group(function () {

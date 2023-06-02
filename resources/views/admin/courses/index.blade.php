@@ -76,10 +76,15 @@
                                                     </span>
                                                 </td>
                                                 <td class="space-nowrap">
-                                                    <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    <button onclick=""
-                                                        class="btn btn-danger btn-sm">Nonaktifkan</button>
-                                                    <button onclick="" class="btn btn-warning btn-sm">Aktifkan</button>
+                                                    <a href="{{ url('/admin/course/'. $course->slug) }}" class="btn btn-primary btn-sm">Detail</a>
+                                                    @if ($course->status == 'aktif')
+                                                        <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
+                                                            class="btn btn-danger btn-sm">Nonaktifkan</button>
+
+                                                    @else
+                                                        <button onclick="aktifkanCourse('{{ $course->slug }}')"
+                                                            class="btn btn-warning btn-sm">Aktifkan</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -99,5 +104,102 @@
         $(document).ready(function() {
             $('#courseTable').DataTable({});
         });
+
+        function nonaktifkanCourse(course) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Kelas akan dinonaktifkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Nonaktifkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "PUT",
+                        data: {
+                            status: "nonaktif",
+                            _token: "{{ csrf_token() }}",
+                        },
+                        url: `{{ url('/admin/course/${course}/status') }}`,
+                        success: function(response) {
+                            location.reload();
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Kelas telah dinonaktifkan.',
+                                icon: 'success',
+                            })
+
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                        }
+                    });
+
+                }
+            })
+        }
+
+        function aktifkanCourse(course) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Kelas akan diaktifkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Aktifkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "PUT",
+                        data: {
+                            status: "aktif",
+                            _token: "{{ csrf_token() }}",
+                        },
+                        url: `{{ url('/admin/course/${course}/status') }}`,
+                        success: function(response) {
+                            location.reload();
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Kelas telah diaktifkan.',
+                                icon: 'success',
+                            })
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                        }
+                    });
+
+                }
+            })
+        }
     </script>
 @endsection

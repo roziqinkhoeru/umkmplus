@@ -107,7 +107,7 @@ class MentorController extends Controller
         return view('admin.mentor.show', $data);
     }
 
-    public function adminNonaktifMentor(Request $request, Customer $customer)
+    public function editStatusMentor(Request $request, Customer $customer)
     {
         $update = $customer->update([
             'status' => $request->status
@@ -115,13 +115,13 @@ class MentorController extends Controller
         if ($update) {
             return ResponseFormatter::success(
                 $customer,
-                'success nonaktif mentor'
+                'Berhasil mengubah status mentor'
             );
         }
 
         return ResponseFormatter::error(
             null,
-            'Gagal menonaktifkan mentor',
+            'Gagal mengubah status mentor',
             500
         );
     }

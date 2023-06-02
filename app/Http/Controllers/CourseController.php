@@ -262,7 +262,7 @@ class CourseController extends Controller
 
     public function adminCourse()
     {
-        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status')
+        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status', 'slug')
             ->where('status', '=', 'aktif')
             ->orWhere('status', '=', 'nonaktif')
             ->with('category:id,name', 'mentor:id,name')
@@ -277,6 +277,26 @@ class CourseController extends Controller
 
         return view('admin.courses.index', $data);
     }
+
+    public function editStatusCourse(Request $request, Course $course)
+    {
+        $update = $course->update([
+            'status' => $request->status
+        ]);
+        if ($update) {
+            return ResponseFormatter::success(
+                $course,
+                'Berhasil mengubah status kelas'
+            );
+        }
+
+        return ResponseFormatter::error(
+            null,
+            'Gagal mengubah status kelas',
+            500
+        );
+    }
+
 
     public function application()
     {
@@ -345,10 +365,10 @@ class CourseController extends Controller
         );
     }
 
-    public function studentCourse(Course $course)
+    public function adminShow(Course $course)
     {
-        $course->load('courseEnrolls');
-        dd($course->courseEnrolls);
+        $course->load('mentor', 'category')->loadCount('modules', 'courseEnrolls');
+        dd($course);
         $data = [
             'title' => $course->title . ' | UMKM Plus',
             'course' => $course
