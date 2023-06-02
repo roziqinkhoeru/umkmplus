@@ -66,7 +66,7 @@ class DiscountFactory extends Factory
             $customer->update([
                 'status' => 1,
                 'about' => $this->faker->paragraph(3),
-                'slug' => str_replace(" ","-",$customer->name),
+                'slug' =>  Str::lower(Str::slug($customer->name, '-')),
             ]);
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,
@@ -96,12 +96,12 @@ class DiscountFactory extends Factory
                     'description' => $this->faker->paragraph(3),
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
-                    'status' => 1,
+                    'status' => "aktif",
                     'discount' => 5
                 ];
                 $course = Course::create($courseRecord);
                 $course->update([
-                    'slug' => str_replace(" ","-",$course->title),
+                    'slug' =>  Str::lower(Str::slug($course->title, '-')),
                 ]);
 
                 // module factory
@@ -113,7 +113,7 @@ class DiscountFactory extends Factory
                 ];
                 $module = Module::create($moduleRecord);
                 $module->update([
-                    'slug' => str_replace(" ","-",$module->title),
+                    'slug' =>  Str::lower(Str::slug($module->title, '-')),
                 ]);
 
                 // media module factory

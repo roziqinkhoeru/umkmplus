@@ -234,6 +234,24 @@ class CourseController extends Controller
         return redirect()->route('courses.index')->with('success', 'Kelas berhasil dihapus');
     }
 
+    public function adminCourse()
+    {
+        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status')
+        ->where('status', '=', 'aktif')
+        ->orWhere('status', '=', 'nonaktif')
+        ->with('category:id,name', 'mentor:id,name')
+        ->limit(20)
+        ->get();
+        $data =
+        [
+            'title' => 'Kelas | Admin UMKM Plus',
+             'active' => 'course',
+             'courses' => $courses
+        ];
+
+        return view('admin.courses.index', $data);
+    }
+
     public function studentCourse(Course $course)
     {
         $course->load('courseEnrolls');

@@ -45,33 +45,44 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Kelas</th>
+                                            <th>Judul</th>
+                                            <th>Mentor</th>
+                                            <th>Kategori</th>
+                                            <th>Harga</th>
                                             <th>Status</th>
-                                            <th></th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Jhon Doe</td>
-                                            <td>doejhon@mail.com</td>
-                                            <td>
-                                                <ol class="mb-0 pl-3">
-                                                    <li class="mb-1">TitleCourse (categoryCourse)
-                                                    </li>
-                                                </ol>
-                                            </td>
-                                            <td>
-                                                Aktif
-                                            </td>
-                                            <td class="space-nowrap">
-                                                <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                <button onclick="" class="btn btn-danger btn-sm">Nonaktifkan</button>
-                                                <button onclick="" class="btn btn-warning btn-sm">Aktifkan</button>
-                                            </td>
-                                        </tr>
+                                        @foreach ($courses as $course)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $course->title }}</td>
+                                                <td>{{ $course->mentor->name }}</td>
+                                                <td>{{ $course->category->name }}</td>
+                                                <td>{{ $course->price }}</td>
+                                                <td>
+                                                    <span
+                                                        class="badge @switch($course->status)
+                                                            @case('aktif')
+                                                                badge-diterima
+                                                                @break
+                                                            @case('nonaktif')
+                                                                badge-ditolak
+                                                                @break
+                                                        @endswitch"><i
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $course->status }}
+                                                    </span>
+                                                </td>
+                                                <td class="space-nowrap">
+                                                    <a href="#" class="btn btn-primary btn-sm">Detail</a>
+                                                    <button onclick=""
+                                                        class="btn btn-danger btn-sm">Nonaktifkan</button>
+                                                    <button onclick="" class="btn btn-warning btn-sm">Aktifkan</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
