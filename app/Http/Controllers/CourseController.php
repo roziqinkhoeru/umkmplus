@@ -21,11 +21,9 @@ class CourseController extends Controller
 
     public function index(Request $request)
     {
-        $courses = Course::where('title', 'LIKE', '%' . $request->searchNavbar . '%')->get();
         $categories = Category::all();
         $data = [
             'title' => 'Kelas | UMKMPlus',
-            'courses' => $courses,
             'categories' => $categories,
         ];
 
@@ -34,26 +32,43 @@ class CourseController extends Controller
 
     public function getCourse(Request $request)
     {
-        $courses = Course::query();
-        $courses->with('mentor', 'category')
-            ->withCount("modules", "courseEnrolls");
-        if ($request->searchNavbar) {
-            $courses->where('title', 'LIKE', '%' . $request->searchNavbar . '%');
-        }
-        if ($request->newRelease == "true") {
-            $courses->orderBy('created_at', 'desc');
-        } else if ($request->promotion == "true") {
-            $courses->where('discount', '!=', 0)->orderBy('discount', 'desc');
-        } else if ($request->popular == "true") {
-            $courses->orderBy('course_enrolls_count', 'desc');
-        } else if ($request->cheapestCourse == "true") {
-            $courses->orderBy('price', 'asc');
-        } else if ($request->expensiveCourse == "true") {
-            $courses->orderBy('price', 'desc');
-        } else if ($request->freeCourse == "true") {
-            $courses->where('price', 0);
-        }
-        $courses = $courses->get();
+        $courses = Course::query()
+            ->with('mentor', 'category')
+            ->withCount('modules', 'courseEnrolls')
+            ->where('status', 'aktif')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->search . '%');
+            })
+            ->when($request->category, function ($query) use ($request) {
+                $query->whereHas('category', function ($query) use ($request) {
+                    $query->where('slug', $request->category);
+                });
+            })
+            ->when($request->sort, function ($query) use ($request) {
+                switch ($request->sort) {
+                    case 'newRelease':
+                        $query->orderBy('created_at', 'desc');
+                        break;
+                    case 'promotion':
+                        $query->where('discount', '!=', 0)->orderBy('discount', 'desc');
+                        break;
+                    case 'popular':
+                        $query->orderBy('course_enrolls_count', 'desc');
+                        break;
+                    case 'cheapestCourse':
+                        $query->orderBy('price', 'asc');
+                        break;
+                    case 'expensiveCourse':
+                        $query->orderBy('price', 'desc');
+                        break;
+                    case 'freeCourse':
+                        $query->where('price', 0);
+                        break;
+                }
+            })
+            ->get();
+
+
 
         return response()->json([
             'status' => 'success',
@@ -126,29 +141,37 @@ class CourseController extends Controller
 
     public function getCourseCategory(Request $request, Category $category)
     {
-        $courses = Course::query();
-        $courses->with('mentor', 'category')
-            ->withCount("modules", "courseEnrolls")
+        $courses = Course::query()
+            ->with('mentor', 'category')
+            ->withCount('modules', 'courseEnrolls')
+            ->where('status', 'aktif')
+            ->where('title', 'LIKE', '%' . $request->searchCourse . '%')
             ->whereHas('category', function ($query) use ($category) {
                 $query->where('slug', $category->slug);
-            });
-        if ($request->searchCourse) {
-            $courses->where('title', 'LIKE', '%' . $request->searchCourse . '%');
-        }
-        if ($request->newRelease == "true") {
-            $courses->orderBy('created_at', 'desc');
-        } else if ($request->promotion == "true") {
-            $courses->where('discount', '!=', 0)->orderBy('discount', 'desc');
-        } else if ($request->popular == "true") {
-            $courses->orderBy('course_enrolls_count', 'desc');
-        } else if ($request->cheapestCourse == "true") {
-            $courses->orderBy('price', 'asc');
-        } else if ($request->expensiveCourse == "true") {
-            $courses->orderBy('price', 'desc');
-        } else if ($request->freeCourse == "true") {
-            $courses->where('price', 0);
-        }
-        $courses = $courses->get();
+            })
+            ->when($request->sort, function ($query) use ($request) {
+                switch ($request->sort) {
+                    case 'newRelease':
+                        $query->orderBy('created_at', 'desc');
+                        break;
+                    case 'promotion':
+                        $query->where('discount', '!=', 0)->orderBy('discount', 'desc');
+                        break;
+                    case 'popular':
+                        $query->orderBy('course_enrolls_count', 'desc');
+                        break;
+                    case 'cheapestCourse':
+                        $query->orderBy('price', 'asc');
+                        break;
+                    case 'expensiveCourse':
+                        $query->orderBy('price', 'desc');
+                        break;
+                    case 'freeCourse':
+                        $query->where('price', 0);
+                        break;
+                }
+            })
+            ->get();
 
         return response()->json([
             'status' => 'success',
