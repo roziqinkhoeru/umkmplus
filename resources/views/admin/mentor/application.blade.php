@@ -42,6 +42,8 @@
                                             <th class="filter-none">Email</th>
                                             <th class="filter-none">No Telepon</th>
                                             <th class="filter-none">Alamat</th>
+                                            <th class="filter-none">Pekerjaan</th>
+                                            <th class="filter-none">Spesialisasi</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center filter-none">Aksi</th>
                                         </tr>
@@ -54,6 +56,8 @@
                                                 <td>{{ $mentor->email }}</td>
                                                 <td>{{ $mentor->phone }}</td>
                                                 <td>{{ $mentor->address }}</td>
+                                                <td>{{ $mentor->job }}</td>
+                                                <td>{{ $mentor->specialist }}</td>
                                                 <td><span
                                                         class="badge @switch($mentor->status)
                                                             @case('pending')

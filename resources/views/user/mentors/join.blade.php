@@ -80,8 +80,24 @@
                                     </label>
                                     <div class="sign__input">
                                         <i class="fal fa-map-marked icon-form"></i>
-                                        <input type="text" placeholder="Masukan pekerjaan domisili" name="job"
-                                            id="job" required value="{{ old('job') }}" class="input-form">
+                                        <input type="text" placeholder="Masukan pekerjaan " name="job" id="job"
+                                            required value="{{ old('job') }}" class="input-form">
+                                    </div>
+                                </div>
+                                {{-- specialist --}}
+                                <div class="sign__input-wrapper mb-22">
+                                    <label for="specialist">
+                                        <h5>Spesialisasi</h5>
+                                    </label>
+                                    <div class="sign__input">
+                                        <i class="fal fa-map-marked icon-form"></i>
+                                        <select class="select-form" aria-label="Default select example" name="specialist"
+                                            id="specialist" required>
+                                            {{-- <option hidden>Pilih Spesialisasi</option> --}}
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 {{-- cv --}}
@@ -167,6 +183,12 @@
                     minlength: 10,
                     maxlength: 13,
                 },
+                job: {
+                    required: true,
+                },
+                specialist: {
+                    required: true,
+                },
                 file_cv: {
                     required: true,
                     extension: "pdf|doc|docx",
@@ -190,6 +212,12 @@
                     number: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon tidak valid',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon minimal 10 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor telepon maksimal 13 karakter',
+                },
+                job: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Pekerjaan tidak boleh kosong',
+                },
+                specialist: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Spesialisasi tidak boleh kosong',
                 },
                 file_cv: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>CV tidak boleh kosong',
@@ -231,7 +259,7 @@
                                 icon: 'error',
                                 title: 'PENDAFTARAN GAGAL!',
                                 text: xhr.responseJSON.meta.message + ', Error: ' + xhr
-                                    .responseJSON.error,
+                                    .responseJSON.data.error,
                             })
                         else
                             Swal.fire({

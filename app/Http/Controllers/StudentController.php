@@ -9,7 +9,10 @@ class StudentController extends Controller
 {
     public function adminStudent()
     {
-        $students = Customer::select('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'users.email')->student()->get();
+        $students = Customer::select('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'users.email')
+        ->withCount('studentCourseEnrolls')
+        ->student()
+        ->get();
         $data = [
             'title' => 'Data Siswa | UMKM Plus',
             'active' => 'student',

@@ -16,6 +16,14 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ url('admin/course') }}">
+                            Data Kelas
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
                         <a href="#">
                             Data Kelas
                         </a>
