@@ -138,8 +138,8 @@
                             <div class="avatar-lg"><img src="{{ asset('assets/template/admin/img/profile.jpg') }}"
                                     alt="image profile" class="avatar-img rounded"></div>
                             <div class="u-text">
-                                <h4>Hizrian</h4>
-                                <p class="text-muted">hello@example.com</p><a href="/admin/nameAdmin"
+                                <h4>{{ Auth::user()->username }}</h4>
+                                <p class="text-muted">{{ Auth::user()->email }}</p><a href="/admin/nameAdmin"
                                     class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                             </div>
                         </div>
