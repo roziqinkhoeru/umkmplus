@@ -95,6 +95,18 @@
     .card-join-mentor .card .card-body {
         padding: 3rem;
     }
+
+    /* PLAYING COURSE */
+    #sidebar_player {
+        display: none !important;
+    }
+    #video_player {
+        margin-left: 0 !important;
+    }
+    /* video */
+    .video-player-section {
+        min-height: 0;
+    }
 }
 
 @media screen and (max-width: 767px) {

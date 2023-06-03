@@ -180,6 +180,9 @@ label.error {
 .bg-secondaries {
     background-color: #f7f7fb !important;
 }
+.bg-tp-theme-1 {
+    background: #3d6ce7;
+}
 
 /* border */
 .border-light-2 {
