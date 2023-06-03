@@ -52,11 +52,12 @@
                             <div class="header__search w-100 d-none d-xl-block">
                                 <form action="{{ url('/course') }}" method="GET" id="formSearch">
                                     <div class="header__search-input">
-                                        <input type="text" placeholder="Cari kelas..." class="rounded-pill" id="search" name="search" @if (request()->has('search'))
-                                            value="{{ request()->search }}"
-                                        @endif>
-                                        <button class="header__search-btn r-5" onclick="getCourse()"><svg width="18" height="18"
-                                                viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <input type="text" placeholder="Cari kelas..." class="rounded-pill"
+                                            id="search" name="search"
+                                            @if (request()->has('search')) value="{{ request()->search }}" @endif>
+                                        <button class="header__search-btn r-5" onclick="getCourse()"><svg width="18"
+                                                height="18" viewBox="0 0 18 18" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.11117 15.2222C12.0385 15.2222 15.2223 12.0385 15.2223 8.11111C15.2223 4.18375 12.0385 1 8.11117 1C4.18381 1 1.00006 4.18375 1.00006 8.11111C1.00006 12.0385 4.18381 15.2222 8.11117 15.2222Z"
                                                     stroke="#031220" stroke-width="2" stroke-linecap="round"
@@ -75,26 +76,26 @@
                                 </div>
                             @else
                                 <div class="ms-4">
-                                    <a href="/cart" onclick="getCart()" id="cart"
-                                        class="d-flex align-items-center nav-icon-cart position-relative">
-                                        <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
-                                        {{-- @if ($countCart > 0)
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
-                                                <span class="visually-hidden">New alerts</span>
-                                            </span>
-                                        @endif --}}
-                                    </a>
+                                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 3)
+                                        <a href="/cart" onclick="getCart()" id="cart"
+                                            class="d-flex align-items-center nav-icon-cart position-relative">
+                                            <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                    <a href="/admin" class="d-flex align-items-center nav-icon-user">
-                                        <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
-                                    </a>
+                                        <a href="/admin" class="d-flex align-items-center nav-icon-user">
+                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                        </a>
+                                    @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                        <a href="/mentor/dashboard" class="d-flex align-items-center nav-icon-user">
+                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                        </a>
                                     @else
-                                    <a href="/profile" class="d-flex align-items-center nav-icon-user">
-                                        <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
-                                    </a>
+                                        <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                        </a>
                                     @endif
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
