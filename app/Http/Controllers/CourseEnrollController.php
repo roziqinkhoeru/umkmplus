@@ -8,11 +8,13 @@ use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\MediaModule;
+use App\Models\Module;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Nette\Utils\Strings;
 use Ramsey\Uuid\Uuid;
@@ -220,10 +222,16 @@ class CourseEnrollController extends Controller
             return back()->with('error', 'Anda tidak memiliki akses ke halaman ini');
         }
 
+        $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', $courseEnroll->upto_no_module)->first()->id;
+
+        $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
+        // dd($lastMedia);
+
         $data = [
             'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
             'active' => 'course',
             'courseEnroll' => $courseEnroll,
+            'lastMedia' => $lastMedia,
         ];
 
         return view('user.courses.play', $data);
@@ -278,6 +286,9 @@ class CourseEnrollController extends Controller
             }
         }
 
+        $countModule = Module::where('course_id', $courseEnroll->course_id)->count();
+        $lastMediaCourse = MediaModule::where('module_id', $countModule)->max('no_media');;
+
         $nextMedia = MediaModule::where('module_id', $mediaModule->module_id)->where('no_media', $mediaModule->no_media + 1)->first();
         if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
             $next = $nextMedia->id;
@@ -285,8 +296,12 @@ class CourseEnrollController extends Controller
             $nextMedia = MediaModule::where('module_id', $mediaModule->module_id + 1)->where('no_media', 1)->first();
             if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
                 $next = $nextMedia->id;
-            } else {
-                $next = null;
+            } else if($countModule == $courseEnroll->upto_no_module && $lastMediaCourse == $courseEnroll->upto_no_media) {
+                if ($courseEnroll->course->google_form && $courseEnroll->status != 'selesai') {
+                    $next = "test";
+                } else {
+                    $next = "finish";
+                }
             }
         }
 
@@ -298,5 +313,28 @@ class CourseEnrollController extends Controller
             ],
             'Berhasil mengambil data'
         );
+    }
+
+    public function coursePlayingTest(CourseEnroll $courseEnroll)
+    {
+        $course = Course::where('id', $courseEnroll->course_id)->first();
+        $data = [
+            'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
+            'active' => 'course',
+            'courseEnroll' => $courseEnroll,
+            'course' => $course,
+        ];
+
+        return view('user.courses.test', $data);
+    }
+
+    public function coursePlayingTestFinish(CourseEnroll $courseEnroll)
+    {
+        $courseEnroll->update([
+            'status' => 'selesai',
+            'finished_at' => Carbon::now(),
+        ]);
+
+        return Redirect::route('profile')->with('success', 'Selamat, Anda telah menyelesaikan Kelas ini');
     }
 }

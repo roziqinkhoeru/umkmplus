@@ -246,9 +246,13 @@
             if (contentBeforeURL) {
                 openVideo(contentBeforeURL)
             } else {
-                openVideo('{{ $courseEnroll->course->modules->first()->mediaModules->first()->id }}')
+                openVideo('{{ $lastMedia->id }}')
             }
         });
+
+        const test = () => {
+            console.log('test');
+        }
 
         let htmlString = "";
         const openVideo = (content) => {
@@ -276,7 +280,7 @@
                     htmlString = `
                     {{-- player --}}
                     <div class="mb-35">
-                        <div class="w-100 rounded-4 bg-secondary" style="height: 450px"><iframe width="100%" height="450" src="https://www.youtube.com/embed/${response.data.mediaModule.video_url}?disablekb=1" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="w-100 rounded-4 bg-secondary" style="height: 450px"><iframe width="100%" height="450" src="https://www.youtube-nocookie.com/embed/${response.data.mediaModule.video_url}" frameborder="0" allowfullscreen></iframe></div>
                     </div>
                     <div class="d-flex justify-content-between mb-20">
                         <div class="" id="infoMediaModule">
@@ -284,9 +288,9 @@
                             <p class="mb-0 text-base">Modul: ${response.data.mediaModule.module.title}</p>
                         </div>
                         <div class="">
-                            ${response.data.next != null ? `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>`
-                            : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="">Selesai</button>`
-                            }
+                            ${response.data.next == "finish" ? `<a href="{{ url('/profile') }}" class="tp-btn tp-btn-4 rounded-pill" >Selesai</a>`
+                            : (response.data.next == "test" ? `<a href="{{ url('/course/playing/'. $courseEnroll->id .'/test') }}" class="tp-btn tp-btn-4 rounded-pill">Ujian</a>`
+                            : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>` )}
                         </div>
                     </div>`
                     $('#video_player').html(htmlString);

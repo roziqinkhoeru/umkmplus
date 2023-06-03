@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'aktif', 'nonaktif', 'ditolak'])->default('pending');
             $table->integer('discount')->default(0);
             $table->string('file_info', 255);
+            $table->string('google_form', 255)->nullable();
             $table->timestamps();
         });
     }

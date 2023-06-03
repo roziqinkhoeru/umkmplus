@@ -123,6 +123,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(CourseEnrollController::class)->group(function () {
             Route::get('/course/playing/{courseEnroll:id}', 'coursePlaying')->name('course.playing');
             Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
+            Route::get('/course/playing/{courseEnroll:id}/test', 'coursePlayingTest')->name('course.playing.test');
+            Route::get('/course/playing/{courseEnroll:id}/test/finish', 'coursePlayingTestFinish')->name('course.playing.test');
         });
     });
 });

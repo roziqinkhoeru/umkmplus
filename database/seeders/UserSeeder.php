@@ -115,7 +115,8 @@ class UserSeeder extends Seeder
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
                 'discount' => 5,
-                'file_info' => "courses/info/Print-Kartu-UTS.pdf"
+                'file_info' => "courses/info/Print-Kartu-UTS.pdf",
+                'google_form' => "https://docs.google.com/forms/d/e/1FAIpQLScDv5I9giiJaDkk1h6DYjdmSjf_-ZTRByTvy8LvRH_XHUDn9g/viewform",
             ];
             $course = Course::create($courseRecord);
             $course->update([

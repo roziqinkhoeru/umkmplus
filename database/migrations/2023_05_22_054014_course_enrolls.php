@@ -25,6 +25,7 @@ return new class extends Migration
             $table->bigInteger('total_price');
             $table->string('snap_token', 255)->nullable();
             $table->string('snap_url', 255)->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }
