@@ -87,13 +87,16 @@
         position: static;
         top: unset;
         right: unset;
-        margin-bottom: 32px;
+        margin-bottom: 54px;
     }
     .card-join-mentor .card {
         width: 100%;
     }
     .card-join-mentor .card .card-body {
         padding: 3rem;
+    }
+    .pb-join-section {
+        padding-bottom: 60px;
     }
 
     /* PLAYING COURSE */
@@ -207,6 +210,11 @@
     }
     .thumbnail-course-wrapper .popup-video i {
         font-size: 0.875rem;
+    }
+
+    /* JOIN MENTOR */
+    .card-join-mentor {
+        margin-bottom: 40px;
     }
 }
 
