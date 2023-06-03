@@ -96,7 +96,8 @@ class DiscountFactory extends Factory
                     'description' => $this->faker->paragraph(3),
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
-                    'discount' => 5
+                    'discount' => 5,
+                    'file_info' => "courses/info/Print-Kartu-UTS.pdf"
                 ];
                 $course = Course::create($courseRecord);
                 $course->update([
@@ -107,27 +108,32 @@ class DiscountFactory extends Factory
                         'status' =>  "aktif",
                     ]);
                 }
+                for ($j = 1; $j < 5; $j++) {
 
-                // module factory
-                $moduleRecord = [
-                    'course_id' => $course->id,
-                    'title' => $this->faker->title(),
-                    'file' => $this->faker->url(),
-                    'no_module' => 1
-                ];
-                $module = Module::create($moduleRecord);
-                $module->update([
-                    'slug' =>  Str::lower(Str::slug($module->title, '-')),
-                ]);
+                    // module factory
+                    $moduleRecord = [
+                        'course_id' => $course->id,
+                        'title' => $this->faker->words(3, true),
+                        'file' => $this->faker->url(),
+                        'no_module' => $j
+                    ];
+                    $module = Module::create($moduleRecord);
+                    $module->update([
+                        'slug' =>  Str::lower(Str::slug($module->title, '-')),
+                    ]);
+                    for ($k = 1; $k < 5; $k++) {
 
-                // media module factory
-                $mediaModuleRecord = [
-                    'module_id' => $module->id,
-                    'title' => $this->faker->title(),
-                    'video_url' => "https://www.youtube.com/embed/PjB7cAF0jSc?list=RDBb69TOfPXn8",
-                    'no_media' => 1,
-                ];
-                $mediaModule = MediaModule::create($mediaModuleRecord);
+                        // media module factory
+                        $mediaModuleRecord = [
+                            'module_id' => $module->id,
+                            'title' => $this->faker->words(3, true),
+                            'video_url' => "PjB7cAF0jSc",
+                            'time' => $this->faker->numberBetween(1, 100),
+                            'no_media' => $k,
+                        ];
+                        $mediaModule = MediaModule::create($mediaModuleRecord);
+                    }
+                }
             }
         }
 
@@ -135,7 +141,6 @@ class DiscountFactory extends Factory
         if ($roleUserRecord['role_id'] == 3) {
             // Course enroll factory
             for ($i = 0; $i < 3; $i++) {
-                # code...
                 $coursesID = Course::pluck('id')->toArray();
                 $course = Course::find($this->faker->randomElement($coursesID));
                 $courseEnrollRecord = [

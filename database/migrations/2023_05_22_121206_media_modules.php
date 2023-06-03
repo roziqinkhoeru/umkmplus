@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('module_id')->constrained('modules')->onUpdate('cascade')->onDelete('restrict');
             $table->string('title', 255);
+            $table->integer('time')->default(0);
             $table->text('video_url');
             $table->integer('no_media');
             $table->timestamps();

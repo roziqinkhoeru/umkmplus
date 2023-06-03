@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\MediaModule;
 use App\Models\Module;
@@ -22,144 +23,86 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $customerRecords =
-        [
             [
-                'name' => "Admin",
-                'address' => "Admin Address",
-                'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-                'job' => "Admin",
-                'phone' => "0123456789",
-                'dob' => "2000-01-01",
-            ],
-            [
-                'name' => "Mentor",
-                'slug' => "mentor",
-                'address' => "Mentor Address",
-                'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-                'job' => "Mentor",
-                'phone' => "0123456789",
-                'dob' => "2000-01-01",
-                'about' => "Inventore reprehenderit aut doloremque voluptatem. Rem nihil voluptatem voluptatem sunt voluptas. Eos debitis et amet ut. Impedit aperiam ducimus et totam qui deleniti."
-            ],
-            [
-                'name' => "Student",
-                'address' => "Student Address",
-                'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-                'job' => "Student",
-                'phone' => "0123456789",
-                'dob' => "2000-01-01"
-            ],
-        ];
+                [
+                    'name' => "Admin",
+                    'address' => "Admin Address",
+                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'job' => "Admin",
+                    'phone' => "0123456789",
+                    'dob' => "2000-01-01",
+                ],
+                [
+                    'name' => "Mentor",
+                    'slug' => "mentor",
+                    'address' => "Mentor Address",
+                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'job' => "Mentor",
+                    'phone' => "0123456789",
+                    'dob' => "2000-01-01",
+                    'about' => "Inventore reprehenderit aut doloremque voluptatem. Rem nihil voluptatem voluptatem sunt voluptas. Eos debitis et amet ut. Impedit aperiam ducimus et totam qui deleniti."
+                ],
+                [
+                    'name' => "Student",
+                    'address' => "Student Address",
+                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'job' => "Student",
+                    'phone' => "0123456789",
+                    'dob' => "2000-01-01"
+                ],
+            ];
 
         foreach ($customerRecords as $customerRecord) {
             Customer::firstOrCreate($customerRecord);
         }
 
         $userRecords =
-        [
             [
-                'customer_id' => 1,
-                'username' => "admin",
-                'email' => "admin@gmail.com",
-                'password' => bcrypt('=Secret1234'),
-            ],
-            [
-                'customer_id' =>2,
-                'username' => "mentor",
-                'email' => "mentor@gmail.com",
-                'password' => bcrypt('=Secret1234'),
-            ],
-            [
-                'customer_id' => 3,
-                'username' => "student",
-                'email' => "student@gmail.com",
-                'password' => bcrypt('=Secret1234'),
-            ],
-        ];
+                [
+                    'customer_id' => 1,
+                    'username' => "admin",
+                    'email' => "admin@gmail.com",
+                    'password' => bcrypt('=Secret1234'),
+                ],
+                [
+                    'customer_id' => 2,
+                    'username' => "mentor",
+                    'email' => "mentor@gmail.com",
+                    'password' => bcrypt('=Secret1234'),
+                ],
+                [
+                    'customer_id' => 3,
+                    'username' => "student",
+                    'email' => "student@gmail.com",
+                    'password' => bcrypt('=Secret1234'),
+                ],
+            ];
 
         foreach ($userRecords as $userRecord) {
             User::firstOrCreate($userRecord);
         }
 
         $roleUserRecords =
-        [
             [
-                'user_id' => 1,
-                'role_id' => 1,
-            ],
-            [
-                'user_id' => 2,
-                'role_id' => 2,
-            ],
-            [
-                'user_id' => 3,
-                'role_id' => 3,
-            ],
-        ];
+                [
+                    'user_id' => 1,
+                    'role_id' => 1,
+                ],
+                [
+                    'user_id' => 2,
+                    'role_id' => 2,
+                ],
+                [
+                    'user_id' => 3,
+                    'role_id' => 3,
+                ],
+            ];
 
         foreach ($roleUserRecords as $roleUserRecord) {
             RoleUser::firstOrCreate($roleUserRecord);
         }
 
         $faker = Factory::create();
-
-        // $recordCourses =
-        // [
-        //     [
-        //         'mentor_id' => 2,
-        //         'category_id' => $faker->numberBetween(1, 3),
-        //         'title' => "course 1",
-        //         'slug' => 'course-1',
-        //         'description' => $faker->paragraph(3),
-        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-        //         'price' => $faker->numberBetween(50000, 1000000),
-        //         'status' => 'nonaktif'
-        //     ],
-        //     [
-        //         'mentor_id' => 2,
-        //         'category_id' => $faker->numberBetween(1, 3),
-        //         'title' => "course 2",
-        //         'slug' => 'course-2',
-        //         'description' => $faker->paragraph(3),
-        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-        //         'price' => $faker->numberBetween(50000, 1000000),
-        //         'status' => 'nonaktif'
-        //     ],
-        //     [
-        //         'mentor_id' => 2,
-        //         'category_id' => $faker->numberBetween(1, 3),
-        //         'title' => "course 3",
-        //         'slug' => 'course-3',
-        //         'description' => $faker->paragraph(3),
-        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-        //         'price' => $faker->numberBetween(50000, 1000000),
-        //         'status' => 'aktif'
-        //     ],
-        //     [
-        //         'mentor_id' => 2,
-        //         'category_id' => $faker->numberBetween(1, 3),
-        //         'title' => "course 4",
-        //         'slug' => 'course-4',
-        //         'description' => $faker->paragraph(3),
-        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-        //         'price' => $faker->numberBetween(50000, 1000000),
-        //         'status' => 'nonaktif'
-        //     ],
-        //     [
-        //         'mentor_id' => 2,
-        //         'category_id' => $faker->numberBetween(1, 3),
-        //         'title' => "course 5",
-        //         'slug' => 'course-5',
-        //         'description' => $faker->paragraph(3),
-        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-        //         'price' => $faker->numberBetween(50000, 1000000),
-        //         'status' => 'aktif'
-        //     ],
-        // ];
-
-        // foreach ($recordCourses as $recordCourse) {
-        //     Course::firstOrCreate($recordCourse);
-        // }
 
         // course factory
         for ($i = 0; $i < 4; $i++) {
@@ -171,7 +114,8 @@ class UserSeeder extends Seeder
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
-                'discount' => 5
+                'discount' => 5,
+                'file_info' => "courses/info/Print-Kartu-UTS.pdf"
             ];
             $course = Course::create($courseRecord);
             $course->update([
@@ -183,26 +127,44 @@ class UserSeeder extends Seeder
                 ]);
             }
 
-            // module factory
-            $moduleRecord = [
-                'course_id' => $course->id,
-                'title' => $faker->title(),
-                'file' => $faker->url(),
-                'no_module' => 1
-            ];
-            $module = Module::create($moduleRecord);
-            $module->update([
-                'slug' =>  Str::lower(Str::slug($module->title, '-')),
-            ]);
+            for ($j = 1; $j < 5; $j++) {
+                // module factory
+                $moduleRecord = [
+                    'course_id' => $course->id,
+                    'title' => $faker->words(3, true),
+                    'file' => $faker->url(),
+                    'no_module' => $j,
+                ];
+                $module = Module::create($moduleRecord);
+                $module->update([
+                    'slug' =>  Str::lower(Str::slug($module->title, '-')),
+                ]);
+                for ($k = 1; $k < 4; $k++) {
 
-            // media module factory
-            $mediaModuleRecord = [
-                'module_id' => $module->id,
-                'title' => $faker->title(),
-                'video_url' => "https://www.youtube.com/embed/PjB7cAF0jSc?list=RDBb69TOfPXn8",
-                'no_media' => 1,
+                    // media module factory
+                    $mediaModuleRecord = [
+                        'module_id' => $module->id,
+                        'title' => $faker->words(3, true),
+                        'video_url' => "PjB7cAF0jSc",
+                        'time' => $faker->numberBetween(1, 100),
+                        'no_media' => $k,
+                    ];
+                    $mediaModule = MediaModule::create($mediaModuleRecord);
+                }
+            }
+
+            $courseEnrollRecord = [
+                'id' => $faker->unique()->uuid(),
+                'student_id' => 3,
+                'course_id' => $course->id,
+                'status' => $faker->randomElement(['menunggu pembayaran', 'proses', 'aktif', 'selesai']),
+                'upto_no_module' => 1,
+                'upto_no_media' => 1,
+                'started_at' => $faker->dateTimeBetween('-1 years', '-4 months'),
+                'finished_at' => $faker->dateTimeBetween('-4 months', 'now'),
+                'total_price' => $course->price,
             ];
-            $mediaModule = MediaModule::create($mediaModuleRecord);
+            $courseEnroll = CourseEnroll::create($courseEnrollRecord);
         }
     }
 }

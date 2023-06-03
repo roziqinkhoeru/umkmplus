@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\Discount;
+use App\Models\MediaModule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -177,6 +178,8 @@ class CourseEnrollController extends Controller
                         $courseEnroll->update([
                             'status' => 'aktif',
                             'started_at' => Carbon::now(),
+                            'upto_no_module' => 1,
+                            'upto_no_media' => 1,
                         ]);
                     }
                 }
@@ -199,6 +202,101 @@ class CourseEnrollController extends Controller
                 'message' => 'Transaksi berhasil dibatalkan',
             ],
             'Transaksi berhasil dibatalkan'
+        );
+    }
+
+    public function coursePlaying(CourseEnroll $courseEnroll)
+    {
+        $courseEnroll->load('course.modules.mediaModules');
+        $user = Auth::user()->customer;
+        $student = Customer::where('id', $user->id)->first();
+        // if student not have access to this course
+        if ($student->id != $courseEnroll->student_id) {
+            return back()->with('error', 'Anda tidak memiliki akses ke halaman ini');
+        }
+
+        // if student not buy yet this course
+        if (!($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai')) {
+            return back()->with('error', 'Anda tidak memiliki akses ke halaman ini');
+        }
+
+        $data = [
+            'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
+            'active' => 'course',
+            'courseEnroll' => $courseEnroll,
+        ];
+
+        return view('user.courses.play', $data);
+    }
+
+    public function coursePlayingMedia(CourseEnroll $courseEnroll)
+    {
+        $user = Auth::user()->customer;
+        $student = Customer::where('id', $user->id)->first();
+        // if student not have access to this media
+        if ($student->id != $courseEnroll->student_id) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Anda tidak memiliki akses ke halaman ini',
+                ],
+                'Anda tidak memiliki akses ke halaman ini',
+                403
+            );
+        }
+
+        // if student not buy yet this course
+        if (!($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai')) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Anda tidak memiliki akses ke halaman ini',
+                ],
+                'Anda tidak memiliki akses ke halaman ini',
+                403
+            );
+        }
+        $mediaModule = MediaModule::with('module')->where('id', request()->id)->first();
+        if ($mediaModule->module->course_id != $courseEnroll->course_id) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Anda tidak memiliki akses ke halaman ini',
+                ],
+                'Anda tidak memiliki akses ke halaman ini',
+                403
+            );
+        }
+
+        if ($courseEnroll->upto_no_module < $mediaModule->module->no_module) {
+            $courseEnroll->update([
+                'upto_no_module' => $mediaModule->module->no_module,
+                'upto_no_media' => $mediaModule->no_media,
+            ]);
+        } else if ($courseEnroll->upto_no_module == $mediaModule->module->no_module) {
+            if ($courseEnroll->upto_no_media < $mediaModule->no_media) {
+                $courseEnroll->update([
+                    'upto_no_media' => $mediaModule->no_media,
+                ]);
+            }
+        }
+
+        $nextMedia = MediaModule::where('module_id', $mediaModule->module_id)->where('no_media', $mediaModule->no_media + 1)->first();
+        if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
+            $next = $nextMedia->id;
+        } else {
+            $nextMedia = MediaModule::where('module_id', $mediaModule->module_id + 1)->where('no_media', 1)->first();
+            if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
+                $next = $nextMedia->id;
+            } else {
+                $next = null;
+            }
+        }
+
+        return ResponseFormatter::success(
+            [
+                'message' => 'Berhasil mengambil data',
+                'mediaModule' => $mediaModule,
+                'next' => $next,
+            ],
+            'Berhasil mengambil data'
         );
     }
 }
