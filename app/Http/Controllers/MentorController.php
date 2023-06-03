@@ -281,14 +281,4 @@ class MentorController extends Controller
 
         return view('mentor.dashboard', $data);
     }
-
-    public function mentorCourse()
-    {
-        $data = [
-            'title' => 'Courses | Mentor UMKMPlus',
-            'active' => 'course'
-        ];
-
-        return view('mentor.courses.index', $data);
-    }
 }

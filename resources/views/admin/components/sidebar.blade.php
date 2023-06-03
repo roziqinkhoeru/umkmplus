@@ -90,11 +90,6 @@
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
                 </a>
-            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <a href="/mentor/student">
-                    <i class="fas fa-user-graduate"></i>
-                    <p>Siswa</p>
-                </a>
             @endif
         </li>
         <li class="nav-section">

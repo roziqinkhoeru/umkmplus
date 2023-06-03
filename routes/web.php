@@ -43,17 +43,11 @@ Route::get('/admin/blog', function () {
 });
 
 // mentor
-Route::get('/mentor/courses/create', function () {
-    return view('mentor.courses.create', ['title' => 'Create Course | Mentor UMKMPlus', 'active' => 'course']);
-});
 Route::get('/mentor/blog', function () {
     return view('mentor.blog.index', ['title' => 'Blog | Mentor UMKMPlus', 'active' => 'blog']);
 });
 Route::get('/mentor/blog/create', function () {
     return view('mentor.blog.create', ['title' => 'Create Blog | Mentor UMKMPlus', 'active' => 'blog']);
-});
-Route::get('/mentor/students', function () {
-    return view('mentor.students.index', ['title' => 'Students | Mentor UMKMPlus', 'active' => 'student']);
 });
 
 // Auth
@@ -165,7 +159,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/course/application/{course:slug}', 'applicationDetail')->name('admin.course.application.detail');
             Route::put('/admin/course/application/{course:slug}', 'approvalApplication')->name('admin.course.application.approval');
             Route::get('/admin/course/{course:slug}', 'adminShow')->name('admin.course.show');
-            Route::put('/admin/course/{course:slug}/status', 'editStatusCourse')->name('admin.course.status');
         });
         // Student
         Route::controller(StudentController::class)->group(function () {
@@ -177,13 +170,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:mentor']], function () {
         Route::controller(MentorController::class)->group(function () {
             Route::get('/mentor/dashboard', 'mentorDashboard')->name('mentor.dashboard');
+        });
+        Route::controller(CourseController::class)->group(function () {
             Route::get('/mentor/course', 'mentorCourse')->name('mentor.course');
-            // Route::get('/mentor/profile', 'mentorProfile')->name('mentor.profile');
-            // Route::get('/mentor/profile/get-profile', 'getMentorProfile')->name('get.mentor.profile');
-            // Route::put('/mentor/profile/update-profile', 'updateMentorProfile')->name('update.mentor.profile');
-            // Route::get('/mentor/profile/get-courses', 'getMentorCourse')->name('get.mentor.course');
-            // Route::get('/mentor/profile/get-transaction-history', 'getMentorTransactionHistory')->name('get.mentor.transaction.history');
-            // Route::put('/mentor/profile/change-password', 'changeMentorPassword')->name('mentor.change.password');
+            Route::get('/mentor/course/create', 'mentorCourseCreate')->name('mentor.course.create');
+            Route::get('/mentor/course/{course:slug}', 'mentorCourseShow')->name('mentor.course.show');
+        });
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
+        });
+    });
+
+    /** MENTOR & ADMIN **/
+    Route::group(['middleware' => ['checkRole:mentor,admin']], function () {
+        Route::controller(CourseController::class)->group(function () {
+            Route::put('/admin/course/{course:slug}/status', 'editStatusCourse')->name('admin.course.status');
         });
     });
 });

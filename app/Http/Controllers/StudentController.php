@@ -33,4 +33,19 @@ class StudentController extends Controller
 
         return view('admin.students.detail', $data);
     }
+
+    public function mentorStudent()
+    {
+        $students = Customer::select('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'users.email')
+        ->withCount('studentCourseEnrolls')
+        ->student()
+        ->get();
+        $data = [
+            'title' => 'Data Siswa | Mentor UMKM Plus',
+            'active' => 'student',
+            'students' => $students,
+        ];
+
+        return view('mentor.students.index', $data);
+    }
 }
