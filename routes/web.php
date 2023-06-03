@@ -37,12 +37,6 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
-Route::get('/cart', function () {
-    return view('user.cart.index', ['title' => 'Cart | Admin UMKMPlus']);
-});
-Route::get('/course/playing/courseName', function () {
-    return view('user.courses.play', ['title' => 'Belajar nameCourse | Admin UMKMPlus']);
-});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
@@ -123,6 +117,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/profile/get-courses', 'getCourseProfile')->name('get.profile.course');
             Route::get('/profile/get-transaction-history', 'getTransactionHistory')->name('get.profile.transaction.history');
             Route::put('/profile/change-password', 'changePassword')->name('profile.change.password');
+        });
+
+        // Course
+        Route::controller(CourseEnrollController::class)->group(function () {
+            Route::get('/course/playing/{courseEnroll:id}', 'coursePlaying')->name('course.playing');
+            Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
         });
     });
 });

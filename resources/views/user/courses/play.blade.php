@@ -4,6 +4,7 @@
     <main>
         {{-- main content --}}
         <section class="container-fluid">
+            {{-- Dektop --}}
             <div class="w-100 margin-player">
                 <div id="sidebar_button_open" class="hide pt-20">
                     <div class="d-none d-lg-flex mb-30">
@@ -55,115 +56,59 @@
                                                     </div>
                                                 </div>
                                                 <div class="">
-                                                    <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                                    <a href="{{ asset('storage/' . $courseEnroll->course->file_info) }}">
+                                                        <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                                    </a>
                                                 </div>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- accordion --}}
-                                <div class="accordion-items">
-                                    <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#module_1" aria-expanded="false" aria-controls="module_1">
-                                        <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                            <div class="">
-                                                <span class="text-base fw-bold d-block leading-xl"
-                                                    style="margin-bottom: 2px">Modul
-                                                    1</span>
-                                                <span class="mb-0 d-block leading-xl text-xs">2 video</span>
-                                            </div>
-                                            <div class="">
-                                                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                                    style="width: 24px;height: 24px;">
-                                                    <i class="fa-solid fa-sort-down"
-                                                        style="transform: translateY(-2px)"></i>
+                                {{-- accordion desktop --}}
+                                @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
+                                    <div class="accordion-items">
+                                        <button class="btn-accordion" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#module_{{ $module->no_module }}" aria-expanded="false"
+                                            aria-controls="module_{{ $module->no_module }}">
+                                            <div class="w-100 d-flex justify-content-between align-items-center gap-3">
+                                                <div class="">
+                                                    <span class="text-base fw-bold d-block leading-xl"
+                                                        style="margin-bottom: 2px">{{ $module->title }}</span>
+                                                    <span
+                                                        class="mb-0 d-block leading-xl text-xs">{{ $module->mediaModules->count() }}
+                                                        video</span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </button>
-                                    <div class="collapse mt-15" id="module_1">
-                                        <div class="">
-                                            {{-- video --}}
-                                            <button class="video-course-items" onclick="" role="presentation">
                                                 <div class="">
                                                     <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                         style="width: 24px;height: 24px;">
-                                                        <i class="fa-solid fa-play" style="font-size: 10px"></i>
+                                                        <i class="fa-solid fa-sort-down"
+                                                            style="transform: translateY(-2px)"></i>
                                                     </div>
                                                 </div>
-                                                <div class="">
-                                                    <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                                        Module 1</p>
-                                                    <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                                </div>
-                                            </button>
-                                            <button class="video-course-items" onclick="" role="presentation">
-                                                <div class="">
-                                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                                        style="width: 24px;height: 24px;">
-                                                        <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                                        Module 1</p>
-                                                    <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                                </div>
-                                            </button>
+                                            </div>
+                                        </button>
+                                        <div class="collapse mt-15" id="module_{{ $module->no_module }}">
+                                            <div class="">
+                                                {{-- video --}}
+                                                @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
+                                                    <button class="video-course-items"
+                                                        onclick="openVideo('{{ $mediaModule->id }}')" role="presentation">
+                                                        <div class="">
+                                                            <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                                                style="width: 24px;height: 24px;">
+                                                                <i class="fa-solid fa-play" style="font-size: 10px"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="">
+                                                            <p class="fw-bold mb-5 leading-xl">{{ $mediaModule->title }}</p>
+                                                            <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }} menit</p>
+                                                        </div>
+                                                    </button>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="accordion-items">
-                                    <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#module_2" aria-expanded="false" aria-controls="module_2">
-                                        <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                            <div class="">
-                                                <span class="text-base fw-bold d-block leading-xl"
-                                                    style="margin-bottom: 2px">Modul
-                                                    2</span>
-                                                <span class="mb-0 d-block leading-xl text-xs">2 video</span>
-                                            </div>
-                                            <div class="">
-                                                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                                    style="width: 24px;height: 24px;">
-                                                    <i class="fa-solid fa-sort-down"
-                                                        style="transform: translateY(-2px)"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </button>
-                                    <div class="collapse mt-15" id="module_2">
-                                        <div class="">
-                                            {{-- video --}}
-                                            <button class="video-course-items" onclick="" role="presentation">
-                                                <div class="">
-                                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                                        style="width: 24px;height: 24px;">
-                                                        <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                                        Module 2</p>
-                                                    <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                                </div>
-                                            </button>
-                                            <button class="video-course-items" onclick="" role="presentation">
-                                                <div class="">
-                                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                                        style="width: 24px;height: 24px;">
-                                                        <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                                        Module 1</p>
-                                                    <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                                </div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -171,22 +116,11 @@
 
                 {{-- video player --}}
                 <div id="video_player" class="video-player-section collapse-on">
-                    {{-- player --}}
-                    <div class="mb-35">
-                        <div class="w-100 rounded-4 bg-secondary" style="height: 450px"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mb-20">
-                        <div class="">
-                            <h3 class="mb-10">Title Video Course</h3>
-                            <p class="mb-0 text-base">Modul: title module course</p>
-                        </div>
-                        <div class="">
-                            <button class="tp-btn tp-btn-4 rounded-pill" onclick="">Next</button>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
+            {{-- Mobile --}}
             <div class="d-block d-lg-none">
                 <div class="">
                     <div id="prepare" class="accordion-items">
@@ -194,8 +128,8 @@
                             data-bs-target="#prepare_class" aria-expanded="false" aria-controls="prepare_class">
                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                 <div class="">
-                                    <span class="text-base fw-bold d-block leading-xl"
-                                        style="margin-bottom: 2px">Persiapan Kelas</span>
+                                    <span class="text-base fw-bold d-block leading-xl" style="margin-bottom: 2px">Persiapan
+                                        Kelas</span>
                                     <span class="mb-0 d-block leading-xl text-xs">Info | Resource</span>
                                 </div>
                                 <div class="">
@@ -217,111 +151,56 @@
                                         </div>
                                     </div>
                                     <div class="">
-                                        <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                        <a href="{{ asset('storage/' . $courseEnroll->course->file_info) }}">
+                                            <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                        </a>
                                     </div>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    {{-- accordion --}}
-                    <div class="accordion-items">
-                        <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#module_1" aria-expanded="false" aria-controls="module_1">
-                            <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                <div class="">
-                                    <span class="text-base fw-bold d-block leading-xl" style="margin-bottom: 2px">Modul
-                                        1</span>
-                                    <span class="mb-0 d-block leading-xl text-xs">2 video</span>
-                                </div>
-                                <div class="">
-                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                        style="width: 24px;height: 24px;">
-                                        <i class="fa-solid fa-sort-down" style="transform: translateY(-2px)"></i>
+                    {{-- accordion Mobile --}}
+                    @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
+                        <div class="accordion-items">
+                            <button class="btn-accordion" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#module_{{ $module->no_module }}" aria-expanded="false"
+                                aria-controls="module_{{ $module->no_module }}">
+                                <div class="w-100 d-flex justify-content-between align-items-center gap-3">
+                                    <div class="">
+                                        <span class="text-base fw-bold d-block leading-xl"
+                                            style="margin-bottom: 2px">{{ $module->title }}</span>
+                                        <span class="mb-0 d-block leading-xl text-xs">{{ $module->mediaModules->count() }}
+                                            video</span>
                                     </div>
-                                </div>
-                            </div>
-                        </button>
-                        <div class="collapse mt-15" id="module_1">
-                            <div class="">
-                                {{-- video --}}
-                                <button class="video-course-items" onclick="" role="presentation">
                                     <div class="">
                                         <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                             style="width: 24px;height: 24px;">
-                                            <i class="fa-solid fa-play" style="font-size: 10px"></i>
+                                            <i class="fa-solid fa-sort-down" style="transform: translateY(-2px)"></i>
                                         </div>
                                     </div>
-                                    <div class="">
-                                        <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                            Module 1</p>
-                                        <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                    </div>
-                                </button>
-                                <button class="video-course-items" onclick="" role="presentation">
-                                    <div class="">
-                                        <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                            style="width: 24px;height: 24px;">
-                                            <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                            Module 1</p>
-                                        <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                    </div>
-                                </button>
+                                </div>
+                            </button>
+                            <div class="collapse mt-15" id="module_{{ $module->no_module }}">
+                                <div class="">
+                                    {{-- video --}}
+                                    @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
+                                        <button class="video-course-items" onclick="openVideo('{{ $mediaModule->id }}')" role="presentation">
+                                            <div class="">
+                                                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                                    style="width: 24px;height: 24px;">
+                                                    <i class="fa-solid fa-play" style="font-size: 10px"></i>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <p class="fw-bold mb-5 leading-xl">{{ $mediaModule->title }}</p>
+                                                <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }} menit</p>
+                                            </div>
+                                        </button>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="accordion-items">
-                        <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#module_2" aria-expanded="false" aria-controls="module_2">
-                            <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                <div class="">
-                                    <span class="text-base fw-bold d-block leading-xl" style="margin-bottom: 2px">Modul
-                                        2</span>
-                                    <span class="mb-0 d-block leading-xl text-xs">2 video</span>
-                                </div>
-                                <div class="">
-                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                        style="width: 24px;height: 24px;">
-                                        <i class="fa-solid fa-sort-down" style="transform: translateY(-2px)"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </button>
-                        <div class="collapse mt-15" id="module_2">
-                            <div class="">
-                                {{-- video --}}
-                                <button class="video-course-items" onclick="" role="presentation">
-                                    <div class="">
-                                        <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                            style="width: 24px;height: 24px;">
-                                            <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                            Module 2</p>
-                                        <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                    </div>
-                                </button>
-                                <button class="video-course-items" onclick="" role="presentation">
-                                    <div class="">
-                                        <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                            style="width: 24px;height: 24px;">
-                                            <i class="fa-solid fa-play" style="font-size: 10px"></i>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <p class="fw-bold mb-5 leading-xl">Title Video Course
-                                            Module 1</p>
-                                        <p class="text-xs mb-0 leading-xl">100 menit</p>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -329,6 +208,18 @@
 @endsection
 
 @section('script')
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+
     <script>
         const closeSidebar = () => {
             $('#sidebar_player').removeClass('show');
@@ -345,6 +236,79 @@
             $('#video_player').addClass('collapse-on');
             $('#sidebar_button_open').removeClass('show pt-10');
             $('#sidebar_button_open').addClass('hide pt-20');
+        }
+
+        $(document).ready(function() {
+            // Mendapatkan parameter dari URL
+            var urlParams = new URLSearchParams(window.location.search);
+            // Mengambil nilai parameter dengan nama tertentu
+            var contentBeforeURL = urlParams.get('content');
+            if (contentBeforeURL) {
+                openVideo(contentBeforeURL)
+            } else {
+                openVideo('{{ $courseEnroll->course->modules->first()->mediaModules->first()->id }}')
+            }
+        });
+
+        let htmlString = "";
+        const openVideo = (content) => {
+            // $('#video_player').removeClass('collapse-off');
+            // $('#video_player').addClass('collapse-on');
+            $("#infoMediaModule").html(`<i class="fas fa-circle-notch text-lg spinners-2"></i>`);
+            // Mendapatkan parameter dari URL
+            var urlParams = new URLSearchParams(window.location.search);
+            // Mengambil nilai parameter dengan nama tertentu
+            var contentBeforeURL = urlParams.get('content');
+            // Membuat permintaan AJAX dan mengubah URL
+            var request = `content=${content}`; // Request yang ingin ditambahkan
+            var url = "{{ url('/course/playing/' . $courseEnroll->id) }}"; // Mendapatkan URL saat ini
+            var newUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + request; // Menambahkan request ke URL
+
+            // Mengubah URL tanpa melakukan reload halaman
+            history.pushState(null, null, newUrl);
+            $.ajax({
+                type: "GET",
+                url: `{{ url('/course/playing/' . $courseEnroll->id . '/media') }}`,
+                data: {
+                    id: content
+                },
+                success: function(response) {
+                    htmlString = `
+                    {{-- player --}}
+                    <div class="mb-35">
+                        <div class="w-100 rounded-4 bg-secondary" style="height: 450px"><iframe width="100%" height="450" src="https://www.youtube.com/embed/${response.data.mediaModule.video_url}?disablekb=1" frameborder="0" allowfullscreen></iframe></div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-20">
+                        <div class="" id="infoMediaModule">
+                            <h3 class="mb-10">${response.data.mediaModule.title}</h3>
+                            <p class="mb-0 text-base">Modul: ${response.data.mediaModule.module.title}</p>
+                        </div>
+                        <div class="">
+                            ${response.data.next != null ? `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>`
+                            : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="">Selesai</button>`
+                            }
+                        </div>
+                    </div>`
+                    $('#video_player').html(htmlString);
+                },
+                error: function(xhr, response, error) {
+                    if (xhr.responseJSON)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'GAGAL MENGAMBIL VIDEO!',
+                            text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
+                        })
+                    else
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'GAGAL MENGAMBIL VIDEO!',
+                            text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                error,
+                        })
+                    return false;
+                },
+            });
+
         }
     </script>
 @endsection

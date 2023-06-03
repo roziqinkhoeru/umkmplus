@@ -39,7 +39,7 @@
                 title: 'Gagal',
                 text: '{{ session('error') }}',
                 showConfirmButton: false,
-                timer: 5000
+                timer: 1500
             })
         </script>
 
@@ -287,7 +287,6 @@
                 url: "{{ route('get.profile.course') }}",
                 dataType: "JSON",
                 success: function (response) {
-                    console.log(response.data);
                     htmlString = `
                     <div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
@@ -323,7 +322,7 @@
                                                                     <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
                                                                     <td>${coursePrice}</td>
                                                                     <td>${enroll.status}</td>
-                                                                    <td><a href="course-details.html" class="order__view-btn">View</a></td>
+                                                                    <td><a href="{{ url('/course/playing/${enroll.id}', ) }}" class="order__view-btn">View</a></td>
                                                                 </tr>`
                                                     })}
                                                 </tbody>

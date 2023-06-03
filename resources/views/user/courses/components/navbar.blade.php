@@ -71,7 +71,7 @@
                                 </div>
                             @else
                                 <div class="ms-4 d-none d-sm-block">
-                                    <p class="space-nowrap mb-0 fw-medium">Halo, _name_</p>
+                                    <p class="space-nowrap mb-0 fw-medium">Halo, {{ Auth::user()->customer->name }}</p>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     <a href="/profile" class="d-flex align-items-center nav-icon-user">
