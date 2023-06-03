@@ -180,6 +180,37 @@ class CourseController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Course $course)
+    {
+        $course->load('mentor', 'modules', 'modules.mediaModules', 'courseEnrolls')->loadCount('modules');
+        $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
+        $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
+        $countStudent = Customer::countStudent($course->mentor_id);
+        if (Auth::check()) {
+            $cartCourse = Cart::where('student_id', auth()->user()->customer_id)->where('course_id', $course->id)->first();
+        }
+        if (Auth::check()) {
+            $courseEnroll = $course->courseEnrolls()->where('student_id', Auth::user()->id)->first();
+        }
+        $countMentor = [
+            "countCourse" => $countCourse,
+            "countStudent" => $countStudent
+        ];
+        $data =
+            [
+                'title' => $course->title . ' | UMKM Plus',
+                'course' => $course,
+                'countMediaModule' => $countMediaModule,
+                'countMentor' => $countMentor,
+                'courseEnroll' => $courseEnroll ?? null,
+                'cartCourse' => $cartCourse->id ?? null
+            ];
+
+        return view('user.courses.detail', $data);
+    }
 
     /**
      * Remove the specified resource from storage.

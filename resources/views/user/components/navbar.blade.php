@@ -76,20 +76,20 @@
                                 </div>
                             @else
                                 <div class="ms-4">
-                                    <a href="/cart" onclick="getCart()" id="cart"
-                                        class="d-flex align-items-center nav-icon-cart position-relative">
-                                        <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
-                                        {{-- @if ($countCart > 0)
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
-                                                <span class="visually-hidden">New alerts</span>
-                                            </span>
-                                        @endif --}}
-                                    </a>
+                                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 3)
+                                        <a href="/cart" onclick="getCart()" id="cart"
+                                            class="d-flex align-items-center nav-icon-cart position-relative">
+                                            <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
                                         <a href="/admin" class="d-flex align-items-center nav-icon-user">
+                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                        </a>
+                                    @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                        <a href="/mentor/dashboard" class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @else

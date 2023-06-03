@@ -213,7 +213,6 @@
                     } else {
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let coursePriceDiscount = courseData.price - (courseData.price * courseData.discount / 100);
                             let option = {
                                 style: 'currency',
                                 currency: 'IDR',
@@ -221,6 +220,7 @@
                                 minimumFractionDigits: 0,
                                 maximumFractionDigits: 0,
                             };
+                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price * courseData.discount / 100);
                             let coursePrice = courseData.price.toLocaleString('id-ID', option);
                             let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID', option);
                             let date = new Date(courseData.created_at);

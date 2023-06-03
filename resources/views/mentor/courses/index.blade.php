@@ -1,87 +1,90 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <main>
-        <div class="container">
-            <div class="page-inner">
-                {{-- header --}}
-                <div class="page-header">
-                    <h4 class="page-title">Kelas</h4>
-                    <ul class="breadcrumbs">
-                        <li class="nav-home">
-                            <a href="/admin">
-                                <i class="flaticon-home"></i>
-                            </a>
-                        </li>
-                        <li class="separator">
-                            <i class="flaticon-right-arrow"></i>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                Data Kelas
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="container">
+        <div class="page-inner">
+            {{-- header --}}
+            <div class="page-header">
+                <h4 class="page-title">Kelas</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="/admin">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Data Kelas
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-                {{-- main content --}}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-head-row">
-                                    <div class="card-title">Data Kelas</div>
-                                    <div class="card-tools">
-                                        <a href="{{ url('/mentor/course/create') }}"
-                                            class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                            <span class="btn-label">
-                                            </span>
-                                            Tambah Kelas
-                                        </a>
-                                    </div>
+            {{-- main content --}}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Data Kelas</div>
+                                <div class="card-tools">
+                                    <a href="{{ url('/mentor/course/create') }}"
+                                        class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                        <span class="btn-label">
+                                        </span>
+                                        Tambah Kelas
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="courseTable" class="display table table-striped table-hover">
-                                        <thead>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="courseTable" class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Judul</th>
+                                            <th>Kategori</th>
+                                            <th>Harga</th>
+                                            <th>Diskon</th>
+                                            <th>Status</th>
+                                            <th>Siswa</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($courses as $course)
                                             <tr>
-                                                <th>#</th>
-                                                <th>Judul</th>
-                                                <th>Kategori</th>
-                                                <th>Harga</th>
-                                                <th>Diskon</th>
-                                                <th>Status</th>
-                                                <th>Siswa</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($courses as $course)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $course->title }}</td>
-                                                    <td>{{ $course->category->name }}</td>
-                                                    <td>{{ $course->price }}</td>
-                                                    <td>{{ $course->discount }} %</td>
-                                                    <td>
-                                                        <span
-                                                            class="badge @switch($course->status)
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $course->title }}</td>
+                                                <td>{{ $course->category->name }}</td>
+                                                <td>{{ $course->price }}</td>
+                                                <td>{{ $course->discount }} %</td>
+                                                <td>
+                                                    <span
+                                                        class="badge @switch($course->status)
                                                                 @case('aktif')
                                                                     badge-diterima
                                                                     @break
                                                                 @case('nonaktif')
                                                                     badge-ditolak
                                                                     @break
+                                                                @default
+                                                                    badge-menunggu
+                                                                    @break
                                                             @endswitch"><i
-                                                                class="fas fa-circle" style="font-size: 10px"></i>
-                                                            {{ $course->status }}
-                                                        </span>
-                                                    </td>
-                                                    <td>{{ $course->course_enrolls_count }}</td>
-                                                    <td class="space-nowrap">
-                                                        <a href="{{ url('/mentor/course/' . $course->slug) }}"
-                                                            class="btn btn-primary btn-sm">Detail</a>
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $course->status }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ $course->course_enrolls_count }}</td>
+                                                <td class="space-nowrap">
+                                                    <a href="{{ url('/mentor/course/' . $course->slug) }}"
+                                                        class="btn btn-primary btn-sm">Detail</a>
+                                                    @if (!($course->status == 'pending' || $course->status == 'ditolak'))
                                                         @if ($course->status == 'aktif')
                                                             <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
                                                                 class="btn btn-danger btn-sm">Nonaktifkan</button>
@@ -89,19 +92,19 @@
                                                             <button onclick="aktifkanCourse('{{ $course->slug }}')"
                                                                 class="btn btn-warning btn-sm">Aktifkan</button>
                                                         @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 @endsection
 
 @section('script')

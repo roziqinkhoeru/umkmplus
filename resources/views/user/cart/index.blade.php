@@ -78,20 +78,20 @@
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
                         };
-                        let discountPrice = Math.ceil(cartCourse.course.price * cartCourse.course
+                        let discountPrice = Math.ceil(cartCourse.price * cartCourse
                             .discount / 100);
-                        let subTotal = cartCourse.course.price - discountPrice;
-                        let coursePrice = cartCourse.course.price.toLocaleString('id-ID', option);
+                        let subTotal = cartCourse.price - discountPrice;
+                        let coursePrice = cartCourse.price.toLocaleString('id-ID', option);
                         discountPrice = discountPrice.toLocaleString('id-ID', option);
                         subTotal = subTotal.toLocaleString('id-ID', option);
                         cartCourseContentDesktop += `<tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
-                                                    <img src="{{ asset('${cartCourse.course.thumbnail}') }}"
+                                                    <img src="{{ asset('${cartCourse.thumbnail}') }}"
                                                         alt="thumbnail-course" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
-                                                        <p class="mb-5 text-base fw-medium">${cartCourse.course.title}</p>
-                                                        <p class="mb-0">Mentor: ${cartCourse.course.mentor.name}</p>
+                                                        <p class="mb-5 text-base fw-medium">${cartCourse.title}</p>
+                                                        <p class="mb-0">Mentor: ${cartCourse.mentor_name}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -100,17 +100,17 @@
                                             <td class="product-subtotal"><span class="amount">${subTotal}</span></td>
                                             <td class="product-remove space-nowrap">
                                                 <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete" id="deleteCartButton">Hapus</a>
-                                                <a href="{{ url('checkout/${cartCourse.course.slug}') }}" class="tp-btn tp-btn-6">Checkout</a>
+                                                <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6">Checkout</a>
                                             </td>
                                         </tr>`;
                         cartCourseContentMobile += `
-                        <div class="card-header"><span class="badge text-bg-dark">${cartCourse.course.category.name}</span></div>
+                        <div class="card-header"><span class="badge text-bg-dark">${cartCourse.category_name}</span></div>
                             <div class="card-body">
                                 <div class="d-flex gap-3">
-                                    <div><img src="{{ asset('${cartCourse.course.thumbnail}') }}"
+                                    <div><img src="{{ asset('${cartCourse.thumbnail}') }}"
                                             alt="thumbnail-course-cart" class="thumbnail-course-cart-mobile"></div>
                                     <div class="">
-                                        <p class="text-base mb-5">${cartCourse.course.title}</p>
+                                        <p class="text-base mb-5">${cartCourse.title}</p>
                                         <p class="text-base fw-semibold mb-0">${subTotal} <span
                                                 class="text-xs text-decoration-line-through text-green fw-semibold">${coursePrice}</span></p>
                                     </div>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="card-footer text-right">
                                 <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete btn-sm text-xs">Hapus</a>
-                                <a href="{{ url('checkout/${cartCourse.course.slug}') }}" class="tp-btn tp-btn-6 btn-sm text-xs">Checkout</a>
+                                <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6 btn-sm text-xs">Checkout</a>
                         </div>
                         `;
                     });

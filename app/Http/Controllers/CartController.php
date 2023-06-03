@@ -23,8 +23,14 @@ class CartController extends Controller
     }
     public function getCart()
     {
-        $carts = Cart::with('course', 'course.mentor', 'course.category')->where('student_id', auth()->user()->customer_id)->get();
-        $countCart = Cart::countCart();
+        $carts = Cart::select('carts.id', 'courses.title', 'courses.slug', 'courses.price', 'courses.discount', 'courses.thumbnail', 'categories.name as category_name', 'customers.name as mentor_name')
+            ->leftJoin('courses', 'carts.course_id', '=', 'courses.id')
+            ->leftJoin('categories', 'courses.category_id', '=', 'categories.id')
+            ->leftJoin('customers', 'courses.mentor_id', '=', 'customers.id')
+            ->where('courses.status', 'aktif')
+            ->where('student_id', auth()->user()->customer_id)
+            ->get();
+        $countCart = $carts->count();
 
         if ($carts) {
             return ResponseFormatter::success([
