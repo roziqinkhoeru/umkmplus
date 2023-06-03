@@ -53,7 +53,7 @@ class LoginController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Auth::user()->roles()->first();
                 $role = $user->getOriginal();
-                // check admin
+                // check role
                 if ($role['pivot_role_id'] == 1) {
                     // Logout
                     Auth::logout();
@@ -69,6 +69,10 @@ class LoginController extends Controller
                             401,
                         )
                         : back()->withErrors($msg);
+                } else if ($role['pivot_role_id'] == 2) {
+                    $redirect = redirect('/mentor/dashboard');
+                    $request->session()->regenerate();
+                    return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirect->getTargetUrl()], 'Authenticated') : $redirect;
                 }
                 $redirect = redirect()->intended('/');
                 $request->session()->regenerate();

@@ -99,7 +99,7 @@
                                             <td class="product-discount"><span class="amount">${discountPrice}</span></td>
                                             <td class="product-subtotal"><span class="amount">${subTotal}</span></td>
                                             <td class="product-remove space-nowrap">
-                                                <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete">Hapus</a>
+                                                <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete" id="deleteCartButton">Hapus</a>
                                                 <a href="{{ url('checkout/${cartCourse.course.slug}') }}" class="tp-btn tp-btn-6">Checkout</a>
                                             </td>
                                         </tr>`;
@@ -130,6 +130,7 @@
 
         function deleteCart(cart) {
             event.preventDefault();
+            $("#deleteCartButton").html(`<i class="fas fa-circle-notch text-lg spinners-2"></i>`);
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Anda akan menghapus kelas dari keranjang!",
@@ -171,6 +172,8 @@
                             return false;
                         }
                     })
+                } else {
+                    $("#deleteCartButton").html(`Hapus`);
                 }
             })
         }

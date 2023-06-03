@@ -271,4 +271,24 @@ class MentorController extends Controller
             500
         );
     }
+
+    public function mentorDashboard()
+    {
+        $data = [
+            'title' => 'Dashboard Mentor | Mentor UMKMPlus',
+            'active' => 'dashboard',
+        ];
+
+        return view('mentor.dashboard', $data);
+    }
+
+    public function mentorCourse()
+    {
+        $data = [
+            'title' => 'Courses | Mentor UMKMPlus',
+            'active' => 'course'
+        ];
+
+        return view('mentor.courses.index', $data);
+    }
 }

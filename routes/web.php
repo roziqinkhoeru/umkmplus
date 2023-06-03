@@ -37,21 +37,12 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
-Route::get('/profile/change-password', function () {
-    return view('user.profile.changePassword', ['title' => 'Ubah Kata Sandi | UMKMPlus', 'active' => 'changePassword']);
-});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
 });
 
 // mentor
-Route::get('/mentor/dashboard', function () {
-    return view('mentor.dashboard', ['title' => 'Dashboard Mentor | Mentor UMKMPlus', 'active' => 'dashboard']);
-});
-Route::get('/mentor/courses', function () {
-    return view('mentor.courses.index', ['title' => 'Courses | Mentor UMKMPlus', 'active' => 'course']);
-});
 Route::get('/mentor/courses/create', function () {
     return view('mentor.courses.create', ['title' => 'Create Course | Mentor UMKMPlus', 'active' => 'course']);
 });
@@ -105,28 +96,9 @@ Route::controller(CourseController::class)->group(function () {
     Route::get('/course/{course:slug}', 'show')->name('course.show');
 });
 
-
-// Dashboard
-// Category
-Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategoryDashboard'])->name('get.dashboard.course.category');
-Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
-
-// Mentor
-Route::middleware(['guest'])->group(function () {
-    Route::controller(MentorRegistrationController::class)->group(function () {
-        Route::get('/mentor/register', 'register')->name('mentor.register');
-        Route::post('/mentor/register', 'storeRegister')->name('mentor.register');
-    });
-});
-
-Route::controller(MentorController::class)->group(function () {
-    Route::get('/mentor', 'dashboardMentor')->name('mentor');
-    Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
-    Route::get('/mentor/{customer:slug}', 'show')->name('mentor.show');
-});
-
 // Student Role
 Route::group(['middleware' => ['auth']], function () {
+    //** STUDENT **/
     // Cart
     Route::group(['middleware' => ['checkRole:student']], function () {
         Route::controller(CartController::class)->group(function () {
@@ -170,6 +142,7 @@ Route::controller(PasswordResetLinkController::class)->group(function () {
 
 // main
 Route::group(['middleware' => ['auth']], function () {
+    /** ADMIN **/
     Route::group(['middleware' => ['checkRole:admin']], function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/admin', 'index')->name('admin.dashboard');
@@ -200,4 +173,37 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/student/{customer:id}', 'adminStudentShow')->name('admin.student.show');
         });
     });
+    /** MENTOR **/
+    Route::group(['middleware' => ['checkRole:mentor']], function () {
+        Route::controller(MentorController::class)->group(function () {
+            Route::get('/mentor/dashboard', 'mentorDashboard')->name('mentor.dashboard');
+            Route::get('/mentor/course', 'mentorCourse')->name('mentor.course');
+            // Route::get('/mentor/profile', 'mentorProfile')->name('mentor.profile');
+            // Route::get('/mentor/profile/get-profile', 'getMentorProfile')->name('get.mentor.profile');
+            // Route::put('/mentor/profile/update-profile', 'updateMentorProfile')->name('update.mentor.profile');
+            // Route::get('/mentor/profile/get-courses', 'getMentorCourse')->name('get.mentor.course');
+            // Route::get('/mentor/profile/get-transaction-history', 'getMentorTransactionHistory')->name('get.mentor.transaction.history');
+            // Route::put('/mentor/profile/change-password', 'changeMentorPassword')->name('mentor.change.password');
+        });
+    });
+});
+
+
+// Dashboard
+// Category
+Route::get('/dashboard/get-course-category', [CourseController::class, 'getCourseCategoryDashboard'])->name('get.dashboard.course.category');
+Route::get('/dashboard/get-mentor-popular', [DashboardController::class, 'getMentorPopular'])->name('get.dashboard.mentor.popular');
+
+// Mentor
+Route::middleware(['guest'])->group(function () {
+    Route::controller(MentorRegistrationController::class)->group(function () {
+        Route::get('/mentor/register', 'register')->name('mentor.register');
+        Route::post('/mentor/register', 'storeRegister')->name('mentor.register');
+    });
+});
+
+Route::controller(MentorController::class)->group(function () {
+    Route::get('/mentor', 'dashboardMentor')->name('mentor');
+    Route::get('/get-mentor', 'getDashboardMentor')->name('get.mentor');
+    Route::get('/mentor/{customer:slug}', 'show')->name('mentor.show');
 });
