@@ -37,6 +37,12 @@ Route::get('/blog', function () {
 Route::get('/blog/blogName', function () {
     return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
 });
+Route::get('/cart', function () {
+    return view('user.cart.index', ['title' => 'Cart | Admin UMKMPlus']);
+});
+Route::get('/course/playing/courseName', function () {
+    return view('user.courses.play', ['title' => 'Belajar nameCourse | Admin UMKMPlus']);
+});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
