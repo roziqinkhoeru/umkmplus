@@ -182,75 +182,6 @@ class CourseController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $data =
-            [
-                'title' => 'Tambah Kelas | UMKM Plus',
-            ];
-
-        return view('courses.create', $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Course $course)
-    {
-        $course->load('mentor', 'modules', 'modules.mediaModules', 'courseEnrolls')->loadCount('modules');
-        $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
-        $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
-        $countStudent = Customer::countStudent($course->mentor_id);
-        if (Auth::check()) {
-            $cartCourse = Cart::where('student_id', auth()->user()->customer_id)->where('course_id', $course->id)->first();
-        }
-        if (Auth::check()) {
-            $courseEnroll = $course->courseEnrolls()->where('student_id', Auth::user()->id)->first();
-        }
-        $countMentor = [
-            "countCourse" => $countCourse,
-            "countStudent" => $countStudent
-        ];
-        $data =
-            [
-                'title' => $course->title . ' | UMKM Plus',
-                'course' => $course,
-                'countMediaModule' => $countMediaModule,
-                'countMentor' => $countMentor,
-                'courseEnroll' => $courseEnroll ?? null,
-                'cartCourse' => $cartCourse->id ?? null
-            ];
-
-        return view('user.courses.detail', $data);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Course $course)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Course $course)
@@ -317,7 +248,7 @@ class CourseController extends Controller
 
     public function applicationDetail(Course $course)
     {
-        $course->load('modules.mediaModules', 'mentor', 'category');
+        $course->load('modules.mediaModules', 'mentor',);
         $data =
             [
                 'title' => 'Detail Pendaftaran Kelas | Admin UMKM Plus',
@@ -375,6 +306,39 @@ class CourseController extends Controller
             'course' => $course
         ];
 
-        return view('admin.courses.student', $data);
+        return view('admin.courses.show', $data);
+    }
+
+    public function mentorCourse()
+    {
+        $courses = Course::with('category')->withCount('courseEnrolls')->whereMentorId(Auth::user()->customer->id)->get();
+        $data = [
+            'title' => 'Courses | Mentor UMKMPlus',
+            'active' => 'course',
+            'courses' => $courses
+        ];
+
+        return view('mentor.courses.index', $data);
+    }
+
+    public function mentorCourseCreate()
+    {
+        $data = [
+            'title' => 'Create Course | Mentor UMKMPlus',
+            'active' => 'course',
+        ];
+
+        return view('mentor.courses.create', $data);
+    }
+
+    public function mentorCourseShow(Course $course)
+    {
+        $course->load('courseEnrolls.student', 'modules.mediaModules', 'mentor', 'category');
+        $data = [
+            'title' => 'Detail '. $course->title .' | Mentor UMKMPlus',
+            'active' => 'course',
+            'course' => $course
+        ];
+        return view('mentor.courses.detail', $data);
     }
 }

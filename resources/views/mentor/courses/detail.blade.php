@@ -17,8 +17,16 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="{{ route('mentor.course') }}">
                                 Data Kelas
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                Detail Kelas
                             </a>
                         </li>
                     </ul>
@@ -30,15 +38,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-head-row">
-                                    <div class="card-title">Data Kelas</div>
-                                    <div class="card-tools">
-                                        <a href="{{ url('/mentor/course/create') }}"
-                                            class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                            <span class="btn-label">
-                                            </span>
-                                            Tambah Kelas
-                                        </a>
-                                    </div>
+                                    <div class="card-title">Data Siswa</div>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -47,48 +47,41 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Judul</th>
-                                                <th>Kategori</th>
-                                                <th>Harga</th>
-                                                <th>Diskon</th>
+                                                <th>Nama</th>
+                                                <th>Progress</th>
+                                                <th>Tanggal Mulai</th>
                                                 <th>Status</th>
-                                                <th>Siswa</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($courses as $course)
+                                            @foreach ($course->courseEnrolls as $enroll)
+                                                @php
+                                                    $progress = (($enroll->upto_no_module - 1) / $course->modules->count()) * 100;
+                                                @endphp
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $course->title }}</td>
-                                                    <td>{{ $course->category->name }}</td>
-                                                    <td>{{ $course->price }}</td>
-                                                    <td>{{ $course->discount }} %</td>
+                                                    <td>{{ $enroll->student->name }}</td>
+                                                    <td>{{ $progress }}</td>
+                                                    <td>{{ $enroll->started_at }}</td>
                                                     <td>
                                                         <span
-                                                            class="badge @switch($course->status)
-                                                                @case('aktif')
-                                                                    badge-diterima
+                                                            class="badge @switch($enroll->status)
+                                                                @case('menunggu pembayaran')
+                                                                    badge-info
                                                                     @break
-                                                                @case('nonaktif')
-                                                                    badge-ditolak
+                                                                @case('aktif')
+                                                                    badge-info
+                                                                    @break
+                                                                @case('proses')
+                                                                    badge-pending
+                                                                    @break
+                                                                @case('selesai')
+                                                                    badge-diterima
                                                                     @break
                                                             @endswitch"><i
                                                                 class="fas fa-circle" style="font-size: 10px"></i>
-                                                            {{ $course->status }}
+                                                            {{ $enroll->status }}
                                                         </span>
-                                                    </td>
-                                                    <td>{{ $course->course_enrolls_count }}</td>
-                                                    <td class="space-nowrap">
-                                                        <a href="{{ url('/mentor/course/' . $course->slug) }}"
-                                                            class="btn btn-primary btn-sm">Detail</a>
-                                                        @if ($course->status == 'aktif')
-                                                            <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
-                                                                class="btn btn-danger btn-sm">Nonaktifkan</button>
-                                                        @else
-                                                            <button onclick="aktifkanCourse('{{ $course->slug }}')"
-                                                                class="btn btn-warning btn-sm">Aktifkan</button>
-                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
