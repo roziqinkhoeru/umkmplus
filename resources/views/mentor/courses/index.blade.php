@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <main>
         <div class="container">
             <div class="page-inner">
                 {{-- header --}}
@@ -101,7 +100,6 @@
                 </div>
             </div>
         </div>
-    </main>
 @endsection
 
 @section('script')
