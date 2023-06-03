@@ -425,6 +425,18 @@
     padding-top: 40px;
     width: 400px;
 }
+.pb-join-section {
+    padding-bottom: 224px;
+}
+.h-52 {
+    line-height: 52px !important;
+    height: 52px !important;
+}
+.nice-select.select-form .list {
+    border: 1px solid #c1c1c1 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+}
 
 /* CART */
 /* cart */

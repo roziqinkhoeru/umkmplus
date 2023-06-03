@@ -21,7 +21,7 @@
     {{-- header area end --}}
 
     {{-- join area start --}}
-    <section class="pt-45 pb-60">
+    <section class="pt-45 pb-join-section">
         <div class="container">
             <div class="position-relative">
                 <div class="card-join-mentor">
@@ -90,9 +90,8 @@
                                         <h5>Spesialisasi</h5>
                                     </label>
                                     <div class="sign__input">
-                                        <i class="fal fa-map-marked icon-form"></i>
-                                        <select class="select-form" aria-label="Default select example" name="specialist"
-                                            id="specialist" required>
+                                        <select class="select-form w-100 h-52" aria-label="Default select example"
+                                            name="specialist" id="specialist" required>
                                             {{-- <option hidden>Pilih Spesialisasi</option> --}}
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->name }}">{{ $category->name }}</option>
@@ -101,7 +100,7 @@
                                     </div>
                                 </div>
                                 {{-- cv --}}
-                                <div class="sign__input-wrapper mb-35">
+                                <div class="sign__input-wrapper mb-35 mt-75">
                                     <label for="file_cv">
                                         <h5>CV</h5>
                                     </label>
