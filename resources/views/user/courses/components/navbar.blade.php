@@ -1,9 +1,10 @@
 <!-- header area start -->
 <header>
     <div class="header__area">
-        <div class="header__bottom" id="header-sticky">
-            <div class="container">
-                <div class="row align-items-center">
+        <div class="header__bottom header__sticky shadow-none">
+            <div class="container-fluid">
+                <div class="row align-items-center py-lg-3">
+                    {{-- logo --}}
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                         <div class="logo">
                             <a href="/">
@@ -12,19 +13,10 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xxl-5 col-xl-5 col-lg-8 d-none d-lg-block">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="{{ request()->is('course/category*') ? 'active' : '' }}">
-                                        <a href="{{ route('category') }}">Kategori Kelas</a>
-                                    </li>
-                                    <li class="{{ request()->is('mentor*') ? 'active' : '' }}">
-                                        <a href="{{ route('mentor') }}">Mentor</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/blog">Blog</a>
-                                    </li>
                                     @if (!Auth::check())
                                         <li class="d-block d-sm-none">
                                             <a href="/login">Masuk</a>
@@ -40,6 +32,9 @@
                                             </li>
                                         @endif
                                         <li class="d-block d-sm-none">
+                                            <a href="/profile/my-courses">Kelas Saya</a>
+                                        </li>
+                                        <li class="d-block d-sm-none">
                                             <a href="/logout" onclick="logout()" class="menu-logout">Keluar</a>
                                         </li>
                                     @endif
@@ -47,7 +42,7 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xxl-5 col-xl-5 col-lg-2 col-md-6 col-6">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
                         <div class="header__bottom-right d-flex justify-content-end align-items-center pl-30">
                             <div class="header__search w-100 d-none d-xl-block">
                                 <form action="{{ url('/course') }}" method="GET" id="formSearch">
@@ -75,28 +70,13 @@
                                         class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
                                 </div>
                             @else
-                                <div class="ms-4">
-                                    <a href="/cart" onclick="getCart()" id="cart"
-                                        class="d-flex align-items-center nav-icon-cart position-relative">
-                                        <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
-                                        {{-- @if ($countCart > 0)
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
-                                                <span class="visually-hidden">New alerts</span>
-                                            </span>
-                                        @endif --}}
-                                    </a>
+                                <div class="ms-4 d-none d-sm-block">
+                                    <p class="space-nowrap mb-0 fw-medium">Halo, _name_</p>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
-                                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                        <a href="/admin" class="d-flex align-items-center nav-icon-user">
-                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
-                                        </a>
-                                    @else
-                                        <a href="/profile" class="d-flex align-items-center nav-icon-user">
-                                            <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
-                                        </a>
-                                    @endif
+                                    <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                        <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
+                                    </a>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     <a href="/logout" onclick="logout()"
@@ -215,27 +195,3 @@
 <!-- offcanvas area end -->
 <div class="body-overlay"></div>
 <!-- offcanvas area end -->
-
-<script>
-    function logout() {
-        event.preventDefault();
-        Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Anda akan keluar dari akun ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Keluar!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Berhasil!',
-                    'Anda telah keluar dari akun ini.',
-                    'success'
-                )
-                window.location.href = "{{ route('logout') }}";
-            }
-        })
-    }
-</script>
