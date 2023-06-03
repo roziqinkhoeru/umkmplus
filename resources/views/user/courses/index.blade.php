@@ -193,8 +193,7 @@
                     } else {
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let coursePriceDiscount = courseData.price - (courseData.price * courseData
-                                .discount / 100);
+                            let coursePriceDiscount = courseData.price - (courseData.price * courseData.discount / 100);
                             let option = {
                                 style: 'currency',
                                 currency: 'IDR',

@@ -13,9 +13,17 @@ class CartController extends Controller
     /**
      * Display a listing of the cart.
      */
+    public function index()
+    {
+        $data = [
+            'title' => 'Cart | Admin UMKMPlus'
+        ];
+
+        return view('user.cart.index', $data);
+    }
     public function getCart()
     {
-        $carts = Cart::with('course')->where('student_id', auth()->user()->customer_id)->get();
+        $carts = Cart::with('course', 'course.mentor', 'course.category')->where('student_id', auth()->user()->customer_id)->get();
         $countCart = Cart::countCart();
 
         if ($carts) {

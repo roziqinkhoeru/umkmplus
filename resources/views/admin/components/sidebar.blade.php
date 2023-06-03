@@ -9,7 +9,12 @@
             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                 <span>
                     {{ auth()->user()->username }}
-                    <span class="user-level">Administrator</span>
+
+                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                        <span class="user-level">Administrator</span>
+                    @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                        <span class="user-level">Mentor</span>
+                    @endif
                     <span class="caret"></span>
                 </span>
             </a>
@@ -18,9 +23,15 @@
             <div class="collapse in" id="collapseExample">
                 <ul class="nav">
                     <li>
-                        <a href="/admin/nameAdmin">
-                            <span class="link-collapse">My Profile</span>
-                        </a>
+                        @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                            <a href="/mentor/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
+                        @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                            <a href="/admin/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
+                        @endif
                     </li>
                 </ul>
             </div>
@@ -31,10 +42,17 @@
     <ul class="nav nav-primary">
         {{-- dashboard --}}
         <li class="nav-item @if ($active == 'dashboard') active @endif">
-            <a href="/admin">
-                <i class="fas fa-home"></i>
-                <p>Dashboard</p>
-            </a>
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <a href="/admin">
+                    <i class="fas fa-home"></i>
+                    <p>Dashboard</p>
+                </a>
+            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                <a href="/mentor/dashboard">
+                    <i class="fas fa-home"></i>
+                    <p>Dashboard</p>
+                </a>
+            @endif
         </li>
         <li class="nav-section">
             <span class="sidebar-mini-icon">
@@ -44,24 +62,35 @@
         </li>
         {{-- course --}}
         <li class="nav-item @if ($active == 'course') active @endif">
-            <a href="/admin/course">
-                <i class="fas fa-book"></i>
-                <p>Course</p>
-            </a>
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <a href="/admin/course">
+                    <i class="fas fa-book"></i>
+                    <p>Kelas</p>
+                </a>
+            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                <a href="/mentor/course">
+                    <i class="fas fa-book"></i>
+                    <p>Kelas</p>
+                </a>
+            @endif
         </li>
         {{-- mentor --}}
         <li class="nav-item @if ($active == 'mentor') active @endif">
-            <a href="/admin/mentor">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <p>Mentor</p>
-            </a>
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <a href="/admin/mentor">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <p>Mentor</p>
+                </a>
+            @endif
         </li>
         {{-- student --}}
         <li class="nav-item @if ($active == 'student') active @endif">
-            <a href="/admin/student">
-                <i class="fas fa-user-graduate"></i>
-                <p>Student</p>
-            </a>
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <a href="/admin/student">
+                    <i class="fas fa-user-graduate"></i>
+                    <p>Siswa</p>
+                </a>
+            @endif
         </li>
         <li class="nav-section">
             <span class="sidebar-mini-icon">
@@ -70,18 +99,27 @@
             <h4 class="text-section">other</h4>
         </li>
         {{-- application --}}
-        <li class="nav-item @if ($active == 'application') active @endif">
-            <a href="/admin/mentor/application">
-                <i class="fas fa-file-alt"></i>
-                <p>Application</p>
-            </a>
-        </li>
+        @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+            <li class="nav-item @if ($active == 'application') active @endif">
+                <a href="/admin/mentor/application">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Pendaftar Mentor</p>
+                </a>
+            </li>
+        @endif
         {{-- blog --}}
         <li class="nav-item @if ($active == 'blog') active @endif">
-            <a href="/admin/blog">
-                <i class="fas fa-pen-alt"></i>
-                <p>Blog</p>
-            </a>
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <a href="/admin/blog">
+                    <i class="fas fa-pen-alt"></i>
+                    <p>Blog</p>
+                </a>
+            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                <a href="/mentor/blog">
+                    <i class="fas fa-pen-alt"></i>
+                    <p>Blog</p>
+                </a>
+            @endif
         </li>
         {{-- logout --}}
         <li class="nav-item">

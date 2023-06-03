@@ -4,11 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\Course;
 use App\Models\Customer;
+use App\Models\MediaModule;
+use App\Models\Module;
 use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
+use Illuminate\Support\Str;
 
 
 class UserSeeder extends Seeder
@@ -100,64 +103,106 @@ class UserSeeder extends Seeder
 
         $faker = Factory::create();
 
-        $recordCourses =
-        [
-            [
-                'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
-                'title' => "course 1",
-                'slug' => 'course-1',
-                'description' => $faker->paragraph(3),
-                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-                'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'nonaktif'
-            ],
-            [
-                'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
-                'title' => "course 2",
-                'slug' => 'course-2',
-                'description' => $faker->paragraph(3),
-                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-                'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'nonaktif'
-            ],
-            [
-                'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
-                'title' => "course 3",
-                'slug' => 'course-3',
-                'description' => $faker->paragraph(3),
-                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-                'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'aktif'
-            ],
-            [
-                'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
-                'title' => "course 4",
-                'slug' => 'course-4',
-                'description' => $faker->paragraph(3),
-                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-                'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'nonaktif'
-            ],
-            [
-                'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
-                'title' => "course 5",
-                'slug' => 'course-5',
-                'description' => $faker->paragraph(3),
-                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
-                'price' => $faker->numberBetween(50000, 1000000),
-                'status' => 'aktif'
-            ],
-        ];
+        // $recordCourses =
+        // [
+        //     [
+        //         'mentor_id' => 2,
+        //         'category_id' => $faker->numberBetween(1, 3),
+        //         'title' => "course 1",
+        //         'slug' => 'course-1',
+        //         'description' => $faker->paragraph(3),
+        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+        //         'price' => $faker->numberBetween(50000, 1000000),
+        //         'status' => 'nonaktif'
+        //     ],
+        //     [
+        //         'mentor_id' => 2,
+        //         'category_id' => $faker->numberBetween(1, 3),
+        //         'title' => "course 2",
+        //         'slug' => 'course-2',
+        //         'description' => $faker->paragraph(3),
+        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+        //         'price' => $faker->numberBetween(50000, 1000000),
+        //         'status' => 'nonaktif'
+        //     ],
+        //     [
+        //         'mentor_id' => 2,
+        //         'category_id' => $faker->numberBetween(1, 3),
+        //         'title' => "course 3",
+        //         'slug' => 'course-3',
+        //         'description' => $faker->paragraph(3),
+        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+        //         'price' => $faker->numberBetween(50000, 1000000),
+        //         'status' => 'aktif'
+        //     ],
+        //     [
+        //         'mentor_id' => 2,
+        //         'category_id' => $faker->numberBetween(1, 3),
+        //         'title' => "course 4",
+        //         'slug' => 'course-4',
+        //         'description' => $faker->paragraph(3),
+        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+        //         'price' => $faker->numberBetween(50000, 1000000),
+        //         'status' => 'nonaktif'
+        //     ],
+        //     [
+        //         'mentor_id' => 2,
+        //         'category_id' => $faker->numberBetween(1, 3),
+        //         'title' => "course 5",
+        //         'slug' => 'course-5',
+        //         'description' => $faker->paragraph(3),
+        //         'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+        //         'price' => $faker->numberBetween(50000, 1000000),
+        //         'status' => 'aktif'
+        //     ],
+        // ];
 
-        foreach ($recordCourses as $recordCourse) {
-            Course::firstOrCreate($recordCourse);
+        // foreach ($recordCourses as $recordCourse) {
+        //     Course::firstOrCreate($recordCourse);
+        // }
+
+        // course factory
+        for ($i = 0; $i < 4; $i++) {
+            # code...
+            $courseRecord = [
+                'mentor_id' => 2,
+                'category_id' => $faker->numberBetween(1, 3),
+                'title' => $faker->sentence(3),
+                'description' => $faker->paragraph(3),
+                'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+                'price' => $faker->numberBetween(50000, 1000000),
+                'discount' => 5
+            ];
+            $course = Course::create($courseRecord);
+            $course->update([
+                'slug' =>  Str::lower(Str::slug($course->title, '-')),
+            ]);
+            if ($i < 3) {
+                $course->update([
+                    'status' =>  "aktif",
+                ]);
+            }
+
+            // module factory
+            $moduleRecord = [
+                'course_id' => $course->id,
+                'title' => $faker->title(),
+                'file' => $faker->url(),
+                'no_module' => 1
+            ];
+            $module = Module::create($moduleRecord);
+            $module->update([
+                'slug' =>  Str::lower(Str::slug($module->title, '-')),
+            ]);
+
+            // media module factory
+            $mediaModuleRecord = [
+                'module_id' => $module->id,
+                'title' => $faker->title(),
+                'video_url' => "https://www.youtube.com/embed/PjB7cAF0jSc?list=RDBb69TOfPXn8",
+                'no_media' => 1,
+            ];
+            $mediaModule = MediaModule::create($mediaModuleRecord);
         }
-
-        // User::factory()->count(50)->create();
     }
 }
