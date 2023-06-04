@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,12 +22,16 @@ class NewPasswordController extends Controller
      */
     public function create(string $token, Request $request): View
     {
+        $user = User::where('email', $request->email)->with('roles')->first();
         $data = [
             'title' => 'Reset Password | UMKMPlus',
             'ptSection' => '54px',
             'token' => $token,
             'email' => $request->email
         ];
+        if ($user->roles[0]->pivot->role_id == 1) {
+            return view('admin.auth.resetPassword' , $data);
+        }
         return view('auth.resetPassword', $data);
     }
 
