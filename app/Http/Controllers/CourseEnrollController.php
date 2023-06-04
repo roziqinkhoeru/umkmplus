@@ -222,16 +222,19 @@ class CourseEnrollController extends Controller
             return back()->with('error', 'Anda tidak memiliki akses ke halaman ini');
         }
 
-        $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', $courseEnroll->upto_no_module)->first()->id;
-
-        $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
-        // dd($lastMedia);
+        if ($courseEnroll->status != 'selesai') {
+            $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', $courseEnroll->upto_no_module)->first()->id;
+            $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
+        } else {
+            $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', 1)->first()->id;
+            $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
+        }
 
         $data = [
             'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
             'active' => 'course',
             'courseEnroll' => $courseEnroll,
-            'lastMedia' => $lastMedia,
+            'lastMedia' => $lastMedia ? $lastMedia : null,
         ];
 
         return view('user.courses.play', $data);

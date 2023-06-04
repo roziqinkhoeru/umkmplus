@@ -129,7 +129,7 @@
                                                         </div>
                                                         <div class="course__curriculum-meta text-left text-sm-right">
                                                             <span class="time"> <i
-                                                                    class="fa-regular fa-clock-rotate-left"></i></i> 15
+                                                                    class="fa-regular fa-clock-rotate-left"></i></i> {{ $mediaModule->duration }}
                                                                 minutes</span>
                                                         </div>
                                                     </div>
@@ -149,11 +149,11 @@
                                                         </svg>
                                                         <h3> <span>Materi:</span> {{ $module->slug }}</h3>
                                                     </div>
-                                                    <div class="course__curriculum-meta text-left text-sm-right">
+                                                    {{-- <div class="course__curriculum-meta text-left text-sm-right">
                                                         <span class="time"> <i
                                                                 class="fa-regular fa-clock-rotate-left"></i></i> 15
                                                             minutes</span>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

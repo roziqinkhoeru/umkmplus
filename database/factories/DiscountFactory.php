@@ -129,7 +129,7 @@ class DiscountFactory extends Factory
                             'module_id' => $module->id,
                             'title' => $this->faker->words(3, true),
                             'video_url' => "PjB7cAF0jSc",
-                            'time' => $this->faker->numberBetween(1, 100),
+                            'duration' => $this->faker->numberBetween(1, 100),
                             'no_media' => $k,
                         ];
                         $mediaModule = MediaModule::create($mediaModuleRecord);
