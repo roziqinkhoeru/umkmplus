@@ -138,7 +138,7 @@
                         <div class="section__title-wrapper text-center mb-45">
                             <span class="section__title-pre text-uppercase text-green fw-semibold">success students</span>
                             <h2 class="section__title section__title-44 mb-2">Apa Kata Mereka?</h2>
-                            <p>Berikut ada;lah beberapa testimoni dari para alumni yang telah mengikuti program
+                            <p>Berikut adalah beberapa testimoni dari para alumni yang telah mengikuti program
                                 pembelajaran kami.</p>
                         </div>
                     </div>

@@ -43,14 +43,26 @@
             {{-- End Logo Header --}}
 
             {{-- Navbar Header --}}
-            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+            <nav class="navbar navbar-header navbar-expand-lg"
+                data-background-color="@php
+if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1) {
+            echo 'blue2';
+        } elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2) {
+            echo 'purple2';
+        } @endphp">
                 @include('admin.components.navbar')
             </nav>
             {{-- End Navbar --}}
         </div>
 
         {{-- Sidebar --}}
-        <div class="sidebar sidebar-style-2">
+        <div class="sidebar sidebar-style-2"
+            data-color="@php
+if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1) {
+                    echo 'blue';
+                } elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2) {
+                    echo 'purple';
+                } @endphp">
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 @include('admin.components.sidebar')
             </div>
