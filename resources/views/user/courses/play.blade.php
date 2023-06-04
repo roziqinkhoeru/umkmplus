@@ -68,7 +68,7 @@
                                 @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                                     <div class="accordion-items">
                                         <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#module_{{ $module->no_module }}" aria-expanded="false"
+                                            data-bs-target="#module_{{ $module->no_module }}" aria-expanded="true"
                                             aria-controls="module_{{ $module->no_module }}">
                                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                                 <div class="">
@@ -91,7 +91,7 @@
                                             <div class="">
                                                 {{-- video --}}
                                                 @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
-                                                    <button class="video-course-items"
+                                                    <button class="video-course-items videoCourse{{ $mediaModule->id }}"
                                                         onclick="openVideo('{{ $mediaModule->id }}')" role="presentation">
                                                         <div class="">
                                                             <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
@@ -185,7 +185,7 @@
                                 <div class="">
                                     {{-- video --}}
                                     @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
-                                        <button class="video-course-items" onclick="openVideo('{{ $mediaModule->id }}')"
+                                        <button class="video-course-items videoCourse{{ $mediaModule->id }}" onclick="openVideo('{{ $mediaModule->id }}')"
                                             role="presentation">
                                             <div class="">
                                                 <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
@@ -260,15 +260,13 @@
             // Mengambil nilai parameter dengan nama tertentu
             var contentBeforeURL = urlParams.get('content');
             if (contentBeforeURL) {
+                $(`.videoCourse${contentBeforeURL}`).addClass('active');
+                $(`.videoCourse${contentBeforeURL}`).attr("aria-expanded", true);
                 openVideo(contentBeforeURL)
             } else {
                 openVideo('{{ $lastMedia->id }}')
             }
         });
-
-        const test = () => {
-            console.log('test');
-        }
 
         let htmlString = "";
         const openVideo = (content) => {
@@ -286,6 +284,10 @@
 
             // Mengubah URL tanpa melakukan reload halaman
             history.pushState(null, null, newUrl);
+
+            $(`.videoCourse${contentBeforeURL}`).removeClass('active');
+            $(`.videoCourse${content}`).addClass('active');
+
             $.ajax({
                 type: "GET",
                 url: `{{ url('/course/playing/' . $courseEnroll->id . '/media') }}`,
