@@ -4,7 +4,15 @@ PASSED
 - login sucess, error
 - logout success, redirect
 - forgot password success, resend link, link to email
+- reset password admin success, error, redirect
+
+# MENTOR
+
+# STUDENT
 
 BUG AND ERROR
 # ADMIN
-- reset password admin success, error
+
+# MENTOR
+
+# STUDENT
