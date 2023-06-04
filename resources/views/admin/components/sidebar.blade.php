@@ -90,7 +90,7 @@
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
                 </a>
-                @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
                 <a href="/mentor/student">
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
@@ -113,19 +113,27 @@
             </li>
         @endif
         {{-- blog --}}
-        <li class="nav-item @if ($active == 'blog') active @endif">
-            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+        @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+            <li class="nav-item @if ($active == 'blog') active @endif">
                 <a href="/admin/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
                 </a>
-            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+            </li>
+        @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+            <li class="nav-item @if ($active == 'referral') active @endif">
+                <a href="/mentor/discount">
+                    <i class="fas fa-pen-alt"></i>
+                    <p>Kode Diskon</p>
+                </a>
+            </li>
+            <li class="nav-item @if ($active == 'blog') active @endif">
                 <a href="/mentor/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
                 </a>
-            @endif
-        </li>
+            </li>
+        @endif
         {{-- logout --}}
         <li class="nav-item">
             <a href="/logout" onclick="logout()" class="hover-logout">
