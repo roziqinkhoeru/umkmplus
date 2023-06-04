@@ -50,6 +50,11 @@ Route::get('/mentor/blog/create', function () {
     return view('mentor.blog.create', ['title' => 'Create Blog | Mentor UMKMPlus', 'active' => 'blog']);
 });
 
+// admin
+Route::get('/admin/reset-password', function () {
+    return view('admin.auth.resetPassword', ['title' => 'Reset Password | Mentor UMKMPlus']);
+});
+
 // Auth
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
