@@ -98,8 +98,7 @@ class MentorController extends Controller
 
     public function adminMentorShow(Customer $customer)
     {
-        $customer->load('mentorCourses', 'mentorCourses.category');
-        dd($customer);
+        $customer->load('mentorCourses', 'mentorCourses.category', 'user');
         $data =
             [
                 'title' => 'Detail Mentor | Admin UMKMPlus',
