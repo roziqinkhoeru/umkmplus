@@ -264,6 +264,7 @@ class CourseController extends Controller
     {
         $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status', 'slug')
             ->where('status', '=', 'pending')
+            ->orWhere('status', '=', 'ditolak')
             ->with('category:id,name', 'mentor:id,name')
             ->get();
 
@@ -279,50 +280,69 @@ class CourseController extends Controller
 
     public function applicationDetail(Course $course)
     {
-        $course->load('modules.mediaModules', 'mentor',);
+        $course->load('modules.mediaModules', 'mentor', 'category');
         $data =
             [
                 'title' => 'Detail Pendaftaran Kelas | Admin UMKM Plus',
                 'active' => 'course',
                 'course' => $course
             ];
-        dd($course);
 
         return view('admin.courses.applicationDetail', $data);
     }
 
-    public function approvalApplication(Request $request, Course $course)
+    public function editApprovalApplication(Request $request, Course $course)
     {
-        $rules = [
-            'status' => 'required'
+        $data = [
+            'title' => 'Edit Pendaftaran Kelas | Admin UMKM Plus',
+            'active' => 'course',
+            'course' => $course,
         ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return ResponseFormatter::error(
-                [
-                    'message' => 'Invalid input',
-                    'error' => $validator->errors()->first()
-                ],
-                'Validation Error',
-                422
-            );
-        }
+
+        return view('admin.courses.editApprovalApplication', $data);
+    }
+
+    public function updateApprovalApplication(Request $request, Course $course)
+    {
         $update = $course->update([
-            'status' => $request->status
+            'status' => 'aktif'
+        ]);
+
+        if ($update) {
+            return $request->ajax() ? ResponseFormatter::success(
+                [
+                    'message' => 'Kelas berhasil diaktifkan',
+                    'redirect' => redirect()->route('admin.course.application')->getTargetUrl()
+                ],
+                'success'
+            ) : redirect()->route('admin.course.application')->with('success', 'Kelas berhasil diaktifkan');
+        }
+        return  $request->ajax() ? ResponseFormatter::error(
+            [
+                'message' => 'Kelas gagal diaktifkan',
+            ],
+            'error',
+        ) : redirect()->route('admin.course.application')->with('error', 'Kelas gagal diaktifkan');
+    }
+
+    public function rejectApplication(Course $course)
+    {
+        $update = $course->update([
+            'status' => 'ditolak'
         ]);
 
         if ($update) {
             return ResponseFormatter::success(
                 [
-                    'message' => 'Kelas berhasil diaktifkan',
-                    'redirect' => redirect()->route('admin.courses.application')->getTargetUrl()
+                    'message' => 'Kelas berhasil ditolak',
+                    'redirect' => redirect()->route('admin.course.application')->getTargetUrl()
                 ],
                 'success'
             );
         }
         return ResponseFormatter::error(
             [
-                'message' => 'Kelas gagal diaktifkan',
+                'message' => 'Kelas gagal ditolak',
             ],
             'error',
         );

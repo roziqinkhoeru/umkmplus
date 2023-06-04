@@ -34,15 +34,28 @@
 @section('script')
     @if (session('error'))
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: '{{ session('error') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
         </script>
-
+    @elseif (session('success'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
+        </script>
     @endif
     <script>
         $(document).ready(function() {
@@ -224,7 +237,8 @@
                             },
                         },
                         submitHandler: function(form) {
-                            $('#updateProfileButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+                            $('#updateProfileButton').html(
+                                '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                             $('#updateProfileButton').prop('disabled', true);
                             $.ajax({
                                 url: "{{ route('update.profile') }}",
@@ -255,11 +269,13 @@
                                 error: function(xhr, status, error) {
                                     $('#updateProfileButton').html('Update Profil');
                                     $('#updateProfileButton').prop('disabled', false);
-                                    if (xhr.responseJSON){
+                                    if (xhr.responseJSON) {
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'UBAH PROFIL GAGAL!',
-                                            text: xhr.responseJSON.meta.message + ", Error: " + xhr.responseJSON.data.error,
+                                            text: xhr.responseJSON.meta
+                                                .message + ", Error: " + xhr
+                                                .responseJSON.data.error,
                                         })
                                     } else {
                                         Swal.fire({
@@ -283,11 +299,11 @@
 
         function getCourse() {
             $.ajax({
-                type: "GET",
-                url: "{{ route('get.profile.course') }}",
-                dataType: "JSON",
-                success: function (response) {
-                    htmlString = `
+                        type: "GET",
+                        url: "{{ route('get.profile.course') }}",
+                        dataType: "JSON",
+                        success: function(response) {
+                            htmlString = `
                     <div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
                                         <div class="order__info-top d-flex justify-content-between align-items-center">
@@ -317,34 +333,48 @@
                                                             maximumFractionDigits: 0,
                                                         };
                                                         let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                        return `<tr>
-                                                                    <td class="order__id">#${enroll.id}</td>
-                                                                    <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
-                                                                    <td>${coursePrice}</td>
-                                                                    <td>${enroll.status}</td>
-                                                                    <td><a href="{{ url('/course/playing/${enroll.id}', ) }}" class="order__view-btn">View</a></td>
-                                                                </tr>`
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>`
-                    $("#nav-tabContent").html(htmlString);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
+                                                        return ` < tr >
+                                <
+                                td class = "order__id" > #$ {
+                                    enroll.id
+                                } < /td> <
+                                td > < a href = "course-details.html"
+                            class = "order__title" > $ {
+                                    enroll.course.title
+                                } < /a></td >
+                                <
+                                td > $ {
+                                    coursePrice
+                                } < /td> <
+                                td > $ {
+                                    enroll.status
+                                } < /td> <
+                                td > < a href = "{{ url('/course/playing/${enroll.id}') }}"
+                            class = "order__view-btn" > View < /a></td >
+                                <
+                                /tr>`
+                    })
+            } <
+            /tbody> <
+            /table> <
+            /div> <
+            /div> <
+            /div>`
+            $("#nav-tabContent").html(htmlString);
+        },
+        error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+        }
+        });
         }
 
         function getTransactionHistory() {
             $.ajax({
-                type: "GET",
-                url: "{{ route('get.profile.transaction.history') }}",
-                dataType: "JSON",
-                success: function (response) {
-                    htmlString = `
+                        type: "GET",
+                        url: "{{ route('get.profile.transaction.history') }}",
+                        dataType: "JSON",
+                        success: function(response) {
+                            htmlString = `
                     <div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
                                         <div class="order__info-top d-flex justify-content-between align-items-center">
@@ -373,24 +403,36 @@
                                                             maximumFractionDigits: 0,
                                                         };
                                                         let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                        return `<tr>
-                                                                    <td class="order__id">#${enroll.id}</td>
-                                                                    <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
-                                                                    <td>${coursePrice}</td>
-                                                                    <td><a href="course-details.html" class="order__view-btn">View</a></td>
-                                                                </tr>`
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>`
-                    $("#nav-tabContent").html(htmlString);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
+                                                        return ` < tr >
+                                <
+                                td class = "order__id" > #$ {
+                                    enroll.id
+                                } < /td> <
+                                td > < a href = "course-details.html"
+                            class = "order__title" > $ {
+                                    enroll.course.title
+                                } < /a></td >
+                                <
+                                td > $ {
+                                    coursePrice
+                                } < /td> <
+                                td > < a href = "course-details.html"
+                            class = "order__view-btn" > View < /a></td >
+                                <
+                                /tr>`
+                    })
+            } <
+            /tbody> <
+            /table> <
+            /div> <
+            /div> <
+            /div>`
+            $("#nav-tabContent").html(htmlString);
+        },
+        error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+        }
+        });
         }
 
         function formChangePassword() {
@@ -482,11 +524,12 @@
                         error: function(xhr, status, error) {
                             $('#updatePasswordButton').html('Update password');
                             $('#updatePasswordButton').prop('disabled', false);
-                            if (xhr.responseJSON){
+                            if (xhr.responseJSON) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'UBAH PASSWORD GAGAL!',
-                                    text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
+                                    text: xhr.responseJSON.meta.message + " Error: " + xhr
+                                        .responseJSON.data.error,
                                 })
                             } else {
                                 Swal.fire({
@@ -504,8 +547,5 @@
         }
     </script>
 
-    <script>
-
-
-    </script>
+    <script></script>
 @endsection

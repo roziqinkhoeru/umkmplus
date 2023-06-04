@@ -8,7 +8,7 @@
                 <h4 class="page-title">Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="/mentor/dashboard">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>

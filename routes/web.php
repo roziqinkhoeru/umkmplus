@@ -123,6 +123,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(CourseEnrollController::class)->group(function () {
             Route::get('/course/playing/{courseEnroll:id}', 'coursePlaying')->name('course.playing');
             Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
+            Route::get('/course/playing/{courseEnroll:id}/test', 'coursePlayingTest')->name('course.playing.test');
+            Route::get('/course/playing/{courseEnroll:id}/test/finish', 'coursePlayingTestFinish')->name('course.playing.test');
         });
     });
 });
@@ -163,7 +165,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/course', 'adminCourse')->name('admin.course');
             Route::get('/admin/course/application', 'application')->name('admin.course.application');
             Route::get('/admin/course/application/{course:slug}', 'applicationDetail')->name('admin.course.application.detail');
-            Route::put('/admin/course/application/{course:slug}', 'approvalApplication')->name('admin.course.application.approval');
+            Route::put('/admin/course/application/{course:slug}/reject', 'rejectApplication')->name('admin.course.application.reject');
+            Route::get('/admin/course/application/{course:slug}/accept', 'editApprovalApplication')->name('admin.course.application.detail');
+            Route::put('/admin/course/application/{course:slug}/accept', 'updateApprovalApplication')->name('admin.course.application.approval');
             Route::get('/admin/course/{course:slug}', 'adminShow')->name('admin.course.show');
         });
         // Student
@@ -184,6 +188,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
+            Route::get('/mentor/student/{courseEnroll:id}', 'mentorStudentEdit')->name('mentor.student.edit');
+            Route::put('/mentor/student/{courseEnroll}', 'mentorStudentUpdate')->name('mentor.student.update');
         });
     });
 

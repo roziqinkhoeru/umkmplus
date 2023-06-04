@@ -206,10 +206,22 @@
             $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Berhasil',
+                    title: 'Gagal',
                     text: '{{ session('error') }}',
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 1500
+                })
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             });
         </script>
