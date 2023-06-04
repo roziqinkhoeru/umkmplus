@@ -1,0 +1,10 @@
+PASSED
+# ADMIN
+- responsive login
+- login sucess, error
+- logout success, redirect
+- forgot password success, resend link, link to email
+
+BUG AND ERROR
+# ADMIN
+- reset password admin success, error
