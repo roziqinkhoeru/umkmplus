@@ -1,4 +1,10 @@
-<div class="logo-header" data-background-color="blue">
+<div class="logo-header"
+    data-background-color="@php
+if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1) {
+            echo 'blue';
+        } elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2) {
+            echo 'purple';
+        } @endphp">
     <a href="{{ route('admin.dashboard') }}" class="logo">
         <img src="{{ asset('assets/img/brand/umkmplus-letter-admin.svg') }}" alt="navbar brand" class="navbar-brand">
     </a>
