@@ -59,9 +59,29 @@
 @endsection
 
 @section('script')
-    @if (session()->has('error'))
+    @if (session('error'))
         <script>
-            console.log({{ session('error') }});
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: '{{ session('error') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
         </script>
     @endif
     @error('email')

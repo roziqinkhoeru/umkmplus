@@ -165,7 +165,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/course', 'adminCourse')->name('admin.course');
             Route::get('/admin/course/application', 'application')->name('admin.course.application');
             Route::get('/admin/course/application/{course:slug}', 'applicationDetail')->name('admin.course.application.detail');
-            Route::put('/admin/course/application/{course:slug}', 'approvalApplication')->name('admin.course.application.approval');
+            Route::put('/admin/course/application/{course:slug}/reject', 'rejectApplication')->name('admin.course.application.reject');
+            Route::get('/admin/course/application/{course:slug}/accept', 'editApprovalApplication')->name('admin.course.application.detail');
+            Route::put('/admin/course/application/{course:slug}/accept', 'updateApprovalApplication')->name('admin.course.application.approval');
             Route::get('/admin/course/{course:slug}', 'adminShow')->name('admin.course.show');
         });
         // Student
@@ -186,6 +188,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
+            Route::get('/mentor/student/{courseEnroll:id}', 'mentorStudentEdit')->name('mentor.student.edit');
+            Route::put('/mentor/student/{courseEnroll}', 'mentorStudentUpdate')->name('mentor.student.update');
         });
     });
 

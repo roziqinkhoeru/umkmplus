@@ -331,6 +331,8 @@ class CourseEnrollController extends Controller
     public function coursePlayingTestFinish(CourseEnroll $courseEnroll)
     {
         $courseEnroll->update([
+            'upto_no_module' => $courseEnroll->course->modules->count() + 1,
+            'upto_no_media' => 1,
             'status' => 'selesai',
             'finished_at' => Carbon::now(),
         ]);

@@ -101,7 +101,8 @@
                                                         </div>
                                                         <div class="">
                                                             <p class="fw-bold mb-5 leading-xl">{{ $mediaModule->title }}</p>
-                                                            <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }} menit</p>
+                                                            <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }}
+                                                                menit</p>
                                                         </div>
                                                     </button>
                                                 @endforeach
@@ -184,7 +185,8 @@
                                 <div class="">
                                     {{-- video --}}
                                     @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
-                                        <button class="video-course-items" onclick="openVideo('{{ $mediaModule->id }}')" role="presentation">
+                                        <button class="video-course-items" onclick="openVideo('{{ $mediaModule->id }}')"
+                                            role="presentation">
                                             <div class="">
                                                 <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                     style="width: 24px;height: 24px;">
@@ -210,13 +212,27 @@
 @section('script')
     @if (session('error'))
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: '{{ session('error') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
         </script>
     @endif
 
@@ -289,7 +305,7 @@
                         </div>
                         <div class="">
                             ${response.data.next == "finish" ? `<a href="{{ url('/profile') }}" class="tp-btn tp-btn-4 rounded-pill" >Selesai</a>`
-                            : (response.data.next == "test" ? `<a href="{{ url('/course/playing/'. $courseEnroll->id .'/test') }}" class="tp-btn tp-btn-4 rounded-pill">Ujian</a>`
+                            : (response.data.next == "test" ? `<a href="{{ url('/course/playing/' . $courseEnroll->id . '/test') }}" class="tp-btn tp-btn-4 rounded-pill">Ujian</a>`
                             : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>` )}
                         </div>
                     </div>`
@@ -300,7 +316,8 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'GAGAL MENGAMBIL VIDEO!',
-                            text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
+                            text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data
+                                .error,
                         })
                     else
                         Swal.fire({

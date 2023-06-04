@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Data Kelas
+                            Data Pengajuan Kelas
                         </a>
                     </li>
                 </ul>
@@ -37,7 +37,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Data Kelas</div>
+                                <div class="card-title">Data Pengajuan Kelas</div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -64,7 +64,14 @@
                                                 <td>{{ $course->price }}</td>
                                                 <td>
                                                     <span
-                                                        class="badge badge-pending"><i
+                                                        class="badge @switch($course->status)
+                                                            @case('pending')
+                                                                badge-pending
+                                                                @break
+                                                            @case('ditolak')
+                                                                badge-ditolak
+                                                                @break
+                                                        @endswitch"><i
                                                             class="fas fa-circle" style="font-size: 10px"></i>
                                                         {{ $course->status }}
                                                     </span>

@@ -138,7 +138,7 @@
                             <div class="card-action">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="/admin/mentor" class="btn btn-default btn-outline-dark">Batal</a>
+                                        <a href="/mentor/student" class="btn btn-default btn-outline-dark">Batal</a>
                                         <button class="btn btn-primary ml-3" id="createButton"
                                             type="submit">Tambah</button>
                                     </div>
