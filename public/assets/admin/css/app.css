@@ -42,6 +42,18 @@
 .auth-image-wrapper img {
     height: 28px;
 }
+.btn-anchor {
+    appearance: none;
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    color: #1269db;
+}
+.btn-anchor:hover {
+    color: #6861ce;
+}
 
 /* MENTOR */
 /* index */
