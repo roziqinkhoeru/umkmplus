@@ -303,63 +303,48 @@
                         url: "{{ route('get.profile.course') }}",
                         dataType: "JSON",
                         success: function(response) {
-                            htmlString = `
-                    <div class="tab-pane fade show active" role="tabpanel">
-                                    <div class="order__info">
-                                        <div class="order__info-top d-flex justify-content-between align-items-center">
-                                            <h3 class="order__info-title">My Orders</h3>
-                                            <button type="button" class="order__info-btn"><i
-                                                    class="fa-regular fa-trash-can"></i> Clear</button>
-                                        </div>
+                            htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                                <div class="order__info">
+                                    <div class="order__info-top d-flex justify-content-between align-items-center">
+                                        <h3 class="order__info-title">My Orders</h3>
+                                        <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                                    </div>
 
-                                        <div class="order__list white-bg table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Order ID</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Harga</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Detail</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    ${$.map(response.data, function (enroll) {
-                                                        let option = {
-                                                            style: 'currency',
-                                                            currency: 'IDR',
-                                                            useGrouping: true,
-                                                            minimumFractionDigits: 0,
-                                                            maximumFractionDigits: 0,
-                                                        };
-                                                        let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                        return ` < tr >
-                                <
-                                td class = "order__id" > #$ {
-                                    enroll.id
-                                } < /td> <
-                                td > < a href = "course-details.html"
-                            class = "order__title" > $ {
-                                    enroll.course.title
-                                } < /a></td >
-                                <
-                                td > $ {
-                                    coursePrice
-                                } < /td> <
-                                td > $ {
-                                    enroll.status
-                                } < /td> <
-                                td > < a href = "{{ url('/course/playing/${enroll.id}') }}"
-                            class = "order__view-btn" > View < /a></td >
-                                <
-                                /tr>`
-                    })
-            } <
-            /tbody> <
-            /table> <
-            /div> <
-            /div> <
-            /div>`
+                                    <div class="order__list white-bg table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Order ID</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Harga</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${$.map(response.data, function (enroll) {
+                                                    let option = {
+                                                        style: 'currency',
+                                                        currency: 'IDR',
+                                                        useGrouping: true,
+                                                        minimumFractionDigits: 0,
+                                                        maximumFractionDigits: 0,
+                                                    };
+                                                    let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
+                                                    return `<tr>
+                                                        <td class="order__id">#${enroll.id}</td>
+                                                        <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
+                                                        <td>${coursePrice}</td>
+                                                        <td>${enroll.status}</td>
+                                                        <td><a href="{{ url('/course/playing/${enroll.id}') }}" class="order__view-btn">View</a></td>
+                                                    </tr>`;
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+`
             $("#nav-tabContent").html(htmlString);
         },
         error: function(xhr, status, error) {
@@ -374,59 +359,46 @@
                         url: "{{ route('get.profile.transaction.history') }}",
                         dataType: "JSON",
                         success: function(response) {
-                            htmlString = `
-                    <div class="tab-pane fade show active" role="tabpanel">
-                                    <div class="order__info">
-                                        <div class="order__info-top d-flex justify-content-between align-items-center">
-                                            <h3 class="order__info-title">My Orders</h3>
-                                            <button type="button" class="order__info-btn"><i
-                                                    class="fa-regular fa-trash-can"></i> Clear</button>
-                                        </div>
+                            htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                                <div class="order__info">
+                                    <div class="order__info-top d-flex justify-content-between align-items-center">
+                                        <h3 class="order__info-title">My Orders</h3>
+                                        <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                                    </div>
 
-                                        <div class="order__list white-bg table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Order ID</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Harga</th>
-                                                        <th scope="col">Detail</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    ${$.map(response.data, function (enroll) {
-                                                        let option = {
-                                                            style: 'currency',
-                                                            currency: 'IDR',
-                                                            useGrouping: true,
-                                                            minimumFractionDigits: 0,
-                                                            maximumFractionDigits: 0,
-                                                        };
-                                                        let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                        return ` < tr >
-                                <
-                                td class = "order__id" > #$ {
-                                    enroll.id
-                                } < /td> <
-                                td > < a href = "course-details.html"
-                            class = "order__title" > $ {
-                                    enroll.course.title
-                                } < /a></td >
-                                <
-                                td > $ {
-                                    coursePrice
-                                } < /td> <
-                                td > < a href = "course-details.html"
-                            class = "order__view-btn" > View < /a></td >
-                                <
-                                /tr>`
-                    })
-            } <
-            /tbody> <
-            /table> <
-            /div> <
-            /div> <
-            /div>`
+                                    <div class="order__list white-bg table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Order ID</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Harga</th>
+                                                    <th scope="col">Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${$.map(response.data, function (enroll) {
+                                                    let option = {
+                                                        style: 'currency',
+                                                        currency: 'IDR',
+                                                        useGrouping: true,
+                                                        minimumFractionDigits: 0,
+                                                        maximumFractionDigits: 0,
+                                                    };
+                                                    let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
+                                                    return `<tr>
+                                                        <td class="order__id">#${enroll.id}</td>
+                                                        <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
+                                                        <td>${coursePrice}</td>
+                                                        <td><a href="course-details.html" class="order__view-btn">View</a></td>
+                                                    </tr>`;
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+`
             $("#nav-tabContent").html(htmlString);
         },
         error: function(xhr, status, error) {
