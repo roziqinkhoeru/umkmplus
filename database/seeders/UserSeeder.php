@@ -147,7 +147,7 @@ class UserSeeder extends Seeder
                         'module_id' => $module->id,
                         'title' => $faker->words(3, true),
                         'video_url' => "PjB7cAF0jSc",
-                        'time' => $faker->numberBetween(1, 100),
+                        'duration' => $faker->numberBetween(1, 100),
                         'no_media' => $k,
                     ];
                     $mediaModule = MediaModule::create($mediaModuleRecord);

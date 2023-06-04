@@ -89,6 +89,20 @@
                                         </button>
                                         <div class="collapse mt-15" id="module_{{ $module->no_module }}">
                                             <div class="">
+                                                {{-- File Module --}}
+                                                <button class="video-course-items" onclick="" role="presentation">
+                                                    <div class="">
+                                                        <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                                            style="width: 24px;height: 24px;">
+                                                            <i class="fa-solid fa-download" style="font-size: 10px"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <a href="{{ asset('storage/' . $module->file) }}">
+                                                            <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                                        </a>
+                                                    </div>
+                                                </button>
                                                 {{-- video --}}
                                                 @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
                                                     <button class="video-course-items videoCourse{{ $mediaModule->id }}"
@@ -101,7 +115,7 @@
                                                         </div>
                                                         <div class="">
                                                             <p class="fw-bold mb-5 leading-xl">{{ $mediaModule->title }}</p>
-                                                            <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }}
+                                                            <p class="text-xs mb-0 leading-xl">{{ $mediaModule->duration }}
                                                                 menit</p>
                                                         </div>
                                                     </button>
@@ -129,7 +143,8 @@
                             data-bs-target="#prepare_class" aria-expanded="false" aria-controls="prepare_class">
                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                 <div class="">
-                                    <span class="text-base fw-bold d-block leading-xl" style="margin-bottom: 2px">Persiapan
+                                    <span class="text-base fw-bold d-block leading-xl"
+                                        style="margin-bottom: 2px">Persiapan
                                         Kelas</span>
                                     <span class="mb-0 d-block leading-xl text-xs">Info | Resource</span>
                                 </div>
@@ -183,10 +198,24 @@
                             </button>
                             <div class="collapse mt-15" id="module_{{ $module->no_module }}">
                                 <div class="">
+                                    {{-- File Module --}}
+                                    <button class="video-course-items" onclick="" role="presentation">
+                                        <div class="">
+                                            <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                                style="width: 24px;height: 24px;">
+                                                <i class="fa-solid fa-download" style="font-size: 10px"></i>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <a href="{{ asset('storage/' . $module->file) }}">
+                                                <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                            </a>
+                                        </div>
+                                    </button>
                                     {{-- video --}}
                                     @foreach ($module->mediaModules->sortBy('no_media') as $mediaModule)
-                                        <button class="video-course-items videoCourse{{ $mediaModule->id }}" onclick="openVideo('{{ $mediaModule->id }}')"
-                                            role="presentation">
+                                        <button class="video-course-items videoCourse{{ $mediaModule->id }}"
+                                            onclick="openVideo('{{ $mediaModule->id }}')" role="presentation">
                                             <div class="">
                                                 <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                     style="width: 24px;height: 24px;">
@@ -195,7 +224,7 @@
                                             </div>
                                             <div class="">
                                                 <p class="fw-bold mb-5 leading-xl">{{ $mediaModule->title }}</p>
-                                                <p class="text-xs mb-0 leading-xl">{{ $mediaModule->time }} menit</p>
+                                                <p class="text-xs mb-0 leading-xl">{{ $mediaModule->duration }} menit</p>
                                             </div>
                                         </button>
                                     @endforeach
