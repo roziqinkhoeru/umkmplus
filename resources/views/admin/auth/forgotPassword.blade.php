@@ -23,7 +23,6 @@
             </form>
         </div>
         <div id="forgotPasswordSuccess"></div>
-
     </div>
 @endsection
 
@@ -49,31 +48,28 @@
                     });
                     if (isResend) {
                         $('#resend_link').html(
-                            'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}">coba alamat email lain</a>.'
+                            'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('admin.password.forgot') }}">coba alamat email lain</a>.'
                         );
                     } else {
                         $('#forgotPasswordSuccess').html(
-                            `<div class="card card-auth mb-3"><div class="card-body card-body-auth" id="forgotPasswordContent">
-                                <h5 class ="text-center font-bold mb-3">Tautan telah dikirim</h5>
-                                <p class="text-center mb-3">
-                                    Tautan untuk reset password dikirim ke
-                                    <span style="font-weight: 600">${$('#email').val()}
-                                    </span>.
-                                    Silahkan cek email Anda.
-                                </p>
-                                    <div style="margin-top: 28px" class="text-center">
-                                        <a href="{{ route('admin.login') }}" class="btn btn-primary">
-                                            Masuk
-                                        </a>
+                            `<div class="card card-auth mb-3">
+                                    <div class="card-body card-body-auth" id="forgotPasswordContent">
+                                        <p class="text-center fw-bold mb-3 text-xl">Tautan telah dikirim</p>
+                                        <p class="text-center mb-3">
+                                            Tautan untuk reset password dikirim ke
+                                            <span style="font-weight: 600">${$('#email').val()}
+                                            </span>.
+                                            Silahkan cek email Anda.
+                                        </p>
+                                        <p class="mt-4 text-center" id="resend_link">
+                                            Tidak menerima tautan?
+                                            <span id="resend_link_btn"></span>
+                                        </p>
                                     </div>
-                                <p class="mt-4 text-center" id="resend_link">
-                                    Tidak menerima tautan?
-                                    <button onclick="submitForgotPassword()" class="link" id="buttonResendLink">
-                                        Kirim ulang
-                                    </button>.
-                                </p>
-                            </div>`
+                                </div>`
                         );
+
+                        startCountdown();
                         $('#forgotPasswordContent').hide();
                     }
                 },
@@ -104,7 +100,7 @@
             );
             isResendLinkResetPassword = true;
             submitForgotPasswordAjax(isResendLinkResetPassword);
-            $('#forgotPasswordForm').submit();
+
         }
         $('#forgotPasswordAdminForm').validate({
             rules: {
@@ -127,5 +123,53 @@
                 submitForgotPasswordAjax(isResendLinkResetPassword);
             }
         });
+
+        const resendLinkTime = () => {
+            setTimeout(() => {
+                $('#resend_link_btn').html(
+                    `<button onclick="submitForgotPassword()" class="btn-anchor" id="buttonResendLink">Kirim ulang</button>.`
+                );
+            }, 60000);
+        }
+
+        const startTimer = (duration, display) => {
+            var timer = duration,
+                minutes, seconds;
+            setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        const startCountdown = () => {
+            var countdown = 60;
+
+            // Display countdown
+            var resendLinkBtn = $('#resend_link_btn');
+            resendLinkBtn.html(`${countdown} s`);
+
+            // Decrease countdown every second
+            var timer = setInterval(function() {
+                countdown--;
+                resendLinkBtn.html(`${countdown} s`);
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    // Show the content
+                    resendLinkBtn.html(
+                        `<button onclick="submitForgotPassword()" class="btn-anchor" id="buttonResendLink">Kirim ulang</button>`
+                    )
+                }
+            }, 1000);
+        }
     </script>
 @endsection
