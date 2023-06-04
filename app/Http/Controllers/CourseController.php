@@ -351,9 +351,9 @@ class CourseController extends Controller
     public function adminShow(Course $course)
     {
         $course->load('mentor', 'category')->loadCount('modules', 'courseEnrolls');
-        dd($course);
         $data = [
             'title' => $course->title . ' | UMKM Plus',
+            'active' => 'course',
             'course' => $course
         ];
 
