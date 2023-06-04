@@ -77,18 +77,17 @@ class DiscountFactory extends Factory
 
         // Mentor
         if ($roleUserRecord['role_id'] == 2) {
-            // Discount factory
-            $discountRecord = [
-                'mentor_id' => $customer->id,
-                'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
-                'discount' => $this->faker->numberBetween(100000, 300000),
-                'status' => $this->faker->randomElement([0, 1]),
-            ];
-            $discount = Discount::create($discountRecord);
-
-            // course factory
             for ($i = 0; $i < 4; $i++) {
-                # code...
+                // Discount factory
+                $discountRecord = [
+                    'mentor_id' => $customer->id,
+                    'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
+                    'discount' => $this->faker->numberBetween(100000, 300000),
+                    'status' => $this->faker->randomElement([0, 1]),
+                ];
+                $discount = Discount::create($discountRecord);
+
+                // course factory
                 $courseRecord = [
                     'mentor_id' => $customer->id,
                     'category_id' => $this->faker->numberBetween(1, 3),
@@ -162,7 +161,7 @@ class DiscountFactory extends Factory
         return [
             'mentor_id' => 2,
             'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
-            'discount' => $this->faker->numberBetween(1, 100),
+            'discount' => $this->faker->numberBetween(100000, 300000),
             'status' => $this->faker->randomElement([0, 1]),
         ];
     }

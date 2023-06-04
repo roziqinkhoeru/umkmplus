@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\MentorRegistrationController;
 use App\Http\Controllers\StudentController;
@@ -185,6 +186,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:mentor']], function () {
         Route::controller(MentorController::class)->group(function () {
             Route::get('/mentor/dashboard', 'mentorDashboard')->name('mentor.dashboard');
+        });
+        Route::controller(DiscountController::class)->group(function () {
+            Route::get('/mentor/discount', 'mentorDiscount')->name('mentor.discount');
+            Route::get('/mentor/discount/create', 'create')->name('mentor.discount.create');
+            Route::post('/mentor/discount', 'store')->name('mentor.discount.store');
+            Route::put('/mentor/discount/{discount:id}/status', 'editStatusDiscount')->name('mentor.discount.status');
+            Route::delete('/mentor/discount/{discount:id}/destroy', 'destroy')->name('mentor.discount.destroy');
+            Route::get('/mentor/discount/{discount:id}', 'edit')->name('mentor.discount.edit');
+            Route::put('/mentor/discount/{discount:id}', 'update')->name('mentor.discount.update');
         });
         Route::controller(CourseController::class)->group(function () {
             Route::get('/mentor/course', 'mentorCourse')->name('mentor.course');

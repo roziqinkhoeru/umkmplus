@@ -12,9 +12,16 @@ class DiscountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function mentorDiscount()
     {
-        //
+        $discount = Discount::where('mentor_id', auth()->user()->customer->id)->get();
+        $data = [
+            'title' => 'Diskon | UMKM Plus',
+            'active' => 'discount',
+            'discounts' => $discount,
+        ];
+
+        return view('mentor.discounts.index', $data);
     }
 
     /**
@@ -25,9 +32,10 @@ class DiscountController extends Controller
         $data =
             [
                 'title' => 'Tambah Diskon | UMKM Plus',
+                'active' => 'discount',
             ];
 
-        return view('discounts.create', $data);
+        return view('mentor.discounts.create', $data);
     }
 
     /**
@@ -39,13 +47,12 @@ class DiscountController extends Controller
         [
             'code' => 'required|unique:discounts,code',
             'discount' => 'required|numeric',
-            'status' => 'required|in:true,false',
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return ResponseFormatter::error([
-                'error' => $validator->errors()
+                'error' => $validator->errors()->first()
             ], 'Harap isi form dengan benar', 400);
         }
 
@@ -53,12 +60,12 @@ class DiscountController extends Controller
             'mentor_id' => auth()->user()->customer->id,
             'code' => $request->code,
             'discount' => $request->discount,
-            'status' => $request->status,
+            'status' => 0
         ]);
 
         if ($discount) {
             return ResponseFormatter::success([
-                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+                'redirect' => redirect()->route('mentor.discount')->getTargetUrl()
             ], 'Discount berhasil ditambahkan');
         }
 
@@ -83,10 +90,11 @@ class DiscountController extends Controller
         $data =
         [
             'title' => 'Edit Diskon | UMKM Plus',
+            'active' => 'discount',
             'discount' => $discount
         ];
 
-        return view('discounts.edit', $data);
+        return view('mentor.discounts.edit', $data);
     }
 
     /**
@@ -98,31 +106,51 @@ class DiscountController extends Controller
         [
             'code' => 'required|unique:discounts,code,' . $discount->id,
             'discount' => 'required|numeric',
-            'status' => 'required|in:true,false',
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return ResponseFormatter::error([
-                'error' => $validator->errors()
+                'error' => $validator->errors()->first()
             ], 'Harap isi form dengan benar', 400);
         }
 
         $discount->update([
             'code' => $request->code,
             'discount' => $request->discount,
-            'status' => $request->status,
         ]);
 
         if ($discount) {
             return ResponseFormatter::success([
-                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+                'redirect' => redirect()->route('mentor.discount')->getTargetUrl()
             ], 'Discount berhasil diubah');
         }
 
         return ResponseFormatter::error([
             'error' => $validator->errors()
         ], 'Discount gagal diubah', 400);
+    }
+
+    public function editStatusDiscount(Request $request, Discount $discount)
+    {
+        $updateDiscounts = Discount::where('mentor_id', auth()->user()->customer->id)->update([
+            'status' => 0,
+        ]);
+        $update = $discount->update([
+            'status' => $request->status,
+        ]);
+        if ($update) {
+            return ResponseFormatter::success(
+                $discount,
+                'Berhasil mengubah status discount'
+            );
+        }
+
+        return ResponseFormatter::error(
+            null,
+            'Gagal mengubah status discount',
+            500
+        );
     }
 
     /**
@@ -134,7 +162,7 @@ class DiscountController extends Controller
 
         if ($discount) {
             return ResponseFormatter::success([
-                'redirect' => redirect()->route('discount.index')->getTargetUrl()
+                'message' => 'Discount berhasil dihapus',
             ], 'Discount berhasil dihapus');
         }
 
