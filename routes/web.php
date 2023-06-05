@@ -192,6 +192,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/student', 'adminStudent')->name('admin.student');
             Route::get('/admin/student/{customer:id}', 'adminStudentShow')->name('admin.student.show');
         });
+        // Testimonial
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::get('/admin/testimonial', 'adminTestimonial')->name('admin.testimonial');
+            Route::put('/admin/testimonial/{testimonial:id}', 'editStatusTestimonial')->name('admin.testimonial.status');
+        });
     });
     /** MENTOR **/
     Route::group(['middleware' => ['checkRole:mentor']], function () {
