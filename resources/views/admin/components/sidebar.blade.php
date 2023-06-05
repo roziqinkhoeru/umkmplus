@@ -138,7 +138,7 @@
         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
             <li class="nav-item @if ($active == 'referral') active @endif">
                 <a href="/mentor/discount">
-                    <i class="fas fa-pen-alt"></i>
+                    <i class="fas fa-ticket-alt"></i>
                     <p>Kode Diskon</p>
                 </a>
             </li>
