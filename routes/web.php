@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
@@ -32,12 +33,6 @@ use Symfony\Component\Routing\RouteCompiler;
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/blog', function () {
-    return view('user.blog.index', ['title' => 'Blog | UMKMPlus']);
-});
-Route::get('/blog/blogName', function () {
-    return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
-});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
@@ -94,6 +89,14 @@ Route::controller(CourseController::class)->group(function () {
     Route::get('/course/category/{category:slug}', 'courseCategory')->name('course.category');
     Route::get('/course/category/{category:slug}/data', 'getCourseCategory')->name('course.category');
     Route::get('/course/{course:slug}', 'show')->name('course.show');
+});
+
+// Blog
+Route::controller(BlogController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog.index');
+    Route::get('/blog/data', 'getBlog')->name('blog.data');
+    Route::get('/blog/sear', 'getBlog')->name('blog.data');
+    Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
 });
 
 // Student Role
