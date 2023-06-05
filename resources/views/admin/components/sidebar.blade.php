@@ -106,10 +106,25 @@
                     <p>Siswa</p>
                 </a>
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <a href="/mentor/student">
+                <a data-toggle="collapse" href="#studentMenu">
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
+                    <span class="caret"></span>
                 </a>
+                <div class="collapse" id="studentMenu">
+                    <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('mentor.student') }}">
+                                <span class="sub-item">Seluruh Siswa</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('mentor.uncompleted.student') }}">
+                                <span class="sub-item">Siswa Belum Dinilai</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             @endif
         </li>
         <li class="nav-section">
