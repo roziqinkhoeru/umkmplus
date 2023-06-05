@@ -28,10 +28,10 @@
             <div class="row mb-40">
                 <div class="col-md-7 col-lg-5">
                     <div class="course__sidebar-search">
-                        <form action="#">"
-                            <input type="text" placeholder="Cari blog..." name="searchCourse" id="searchCourse"
+                        <form action="#" id="formSearchBlog">
+                            <input type="text" placeholder="Cari blog..." name="searchBlog" id="searchBlog"
                                 style="height: 52px;line-height: 50px">
-                            <button type="submit" style="top: 37px;right: 27px;">
+                            <button type="submit" style="top: 11px;right: 27px;">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 584.4 584.4" style="enable-background:new 0 0 584.4 584.4;"
@@ -51,122 +51,6 @@
                 </div>
             </div>
             <div id="blogItemWrapper" class="d-grid grid-cols-12 gap-7">
-                <div class="col-span-4">
-                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
-                        <div class="postbox__thumb w-img">
-                            <a href="/blog/blogName">
-                                <img src="{{ asset('assets/img/dummy/blog1.png') }}" alt="blog-blogName">
-                            </a>
-                        </div>
-                        <div class="postbox__content" style="padding: 30px">
-                            <div class="postbox__meta">
-                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
-                                <span><i class="far fa-user"></i> Shahnewaz</span>
-                            </div>
-                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
-                                <a href="/blog/blogName" class="text-xl">Personalized Storage in Schools</a>
-                            </h3>
-                            <div class="postbox__text">
-                                <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                    do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat.</p>
-                            </div>
-                            <div class="postbox__read-more">
-                                <a href="/blog/blogName" class="tp-btn tp-btn-2 rounded-3">read more</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-span-4">
-                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
-                        <div class="postbox__thumb w-img">
-                            <a href="/blog/blogName">
-                                <img src="{{ asset('assets/img/dummy/blog1.png') }}" alt="blog-blogName">
-                            </a>
-                        </div>
-                        <div class="postbox__content" style="padding: 30px">
-                            <div class="postbox__meta">
-                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
-                                <span><i class="far fa-user"></i> Shahnewaz</span>
-                            </div>
-                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
-                                <a href="/blog/blogName" class="text-xl">Personalized Storage in Schools</a>
-                            </h3>
-                            <div class="postbox__text">
-                                <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                    do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat.</p>
-                            </div>
-                            <div class="postbox__read-more">
-                                <a href="/blog/blogName" class="tp-btn tp-btn-2 rounded-3">read more</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-span-4">
-                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
-                        <div class="postbox__thumb w-img">
-                            <a href="/blog/blogName">
-                                <img src="{{ asset('assets/img/dummy/blog1.png') }}" alt="blog-blogName">
-                            </a>
-                        </div>
-                        <div class="postbox__content" style="padding: 30px">
-                            <div class="postbox__meta">
-                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
-                                <span><i class="far fa-user"></i> Shahnewaz</span>
-                            </div>
-                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
-                                <a href="/blog/blogName" class="text-xl">Personalized Storage in Schools</a>
-                            </h3>
-                            <div class="postbox__text">
-                                <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                    do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat.</p>
-                            </div>
-                            <div class="postbox__read-more">
-                                <a href="/blog/blogName" class="tp-btn tp-btn-2 rounded-3">read more</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-span-4">
-                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
-                        <div class="postbox__thumb w-img">
-                            <a href="/blog/blogName">
-                                <img src="{{ asset('assets/img/dummy/blog1.png') }}" alt="blog-blogName">
-                            </a>
-                        </div>
-                        <div class="postbox__content" style="padding: 30px">
-                            <div class="postbox__meta">
-                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
-                                <span><i class="far fa-user"></i> Shahnewaz</span>
-                            </div>
-                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
-                                <a href="/blog/blogName" class="text-xl">Personalized Storage in Schools</a>
-                            </h3>
-                            <div class="postbox__text">
-                                <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                    do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat.</p>
-                            </div>
-                            <div class="postbox__read-more">
-                                <a href="/blog/blogName" class="tp-btn tp-btn-2 rounded-3">read more</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
             </div>
         </div>
     </section>
@@ -174,4 +58,63 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+            getBlogs();
+        });
+
+        $("#formSearchBlog").submit(function (e) {
+            e.preventDefault();
+            getBlogs();
+        });
+
+        function getBlogs() {
+            let htmlString = ""
+            $.ajax({
+                url: "{{ route('blog.data') }}",
+                type: "GET",
+                data: {
+                    search: $("#searchBlog").val(),
+                },
+                success: function(response) {
+                    if (response.data.blogCount === 0) {
+                        // empty state
+                        htmlString = emptyState('Maaf, kelas belum tersedia');
+                    } else {
+                        $.map(response.data.blogs, function(blog, index) {
+                            htmlString += `
+                                <div class="col-span-4">
+                                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
+                                        <div class="postbox__thumb w-img">
+                                            <a href="{{ url('/blog/${blog.slug}') }}">
+                                                <img src="{{ asset('${blog.thumbnail}') }}" alt="blog-${blog.title}">
+                                            </a>
+                                        </div>
+                                        <div class="postbox__content" style="padding: 30px">
+                                            <div class="postbox__meta">
+                                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
+                                                <span><i class="far fa-user"></i>${blog.user.customer.name}</span>
+                                            </div>
+                                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
+                                                <a href="{{ url('/blog/${blog.slug}') }}" class="text-xl">${blog.title}</a>
+                                            </h3>
+                                            <div class="postbox__text">
+                                                <p class="line-clamp-3">${blog.headline}</p>
+                                            </div>
+                                            <div class="postbox__read-more">
+                                                <a href="{{ url('/blog/${blog.slug}') }}" class="tp-btn tp-btn-2 rounded-3">read more</a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>`
+                        });
+                    }
+                    $('#blogItemWrapper').html(htmlString);
+                },
+                error: function() {
+                    $("#blogItemWrapper").html(errorState());
+                }
+            });
+        }
+    </script>
 @endsection

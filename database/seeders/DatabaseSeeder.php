@@ -11,6 +11,7 @@ use App\Models\CustomerSpecialist;
 use App\Models\Discount;
 use App\Models\MediaModule;
 use App\Models\Module;
+use Database\Factories\AllFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

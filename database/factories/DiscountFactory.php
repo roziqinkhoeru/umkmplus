@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Blog;
 use Illuminate\Support\Str;
 use App\Models\Course;
 use App\Models\Module;
@@ -134,6 +135,21 @@ class DiscountFactory extends Factory
                         $mediaModule = MediaModule::create($mediaModuleRecord);
                     }
                 }
+
+                // blog factory
+
+                $blogRecord = [
+                    'user_id' => $user->id,
+                    'title' => $this->faker->sentence(3),
+                    'content' => '<p class="text-lg mb-15">' . implode('</p><p class="text-lg mb-15">', $this->faker->paragraphs(6)) . '</p>',
+                    'headline' => $this->faker->paragraph(),
+                    'thumbnail' => "assets/img/dummy/blog1.png",
+                    'status' => $this->faker->randomElement(['tampilkan', 'sembunyikan']),
+                ];
+                $blog = Blog::create($blogRecord);
+                $blog->update([
+                    'slug' =>  Str::slug($blog->title, '-'),
+                ]);
             }
         }
 
