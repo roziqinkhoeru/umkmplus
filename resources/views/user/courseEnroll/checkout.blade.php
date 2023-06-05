@@ -117,8 +117,9 @@
                                         </p>
                                         <form action="{{ url('/checkout/' . $course->slug) }}" method="post"
                                             class="mb-15 col-span-4" id="checkoutCourse">
-                                            <input hidden type="number"
-                                                value="{{ $course->price - $course->discountPrice }}" name="priceCheckout"
+                                            @csrf
+                                            <input hidden type="text"
+                                                value="{{ Hash::make($course->price - $course->discountPrice) }}" name="priceCheckout"
                                                 id="priceCheckout" class="input-form">
                                             <input hidden type="text" value="" name="discountID" id="discountID"
                                                 class="input-form">
