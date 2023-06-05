@@ -31,7 +31,8 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Kelas</div>
                                 <div class="card-tools">
-                                    <a href="{{ url('/admin/course/application') }}" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                    <a href="{{ url('/admin/course/application') }}"
+                                        class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
                                         Tambah Kelas
@@ -60,7 +61,8 @@
                                                 <td>{{ $course->title }}</td>
                                                 <td>{{ $course->mentor->name }}</td>
                                                 <td>{{ $course->category->name }}</td>
-                                                <td>{{ $course->price }}</td>
+                                                <td class="space-nowrap">
+                                                    {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
                                                 <td>
                                                     <span
                                                         class="badge @switch($course->status)
@@ -76,11 +78,11 @@
                                                     </span>
                                                 </td>
                                                 <td class="space-nowrap">
-                                                    <a href="{{ url('/admin/course/'. $course->slug) }}" class="btn btn-primary btn-sm">Detail</a>
+                                                    <a href="{{ url('/admin/course/' . $course->slug) }}"
+                                                        class="btn btn-primary btn-sm">Detail</a>
                                                     @if ($course->status == 'aktif')
                                                         <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
                                                             class="btn btn-danger btn-sm">Nonaktifkan</button>
-
                                                     @else
                                                         <button onclick="aktifkanCourse('{{ $course->slug }}')"
                                                             class="btn btn-warning btn-sm">Aktifkan</button>

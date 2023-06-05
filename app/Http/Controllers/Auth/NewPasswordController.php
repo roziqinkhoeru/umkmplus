@@ -30,7 +30,7 @@ class NewPasswordController extends Controller
             'email' => $request->email
         ];
         if ($user->roles[0]->pivot->role_id == 1) {
-            return view('admin.auth.resetPassword' , $data);
+            return view('admin.auth.resetPassword', $data);
         }
         return view('auth.resetPassword', $data);
     }
@@ -42,6 +42,7 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::where('email', $request->email)->with('roles')->first();
         $rules = [
             'token' => 'required',
             'password' => 'required|min:8|confirmed',
@@ -79,7 +80,11 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
 
-        $redirectSuccess = redirect(route('login'))->with('status', __($status));
+        if ($user->roles[0]->pivot->role_id == 1) {
+            $redirectSuccess = redirect(route('admin.login'))->with('status', __($status));
+        } else {
+            $redirectSuccess = redirect(route('login'))->with('status', __($status));
+        }
         $redirectError = back()->withErrors(['error' => __($status)]);
         if ($status == Password::PASSWORD_RESET) {
             return $request->ajax() ? ResponseFormatter::success(['redirect' => $redirectSuccess->getTargetUrl()], __($status)) : $redirectSuccess;

@@ -52,7 +52,6 @@
                         <div id="forgotPasswordSuccess"></div>
                     </div>
                 </div>
-            </div>
         </section>
         <!-- sign up area end -->
     </main>
@@ -106,16 +105,29 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'KIRIM TAUTAN BERHASIL!',
-                        text: {{ session('success') }},
+                        text: '{{ session('success') }}',
                     });
                     if (isResend) {
                         $('#resend_link').html(
-                            'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}">coba alamat email lain</a>.'
+                            'Masih belum menerima email?<br/>Periksa spam Anda atau <a href="{{ route('forgotPassword') }}" class="btn-anchor">coba alamat email lain</a>.'
                         );
                     } else {
                         $('#forgotPasswordSuccess').html(
-                            `<div class="card card-auth mb-3"><div class="card-body card-body-auth" id="forgotPasswordContent"><h5 class ="text-center font-bold mb-3">Tautan telah dikirim</h5><p class="text-center mb-3">Tautan untuk reset password dikirim ke <span style="font-weight: 600">${$('#email').val()}</span>. Silahkan cek email Anda. </p><div style="margin-top: 28px"> <a href="{{ route('login') }}" class="btn btn-primary text-align-center">Masuk</a></div><p class="mt-4 text-center" id="resend_link">Tidak menerima tautan? <a href="#" onclick="submitForgotPassword()" class="btn-anchor">Kirim ulang</a>.</p></div>`
+                            `<div class="sign__wrapper white-bg">
+                                <div class="sign__form">
+                                    <div id="forgotPasswordContent">
+                                        <h3 class="text-center fw-bold mb-3">Tautan telah dikirim</h3>
+                                        <p class="text-center mb-3">Tautan untuk reset password dikirim ke <span
+                                                style="font-weight: 600">${$('#email').val()}</span>. Silahkan cek email
+                                            Anda.
+                                        </p>
+                                        <p class="mt-3 text-center" id="resend_link">Tidak menerima tautan? <span id="resend_link_btn"></span></p>
+                                    </div>
+                                </div>
+                            </div>`
                         );
+
+                        startCountdown();
                         $('#forgotPasswordContent').hide();
                     }
                 },
@@ -141,6 +153,9 @@
 
         function submitForgotPassword() {
             event.preventDefault();
+            $('#buttonResendLink').html(
+                '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
+            );
             isResendLinkResetPassword = true;
             $('#forgotPasswordForm').submit();
         }
@@ -150,8 +165,8 @@
             rules: {
                 email: {
                     required: true,
-                    email: true
-                }
+                    email: true,
+                },
             },
             messages: {
                 email: {
@@ -167,5 +182,27 @@
                 submitForgotPasswordAjax(isResendLinkResetPassword);
             }
         });
+
+        const startCountdown = () => {
+            var countdown = 60;
+
+            // Display countdown
+            var resendLinkBtn = $('#resend_link_btn');
+            resendLinkBtn.html(`${countdown} s`);
+
+            // Decrease countdown every second
+            var timer = setInterval(function() {
+                countdown--;
+                resendLinkBtn.html(`${countdown} s`);
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    // Show the content
+                    resendLinkBtn.html(
+                        `<button onclick="submitForgotPassword()" class="btn-anchor" id="buttonResendLink">Kirim ulang</button>`
+                    )
+                }
+            }, 1000);
+        }
     </script>
 @endsection

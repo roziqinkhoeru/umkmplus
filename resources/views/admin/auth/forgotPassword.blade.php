@@ -124,32 +124,6 @@
             }
         });
 
-        const resendLinkTime = () => {
-            setTimeout(() => {
-                $('#resend_link_btn').html(
-                    `<button onclick="submitForgotPassword()" class="btn-anchor" id="buttonResendLink">Kirim ulang</button>.`
-                );
-            }, 60000);
-        }
-
-        const startTimer = (duration, display) => {
-            var timer = duration,
-                minutes, seconds;
-            setInterval(function() {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    timer = duration;
-                }
-            }, 1000);
-        }
-
         const startCountdown = () => {
             var countdown = 60;
 
