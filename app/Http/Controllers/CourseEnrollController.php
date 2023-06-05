@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\MediaModule;
 use App\Models\Module;
+use App\Models\Testimonial;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -392,5 +393,39 @@ class CourseEnrollController extends Controller
         ]);
 
         return Redirect::route('profile')->with('success', 'Selamat, Anda telah menyelesaikan Kelas ini');
+    }
+
+    public function courseCertificate(CourseEnroll $courseEnroll)
+    {
+        $testimonial = Testimonial::where('course_enroll_id', $courseEnroll->id)->first();
+        if (!$testimonial) {
+            return redirect()->route('course.testimonial', $courseEnroll->id);
+        }
+        $data =
+        [
+            'title' => 'Sertifikat | UMKM Plus',
+            'courseEnroll' => $courseEnroll
+        ];
+
+        dd($data);
+
+        return view('testimonials.certificate', $data);
+    }
+
+    public function courseStudentTestimonial(CourseEnroll $courseEnroll)
+    {
+        $testimonial = Testimonial::with('courseEnroll.course')->where('course_enroll_id', $courseEnroll->id)->first();
+        if ($testimonial) {
+            return redirect()->route('course.certificate', $courseEnroll->id);
+        }
+
+        $courseEnroll->load('course');
+        $data =
+        [
+            'title' => 'Testimonial | UMKM Plus',
+            'courseEnroll' => $courseEnroll
+        ];
+
+        return view('user.testimonials.create', $data);
     }
 }

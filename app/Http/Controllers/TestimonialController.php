@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\CourseEnroll;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,38 +25,24 @@ class TestimonialController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $data =
-            [
-                'title' => 'Tambah Testimonial | UMKM Plus',
-            ];
-
-        return view('testimonials.create', $data);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, CourseEnroll $courseEnroll)
     {
         $rules =
-        [
-            'testimonial' => 'required',
-            'rating' => 'required',
-        ];
+            [
+                'testimonial' => 'required|min:3',
+                'rating' => 'required|numeric|min:1|max:5',
+            ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return ResponseFormatter::error([
-                'error' => $validator->errors()
+                'error' => $validator->errors()->first()
             ], 'Harap isi form dengan benar', 400);
         }
 
         $testimonial = Testimonial::create([
-            'student_id' => auth()->user()->customer->id,
-            'course_id' => $request->course_id,
+            'course_enroll_id' => $courseEnroll->id,
             'testimonial' => $request->testimonial,
             'rating' => $request->rating,
             'status' => 'sembunyikan',
@@ -63,7 +50,7 @@ class TestimonialController extends Controller
 
         if ($testimonial) {
             return ResponseFormatter::success([
-                'redirect' => redirect()->route('testimonial.index')->getTargetUrl()
+                'redirect' => redirect()->route('course.certificate', $courseEnroll->id)->getTargetUrl()
             ], 'Testimonial berhasil ditambahkan');
         }
 
@@ -73,37 +60,15 @@ class TestimonialController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Testimonial $testimonial)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Testimonial $testimonial)
-    {
-        $data =
-        [
-            'title' => 'Edit Testimonial | UMKM Plus',
-            'testimonial' => $testimonial
-        ];
-
-        return view('testimonials.edit', $data);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Testimonial $testimonial)
     {
 
         $rules =
-        [
-            'status' => 'required|in:sembunyikan,tampilkan',
-        ];
+            [
+                'status' => 'required|in:sembunyikan,tampilkan',
+            ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return ResponseFormatter::error([
@@ -141,5 +106,42 @@ class TestimonialController extends Controller
         return ResponseFormatter::error([
             'error' => 'Testimonial gagal dihapus'
         ], 'Testimonial gagal dihapus', 400);
+    }
+
+    public function adminTestimonial()
+    {
+        $testimonials = Testimonial::with([
+            'courseEnroll.course' => function ($query) {
+                $query->select('id', 'title');
+            },
+            'courseEnroll.student' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ])->get();
+        $data =
+            [
+                'title' => 'Testimonial | UMKM Plus',
+                'active' => 'testimonial',
+                'testimonials' => $testimonials
+            ];
+
+        return view('admin.testimonials.index', $data);
+    }
+
+    public function editStatusTestimonial(Request $request, Testimonial $testimonial)
+    {
+        $update = $testimonial->update([
+            'status' => $request->status
+        ]);
+
+        if ($update) {
+            return ResponseFormatter::success([
+                'redirect' => redirect()->route('admin.testimonial')->getTargetUrl()
+            ], 'Status Testimonial berhasil diubah');
+        }
+
+        return ResponseFormatter::error([
+            'error' => 'Status Testimonial gagal diubah'
+        ], 'Status Testimonial gagal diubah', 400);
     }
 }

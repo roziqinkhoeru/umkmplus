@@ -172,14 +172,14 @@
                                             <div
                                                 class="course__bottom d-sm-flex align-items-center justify-content-between">
                                                 <div class="testimoni-author-wrapper">
-                                                    <img src="{{ asset($testimonial->student->profile_picture) }}"
+                                                    <img src="{{ asset($testimonial->courseEnroll->student->profile_picture) }}"
                                                         alt="testimoni-1">
                                                     <div>
-                                                        <p class="testimoni-author-name">{{ $testimonial->student->name }}
+                                                        <p class="testimoni-author-name">{{ $testimonial->courseEnroll->student->name }}
                                                         </p>
                                                         <p class="testimoni-author-job">
-                                                            @if ($testimonial->student->job != null)
-                                                                {{ $testimonial->student->job }}
+                                                            @if ($testimonial->courseEnroll->student->job != null)
+                                                                {{ $testimonial->courseEnroll->student->job }}
                                                             @else
                                                                 Pelaku Usaha
                                                             @endif

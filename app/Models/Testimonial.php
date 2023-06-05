@@ -11,13 +11,8 @@ class Testimonial extends Model
 
     protected $guarded = [];
 
-    public function course()
+    public function courseEnroll()
     {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function student()
-    {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(CourseEnroll::class);
     }
 }
