@@ -67,6 +67,16 @@
                 <div class="quick-actions-scroll scrollbar-outer">
                     <div class="quick-actions-items">
                         <div class="row m-0">
+                            {{-- dashboard --}}
+                            <a class="col-6 col-md-4 p-0" href="{{ route('admin.dashboard') }}">
+                                <div class="quick-actions-item">
+                                    <div class="avatar-item rounded-circle" style="background: #6861ce">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <span class="text">Dashboard</span>
+                                </div>
+                            </a>
+
                             {{-- course --}}
                             <a class="col-6 col-md-4 p-0" href="{{ route('admin.course') }}">
                                 <div class="quick-actions-item">
