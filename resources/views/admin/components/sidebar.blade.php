@@ -63,10 +63,25 @@
         {{-- course --}}
         <li class="nav-item @if ($active == 'course') active @endif">
             @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                <a href="/admin/course">
+                <a data-toggle="collapse" href="#courseMenu">
                     <i class="fas fa-book"></i>
                     <p>Kelas</p>
+                    <span class="caret"></span>
                 </a>
+                <div class="collapse" id="courseMenu">
+                    <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('admin.course') }}">
+                                <span class="sub-item">Data Kelas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.course.application') }}">
+                                <span class="sub-item">Pengajuan Kelas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
                 <a href="/mentor/course">
                     <i class="fas fa-book"></i>
