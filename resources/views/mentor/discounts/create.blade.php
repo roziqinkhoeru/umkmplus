@@ -8,7 +8,7 @@
                 <h4 class="page-title">Tambah Diskon</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,13 +16,13 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/student">Data Diskon</a>
+                        <a href="{{ route('mentor.discount') }}">Data Diskon</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Tambah Diskon
+                        <a href="#">Form Tambah Diskon</a>
                     </li>
                 </ul>
             </div>
@@ -46,8 +46,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="code" name="code"
-                                            value="{{ old('code') }}"
-                                            required>
+                                            value="{{ old('code') }}" required>
                                     </div>
                                 </div>
                                 {{-- Diskon --}}
@@ -56,8 +55,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="number" class="form-control" id="discount" name="discount"
-                                            value="{{ old('discount') }}"
-                                            required>
+                                            value="{{ old('discount') }}" required>
                                     </div>
                                 </div>
                             </div>

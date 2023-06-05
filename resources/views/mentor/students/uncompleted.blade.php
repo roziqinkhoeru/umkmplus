@@ -8,7 +8,7 @@
                 <h4 class="page-title">Siswa</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="{{ route('mentor.student') }}">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -17,7 +17,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Data Seluruh Siswa
+                            Data Siswa Belum Dinilai
                         </a>
                     </li>
                 </ul>
@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Data Seluruh Siswa</div>
+                                <div class="card-title">Data Siswa Belum Dinilai</div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -44,6 +44,7 @@
                                             <th>Selesai Pada</th>
                                             <th class="text-center">Skor</th>
                                             <th class="text-center filter-none">Status</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,22 +66,26 @@
                                                 <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($enroll->status)
-                                                    @case('menunggu pembayaran')
-                                                        badge-waiting
-                                                        @break
-                                                    @case('aktif')
-                                                        badge-info
-                                                        @break
-                                                    @case('proses')
-                                                        badge-pending
-                                                        @break
-                                                    @case('selesai')
-                                                        badge-diterima
-                                                        @break
-                                                    @endswitch"><i
+                                                        @case('menunggu pembayaran')
+                                                            badge-waiting
+                                                            @break
+                                                        @case('aktif')
+                                                            badge-info
+                                                            @break
+                                                        @case('proses')
+                                                            badge-pending
+                                                            @break
+                                                        @case('selesai')
+                                                            badge-diterima
+                                                            @break
+                                                        @endswitch"><i
                                                             class="fas fa-circle" style="font-size: 10px"></i>
                                                         {{ $enroll->status }}
                                                     </span>
+                                                </td>
+                                                <td class="space-nowrap text-center">
+                                                    <a href="{{ url('/mentor/un-student/' . $enroll->id) }}"
+                                                        class="btn btn-primary btn-sm">Edit</a>
                                                 </td>
                                             </tr>
                                         @endforeach

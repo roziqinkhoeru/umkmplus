@@ -48,9 +48,11 @@
                             <div class="card-body">
                                 <h4 class="text-2xl mb-10">{{ $course->title }}</h4>
                                 @php
-                                    $discoutPrice = $course->price - ceil($course->price * $course->discount / 100);
+                                    $discoutPrice = $course->price - ceil(($course->price * $course->discount) / 100);
                                 @endphp
-                                <h4 class="mb-10 text-green">Rp. {{ number_format($discoutPrice, 0, ',', '.') }} <span class="text-decoration-line-through text-xs">{{ number_format($course->price, 0, ',', '.') }}</span></h4>
+                                <h4 class="mb-10 text-green">Rp. {{ number_format($discoutPrice, 0, ',', '.') }} <span
+                                        class="text-decoration-line-through text-xs">{{ number_format($course->price, 0, ',', '.') }}</span>
+                                </h4>
                                 <p class="mb-10 text-base">Kelas terdiri dari</p>
                                 <div class="d-flex align-items-center mb-5">
                                     <i class="text-tp-theme-1 fa-regular fa-book-open me-2 text-base"></i>
@@ -104,17 +106,20 @@
                     <div class="col-xl-9">
                         <div class="course__curriculum">
                             @foreach ($course->modules as $module)
-                                <div class="accordion" id="course__accordion">
+                                <div class="accordion" id="course__accordion__module{{ $module->no_module }}">
                                     <div class="accordion-item mb-32">
-                                        <h2 class="accordion-header" id="ch1">
+                                        <h2 class="accordion-header" id="ch{{ $module->no_module }}">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#ch1-content" aria-expanded="true"
-                                                aria-controls="ch1-content">
+                                                data-bs-target="#ch1-content-module-{{ $module->no_module }}"
+                                                aria-expanded="true"
+                                                aria-controls="ch1-content-module-{{ $module->no_module }}">
                                                 Chapter #{{ $module->no_module }} : {{ $module->title }}
                                             </button>
                                         </h2>
-                                        <div id="ch1-content" class="accordion-collapse collapse show" aria-labelledby="ch1"
-                                            data-bs-parent="#course__accordion">
+                                        <div id="ch1-content-module-{{ $module->no_module }}"
+                                            class="accordion-collapse collapse show"
+                                            aria-labelledby="ch{{ $module->no_module }}"
+                                            data-bs-parent="#course__accordion__module{{ $module->no_module }}">
                                             <div class="accordion-body">
                                                 @foreach ($module->mediaModules as $mediaModule)
                                                     <div
@@ -129,7 +134,8 @@
                                                         </div>
                                                         <div class="course__curriculum-meta text-left text-sm-right">
                                                             <span class="time"> <i
-                                                                    class="fa-regular fa-clock-rotate-left"></i></i> {{ $mediaModule->duration }}
+                                                                    class="fa-regular fa-clock-rotate-left"></i></i>
+                                                                {{ $mediaModule->duration }}
                                                                 minutes</span>
                                                         </div>
                                                     </div>
@@ -240,8 +246,8 @@
                                 } else {
                                     Swal.fire(
                                         'Gagal!',
-                                    'Anda gagal memasukkan ke keranjang.',
-                                    xhr.responseJSON.message
+                                        'Anda gagal memasukkan ke keranjang.',
+                                        xhr.responseJSON.message
                                     )
                                 }
                             } else {

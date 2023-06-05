@@ -38,8 +38,7 @@
                                             <th class="product-remove" style="min-width: 270px">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="cartCourseDesktop">
-                                    </tbody>
+                                    <tbody id="cartCourseDesktop"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -48,8 +47,7 @@
 
                 {{-- cart mobile --}}
                 <div class="d-md-none">
-                    <div class="mb-25 card" id="cartCourseMobile">
-                    </div>
+                    <div id="cartCourseMobile"></div>
                 </div>
             </div>
         </section>
@@ -70,21 +68,45 @@
                 type: "GET",
                 url: "{{ route('get.cart') }}",
                 success: function(response) {
-                    $.map(response.data.carts, function(cartCourse, index) {
-                        let option = {
-                            style: 'currency',
-                            currency: 'IDR',
-                            useGrouping: true,
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                        };
-                        let discountPrice = Math.ceil(cartCourse.price * cartCourse
-                            .discount / 100);
-                        let subTotal = cartCourse.price - discountPrice;
-                        let coursePrice = cartCourse.price.toLocaleString('id-ID', option);
-                        discountPrice = discountPrice.toLocaleString('id-ID', option);
-                        subTotal = subTotal.toLocaleString('id-ID', option);
-                        cartCourseContentDesktop += `<tr>
+                    if (response.data.countCart === 0) {
+                        cartCourseContentDesktop = `
+                            <tr>
+                                <td colspan="5">
+                                    <div class="text-center pt-55 pb-55">
+                                        <h3 class="text-2xl">Keranjang Kosong</h3>
+                                        <p class="text-base">Kamu belum menambahkan kelas apapun ke
+                                            keranjang</p>
+                                        <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari
+                                            Kelas</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                        cartCourseContentMobile = `
+                        <div class="pt-85 pb-65 text-center">
+                            <h3 class="text-2xl">Keranjang Kosong</h3>
+                            <p class="text-base">Kamu belum menambahkan kelas apapun ke
+                                keranjang</p>
+                            <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari
+                                Kelas</a>
+                        </div>
+                        `;
+                    } else {
+                        $.map(response.data.carts, function(cartCourse, index) {
+                            let option = {
+                                style: 'currency',
+                                currency: 'IDR',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            };
+                            let discountPrice = Math.ceil(cartCourse.price * cartCourse
+                                .discount / 100);
+                            let subTotal = cartCourse.price - discountPrice;
+                            let coursePrice = cartCourse.price.toLocaleString('id-ID', option);
+                            discountPrice = discountPrice.toLocaleString('id-ID', option);
+                            subTotal = subTotal.toLocaleString('id-ID', option);
+                            cartCourseContentDesktop += `<tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
                                                     <img src="{{ asset('${cartCourse.thumbnail}') }}"
@@ -99,29 +121,32 @@
                                             <td class="product-discount"><span class="amount">${discountPrice}</span></td>
                                             <td class="product-subtotal"><span class="amount">${subTotal}</span></td>
                                             <td class="product-remove space-nowrap">
-                                                <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete" id="deleteCartButton">Hapus</a>
-                                                <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6">Checkout</a>
+                                                <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete rounded-2" id="deleteCartButton">Hapus</a>
+                                                <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6 rounded-2">Checkout</a>
                                             </td>
                                         </tr>`;
-                        cartCourseContentMobile += `
-                        <div class="card-header"><span class="badge text-bg-dark">${cartCourse.category_name}</span></div>
-                            <div class="card-body">
-                                <div class="d-flex gap-3">
-                                    <div><img src="{{ asset('${cartCourse.thumbnail}') }}"
-                                            alt="thumbnail-course-cart" class="thumbnail-course-cart-mobile"></div>
-                                    <div class="">
-                                        <p class="text-base mb-5">${cartCourse.title}</p>
-                                        <p class="text-base fw-semibold mb-0">${subTotal} <span
-                                                class="text-xs text-decoration-line-through text-green fw-semibold">${coursePrice}</span></p>
+                            cartCourseContentMobile += `
+                                <div class="mb-25 card">
+                                    <div class="card-header"><span class="badge text-bg-dark">${cartCourse.category_name}</span></div>
+                                        <div class="card-body">
+                                            <div class="d-flex gap-3">
+                                                <div><img src="{{ asset('${cartCourse.thumbnail}') }}"
+                                                        alt="thumbnail-course-cart" class="thumbnail-course-cart-mobile"></div>
+                                                <div class="">
+                                                    <p class="text-base mb-5">${cartCourse.title}</p>
+                                                    <p class="text-base fw-semibold mb-0">${subTotal} <span
+                                                            class="text-xs text-decoration-line-through text-green fw-semibold">${coursePrice}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete btn-sm text-xs rounded-1">Hapus</a>
+                                            <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6 btn-sm text-xs rounded-1">Checkout</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer text-right">
-                                <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete btn-sm text-xs">Hapus</a>
-                                <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6 btn-sm text-xs">Checkout</a>
-                        </div>
                         `;
-                    });
+                        });
+                    }
                     $('#cartCourseDesktop').html(cartCourseContentDesktop);
                     $('#cartCourseMobile').html(cartCourseContentMobile);
                 }

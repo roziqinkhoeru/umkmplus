@@ -53,18 +53,18 @@
 @endsection
 
 @section('script')
-
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             getCourseMentor();
         });
+
         function getCourseMentor() {
             $.ajax({
                 type: "GET",
                 url: "{{ url('course/mentor') }}" + "/" + "{{ $mentor->slug }}",
-                success: function (response) {
+                success: function(response) {
                     let htmlString = "";
-                    $.map(response.data, function (courseData, index) {
+                    $.map(response.data, function(courseData, index) {
                         let coursePrice = new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
@@ -108,7 +108,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="course__action-content">
-                                                        <span>${courseData.modules_count}</span>
+                                                        <span>${courseData.modules_count} Modul</span>
                                                     </div>
                                                 </div>
                                             </li>

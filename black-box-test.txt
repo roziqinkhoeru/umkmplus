@@ -15,6 +15,9 @@
 - logout success, redirect
 - forgot password mentor success, resend link, link to email
 - reset password mentor error, success, redirect
+- discount clear
+- student clear
+- course 1/2
 
 ##### STUDENT #####
 - responsive login

@@ -219,8 +219,9 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
-            Route::get('/mentor/student/{courseEnroll:id}', 'mentorStudentEdit')->name('mentor.student.edit');
-            Route::put('/mentor/student/{courseEnroll}', 'mentorStudentUpdate')->name('mentor.student.update');
+            Route::get('/mentor/un-student', 'mentorUncompletedStudent')->name('mentor.uncompleted.student');
+            Route::get('/mentor/un-student/{courseEnroll:id}', 'mentorUncompletedStudentEdit')->name('mentor.uncompleted.student.edit');
+            Route::put('/mentor/un-student/{courseEnroll}', 'mentorUncompletedStudentUpdate')->name('mentor.uncompleted.student.update');
         });
     });
 

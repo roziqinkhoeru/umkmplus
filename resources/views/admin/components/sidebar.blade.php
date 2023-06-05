@@ -106,10 +106,25 @@
                     <p>Siswa</p>
                 </a>
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <a href="/mentor/student">
+                <a data-toggle="collapse" href="#studentMenu">
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
+                    <span class="caret"></span>
                 </a>
+                <div class="collapse" id="studentMenu">
+                    <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('mentor.student') }}">
+                                <span class="sub-item">Seluruh Siswa</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('mentor.uncompleted.student') }}">
+                                <span class="sub-item">Siswa Belum Dinilai</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             @endif
         </li>
         <li class="nav-section">
@@ -140,14 +155,8 @@
                 </a>
             </li>
         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-            <li class="nav-item @if ($active == 'testimonial') active @endif">
-                <a href="/mentor/testimonial">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Testimonial</p>
-                </a>
-            </li>
-            <li class="nav-item @if ($active == 'referral') active @endif">
-                <a href="/mentor/discount">
+            <li class="nav-item @if ($active == 'discount') active @endif">
+                <a href="{{ route('mentor.discount') }}">
                     <i class="fas fa-ticket-alt"></i>
                     <p>Kode Diskon</p>
                 </a>
@@ -156,6 +165,12 @@
                 <a href="/mentor/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
+                </a>
+            </li>
+            <li class="nav-item @if ($active == 'testimonial') active @endif">
+                <a href="/mentor/testimonial">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Testimonial</p>
                 </a>
             </li>
         @endif
