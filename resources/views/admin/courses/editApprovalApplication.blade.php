@@ -24,9 +24,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.course.application.detail', $course->slug) }}">
-                            Detail Pengajuan Kelas
-                        </a>
+                        ...
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -56,7 +54,8 @@
                             <div class="card-body">
                                 {{-- Title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Kelas
+                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="name" name="name"
@@ -65,7 +64,8 @@
                                 </div>
                                 {{-- Description --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="description" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Deskripsi
+                                    <label for="description"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Deskripsi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="description"
@@ -74,7 +74,7 @@
                                 </div>
                                 {{-- Title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="category" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Kategori
+                                    <label for="category" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kategori
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="category" name="category"
@@ -83,7 +83,8 @@
                                 </div>
                                 {{-- Title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Jumlah Modul
+                                    <label for="module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Jumlah
+                                        Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="module" name="module"
@@ -92,15 +93,14 @@
                                 </div>
                                 {{-- Confirmation --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="confirmation" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Kelas
+                                    <label for="confirmation" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kelas
                                         Sudah Sesuai
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8 d-flex">
                                         <input type="checkbox" class="form-control" id="confirmation" name="confirmation"
-                                            required>
+                                            required title="Checklist untuk menlanjutkan" style="width: 24px">
                                     </div>
                                 </div>
-                                {{-- buatkan tombol checkbox untuk konfirmasi kelas sudah sesuai  --}}
                             </div>
                             <div class="card-action">
                                 <div class="row">

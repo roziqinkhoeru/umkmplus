@@ -26,6 +26,7 @@
 
 ============== BUG AND ERROR ==============
 ##### ADMIN
+- course data, course detail, course activated & deactivated, course detail, course application, detail course application, course application rejected, course application accepted
 
 
 ##### MENTOR #####
@@ -33,3 +34,4 @@
 
 ##### STUDENT #####
 bug: detail course accordion
+bug: deactivated course->user at detail course->expected: error not found/back to course

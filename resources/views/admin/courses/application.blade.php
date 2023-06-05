@@ -45,24 +45,25 @@
                                 <table id="courseTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Judul</th>
                                             <th>Mentor</th>
-                                            <th>Kategori</th>
+                                            <th class="text-center">Kategori</th>
                                             <th>Harga</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($courses as $course)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $course->title }}</td>
                                                 <td>{{ $course->mentor->name }}</td>
-                                                <td>{{ $course->category->name }}</td>
-                                                <td>{{ $course->price }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $course->category->name }}</td>
+                                                <td class="space-nowrap">
+                                                    {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
+                                                <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($course->status)
                                                             @case('pending')
@@ -76,8 +77,9 @@
                                                         {{ $course->status }}
                                                     </span>
                                                 </td>
-                                                <td class="space-nowrap">
-                                                    <a href="{{ url('admin/course/application/' . $course->slug ) }}" class="btn btn-primary btn-sm">Detail</a>
+                                                <td class="space-nowrap text-center">
+                                                    <a href="{{ url('admin/course/application/' . $course->slug) }}"
+                                                        class="btn btn-primary btn-sm">Detail</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -95,7 +97,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#courseTable').DataTable({});
+            $('#courseTable').DataTable({
+                columnDefs: [{
+                    targets: 'filter-none',
+                    orderable: false,
+                }, ],
+            });
         });
     </script>
 @endsection

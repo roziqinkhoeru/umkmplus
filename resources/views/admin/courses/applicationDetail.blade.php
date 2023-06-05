@@ -24,6 +24,14 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.course.application') }}">
+                            Data Pengajuan Kelas
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
                         <a href="#">
                             Detail Pengajuan Kelas
                         </a>
@@ -34,7 +42,7 @@
             {{-- main content --}}
             {{-- Detail Course --}}
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
@@ -42,61 +50,58 @@
                             </div>
                         </div>
                         <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="table-responsive table-hover table-sales">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Judul</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->title }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kategori</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->category->name }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Deskripsi</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->description }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jumlah Module</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->modules->count() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Harga</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>Rp {{ number_format($course->price, 0, ',', '.') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Diskon</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->discount }}%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Status</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td><span
-                                                            class="badge @switch($course->status)
+                            <div class="table-responsive table-hover table-sales">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Judul</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kategori</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->category->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deskripsi</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jumlah Modul</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->modules->count() }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harga</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>Rp {{ number_format($course->price, 0, ',', '.') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diskon</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->discount }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td><span
+                                                    class="badge @switch($course->status)
                                                                     @case('aktif')
                                                                     badge-info
                                                                         @break
@@ -110,33 +115,52 @@
                                                                         badge-ditolak
                                                                         @break
                                                                 @endswitch"><i
-                                                                class="fas fa-circle" style="font-size: 10px"></i>
-                                                            {{ Str::upper($course->status) }}
-                                                        </span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Aksi</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <button onclick="acceptApplication('{{ $course->slug }}')"
-                                                                class="btn btn-success btn-sm mr-1"
-                                                                id="acceptButton">Terima</button>
-                                                                <button class="btn btn-danger btn-sm" id="rejectedButton"
-                                                                onclick="rejectedApplication('{{ $course->slug }}')">Ditolak</button></td>
-                                                            </div>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        class="fas fa-circle" style="font-size: 10px"></i>
+                                                    {{ Str::upper($course->status) }}
+                                                </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Pemrosesan Kelas</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                @if ($course->status == 'ditolak')
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <i class="fas fa-exclamation-triangle mr-3 text-danger text-2xl"></i>
+                                        <div>
+                                            Status kelas telah ditangguhkan.
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button onclick="acceptApplication('{{ $course->slug }}')"
+                                                class="btn btn-success w-100 fw-bold mr-sm-1 mb-2 mb-sm-0"
+                                                id="acceptButton">Terima
+                                                Kelas</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-danger w-100 fw-bold" id="rejectedButton"
+                                                onclick="rejectedApplication('{{ $course->slug }}')">Tolak Kelas</button>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             {{-- Module Course --}}
             <div class="row">
                 <div class="col-md-12">
@@ -151,23 +175,30 @@
                                 <table id="courseTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Judul</th>
-                                            <th>File Pendukung</th>
-                                            <th>Media Module</th>
+                                            <th class="filter-none">File Pendukung</th>
+                                            <th class="filter-none">Media Module</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($course->modules as $module)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $module->title }}</td>
-                                                <td>{{ $module->file }}</td>
+                                                <td><a href="{{ $module->file }}" target="_blank"
+                                                        rel="noopener noreferrer">{{ $module->file }}</a>
+                                                </td>
                                                 <td>
                                                     <ol class="mb-0 pl-3">
                                                         @foreach ($module->mediaModules as $mediaModule)
                                                             <li class="mb-1">{{ $mediaModule->title }} <span
-                                                                    class="badge badge-info badge-category"><a href="https://www.youtube.com/watch?v={{ $mediaModule->video_url }}" target="_blank" rel="noopener noreferrer">Video</a></span>
+                                                                    class="badge badge-category badge-primary"><a
+                                                                        href="https://www.youtube.com/watch?v={{ $mediaModule->video_url }}"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        class="text-white">video <i
+                                                                            class="fas fa-external-link-alt"
+                                                                            style="font-size: 9px"></i></a></span>
                                                             </li>
                                                         @endforeach
                                                     </ol>
@@ -188,7 +219,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#courseTable').DataTable({});
+            $('#courseTable').DataTable({
+                columnDefs: [{
+                    targets: 'filter-none',
+                    orderable: false,
+                }, ],
+            });
         });
 
 

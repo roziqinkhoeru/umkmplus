@@ -315,7 +315,7 @@ class CourseController extends Controller
                     'redirect' => redirect()->route('admin.course.application')->getTargetUrl()
                 ],
                 'success'
-            ) : redirect()->route('admin.course.application')->with('success', 'Kelas berhasil diaktifkan');
+            ) : redirect()->route('admin.course')->with('success', 'Kelas berhasil diaktifkan');
         }
         return  $request->ajax() ? ResponseFormatter::error(
             [
@@ -386,7 +386,7 @@ class CourseController extends Controller
     {
         $course->load('courseEnrolls.student', 'modules.mediaModules', 'mentor', 'category');
         $data = [
-            'title' => 'Detail '. $course->title .' | Mentor UMKMPlus',
+            'title' => 'Detail ' . $course->title . ' | Mentor UMKMPlus',
             'active' => 'course',
             'course' => $course
         ];

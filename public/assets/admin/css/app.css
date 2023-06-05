@@ -81,6 +81,11 @@
     color: #e0a800 !important;
     font-weight: 500;
 }
+.badge.badge-waiting {
+    background: #fdaf4b27 !important;
+    color: #fdaf4b !important;
+    font-weight: 500;
+}
 .badge.badge-diterima {
     background: #0fae3427 !important;
     color: #0fae34 !important;
