@@ -5,6 +5,7 @@
 - logout success, redirect
 - forgot password success, resend link, link to email
 - reset password admin success, error, redirect
+- Data Kelas detail, nonaktif
 
 ##### MENTOR #####
 - responsive login
@@ -26,7 +27,9 @@
 ============== BUG AND ERROR ==============
 ##### ADMIN
 
+
 ##### MENTOR #####
 
 
 ##### STUDENT #####
+bug: detail course accordion
