@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testimonials', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->uuid('course_enroll_id');
-            $table->foreign('course_enroll_id')->references('id')->on('course_enrolls')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('testimonial');
-            $table->integer('rating');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('title', 100);
+            $table->string('slug', 100)->nullable();
+            $table->text('content');
+            $table->text('headline');
+            $table->string('thumbnail', 100);
             $table->enum('status', ['tampilkan', 'sembunyikan'])->default('sembunyikan');
             $table->timestamps();
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testimonials');
+        Schema::dropIfExists('blogs');
     }
 };

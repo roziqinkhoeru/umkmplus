@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $testimonials = Testimonial::with('student')->where('status', 'tampilkan')->limit(3)->get();
+        $testimonials = Testimonial::with('courseEnroll.student')->where('status', 'tampilkan')->limit(3)->get();
         if ($testimonials->isEmpty()) {
             $testimonials = null;
         }

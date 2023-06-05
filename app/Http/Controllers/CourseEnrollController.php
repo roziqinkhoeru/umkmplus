@@ -9,10 +9,12 @@ use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\MediaModule;
 use App\Models\Module;
+use App\Models\Testimonial;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -29,9 +31,10 @@ class CourseEnrollController extends Controller
     }
     public function getCheckoutCourse(Course $course)
     {
+        if ($course->status == 'nonaktif') {
+            return abort(404);
+        }
         $student = Auth::user()->customer;
-        // $status = "";
-        // $dataTransaction = null;
         $courseEnroll = CourseEnroll::whereStudentId($student->id)->whereCourseId($course->id)->first();
         if ($courseEnroll && ($courseEnroll->status == 'proses' || $courseEnroll->status == 'menunggu pembayaran')) {
             return redirect($courseEnroll->snap_url);
@@ -43,8 +46,6 @@ class CourseEnrollController extends Controller
             [
                 'title' => 'Checkout Kelas ' . $course->title .' | UMKMPlus',
                 'course' => $course,
-                // 'status' => $status,
-                // 'dataTransaction' => $dataTransaction,
             ];
 
         return view('user.courseEnroll.checkout', $data);
@@ -53,6 +54,7 @@ class CourseEnrollController extends Controller
     public function getDiscountCourse(Request $request, Course $course)
     {
         $discount = Discount::whereCode($request->discount_code)->first();
+        // check if discount code belong to this mentor
         if (!$discount || $discount->mentor_id != $course->mentor_id) {
             return ResponseFormatter::error(
                 [
@@ -63,6 +65,42 @@ class CourseEnrollController extends Controller
             );
         }
 
+        // check if student ever enroll course from this mentor
+        $student = Auth::user()->customer;
+        $courseMentor = Course::whereMentorId($course->mentor_id)->pluck('id')->toArray();
+        $courseEnrollMentor = CourseEnroll::whereStudentId($student->id)->whereIn('course_id', $courseMentor)->first();
+        if (!$courseEnrollMentor) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Kode diskon tidak valid',
+                ],
+                'Kode diskon tidak valid',
+                400
+            );
+        }
+
+        // check if discount code is already used
+        $discountEnroll = CourseEnroll::whereStudentId($student->id)->pluck('discount_id')->toArray();
+        if (in_array($discount->id, $discountEnroll)) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Kode diskon sudah digunakan',
+                ],
+                'Kode diskon sudah digunakan',
+                400
+            );
+        }
+
+        // check if discount code is nonactive
+        if ($discount->status == 0) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Kode diskon tidak aktif',
+                ],
+                'Kode diskon tidak aktif',
+                400
+            );
+        }
         return ResponseFormatter::success(
             [
                 'priceDiscount' => $discount->discount,
@@ -73,6 +111,20 @@ class CourseEnrollController extends Controller
     }
     public function checkoutCourse(Request $request, Course $course)
     {
+        $course->discountPrice = ceil($course->price * $course->discount / 100);
+        $priceCheckout = $course->price - $course->discountPrice;
+        if (!$request->discountID) {
+            $verifyPrice = Hash::check($request->priceCheckout, $priceCheckout);
+            if (!$verifyPrice) {
+                return ResponseFormatter::error(
+                    [
+                        'message' => 'Terjadi kesalahan saat mengambil harga',
+                    ],
+                    'Terjadi kesalahan saat mengambil harga',
+                    500
+                );
+            }
+        }
         $student = Auth::user()->customer;
 
         try {
@@ -341,5 +393,39 @@ class CourseEnrollController extends Controller
         ]);
 
         return Redirect::route('profile')->with('success', 'Selamat, Anda telah menyelesaikan Kelas ini');
+    }
+
+    public function courseCertificate(CourseEnroll $courseEnroll)
+    {
+        $testimonial = Testimonial::where('course_enroll_id', $courseEnroll->id)->first();
+        if (!$testimonial) {
+            return redirect()->route('course.testimonial', $courseEnroll->id);
+        }
+        $data =
+        [
+            'title' => 'Sertifikat | UMKM Plus',
+            'courseEnroll' => $courseEnroll
+        ];
+
+        dd($data);
+
+        return view('testimonials.certificate', $data);
+    }
+
+    public function courseStudentTestimonial(CourseEnroll $courseEnroll)
+    {
+        $testimonial = Testimonial::with('courseEnroll.course')->where('course_enroll_id', $courseEnroll->id)->first();
+        if ($testimonial) {
+            return redirect()->route('course.certificate', $courseEnroll->id);
+        }
+
+        $courseEnroll->load('course');
+        $data =
+        [
+            'title' => 'Testimonial | UMKM Plus',
+            'courseEnroll' => $courseEnroll
+        ];
+
+        return view('user.testimonials.create', $data);
     }
 }

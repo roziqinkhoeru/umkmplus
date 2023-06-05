@@ -318,7 +318,7 @@
                                                     <th scope="col">Nama</th>
                                                     <th scope="col">Harga</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">Detail</th>
+                                                    <th scope="col">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -336,7 +336,10 @@
                                                         <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
                                                         <td>${coursePrice}</td>
                                                         <td>${enroll.status}</td>
-                                                        <td><a href="{{ url('/course/playing/${enroll.id}') }}" class="order__view-btn">View</a></td>
+                                                        <td>
+                                                            <a href="{{ url('/course/playing/${enroll.id}') }}" class="btn btn-primary ">View</a>
+                                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="btn btn-success ">Sertifikat</a>` : ``}
+                                                        </td>
                                                     </tr>`;
                                                 })}
                                             </tbody>

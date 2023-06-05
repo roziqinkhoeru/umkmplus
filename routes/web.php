@@ -1,22 +1,24 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseEnrollController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\MentorController;
-use App\Http\Controllers\MentorRegistrationController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
 use Symfony\Component\Routing\RouteCompiler;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\CourseEnrollController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\MentorRegistrationController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +34,6 @@ use Symfony\Component\Routing\RouteCompiler;
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/blog', function () {
-    return view('user.blog.index', ['title' => 'Blog | UMKMPlus']);
-});
-Route::get('/blog/blogName', function () {
-    return view('user.blog.detail', ['title' => '_blogName_ | UMKMPlus']);
-});
 
 Route::get('/admin/blog', function () {
     return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
@@ -96,6 +92,14 @@ Route::controller(CourseController::class)->group(function () {
     Route::get('/course/{course:slug}', 'show')->name('course.show');
 });
 
+// Blog
+Route::controller(BlogController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog.index');
+    Route::get('/blog/data', 'getBlog')->name('blog.data');
+    Route::get('/blog/sear', 'getBlog')->name('blog.data');
+    Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
+});
+
 // Student Role
 Route::group(['middleware' => ['auth']], function () {
     //** STUDENT **/
@@ -131,6 +135,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
             Route::get('/course/playing/{courseEnroll:id}/test', 'coursePlayingTest')->name('course.playing.test');
             Route::get('/course/playing/{courseEnroll:id}/test/finish', 'coursePlayingTestFinish')->name('course.playing.test');
+            Route::get('/course/testimonial/{courseEnroll:id}', 'courseStudentTestimonial')->name('course.testimonial');
+            Route::get('/course/certificate/{courseEnroll:id}', 'courseCertificate')->name('course.certificate');
+        });
+
+        // Testimonial
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::post('/testimonial/{courseEnroll:id}', 'store')->name('testimonial.store');
         });
     });
 });
@@ -180,6 +191,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(StudentController::class)->group(function () {
             Route::get('/admin/student', 'adminStudent')->name('admin.student');
             Route::get('/admin/student/{customer:id}', 'adminStudentShow')->name('admin.student.show');
+        });
+        // Testimonial
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::get('/admin/testimonial', 'adminTestimonial')->name('admin.testimonial');
+            Route::put('/admin/testimonial/{testimonial:id}', 'editStatusTestimonial')->name('admin.testimonial.status');
         });
     });
     /** MENTOR **/

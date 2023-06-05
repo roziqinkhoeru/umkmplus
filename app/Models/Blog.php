@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Testimonial extends Model
+class Blog extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
-    public function courseEnroll()
+    public function user()
     {
-        return $this->belongsTo(CourseEnroll::class);
+        return $this->belongsTo(User::class);
     }
 }

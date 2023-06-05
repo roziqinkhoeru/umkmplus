@@ -23,10 +23,9 @@ class TestimonialSeeder extends Seeder
                     $status = 'sembunyikan';
                 }
                 Testimonial::firstOrCreate([
-                    'student_id' => $courseEnroll->student_id,
-                    'course_id' => $courseEnroll->course_id,
+                    'course_enroll_id' => $courseEnroll->id,
                     'testimonial' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.',
-                    'rating' => 5,
+                    'rating' => rand(1, 5),
                     'status' => $status,
                 ]);
             }

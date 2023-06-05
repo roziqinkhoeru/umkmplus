@@ -135,15 +135,19 @@
         </li>
         {{-- application --}}
         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+            <li class="nav-item @if ($active == 'testimonial') active @endif">
+                <a href="/admin/testimonial">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Testimonial</p>
+                </a>
+            </li>
             <li class="nav-item @if ($active == 'application') active @endif">
                 <a href="/admin/mentor/application">
                     <i class="fas fa-file-alt"></i>
                     <p>Pendaftar Mentor</p>
                 </a>
             </li>
-        @endif
-        {{-- blog --}}
-        @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+            {{-- blog --}}
             <li class="nav-item @if ($active == 'blog') active @endif">
                 <a href="/admin/blog">
                     <i class="fas fa-pen-alt"></i>
@@ -161,6 +165,12 @@
                 <a href="/mentor/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
+                </a>
+            </li>
+            <li class="nav-item @if ($active == 'testimonial') active @endif">
+                <a href="/mentor/testimonial">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Testimonial</p>
                 </a>
             </li>
         @endif
