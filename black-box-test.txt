@@ -5,7 +5,8 @@
 - logout success, redirect
 - forgot password success, resend link, link to email
 - reset password admin success, error, redirect
-- Data Kelas detail, nonaktif
+- course data, course detail, course activated & deactivated, course detail, course application, detail course application, course application rejected, course application accepted
+- mentor data, detail mentor, mentor activated, mentor deactivated, mentor application, download cv mentor, mentor rejected, mentor accepted
 
 ##### MENTOR #####
 - responsive login
@@ -26,8 +27,6 @@
 
 ============== BUG AND ERROR ==============
 ##### ADMIN
-- course data, course detail, course activated & deactivated, course detail, course application, detail course application, course application rejected, course application accepted
-
 
 ##### MENTOR #####
 
@@ -35,3 +34,4 @@
 ##### STUDENT #####
 bug: detail course accordion
 bug: deactivated course->user at detail course->expected: error not found/back to course
+bug: file CV name admin page detail mentor
