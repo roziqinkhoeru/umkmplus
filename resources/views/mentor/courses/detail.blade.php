@@ -8,7 +8,7 @@
                 <h4 class="page-title">Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -34,7 +34,7 @@
             {{-- main content --}}
             {{-- Detail Course --}}
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
@@ -42,61 +42,58 @@
                             </div>
                         </div>
                         <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="table-responsive table-hover table-sales">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Judul</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->title }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kategori</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->category->name }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Deskripsi</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->description }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jumlah Module</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->modules->count() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Harga</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>Rp {{ number_format($course->price, 0, ',', '.') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Diskon</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td>{{ $course->discount }}%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Status</td>
-                                                    <td class="text-right">
-                                                        :
-                                                    </td>
-                                                    <td><span
-                                                            class="badge @switch($course->status)
+                            <div class="table-responsive table-hover table-sales">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Judul</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kategori</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->category->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deskripsi</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jumlah Module</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->modules->count() }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harga</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>Rp {{ number_format($course->price, 0, ',', '.') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diskon</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $course->discount }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td><span
+                                                    class="badge @switch($course->status)
                                                                     @case('aktif')
                                                                     badge-info
                                                                         @break
@@ -110,19 +107,31 @@
                                                                         badge-ditolak
                                                                         @break
                                                                 @endswitch"><i
-                                                                class="fas fa-circle" style="font-size: 10px"></i>
-                                                            {{ Str::upper($course->status) }}
-                                                        </span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                                        class="fas fa-circle" style="font-size: 10px"></i>
+                                                    {{ Str::upper($course->status) }}
+                                                </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- course statistic --}}
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Statistik Kelas</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="statisticCourseChart" style="width: 50%; height: 50%"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             {{-- Student Course --}}
             <div class="row">
                 <div class="col-md-12">
@@ -137,11 +146,11 @@
                                 <table id="courseTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Nama</th>
                                             <th>Progress</th>
                                             <th>Tanggal Mulai</th>
-                                            <th>Status</th>
+                                            <th class="text-center filter-none">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -150,15 +159,15 @@
                                                 $progress = (($enroll->upto_no_module - 1) / $course->modules->count()) * 100;
                                             @endphp
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $enroll->student->name }}</td>
                                                 <td>{{ $progress }}</td>
                                                 <td>{{ $enroll->started_at }}</td>
-                                                <td>
+                                                <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($enroll->status)
                                                                 @case('menunggu pembayaran')
-                                                                    badge-info
+                                                                    badge-waiting
                                                                     @break
                                                                 @case('aktif')
                                                                     badge-info
@@ -190,104 +199,49 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#courseTable').DataTable({});
+            $('#courseTable').DataTable({
+                "columnDefs": [{
+                    "targets": 'filter-none',
+                    "orderable": false,
+                }]
+            });
         });
 
-        function nonaktifkanCourse(course) {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Kelas akan dinonaktifkan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Nonaktifkan',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "PUT",
-                        data: {
-                            status: "nonaktif",
-                            _token: "{{ csrf_token() }}",
-                        },
-                        url: `{{ url('/admin/course/${course}/status') }}`,
-                        success: function(response) {
-                            location.reload();
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: 'Kelas telah dinonaktifkan.',
-                                icon: 'success',
-                            })
-
-                        },
-                        error: function(xhr, status, error) {
-                            if (xhr.responseJSON)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'GAGAL!',
-                                    text: xhr.responseJSON.meta.message,
-                                })
-                            else
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'GAGAL!',
-                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                                        error,
-                                })
-                        }
-                    });
-
+        let statisticCourseChart = document.getElementById('statisticCourseChart').getContext('2d');
+        let mystatisticCourseChart = new Chart(statisticCourseChart, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        {{ $course->courseEnrolls->where('status', 'aktif')->count() }},
+                        {{ $course->courseEnrolls->where('status', 'selesai')->count() }},
+                        {{ $course->courseEnrolls->where('status', 'proses')->count() }},
+                        {{ $course->courseEnrolls->where('status', 'menunggu pembayaran')->count() }}
+                    ],
+                    backgroundColor: ['#1572e8', '#0fae34', '#e0a800', '#fdaf4b']
+                }],
+                labels: [
+                    'Aktif',
+                    'Selesai',
+                    'Proses',
+                    'Menunggu Pembayaran'
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom'
+                },
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 20
+                    }
                 }
-            })
-        }
-
-        function aktifkanCourse(course) {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Kelas akan diaktifkan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Aktifkan',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "PUT",
-                        data: {
-                            status: "aktif",
-                            _token: "{{ csrf_token() }}",
-                        },
-                        url: `{{ url('/admin/course/${course}/status') }}`,
-                        success: function(response) {
-                            location.reload();
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: 'Kelas telah diaktifkan.',
-                                icon: 'success',
-                            })
-                        },
-                        error: function(xhr, status, error) {
-                            if (xhr.responseJSON)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'GAGAL!',
-                                    text: xhr.responseJSON.meta.message,
-                                })
-                            else
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'GAGAL!',
-                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
-                                        error,
-                                })
-                        }
-                    });
-
-                }
-            })
-        }
+            }
+        });
     </script>
 @endsection

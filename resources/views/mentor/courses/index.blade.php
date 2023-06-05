@@ -45,25 +45,26 @@
                                 <table id="courseTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Judul</th>
-                                            <th>Kategori</th>
-                                            <th>Harga</th>
+                                            <th class="text-center">Kategori</th>
+                                            <th class="text-center space-nowrap">Harga</th>
                                             <th>Diskon</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Status</th>
                                             <th>Siswa</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($courses as $course)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $course->title }}</td>
-                                                <td>{{ $course->category->name }}</td>
-                                                <td>{{ $course->price }}</td>
-                                                <td>{{ $course->discount }} %</td>
-                                                <td>
+                                                <td class="text-center">{{ $course->category->name }}</td>
+                                                <td class="text-center space-nowrap">
+                                                    {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
+                                                <td>{{ $course->discount }}%</td>
+                                                <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($course->status)
                                                                 @case('aktif')
@@ -72,9 +73,12 @@
                                                                 @case('nonaktif')
                                                                     badge-ditolak
                                                                     @break
-                                                                @default
-                                                                    badge-menunggu
-                                                                    @break
+                                                                @case('pending')
+                                                                    badge-waiting
+                                                                @break
+                                                                @case('ditolak')
+                                                                    badge-ditolak
+                                                                @break
                                                             @endswitch"><i
                                                             class="fas fa-circle" style="font-size: 10px"></i>
                                                         {{ $course->status }}
@@ -83,7 +87,7 @@
                                                 <td>{{ $course->course_enrolls_count }}</td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ url('/mentor/course/' . $course->slug) }}"
-                                                        class="btn btn-primary btn-sm">Detail</a>
+                                                        class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     @if (!($course->status == 'pending' || $course->status == 'ditolak'))
                                                         @if ($course->status == 'aktif')
                                                             <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
@@ -110,7 +114,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#courseTable').DataTable({});
+            $('#courseTable').DataTable({
+                "columnDefs": [{
+                    "targets": 'filter-none',
+                    "orderable": false,
+                }]
+            });
         });
 
         function nonaktifkanCourse(course) {
