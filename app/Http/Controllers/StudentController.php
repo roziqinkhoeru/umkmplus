@@ -13,9 +13,9 @@ class StudentController extends Controller
     public function adminStudent()
     {
         $students = Customer::select('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'users.email')
-        ->withCount('studentCourseEnrolls')
-        ->student()
-        ->get();
+            ->withCount('studentCourseEnrolls')
+            ->student()
+            ->get();
         $data = [
             'title' => 'Data Siswa | UMKM Plus',
             'active' => 'student',
@@ -39,14 +39,11 @@ class StudentController extends Controller
 
     public function mentorStudent()
     {
-        $enrolls = CourseEnroll::where('status', 'selesai')
-        ->where('score', null)
-        ->whereHas('course', function ($query) {
+        $enrolls = CourseEnroll::whereHas('course', function ($query) {
             $query->where('mentor_id', auth()->user()->customer->id);
         })
-        ->with(['course.category', 'student.user'])
-        ->orderBy('finished_at', 'asc')
-        ->get();
+            ->with(['course.category', 'student.user'])
+            ->get();
         $data = [
             'title' => 'Data Siswa | Mentor UMKM Plus',
             'active' => 'student',
@@ -56,7 +53,26 @@ class StudentController extends Controller
         return view('mentor.students.index', $data);
     }
 
-    public function mentorStudentEdit(CourseEnroll $courseEnroll)
+    public function mentorUncompletedStudent()
+    {
+        $enrolls = CourseEnroll::where('status', 'selesai')
+            ->where('score', null)
+            ->whereHas('course', function ($query) {
+                $query->where('mentor_id', auth()->user()->customer->id);
+            })
+            ->with(['course.category', 'student.user'])
+            ->orderBy('finished_at', 'asc')
+            ->get();
+        $data = [
+            'title' => 'Data Siswa | Mentor UMKM Plus',
+            'active' => 'student',
+            'enrolls' => $enrolls,
+        ];
+
+        return view('mentor.students.uncompleted', $data);
+    }
+
+    public function mentorUncompletedStudentEdit(CourseEnroll $courseEnroll)
     {
         $courseEnroll->load(['course.category', 'student.user']);
         $data = [
@@ -68,7 +84,7 @@ class StudentController extends Controller
         return view('mentor.students.edit', $data);
     }
 
-    public function mentorStudentUpdate(CourseEnroll $courseEnroll)
+    public function mentorUncompletedStudentUpdate(CourseEnroll $courseEnroll)
     {
         $courseEnroll->update([
             'score' => request('score'),
@@ -77,7 +93,8 @@ class StudentController extends Controller
         return ResponseFormatter::success(
             [
                 'redirect' => redirect('/mentor/student')->getTargetUrl(),
-            ], 'Skor berhasil diperbarui');
-
+            ],
+            'Skor berhasil diperbarui'
+        );
     }
 }
