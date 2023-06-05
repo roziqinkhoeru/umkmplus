@@ -35,7 +35,7 @@
                                         class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
-                                        Tambah Kelas
+                                        Data Pengajuan Kelas
                                     </a>
                                 </div>
                             </div>
@@ -45,25 +45,25 @@
                                 <table id="courseTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Judul</th>
                                             <th>Mentor</th>
-                                            <th>Kategori</th>
+                                            <th class="text-center">Kategori</th>
                                             <th>Harga</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($courses as $course)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $course->title }}</td>
                                                 <td>{{ $course->mentor->name }}</td>
-                                                <td>{{ $course->category->name }}</td>
+                                                <td class="text-center">{{ $course->category->name }}</td>
                                                 <td class="space-nowrap">
                                                     {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
-                                                <td>
+                                                <td class="text-capitalize text-center">
                                                     <span
                                                         class="badge @switch($course->status)
                                                             @case('aktif')
@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ url('/admin/course/' . $course->slug) }}"
-                                                        class="btn btn-primary btn-sm">Detail</a>
+                                                        class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     @if ($course->status == 'aktif')
                                                         <button onclick="nonaktifkanCourse('{{ $course->slug }}')"
                                                             class="btn btn-danger btn-sm">Nonaktifkan</button>
@@ -104,7 +104,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#courseTable').DataTable({});
+            $('#courseTable').DataTable({
+                columnDefs: [{
+                    targets: 'filter-none',
+                    orderable: false,
+                }, ],
+            });
         });
 
         function nonaktifkanCourse(course) {
