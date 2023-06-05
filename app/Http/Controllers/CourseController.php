@@ -185,6 +185,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        if ($course->status == 'nonaktif') {
+            return abort(404);
+        }
         $course->load('mentor', 'modules', 'modules.mediaModules', 'courseEnrolls')->loadCount('modules');
         $countMediaModule = MediaModule::leftJoin('modules', 'media_modules.module_id', '=', 'modules.id')->where('course_id', $course->id)->count();
         $countCourse = Course::where('mentor_id', $course->mentor_id)->count();
