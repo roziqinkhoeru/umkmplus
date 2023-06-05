@@ -67,51 +67,119 @@
                 <div class="quick-actions-scroll scrollbar-outer">
                     <div class="quick-actions-items">
                         <div class="row m-0">
+                            {{-- dashboard --}}
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.dashboard') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item rounded-circle" style="background: #6861ce">
+                                            <i class="fas fa-home"></i>
+                                        </div>
+                                        <span class="text">Dashboard</span>
+                                    </div>
+                                </a>
+                            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.dashboard') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item rounded-circle" style="background: #6861ce">
+                                            <i class="fas fa-home"></i>
+                                        </div>
+                                        <span class="text">Dashboard</span>
+                                    </div>
+                                </a>
+                            @endif
                             {{-- course --}}
-                            <a class="col-6 col-md-4 p-0" href="{{ route('admin.course') }}">
-                                <div class="quick-actions-item">
-                                    <div class="avatar-item bg-dark rounded-circle">
-                                        <i class="fas fa-book"></i>
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.course') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-dark rounded-circle">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <span class="text">Kelas</span>
                                     </div>
-                                    <span class="text">Courses</span>
-                                </div>
-                            </a>
+                                </a>
+                            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.course') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-dark rounded-circle">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <span class="text">Kelas</span>
+                                    </div>
+                                </a>
+                            @endif
                             {{-- mentor --}}
-                            <a class="col-6 col-md-4 p-0" href="{{ route('admin.mentor') }}">
-                                <div class="quick-actions-item">
-                                    <div class="avatar-item bg-success rounded-circle">
-                                        <i class="fas fa-chalkboard-teacher"></i>
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.mentor') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-success rounded-circle">
+                                            <i class="fas fa-chalkboard-teacher"></i>
+                                        </div>
+                                        <span class="text">Mentors</span>
                                     </div>
-                                    <span class="text">Mentors</span>
-                                </div>
-                            </a>
+                                </a>
+                            @endif
                             {{-- student --}}
-                            <a class="col-6 col-md-4 p-0" href="{{ route('admin.student') }}">
-                                <div class="quick-actions-item">
-                                    <div class="avatar-item bg-danger rounded-circle">
-                                        <i class="fas fa-user-graduate"></i>
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.student') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-danger rounded-circle">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                        <span class="text">Students</span>
                                     </div>
-                                    <span class="text">Students</span>
-                                </div>
-                            </a>
+                                </a>
+                            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.student') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-danger rounded-circle">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                        <span class="text">Students</span>
+                                    </div>
+                                </a>
+                            @endif
                             {{-- application --}}
-                            <a class="col-6 col-md-4 p-0" href="{{ route('admin.mentor.application') }}">
-                                <div class="quick-actions-item">
-                                    <div class="avatar-item bg-warning rounded-circle">
-                                        <i class="fas fa-file-alt"></i>
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.mentor.application') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-warning rounded-circle">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <span class="text">Applications</span>
                                     </div>
-                                    <span class="text">Applications</span>
-                                </div>
-                            </a>
+                                </a>
+                            @endif
+                            {{-- code discount --}}
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.discount') }}">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-warning rounded-circle">
+                                            <i class="fas fa-ticket-alt"></i>
+                                        </div>
+                                        <span class="text">Code Discount</span>
+                                    </div>
+                                </a>
+                            @endif
                             {{-- blog --}}
-                            <a class="col-6 col-md-4 p-0" href="/admin/blog">
-                                <div class="quick-actions-item">
-                                    <div class="avatar-item bg-info rounded-circle">
-                                        <i class="fas fa-pen-alt"></i>
+                            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                <a class="col-6 col-md-4 p-0" href="/admin/blog">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-info rounded-circle">
+                                            <i class="fas fa-pen-alt"></i>
+                                        </div>
+                                        <span class="text">Blog</span>
                                     </div>
-                                    <span class="text">Blog</span>
-                                </div>
-                            </a>
+                                </a>
+                            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                <a class="col-6 col-md-4 p-0" href="/mentor/blog">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-info rounded-circle">
+                                            <i class="fas fa-pen-alt"></i>
+                                        </div>
+                                        <span class="text">Blog</span>
+                                    </div>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

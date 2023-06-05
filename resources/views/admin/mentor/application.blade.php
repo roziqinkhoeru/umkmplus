@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/mentor/application">
+                        <a href="#">
                             Data Pendaftaran Mentor
                         </a>
                     </li>
@@ -43,9 +43,9 @@
                                             <th class="filter-none">No Telepon</th>
                                             <th class="filter-none">Alamat</th>
                                             <th class="filter-none">Pekerjaan</th>
-                                            <th class="filter-none">Spesialisasi</th>
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center filter-none">Aksi</th>
+                                            <th class="text-center">Spesialisasi</th>
+                                            <th class="text-center space-nowrap">Status</th>
+                                            <th class="text-center filter-none space-nowrap">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,8 +57,8 @@
                                                 <td>{{ $mentor->phone }}</td>
                                                 <td>{{ $mentor->address }}</td>
                                                 <td>{{ $mentor->job }}</td>
-                                                <td>{{ $mentor->specialist }}</td>
-                                                <td><span
+                                                <td class="text-center">{{ $mentor->specialist }}</td>
+                                                <td class="space-nowrap text-capitalize"><span
                                                         class="badge @switch($mentor->status)
                                                             @case('pending')
                                                                 badge-pending
@@ -77,7 +77,7 @@
                                                         {{ $mentor->status }}</span></td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ asset('storage/' . $mentor->file_cv) }}"
-                                                        class="btn btn-primary btn-sm mr-1" download>Download File</a>
+                                                        class="btn btn-primary btn-sm mr-1" download>Download CV</a>
                                                     @if ($mentor->status == 'pending')
                                                         <button onclick="acceptRegistration('{{ $mentor->id }}')"
                                                             class="btn btn-success btn-sm mr-1"

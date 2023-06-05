@@ -71,7 +71,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="phone" class="form-control" id="phone"
-                                            placeholder="Masukkan No Telepon" value="{{ $mentorRegistration->phone }}" required>
+                                            placeholder="Masukkan No Telepon" value="{{ $mentorRegistration->phone }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- address --}}
@@ -80,7 +81,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="address" class="form-control" id="address"
-                                            placeholder="Masukkan Alamat" value="{{ $mentorRegistration->address }}" required>
+                                            placeholder="Masukkan Alamat" value="{{ $mentorRegistration->address }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- job --}}
@@ -89,21 +91,22 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="job" class="form-control" id="job"
-                                            placeholder="Masukkan Pekerjaan" value="{{ $mentorRegistration->job }}" required>
+                                            placeholder="Masukkan Pekerjaan" value="{{ $mentorRegistration->job }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- specialist --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Spesialisasi
+                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                        Spesialisasi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <select class="form-control" aria-label="Default select example" name="specialist"
                                             id="specialist" required>
                                             {{-- <option hidden>Pilih Spesialisasi</option> --}}
                                             @foreach ($categories as $category)
-                                                <option @if ($category->name == $mentorRegistration->specialist)
-                                                    selected
-                                                @endif value="{{ $category->name }}">{{ $category->name }}</option>
+                                                <option @if ($category->name == $mentorRegistration->specialist) selected @endif
+                                                    value="{{ $category->name }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -114,7 +117,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="email" name="email" class="form-control" id="email"
-                                            placeholder="Masukkan Email" value="{{ $mentorRegistration->email }}" required>
+                                            placeholder="Masukkan Email" value="{{ $mentorRegistration->email }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- password --}}
