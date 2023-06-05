@@ -37,17 +37,20 @@
                                 Form ini digunakan untuk mengubah hasil kelas siswa
                             </div>
                         </div>
-                        <form id="formEditScore" action="{{ url('/mentor/student/'. $courseEnroll->id) }}" method="POST">
+                        <form id="formEditScore" action="{{ url('/mentor/un-student/' . $courseEnroll->id) }}"
+                            method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
 
                                 {{-- Check Score In Google Form --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Cek Nilai Ujian
-                                        </label>
+                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Cek Nilai
+                                        Ujian
+                                    </label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <a href="{{ $courseEnroll->course->google_form }}?usp=sharing" class="btn btn-warning btn-outline-dark">Cek </a>
+                                        <a href="{{ $courseEnroll->course->google_form }}?usp=sharing"
+                                            class="btn btn-warning btn-outline-dark">Cek </a>
                                     </div>
                                 </div>
                                 {{-- Name --}}
@@ -56,18 +59,17 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="name" name="name"
-                                            value="{{ $courseEnroll->student->name }}"
-                                            required>
+                                            value="{{ $courseEnroll->student->name }}" required>
                                     </div>
                                 </div>
                                 {{-- Course --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="courseTitle" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Kelas
+                                    <label for="courseTitle" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul
+                                        Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input disabled type="text" class="form-control" id="courseTitle" name="courseTitle"
-                                            value="{{ $courseEnroll->course->title }}"
-                                            required>
+                                        <input disabled type="text" class="form-control" id="courseTitle"
+                                            name="courseTitle" value="{{ $courseEnroll->course->title }}" required>
                                     </div>
                                 </div>
                                 {{-- email --}}
@@ -76,7 +78,8 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="email" name="email" class="form-control" id="email"
-                                            placeholder="Masukkan Email" value="{{ $courseEnroll->student->user->email }}" required>
+                                            placeholder="Masukkan Email" value="{{ $courseEnroll->student->user->email }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- Skor --}}
@@ -85,8 +88,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="score" name="score"
-                                            value=""
-                                            required>
+                                            value="" required>
                                     </div>
                                 </div>
                             </div>
@@ -94,8 +96,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         <a href="/admin/mentor" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="updateButton"
-                                            type="submit">Ubah</button>
+                                        <button class="btn btn-primary ml-3" id="updateButton" type="submit">Ubah</button>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +139,7 @@
                 $('#updateButton').prop('disabled', true);
                 $.ajax({
                     type: "PUT",
-                    url: `{{url('/mentor/student/'. $courseEnroll->id) }}`,
+                    url: `{{ url('/mentor/un-student/' . $courseEnroll->id) }}`,
                     data: {
                         score: $('#score').val(),
                         _token: "{{ csrf_token() }}",
