@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\CourseEnroll;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,38 +25,24 @@ class TestimonialController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $data =
-            [
-                'title' => 'Tambah Testimonial | UMKM Plus',
-            ];
-
-        return view('testimonials.create', $data);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, CourseEnroll $courseEnroll)
     {
         $rules =
         [
-            'testimonial' => 'required',
-            'rating' => 'required',
+            'testimonial' => 'required|min:3',
+            'rating' => 'required|numeric|min:1|max:5',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return ResponseFormatter::error([
-                'error' => $validator->errors()
+                'error' => $validator->errors()->first()
             ], 'Harap isi form dengan benar', 400);
         }
 
         $testimonial = Testimonial::create([
-            'student_id' => auth()->user()->customer->id,
-            'course_id' => $request->course_id,
+            'course_enroll_id' => $courseEnroll->id,
             'testimonial' => $request->testimonial,
             'rating' => $request->rating,
             'status' => 'sembunyikan',
@@ -63,7 +50,7 @@ class TestimonialController extends Controller
 
         if ($testimonial) {
             return ResponseFormatter::success([
-                'redirect' => redirect()->route('testimonial.index')->getTargetUrl()
+                'redirect' => redirect()->route('course.certificate', $courseEnroll->id)->getTargetUrl()
             ], 'Testimonial berhasil ditambahkan');
         }
 
@@ -142,4 +129,5 @@ class TestimonialController extends Controller
             'error' => 'Testimonial gagal dihapus'
         ], 'Testimonial gagal dihapus', 400);
     }
+
 }

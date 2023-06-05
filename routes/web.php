@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseEnrollController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\MentorController;
-use App\Http\Controllers\MentorRegistrationController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
 use Symfony\Component\Routing\RouteCompiler;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\CourseEnrollController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\MentorRegistrationController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +135,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
             Route::get('/course/playing/{courseEnroll:id}/test', 'coursePlayingTest')->name('course.playing.test');
             Route::get('/course/playing/{courseEnroll:id}/test/finish', 'coursePlayingTestFinish')->name('course.playing.test');
+            Route::get('/course/testimonial/{courseEnroll:id}', 'courseStudentTestimonial')->name('course.testimonial');
+            Route::get('/course/certificate/{courseEnroll:id}', 'courseCertificate')->name('course.certificate');
+        });
+
+        // Testimonial
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::post('/testimonial/{courseEnroll:id}', 'store')->name('testimonial.store');
         });
     });
 });

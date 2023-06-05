@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade');
-            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
+            $table->uuid('course_enroll_id');
+            $table->foreign('course_enroll_id')->references('id')->on('course_enrolls')->onDelete('cascade')->onUpdate('cascade');
             $table->text('testimonial');
             $table->integer('rating');
             $table->enum('status', ['tampilkan', 'sembunyikan'])->default('sembunyikan');
