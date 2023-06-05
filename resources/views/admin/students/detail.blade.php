@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Pelajar</h4>
+                <h4 class="page-title">Detail Kelas Siswa</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="/admin">
@@ -17,7 +17,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('admin/student') }}">
-                            Data Pelajar
+                            Data Siswa
                         </a>
                     </li>
                     <li class="separator">
@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Data Kelas Pelajar
+                            Data Kelas Siswa
                         </a>
                     </li>
                 </ul>
@@ -45,24 +45,45 @@
                                 <table id="studentTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                             <th>Judul</th>
                                             <th>Mentor</th>
-                                            <th>Kategori</th>
-                                            <th>Harga</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Kategori</th>
+                                            <th class="space-nowrap">Harga</th>
+                                            <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($student->studentCourseEnrolls as $enroll)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $enroll->course->title }}</td>
-                                            <td>{{ $enroll->course->mentor->name }}</td>
-                                            <td>{{ $enroll->course->category->name }}</td>
-                                            <td> {{ $enroll->course->price }} </td>
-                                            <td> {{ $enroll->status }} </td>
-                                        </tr>
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $enroll->course->title }}</td>
+                                                <td>{{ $enroll->course->mentor->name }}</td>
+                                                <td class="text-center space-nowrap">{{ $enroll->course->category->name }}
+                                                </td>
+                                                <td class="space-nowrap">
+                                                    {{ 'Rp ' . number_format($enroll->course->price, 0, ',', '.') }}</td>
+                                                <td class="text-center space-nowrap text-capitalize">
+                                                    <span
+                                                        class="badge @switch($enroll->status)
+                                                                    @case('menunggu pembayaran')
+                                                                        badge-waiting
+                                                                        @break
+                                                                    @case('aktif')
+                                                                        badge-info
+                                                                        @break
+                                                                    @case('proses')
+                                                                        badge-pending
+                                                                        @break
+                                                                    @case('selesai')
+                                                                        badge-diterima
+                                                                        @break
+                                                                @endswitch"><i
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $enroll->status }}
+                                                    </span>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
