@@ -16,13 +16,13 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/student">Data Diskon</a>
+                        <a href="{{ route('mentor.discount') }}">Data Diskon</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Ubah Diskon
+                        <a href="#">Form Ubah Diskon</a>
                     </li>
                 </ul>
             </div>
@@ -47,8 +47,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="code" name="code"
-                                            value="{{ $discount->code }}"
-                                            required>
+                                            value="{{ $discount->code }}" required>
                                     </div>
                                 </div>
                                 {{-- Diskon --}}
@@ -57,8 +56,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="number" class="form-control" id="discount" name="discount"
-                                            value="{{ $discount->discount }}"
-                                            required>
+                                            value="{{ $discount->discount }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -66,8 +64,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         <a href="/mentor/discount" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="updateButton"
-                                            type="submit">Ubah</button>
+                                        <button class="btn btn-primary ml-3" id="updateButton" type="submit">Ubah</button>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +118,7 @@
                 $('#updateButton').prop('disabled', true);
                 $.ajax({
                     type: "PUT",
-                    url: `{{ url('/mentor/discount/'. $discount->id) }}`,
+                    url: `{{ url('/mentor/discount/' . $discount->id) }}`,
                     data: {
                         code: $('#code').val(),
                         discount: $('#discount').val(),

@@ -45,21 +45,21 @@
                                 <table id="discountTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Kode</th>
+                                            <th class="text-center">#</th>
+                                            <th class="filter-none">Kode</th>
                                             <th>Diskon</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Status</th>
                                             <th>Tanggal</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center filter-none space-nowrap">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($discounts as $discount)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $discount->code }}</td>
-                                                <td>Rp {{ number_format($discount->discount,0, ',','.') }}</td>
-                                                <td>
+                                                <td>Rp {{ number_format($discount->discount, 0, ',', '.') }}</td>
+                                                <td class="text-center">
                                                     <span
                                                         class="badge @switch($discount->status)
                                                                 @case(1)
@@ -77,13 +77,13 @@
                                                     {{ date('d-m-Y', strtotime($discount->created_at)) }}</td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ url('/mentor/discount/' . $discount->id) }}"
-                                                        class="btn btn-primary btn-sm">Edit</a>
+                                                        class="btn btn-primary btn-sm mr-1">Edit</a>
                                                     @if ($discount->status == 1)
                                                         <button onclick="nonactivateDiscount('{{ $discount->id }}')"
-                                                            class="btn btn-warning btn-sm">Nonaktifkan</button>
+                                                            class="btn btn-warning btn-sm mr-1">Nonaktifkan</button>
                                                     @else
                                                         <button onclick="activateDiscount('{{ $discount->id }}')"
-                                                            class="btn btn-info btn-sm">Aktifkan</button>
+                                                            class="btn btn-info btn-sm mr-1">Aktifkan</button>
                                                     @endif
                                                     <button onclick="deleteDiscount('{{ $discount->id }}')"
                                                         class="btn btn-danger btn-sm">Hapus</button>
@@ -104,7 +104,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#discountTable').DataTable({});
+            $('#discountTable').DataTable({
+                "columnDefs": [{
+                    "targets": 'filter-none',
+                    "orderable": false,
+                }],
+            });
         });
 
         function nonactivateDiscount(discount) {

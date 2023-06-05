@@ -151,8 +151,8 @@
                 </a>
             </li>
         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-            <li class="nav-item @if ($active == 'referral') active @endif">
-                <a href="/mentor/discount">
+            <li class="nav-item @if ($active == 'discount') active @endif">
+                <a href="{{ route('mentor.discount') }}">
                     <i class="fas fa-ticket-alt"></i>
                     <p>Kode Diskon</p>
                 </a>
