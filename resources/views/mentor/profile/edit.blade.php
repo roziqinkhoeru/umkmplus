@@ -73,6 +73,15 @@
                                             placeholder="Masukkan No Telepon" value="{{ $mentor->phone }}" required>
                                     </div>
                                 </div>
+                                {{-- dob --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="dob" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <input type="text" name="dob" class="form-control" id="dob"
+                                            placeholder="Tanggal Lahir" value="{{ date("d/m/Y", strtotime($admin->customer->dob)) }}" required>
+                                    </div>
+                                </div>
                                 {{-- gender --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="gender" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
@@ -148,6 +157,15 @@
 
 @section('script')
     <script>
+
+        $(document).ready(function() {
+            $('#dob').datetimepicker({
+                format: 'DD/MM/YYYY',
+            }).on('changeDate', function(e) {
+                // Mengganti value input dob dengan tanggal yang dipilih
+                $('#dob').val(e.format('dd/mm/yyyy'));
+            });
+        });
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Username tidak boleh ada spasi");
@@ -163,6 +181,9 @@
                     minlength: 3,
                     maxlength: 50,
                     nowhitespace: true,
+                },
+                dob: {
+                    required: true,
                 },
                 email: {
                     required: true,
@@ -200,6 +221,9 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username minimal 3 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username maksimal 50 karakter',
                     nowhitespace: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Username tidak boleh ada spasi',
+                },
+                dob: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tanggal lahir tidak boleh kosong',
                 },
                 email: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak boleh kosong',
@@ -252,6 +276,7 @@
                             data: {
                                 name: $('#name').val(),
                                 username: $('#username').val(),
+                                dob: $('#dob').val(),
                                 email: $('#email').val(),
                                 phone: $('#phone').val(),
                                 gender: $('#gender').val(),

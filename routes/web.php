@@ -165,7 +165,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:admin']], function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/admin', 'index')->name('admin.dashboard');
-            Route::get('/admin/nameAdmin', 'profile')->name('admin.profile');
+            Route::get('/admin/profile', 'profile')->name('admin.profile');
+            Route::put('/admin/profile/update', 'adminUpdateProfile')->name('admin.update.profile');
         });
         // Mentor
         Route::controller(MentorController::class)->group(function () {

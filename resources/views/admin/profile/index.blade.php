@@ -21,19 +21,27 @@
                             <form action="#" id="profileAdminForm">
                                 <div class="row mt-3">
                                     {{-- name --}}
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Name"
-                                                value="Hizrian">
+                                            <label>Nama</label>
+                                            <input type="text" class="form-control" name="name" id="name"
+                                                placeholder="Nama" value="{{ $admin->customer->name }}">
+                                        </div>
+                                    </div>
+                                    {{-- username --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default">
+                                            <label>username</label>
+                                            <input type="username" class="form-control" name="username" id="username"
+                                                placeholder="username" value="{{ $admin->username }}">
                                         </div>
                                     </div>
                                     {{-- email --}}
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group form-group-default">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" name="email" placeholder="Name"
-                                                value="hello@example.com">
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                placeholder="email" value="{{ $admin->email }}">
                                         </div>
                                     </div>
                                 </div>
@@ -41,27 +49,31 @@
                                     {{-- birth date --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Birth Date</label>
-                                            <input type="text" class="form-control" id="datepicker" name="datepicker"
-                                                value="03/21/1998" placeholder="Birth Date">
+                                            <label>Tanggal Lahir</label>
+                                            <input type="text" class="form-control" id="dob" name="dob"
+                                                value="{{ date("d/m/Y", strtotime($admin->customer->dob)) }}" placeholder="Birth Date">
                                         </div>
                                     </div>
                                     {{-- gender --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Gender</label>
+                                            <label>Jenis Kelamin</label>
                                             <select class="form-control" id="gender" name="gender">
-                                                <option value="Laki-laki">Laki-laki</option>
-                                                <option value="perempuan">perempuan</option>
+                                                <option value="Laki-laki"
+                                                    {{ $admin->customer->gender == 'laki-laki' ? 'selected' : '' }}>
+                                                    Laki-laki</option>
+                                                <option value="perempuan"
+                                                    {{ $admin->customer->gender == 'perempuan' ? 'selected' : '' }}>
+                                                    perempuan</option>
                                             </select>
                                         </div>
                                     </div>
                                     {{-- phone --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" value="082314876543" name="phone"
-                                                placeholder="Phone">
+                                            <label>No Telepon</label>
+                                            <input type="text" class="form-control" id="phone"
+                                                value="{{ $admin->customer->phone }}" name="phone" placeholder="Phone">
                                         </div>
                                     </div>
                                 </div>
@@ -69,15 +81,15 @@
                                     {{-- address --}}
                                     <div class="col-md-12">
                                         <div class="form-group form-group-default">
-                                            <label>Address</label>
+                                            <label>Alamat</label>
                                             <input type="text" class="form-control"
-                                                value="st Merdeka Putih, Jakarta Indonesia" name="address"
+                                                value="{{ $admin->customer->address }}" id="address" name="address"
                                                 placeholder="Address">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right mt-3 mb-3">
-                                    <button class="btn btn-success">Save</button>
+                                    <button class="btn btn-success" type="submit" id="updateButton">Ubah</button>
                                 </div>
                             </form>
                         </div>
@@ -96,11 +108,9 @@
                         </div>
                         <div class="card-body">
                             <div class="user-profile text-center">
-                                <div class="name">Hizrian, 19</div>
-                                <div class="job">Admin</div>
-                                <div class="desc">
-                                    Mengelola data UMKMPlus
-                                </div>
+                                <div class="name">{{ $admin->customer->name }}</div>
+                                <div class="job">admin</div>
+                                <div class="desc">Mengelola Data UMKMPlus</div>
                             </div>
                         </div>
                     </div>
@@ -108,12 +118,18 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
 
 @section('script')
     <script>
-        $('#datepicker').datetimepicker({
-            format: 'MM/DD/YYYY',
+        $(document).ready(function() {
+            $('#dob').datetimepicker({
+                format: 'DD/MM/YYYY',
+            }).on('changeDate', function(e) {
+                // Mengganti value input dob dengan tanggal yang dipilih
+                $('#dob').val(e.format('dd/mm/yyyy'));
+            });
         });
 
         $('#profileAdminForm').validate({
@@ -124,7 +140,10 @@
                 email: {
                     required: true,
                 },
-                datepicker: {
+                username: {
+                    required: true,
+                },
+                dob: {
                     required: true,
                 },
                 gender: {
@@ -134,6 +153,7 @@
                     required: true,
                     number: true,
                     minlength: 10,
+                    maxlength: 16,
                 },
                 address: {
                     required: true,
@@ -146,7 +166,10 @@
                 email: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Email tidak boleh kosong',
                 },
-                datepicker: {
+                username: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Username tidak boleh kosong',
+                },
+                dob: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tanggal lahir tidak boleh kosong',
                 },
                 gender: {
@@ -161,6 +184,76 @@
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat tidak boleh kosong',
                 }
             },
+            submitHandler: function(form, event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Anda akan mengubah data profil!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#updateButton').html(
+                            '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+                        $('#updateButton').prop('disabled', true);
+                        $.ajax({
+                            url: "{{ route('admin.update.profile') }}",
+                            type: "PUT",
+                            data: {
+                                name: $('#name').val(),
+                                username: $('#username').val(),
+                                dob: $('#dob').val(),
+                                email: $('#email').val(),
+                                phone: $('#phone').val(),
+                                gender: $('#gender').val(),
+                                address: $('#address').val(),
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                $('#updateButton').html('Ubah');
+                                $('#updateButton').prop('disabled', false);
+                                $.notify({
+                                    icon: 'flaticon-alarm-1',
+                                    title: 'UMKMPlus Admin',
+                                    message: response.meta.message,
+                                }, {
+                                    type: 'secondary',
+                                    placement: {
+                                        from: "top",
+                                        align: "right"
+                                    },
+                                    time: 2000,
+                                });
+                                window.location.href = response.data.redirect
+                            },
+                            error: function(xhr, status, error) {
+                                $('#updateButton').html('Ubah');
+                                $('#updateButton').prop('disabled', false);
+                                if (xhr.responseJSON)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'UBAH MENTOR GAGAL!',
+                                        text: xhr.responseJSON.meta.message +
+                                            " Error: " + xhr
+                                            .responseJSON.data.error,
+                                    })
+                                else
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'UBAH MENTOR GAGAL!',
+                                        text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                            error,
+                                    })
+                                return false;
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            }
         });
     </script>
 @endsection
