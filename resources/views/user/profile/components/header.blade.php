@@ -12,17 +12,18 @@
                             <h3 class="profile__basic-title">
                                 Welcome Back <span>{{ $profile->name }}</span>
                             </h3>
-                            <p>{{ $profile->student_course_enrolls_count }} Running Courses <button onclick="getContent('course')">View Course</button></p>
+                            <p>{{ $profile->student_course_enrolls_count }} Running Courses <button
+                                    onclick="getContent('course')" class="btn-anchor">View Course</button></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-6 col-md-6">
                     <div class="profile__basic-cart d-flex align-items-center justify-content-md-end">
                         <div class="cart-info mr-10">
-                            <a href="cart.html">View cart</a>
+                            <a href="{{ route('cart.index') }}">View cart</a>
                         </div>
                         <div class="cart-item">
-                            <a href="cart.html">
+                            <a href="{{ route('cart.index') }}">
                                 <i class="fa-regular fa-basket-shopping"></i>
                                 <span class="cart-quantity">{{ $profile->carts_count }}</span>
                             </a>

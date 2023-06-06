@@ -119,26 +119,43 @@
                 default:
                     break;
             }
-
         }
 
         let htmlString = ""
 
+        // menu profile
         function getProfile() {
+            // Display loading state
+            $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
+                                        <div class="order__info">
+                                            <div class="profile__info-top d-flex justify-content-between align-items-center">
+                                                <h3 class="profile__info-title">Informasi Akun</h3>
+                                                <button class="profile__info-btn" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#profile_edit_modal"><i
+                                                        class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
+                                            </div>
+                                            <div class="order__list white-bg">
+                                                <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
+                                                    <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `);
+
             $.ajax({
                 url: "{{ route('get.profile') }}",
                 type: "GET",
                 dataType: "JSON",
                 success: function(response) {
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
-                                    <div class="profile__info" id="profileInfo">
-                                        <div class="profile__info-top d-flex justify-content-between align-items-center">
-                                            <h3 class="profile__info-title">Profile Information</h3>
-                                            <button class="profile__info-btn" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#profile_edit_modal"><i
-                                                    class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
-                                        </div>
-
+                            <div class="profile__info" id="profileInfo">
+                                <div class="profile__info-top d-flex justify-content-between align-items-center">
+                                    <h3 class="profile__info-title">Informasi Akun</h3>
+                                    <button class="profile__info-btn" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#profile_edit_modal"><i
+                                            class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
+                                </div>
                                         <div class="profile__info-wrapper white-bg">
                                             <div class="profile__info-item">
                                                 <p>Nama</p>
@@ -162,7 +179,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>`
+                                    <div class="profile__info-item">
+                                        <p>Email</p>
+                                        <h4>${response.data.email}</h4>
+                                    </div>
+                                    <div class="profile__info-item">
+                                        <p>No Telepon</p>
+                                        <h4>${response.data.customer.phone}</h4>
+                                    </div>
+                                    <div class="profile__info-item">
+                                        <p>Alamat</p>
+                                        <h4>${response.data.customer.address}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
                     $("#nav-tabContent").html(htmlString);
                     $("#profileEditModal").html(`
                         <div class="modal fade" id="profile_edit_modal" tabindex="-1" aria-labelledby="profile_edit_modal"aria-hidden="true">
@@ -206,9 +237,34 @@
                                         </form>
                                     </div>
                                 </div>
+                                <form action="{{ route('update.profile') }}" method="POST" id="formUpdateProfile">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="profile__edit-input">
+                                        <p>Nama</p>
+                                        <input type="text" name="name" id="name" value="${response.data.customer.name}" placeholder="Nama Anda">
+                                    </div>
+                                    <div class="profile__edit-input">
+                                        <p>Email</p>
+                                        <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda" disabled>
+                                    </div>
+                                    <div class="profile__edit-input">
+                                        <p>No Telepon</p>
+                                        <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
+                                    </div>
+                                    <div class="profile__edit-input">
+                                        <p>Alamat</p>
+                                        <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
+                                    </div>
+                                    <div class="profile__edit-input">
+                                        <button type="submit" id="updateProfileButton" class="tp-btn w-100">Update</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    `);
+                    </div>
+                </div>
+            `);
                     $("#formUpdateProfile").validate({
                         rules: {
                             name: {
@@ -317,149 +373,204 @@
             });
         }
 
+        // menu my course
         function getCourse() {
+            // Display loading state
+            $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
+                                        <div class="order__info">
+                                            <div class="order__info-top d-flex justify-content-between align-items-center">
+                                                <h3 class="order__info-title">Kelas Saya</h3>
+                                                <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                                            </div>
+                                            <div class="order__list white-bg">
+                                                <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
+                                                    <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `);
             $.ajax({
-                        type: "GET",
-                        url: "{{ route('get.profile.course') }}",
-                        dataType: "JSON",
-                        success: function(response) {
-                            htmlString = `<div class="tab-pane fade show active" role="tabpanel">
-                                <div class="order__info">
-                                    <div class="order__info-top d-flex justify-content-between align-items-center">
-                                        <h3 class="order__info-title">My Orders</h3>
-                                        <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                type: "GET",
+                url: "{{ route('get.profile.course') }}",
+                dataType: "json",
+                success: function(response) {
+                    htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                                    <div class="order__info">
+                                        <div class="order__info-top d-flex justify-content-between align-items-center">
+                                            <h3 class="order__info-title">Kelas Saya</h3>
+                                            <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                                        </div>
+                                        <div class="order__list white-bg table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Order ID</th>
+                                                        <th scope="col">Nama</th>
+                                                        <th scope="col">Harga</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    ${getMyCourse(response.data)}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-
-                                    <div class="order__list white-bg table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Order ID</th>
-                                                    <th scope="col">Nama</th>
-                                                    <th scope="col">Harga</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                ${$.map(response.data, function (enroll) {
-                                                    let option = {
-                                                        style: 'currency',
-                                                        currency: 'IDR',
-                                                        useGrouping: true,
-                                                        minimumFractionDigits: 0,
-                                                        maximumFractionDigits: 0,
-                                                    };
-                                                    let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                    return `<tr>
-                                                        <td class="order__id">#${enroll.id}</td>
-                                                        <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
-                                                        <td>${coursePrice}</td>
-                                                        <td>${enroll.status}</td>
-                                                        <td>
-                                                            <a href="{{ url('/course/playing/${enroll.id}') }}" class="btn btn-primary ">View</a>
-                                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="btn btn-success ">Sertifikat</a>` : ``}
-                                                        </td>
-                                                    </tr>`;
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-`
-            $("#nav-tabContent").html(htmlString);
-        },
-        error: function(xhr, status, error) {
-        console.log(xhr.responseText);
+                                </div>`
+                    $("#nav-tabContent").html(htmlString);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            })
         }
-        });
+        // get my course data
+        function getMyCourse(data) {
+            let myCourse = '';
+            $.map(data, function(enroll) {
+                let option = {
+                    style: 'currency',
+                    currency: 'IDR',
+                    useGrouping: true,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                };
+                let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
+                myCourse += `<tr>
+                            <td class="order__id">#${enroll.id}</td>
+                            <td>
+                                <a href="course-details.html" class="order__title">${enroll.course.title}</a>
+                                </td>
+                            <td>${coursePrice}</td>
+                            <td>${enroll.status}</td>
+                            <td>
+                                <a href="{{ url('/course/playing/${enroll.id}') }}" class="btn btn-primary">View</a>
+                                ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="btn btn-success">Sertifikat</a>` : ''}
+                            </td>
+                        </tr>`;
+            })
+            return myCourse;
         }
 
+        // menu transaction
         function getTransactionHistory() {
-            $.ajax({
-                        type: "GET",
-                        url: "{{ route('get.profile.transaction.history') }}",
-                        dataType: "JSON",
-                        success: function(response) {
-                            htmlString = `<div class="tab-pane fade show active" role="tabpanel">
-                                <div class="order__info">
-                                    <div class="order__info-top d-flex justify-content-between align-items-center">
-                                        <h3 class="order__info-title">My Orders</h3>
-                                        <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+            // Display loading state
+            $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
+                                        <div class="order__info">
+                                            <div
+                                                class="order__info-top d-flex justify-content-between align-items-center"
+                                            >
+                                                <h3 class="order__info-title">Riwayat Transaksi</h3>
+                                                <button type="button" class="order__info-btn">
+                                                    <i class="fa-regular fa-trash-can"></i> Clear
+                                                </button>
+                                            </div>
+                                            <div class="order__list white-bg">
+                                                <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
+                                                    <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    `);
 
-                                    <div class="order__list white-bg table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Order ID</th>
-                                                    <th scope="col">Nama</th>
-                                                    <th scope="col">Harga</th>
-                                                    <th scope="col">Detail</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                ${$.map(response.data, function (enroll) {
-                                                    let option = {
-                                                        style: 'currency',
-                                                        currency: 'IDR',
-                                                        useGrouping: true,
-                                                        minimumFractionDigits: 0,
-                                                        maximumFractionDigits: 0,
-                                                    };
-                                                    let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                                                    return `<tr>
-                                                        <td class="order__id">#${enroll.id}</td>
-                                                        <td><a href="course-details.html" class="order__title">${enroll.course.title}</a></td>
-                                                        <td>${coursePrice}</td>
-                                                        <td><a href="course-details.html" class="order__view-btn">View</a></td>
-                                                    </tr>`;
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
+            $.ajax({
+                type: "GET",
+                url: "{{ route('get.profile.transaction.history') }}",
+                dataType: "JSON",
+                success: function(response) {
+                    htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                            <div class="order__info">
+                                <div
+                                    class="order__info-top d-flex justify-content-between align-items-center"
+                                >
+                                    <h3 class="order__info-title">Riwayat Transaksi</h3>
+                                    <button type="button" class="order__info-btn">
+                                        <i class="fa-regular fa-trash-can"></i> Clear
+                                    </button>
+                                </div>
+                                <div class="order__list white-bg table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Harga</th>
+                                                <th scope="col">Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${getMyTransaction(response.data)}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-`
-            $("#nav-tabContent").html(htmlString);
-        },
-        error: function(xhr, status, error) {
-        console.log(xhr.responseText);
+                        </div>`
+                    $("#nav-tabContent").html(htmlString);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
         }
-        });
+        // get my transaction
+        function getMyTransaction(data) {
+            let myTransaction = '';
+            $.map(data, function(enroll) {
+                let option = {
+                    style: 'currency',
+                    currency: 'IDR',
+                    useGrouping: true,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                };
+                let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
+                myTransaction += `<tr>
+                                    <td class="order__id">#${enroll.id}</td>
+                                    <td>
+                                        <a href = "course-details.html" class="order__title">${enroll.course.title}</a>
+                                    </td>
+                                    <td>${coursePrice}</td>
+                                    <td>
+                                        <a href="course-details.html" class="order__view-btn">View</a
+                                    </td>
+                                </tr>
+                `;
+            })
+            return myTransaction;
         }
 
+        // menu change password
         function formChangePassword() {
-            htmlString = `
-            <div class="tab-pane fade show active" role="tabpanel">
-                <div class="password__change">
-                    <div class="password__change-top">
-                        <h3 class="password__change-title">Ubah Password</h3>
-                    </div>
-                    <div class="password__form white-bg">
-                        <form action="{{ route('profile.change.password') }}" method="POST" id="formChangePassword">
-                            @csrf
-                            @method('PUT')
-                            <div class="password__input">
-                                <p>Password Lama</p>
-                                <input type="password" id="old_password" name="old_password" placeholder="Masukkan Password Lama">
+            htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                        <div class="password__change">
+                            <div class="password__change-top">
+                                <h3 class="password__change-title">Ubah Kata Sandi</h3>
                             </div>
-                            <div class="password__input">
-                                <p>Password Baru</p>
-                                <input type="password" id="password" name="password" placeholder="Masukkan Password Baru">
+                            <div class="password__form white-bg">
+                                <form action="{{ route('profile.change.password') }}" method="POST" id="formChangePassword">
+                                    @csrf @method('PUT')
+                                    <div class="password__input">
+                                        <p>Password Lama</p>
+                                        <input type="password" id="old_password" name="old_password" placeholder="Masukkan Password Lama">
+                                    </div>
+                                    <div class="password__input">
+                                        <p>Password Baru</p>
+                                        <input type="password" id="password" name="password" placeholder="Masukkan Password Baru">
+                                    </div>
+                                    <div class="password__input">
+                                        <p>Konfirmasi Password</p>
+                                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" >
+                                    </div>
+                                    <div class="password__input">
+                                        <button type="submit "id="updatePasswordButton" class="tp-btn">Update password</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="password__input">
-                                <p>Konfirmasi Password</p>
-                                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password">
-                            </div>
-                            <div class="password__input">
-                                <button type="submit" id="updatePasswordButton" class="tp-btn">Update password</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>`
+                        </div>
+                    </div>`
             $("#nav-tabContent").html(htmlString);
             $("#formChangePassword").validate({
                 rules: {
@@ -541,6 +652,4 @@
             });
         }
     </script>
-
-    <script></script>
 @endsection
