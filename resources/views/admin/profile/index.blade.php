@@ -90,6 +90,7 @@
                                 </div>
                                 <div class="text-right mt-3 mb-3">
                                     <button class="btn btn-success" type="submit" id="updateButton">Ubah</button>
+                                    <a href="{{ route('admin.edit.password') }}" class="btn btn-warning">Reset Password</a>
                                 </div>
                             </form>
                         </div>
