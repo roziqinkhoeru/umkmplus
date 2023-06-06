@@ -28,6 +28,7 @@ class RegisterController extends Controller
         $rules = [
             'name' => 'required|min:3',
             'phone' => 'required|numeric',
+            'gender' => 'required',
             'username' => 'required|min:3|max:25|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
@@ -38,7 +39,7 @@ class RegisterController extends Controller
             return $request->ajax()
                 ? ResponseFormatter::error(
                     [
-                        'error' => $validator->errors(),
+                        'error' => $validator->errors()->first(),
                     ],
                     'Harap isi form dengan benar',
                     400,
@@ -50,6 +51,7 @@ class RegisterController extends Controller
         $customer = Customer::create([
             'name' => $request->name,
             'phone' => $request->phone,
+            'gender' => $request->gender,
             'slug' => str_replace(' ', '-', $request->name)
         ]);
 

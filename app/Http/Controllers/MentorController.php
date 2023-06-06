@@ -323,6 +323,8 @@ class MentorController extends Controller
             $rules = [
                 'name' => 'required|min:3',
                 'phone' => 'required|numeric',
+                'dob' => 'required|date',
+                'gender' => 'required',
                 'address' => 'required|min:3',
                 'job' => 'required',
                 'username' => 'required|min:3|max:25|unique:users,username,' . $user->id,
@@ -345,8 +347,10 @@ class MentorController extends Controller
             // update customer
             $updateCustomer = $mentor->update([
                 'name' => $request->name,
-                'slug' => Str::lower(Str::slug($request->name, '-')),
+                'slug' => Str::slug($request->name, '-'),
                 'phone' => $request->phone,
+                'dob' => $request->dob,
+                'gender' => $request->gender,
                 'address' => $request->address,
                 'job' => $request->job,
                 'file_cv' => $request->file_cv,

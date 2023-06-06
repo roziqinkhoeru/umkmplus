@@ -16,14 +16,6 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.course') }}">
-                            Data Mentor
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
                         <a href="#">
                             Profil Mentor
                         </a>
@@ -73,6 +65,13 @@
                                                 :
                                             </td>
                                             <td>{{ $mentor->phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Kelamin</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ $mentor->gender }}</td>
                                         </tr>
                                         <tr>
                                             <td>Pekerjaan</td>
