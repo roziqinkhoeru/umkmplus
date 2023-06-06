@@ -95,8 +95,7 @@
                                             </td>
                                             <td>
                                                 @if ($mentor->file_cv)
-                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}" class="">PDF
-                                                        file</a>
+                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}" class="">{{ substr($mentor->file_cv, 3) }}</a>
                                                 @else
                                                     <span>CV tidak tersedia</span>
                                                 @endif
