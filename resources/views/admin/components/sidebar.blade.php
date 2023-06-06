@@ -24,13 +24,13 @@
                 <ul class="nav">
                     <li>
                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                            <a href="/mentor/profile">
-                                <span class="link-collapse">Profil Saya</span>
-                            </a>
+                        <a href="/admin/profile">
+                            <span class="link-collapse">Profil Saya</span>
+                        </a>
                         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                            <a href="/admin/profile">
-                                <span class="link-collapse">Profil Saya</span>
-                            </a>
+                        <a href="/mentor/profile">
+                            <span class="link-collapse">Profil Saya</span>
+                        </a>
                         @endif
                     </li>
                 </ul>
