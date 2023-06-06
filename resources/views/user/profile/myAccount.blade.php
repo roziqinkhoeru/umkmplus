@@ -129,7 +129,7 @@
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
                                             <div class="profile__info-top d-flex justify-content-between align-items-center">
-                                                <h3 class="profile__info-title">Profile Information</h3>
+                                                <h3 class="profile__info-title">Informasi Akun</h3>
                                                 <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                                     data-bs-target="#profile_edit_modal"><i
                                                         class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
@@ -151,7 +151,7 @@
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="profile__info" id="profileInfo">
                                 <div class="profile__info-top d-flex justify-content-between align-items-center">
-                                    <h3 class="profile__info-title">Profile Information</h3>
+                                    <h3 class="profile__info-title">Informasi Akun</h3>
                                     <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                         data-bs-target="#profile_edit_modal"><i
                                             class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
@@ -321,7 +321,7 @@
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
                                             <div class="order__info-top d-flex justify-content-between align-items-center">
-                                                <h3 class="order__info-title">My Orders</h3>
+                                                <h3 class="order__info-title">Kelas Saya</h3>
                                                 <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
                                             </div>
                                             <div class="order__list white-bg">
@@ -340,7 +340,7 @@
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
                                         <div class="order__info-top d-flex justify-content-between align-items-center">
-                                            <h3 class="order__info-title">My Orders</h3>
+                                            <h3 class="order__info-title">Kelas Saya</h3>
                                             <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
                                         </div>
                                         <div class="order__list white-bg table-responsive">
@@ -404,7 +404,7 @@
                                             <div
                                                 class="order__info-top d-flex justify-content-between align-items-center"
                                             >
-                                                <h3 class="order__info-title">My Orders</h3>
+                                                <h3 class="order__info-title">Riwayat Transaksi</h3>
                                                 <button type="button" class="order__info-btn">
                                                     <i class="fa-regular fa-trash-can"></i> Clear
                                                 </button>
@@ -428,7 +428,7 @@
                                 <div
                                     class="order__info-top d-flex justify-content-between align-items-center"
                                 >
-                                    <h3 class="order__info-title">My Orders</h3>
+                                    <h3 class="order__info-title">Riwayat Transaksi</h3>
                                     <button type="button" class="order__info-btn">
                                         <i class="fa-regular fa-trash-can"></i> Clear
                                     </button>
@@ -489,7 +489,7 @@
             htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                         <div class="password__change">
                             <div class="password__change-top">
-                                <h3 class="password__change-title">Ubah Password</h3>
+                                <h3 class="password__change-title">Ubah Kata Sandi</h3>
                             </div>
                             <div class="password__form white-bg">
                                 <form action="{{ route('profile.change.password') }}" method="POST" id="formChangePassword">

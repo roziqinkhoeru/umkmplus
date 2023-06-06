@@ -13,7 +13,7 @@
                                 Welcome Back <span>{{ $profile->name }}</span>
                             </h3>
                             <p>{{ $profile->student_course_enrolls_count }} Running Courses <button
-                                    onclick="getContent('course')">View Course</button></p>
+                                    onclick="getContent('course')" class="btn-anchor">View Course</button></p>
                         </div>
                     </div>
                 </div>
