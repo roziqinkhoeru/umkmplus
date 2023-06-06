@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Detail Mentor
+                            Profil Mentor
                         </a>
                     </li>
                 </ul>
@@ -118,6 +118,14 @@
                                                         class="fas fa-circle" style="font-size: 10px"></i>
                                                     {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                                 </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-right">
+                                                <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
+                                                    class="btn btn-primary btn-sm">Edit</a>
+                                                    {{-- a href reset password --}}
+                                                <a href="{{ route('mentor.edit.password') }}" class="btn btn-warning btn-sm">Reset Password</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

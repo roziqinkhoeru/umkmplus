@@ -11,6 +11,7 @@ use App\Models\MentorRegistration;
 use App\Models\RoleUser;
 use App\Models\Specialist;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,8 @@ use Illuminate\Support\Str;
 
 class MentorController extends Controller
 {
+
+    /** ROLE USER **/
     public function dashboardMentor()
     {
         $data =
@@ -81,6 +84,7 @@ class MentorController extends Controller
         return view('user.mentors.detail', $data);
     }
 
+    /** ROLE ADMIN **/
     public function adminMentor()
     {
         $mentors = Customer::mentor()->get()->load('mentorCourses', 'mentorCourses.category')->map(function ($mentor) {
@@ -271,6 +275,7 @@ class MentorController extends Controller
         );
     }
 
+    /* ROLE MENTOR */
     public function mentorDashboard()
     {
         $data = [
@@ -279,5 +284,191 @@ class MentorController extends Controller
         ];
 
         return view('mentor.dashboard', $data);
+    }
+
+    public function mentorProfile()
+    {
+        $user = Auth::user()->customer;
+        $mentor = $user->load('mentorCourses', 'mentorCourses.category', 'user');
+        $data = [
+            'title' => 'Profil Mentor | Mentor UMKMPlus',
+            'active' => 'profile',
+            'mentor' => $mentor
+        ];
+
+        return view('mentor.profile.myAccount', $data);
+    }
+
+    public function mentorEditProfile()
+    {
+        $mentor = Auth::user()->customer;
+        $categories = Category::get();
+        $data = [
+            'title' => 'Edit Profil Mentor | Mentor UMKMPlus',
+            'active' => 'profile',
+            'mentor' => $mentor,
+            'categories' => $categories
+        ];
+
+        return view('mentor.profile.edit', $data);
+    }
+
+    public function mentorUpdateProfile(Request $request)
+    {
+        $user = Auth::user();
+        $mentor = $user->customer;
+        try {
+            DB::beginTransaction();
+
+            $rules = [
+                'name' => 'required|min:3',
+                'phone' => 'required|numeric',
+                'address' => 'required|min:3',
+                'job' => 'required',
+                'username' => 'required|min:3|max:25|unique:users,username,' . $user->id,
+                'email' => 'required|email|unique:users,email,' . $user->id,
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                // Form salah diisi
+                return $request->ajax()
+                    ? ResponseFormatter::error(
+                        [
+                            'error' => $validator->errors()->first(),
+                        ],
+                        'Harap isi form dengan benar',
+                        400,
+                    )
+                    : back()->with(['error' => $validator->errors()]);
+            }
+
+            // update customer
+            $updateCustomer = $mentor->update([
+                'name' => $request->name,
+                'slug' => Str::lower(Str::slug($request->name, '-')),
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'job' => $request->job,
+                'file_cv' => $request->file_cv,
+            ]);
+
+            if (!$updateCustomer) {
+                throw new Exception('Gagal memperbarui data mentor.');
+            }
+
+            // update Specialist
+            $specialist = Specialist::whereName($request->specialist)->first();
+            $specialistMentor = CustomerSpecialist::whereCustomerId($mentor->id)->first();
+            if ($specialistMentor) {
+                $specialistUpdate = CustomerSpecialist::whereCustomerId($mentor->id)->update([
+                    'specialist_id' => $specialist->id,
+                ]);
+            } else {
+                $specialistUpdate = CustomerSpecialist::create([
+                    'customer_id' => $mentor->id,
+                    'specialist_id' => $specialist->id,
+                ]);
+            }
+
+            if (!$specialistUpdate) {
+                throw new Exception('Gagal memperbarui data spesialis.');
+            }
+
+            // update user
+            $updateUser = User::whereId($user->id)->update([
+                'username' => $request->username,
+                'email' => $request->email,
+            ]);
+
+            if (!$updateUser) {
+                throw new Exception('Gagal memperbarui data user.');
+            } else {
+                DB::commit();
+                return $request->ajax()
+                    ? ResponseFormatter::success(
+                        [
+                            'redirect' => redirect('/mentor/profile')->getTargetUrl(),
+                        ],
+                        'Update profil mentor berhasil',
+                    ) : redirect('/mentor/profile')->with('success', 'Update profil mentor berhasil');
+            }
+        } catch (\Exception $e) {
+            //throw $th;
+            DB::rollBack();
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => $e->getMessage(),
+                    ],
+                    'Update profil mentor gagal',
+                    400,
+                ) : back()->withInput()->withErrors(['error' => $e->getMessage()]);
+
+        }
+    }
+
+    public function mentorEditPassword()
+    {
+        $data = [
+            'title' => 'Edit Password Mentor | Mentor UMKMPlus',
+            'active' => 'profile',
+        ];
+
+        return view('mentor.profile.editPassword', $data);
+    }
+
+    public function mentorChangePassword(Request $request)
+    {
+        $user = Auth::user();
+        $rules = [
+            'old_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            // Form salah diisi
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => $validator->errors()->first(),
+                    ],
+                    'Harap isi form dengan benar',
+                    400,
+                )
+                : back()->with(['error' => $validator->errors()]);
+        }
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => 'Password lama tidak sesuai',
+                    ],
+                    'Password lama tidak sesuai',
+                    400,
+                )
+                : back()->with(['error' => 'Password lama tidak sesuai']);
+        }
+
+        $update = User::whereId($user->id)->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        if ($update) {
+            return $request->ajax()
+                ? ResponseFormatter::success(
+                    [
+                        'redirect' => redirect('/mentor/profile')->getTargetUrl(),
+                    ],
+                    'Update password berhasil',
+                ) : redirect('/mentor/profile')->with('success', 'Update password berhasil');
+        }
+
+        return $request->ajax()
+            ? ResponseFormatter::error(
+                null,
+                'Update password gagal',
+                500
+            ) : back()->with(['error' => 'Update password gagal']);
     }
 }

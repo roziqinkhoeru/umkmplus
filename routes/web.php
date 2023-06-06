@@ -202,6 +202,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:mentor']], function () {
         Route::controller(MentorController::class)->group(function () {
             Route::get('/mentor/dashboard', 'mentorDashboard')->name('mentor.dashboard');
+            Route::get('/mentor/profile', 'mentorProfile')->name('mentor.profile');
+            Route::get('/mentor/profile/edit', 'mentorEditProfile')->name('mentor.edit.profile');
+            Route::put('/mentor/profile/update', 'mentorUpdateProfile')->name('mentor.update.profile');
+            Route::get('/mentor/profile/edit/password', 'mentorEditPassword')->name('mentor.edit.password');
+            Route::put('/mentor/profile/change-password', 'mentorChangePassword')->name('mentor.change.password');
         });
         Route::controller(DiscountController::class)->group(function () {
             Route::get('/mentor/discount', 'mentorDiscount')->name('mentor.discount');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
 use App\Models\Category;
-use App\Models\MentorRegistration;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
+use App\Models\MentorRegistration;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,10 +48,11 @@ class MentorRegistrationController extends Controller
                 400
             );
         }
+        $nameMentor = Str::slug($request->fullname);
 
         $file = $request->file('file_cv');
         $extension = $file->getClientOriginalExtension(); // Mengambil ekstensi file
-        $fileName = uniqid() . '.' . $extension; // Membuat nama file acak
+        $fileName = $nameMentor . "-cv" . '.' . $extension; // Membuat nama file acak
         $filePath = $file->storeAs('cv', $fileName, 'public'); // Menyimpan file di folder 'storage/app/public/cv'
 
         $mentor = MentorRegistration::create([
