@@ -50,16 +50,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($blogs as $blog)
                                         <tr>
-                                            <td class="text-center">1</td>
-                                            <td>Database Managament</td>
-                                            <td>Rafli Ferdian Ramadhan</td>
-                                            <td>25 Agustus 2023 (datetime)</td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td>{{ $blog->title }}</td>
+                                            <td>{{ $blog->user->customer->name }}</td>
+                                            <td>{{ CustomDate::tglIndo($blog->created_at) }}</td>
                                             <td class="space-nowrap text-center">
-                                                <a href="#" class="btn btn-primary btn-sm mr-1">Detail</a>
-                                                <button onclick="" class="btn btn-danger btn-sm mr-1">Hapus</button>
+                                                <a href="{{ route('admin.blog.show', $blog->slug) }}" class="btn btn-primary btn-sm mr-1">Detail</a>
+                                                <button onclick="deleteBlog('{{ $blog->slug }}')" class="btn btn-danger btn-sm mr-1">Hapus</button>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -81,5 +83,53 @@
                 }, ],
             });
         });
+
+
+        function deleteBlog(blog) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "BLog akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        url: `{{ url('/admin/blog/${blog}') }}`,
+                        success: function(response) {
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'BLog telah dihapus.',
+                                icon: 'success',
+                            })
+                                location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                        }
+                    });
+
+                }
+            })
+        }
     </script>
 @endsection

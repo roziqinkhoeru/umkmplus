@@ -35,9 +35,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 
-Route::get('/admin/blog', function () {
-    return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
-});
 
 // mentor
 Route::get('/mentor/blog', function () {
@@ -199,6 +196,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(TestimonialController::class)->group(function () {
             Route::get('/admin/testimonial', 'adminTestimonial')->name('admin.testimonial');
             Route::put('/admin/testimonial/{testimonial:id}', 'editStatusTestimonial')->name('admin.testimonial.status');
+        });
+        // Blog
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('/admin/blog', 'adminBlog')->name('admin.blog');
+            Route::get('/admin/blog/create', 'adminBlogCreate')->name('admin.blog.create');
+            Route::get('/admin/blog/{blog:slug}', 'adminBlogShow')->name('admin.blog.show');
+            Route::delete('/admin/blog/{blog:slug}', 'adminBlogDestroy')->name('admin.blog.show');
         });
     });
     /** MENTOR **/

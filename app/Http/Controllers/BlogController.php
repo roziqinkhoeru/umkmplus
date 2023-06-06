@@ -64,4 +64,43 @@ class BlogController extends Controller
 
         return abort(404);
     }
+
+    public function adminBlog()
+    {
+        $blogs = Blog::with('user.customer')->orderBy("created_at", "desc")->get();
+        $data = [
+            'title' => 'Blog | Admin UMKMPlus',
+            'active' => 'blog',
+            'blogs' => $blogs
+        ];
+        return view('admin.blog.index', $data);
+    }
+
+    public function adminBlogShow(Blog $blog)
+    {
+        $data = [
+            'title' => 'Blog '.$blog->title.'  | Admin UMKMPlus',
+            'active' => 'blog',
+            'blog' => $blog
+        ];
+        return view('admin.blog.show', $data);
+    }
+
+    public function adminBlogDestroy(Blog $blog)
+    {
+        $delete = $blog->delete();
+
+        if ($delete) {
+            return ResponseFormatter::success(
+                null,
+                'Blog berhasil dihapus'
+            );
+        } else {
+            return ResponseFormatter::error(
+                null,
+                'Blog gagal dihapus',
+                500
+            );
+        }
+    }
 }
