@@ -51,8 +51,8 @@
                                         <div class="form-group form-group-default">
                                             <label>Gender</label>
                                             <select class="form-control" id="gender" name="gender">
-                                                <option>Male</option>
-                                                <option>Female</option>
+                                                <option value="Laki-laki">Laki-laki</option>
+                                                <option value="perempuan">perempuan</option>
                                             </select>
                                         </div>
                                     </div>

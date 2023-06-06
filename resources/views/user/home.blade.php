@@ -172,16 +172,20 @@
                                             <div
                                                 class="course__bottom d-sm-flex align-items-center justify-content-between">
                                                 <div class="testimoni-author-wrapper">
-                                                    <img src="{{ asset($testimonial->courseEnroll->student->profile_picture) }}"
-                                                        alt="testimoni-1">
+                                                    <img src="{{ ($testimonial->courseEnroll ? asset($testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png')) }}" alt="testimoni-{{ $loop->iteration }}">
                                                     <div>
-                                                        <p class="testimoni-author-name">{{ $testimonial->courseEnroll->student->name }}
+                                                        <p class="testimoni-author-name">
+                                                            {{ ($testimonial->courseEnroll ? $testimonial->courseEnroll->student->name : "") }}
                                                         </p>
                                                         <p class="testimoni-author-job">
-                                                            @if ($testimonial->courseEnroll->student->job != null)
-                                                                {{ $testimonial->courseEnroll->student->job }}
+                                                            @if ($testimonial->courseEnroll)
+                                                                @if ($testimonial->courseEnroll->student->job != null)
+                                                                    {{ $testimonial->courseEnroll->student->job }}
+                                                                @else
+                                                                    Pelaku Usaha
+                                                                @endif
                                                             @else
-                                                                Pelaku Usaha
+                                                                -
                                                             @endif
                                                         </p>
                                                     </div>

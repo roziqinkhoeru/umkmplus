@@ -73,6 +73,18 @@
                                             placeholder="Masukkan No Telepon" value="{{ $mentor->phone }}" required>
                                     </div>
                                 </div>
+                                {{-- gender --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="gender" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                            <select class="form-control w-100 h-52" aria-label="Default select example"
+                                                name="gender" id="gender" required>
+                                                <option value="laki-laki">laki-laki</option>
+                                                <option value="perempuan">perempuan</option>
+                                            </select>
+                                    </div>
+                                </div>
                                 {{-- address --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Alamat
@@ -162,6 +174,9 @@
                     minlength: 10,
                     maxlength: 16,
                 },
+                gender: {
+                    required: true,
+                },
                 address: {
                     required: true,
                     minlength: 3,
@@ -195,6 +210,9 @@
                     number: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone hanya boleh berisi angka',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone minimal 10 digit',
                     maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone maksimal 16 digit',
+                },
+                gender: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Jenis kelamin tidak boleh kosong',
                 },
                 address: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Alamat tidak boleh kosong',
@@ -236,6 +254,7 @@
                                 username: $('#username').val(),
                                 email: $('#email').val(),
                                 phone: $('#phone').val(),
+                                gender: $('#gender').val(),
                                 address: $('#address').val(),
                                 job: $('#job').val(),
                                 specialist: $('#specialist').val(),

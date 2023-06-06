@@ -153,6 +153,10 @@
                                                 <h4>${response.data.customer.phone}</h4>
                                             </div>
                                             <div class="profile__info-item">
+                                                <p>Jenis Kelamin</p>
+                                                <h4>${response.data.customer.gender}</h4>
+                                            </div>
+                                            <div class="profile__info-item">
                                                 <p>Alamat</p>
                                                 <h4>${response.data.customer.address}</h4>
                                             </div>
@@ -185,6 +189,14 @@
                                                 <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
                                             </div>
                                             <div class="profile__edit-input">
+                                                <p>Jenis Kelamin</p>
+                                                <select class="select-form w-100 h-52" aria-label="Default select example"
+                                                    name="gender" id="gender" required>
+                                                    <option value="laki-laki">laki-laki</option>
+                                                    <option value="perempuan">perempuan</option>
+                                                </select>
+                                            </div>
+                                            <div class="profile__edit-input">
                                                 <p>Alamat</p>
                                                 <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
                                             </div>
@@ -212,6 +224,9 @@
                                 minlength: 10,
                                 maxlength: 16
                             },
+                            gender: {
+                                required: true
+                            },
                             address: {
                                 required: true,
                                 minlength: 5
@@ -231,6 +246,9 @@
                                 minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>No Telepon minimal 10 karakter',
                                 maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>No Telepon maksimal 16 karakter',
                             },
+                            gender: {
+                                required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis Kelamin tidak boleh kosong',
+                            },
                             address: {
                                 required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Alamat tidak boleh kosong',
                                 minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Alamat minimal 5 karakter',
@@ -247,6 +265,7 @@
                                     name: $('#name').val(),
                                     email: $('#email').val(),
                                     phone: $('#phone').val(),
+                                    gender: $('#gender').val(),
                                     address: $('#address').val(),
                                     _token: "{{ csrf_token() }}"
                                 },
@@ -257,6 +276,7 @@
                                     $('#name').val("");
                                     $('#email').val("");
                                     $('#phone').val("");
+                                    $('#gender').val("");
                                     $('#address').val("");
                                     $('#profile_edit_modal').modal('hide');
                                     Swal.fire({

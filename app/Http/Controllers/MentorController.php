@@ -323,6 +323,7 @@ class MentorController extends Controller
             $rules = [
                 'name' => 'required|min:3',
                 'phone' => 'required|numeric',
+                'gender' => 'required',
                 'address' => 'required|min:3',
                 'job' => 'required',
                 'username' => 'required|min:3|max:25|unique:users,username,' . $user->id,
@@ -347,6 +348,7 @@ class MentorController extends Controller
                 'name' => $request->name,
                 'slug' => Str::lower(Str::slug($request->name, '-')),
                 'phone' => $request->phone,
+                'gender' => $request->gender,
                 'address' => $request->address,
                 'job' => $request->job,
                 'file_cv' => $request->file_cv,

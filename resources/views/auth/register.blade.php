@@ -77,6 +77,20 @@
                                                 id="phone" value="{{ old('phone') }}" required class="input-form">
                                         </div>
                                     </div>
+                                    {{-- gender --}}
+                                    <div class="sign__input-wrapper mb-22">
+                                        <label for="gender">
+                                            <h5>Jenis Kelamin</h5>
+                                        </label>
+                                        <div class="sign__input">
+                                            <select class="select-form w-100 h-52" aria-label="Default select example"
+                                                name="gender" id="gender" required>
+                                                <option hidden selected>Pilih Jenis Kelamin</option>
+                                                <option selected value="laki-laki">laki-laki</option>
+                                                <option value="perempuan">perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="sign__input-wrapper mb-22">
                                         <label for="password">
                                             <h5>Kata Sandi</h5>
@@ -157,6 +171,9 @@
                     minlength: 10,
                     maxlength: 16,
                 },
+                gender: {
+                    required: true,
+                },
                 password: {
                     required: true,
                     minlength: 8,
@@ -189,6 +206,9 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone minimal 10 digit',
                     maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nomor handphone maksimal 16 digit',
                 },
+                gender: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis kelamin tidak boleh kosong',
+                },
                 password: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi tidak boleh kosong',
                     minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Kata sandi minimal 8 karakter',
@@ -213,6 +233,7 @@
                         username: $('#username').val(),
                         email: $('#email').val(),
                         phone: $('#phone').val(),
+                        gender: $('#gender').val(),
                         password: $('#password').val(),
                         password_confirmation: $('#password_confirmation').val(),
                         _token: "{{ csrf_token() }}"
@@ -234,7 +255,8 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'PENDAFTARAN GAGAL!',
-                                text: xhr.responseJSON.meta.message,
+                                text: xhr.responseJSON.meta.message + ' Error: ' +
+                                    xhr.responseJSON.data.error,
                             })
                         else
                             Swal.fire({
