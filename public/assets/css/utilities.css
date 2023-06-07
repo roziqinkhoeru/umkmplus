@@ -45,6 +45,13 @@
 .space-nowrap {
     white-space: nowrap !important;
 }
+.px-9 {
+    padding-left: 36px !important;
+    padding-right: 36px !important;
+}
+.pb-9 {
+    padding-bottom: 36px !important;
+}
 
 /* input */
 .input-form {
@@ -267,6 +274,9 @@ label.error {
 .col-span-4 {
     grid-column: span 4 / span 4;
 }
+.col-span-10 {
+    grid-column: span 10 / span 10;
+}
 .col-span-full {
     grid-column: 1 / -1;
 }
@@ -337,6 +347,10 @@ label.error {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+.object-cover-center {
+    object-fit: cover;
+    object-position: center;
 }
 
 /* animation */
