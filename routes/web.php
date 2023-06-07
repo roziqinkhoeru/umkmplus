@@ -35,15 +35,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 
-
-// mentor
-Route::get('/mentor/blog', function () {
-    return view('mentor.blog.index', ['title' => 'Blog | Mentor UMKMPlus', 'active' => 'blog']);
-});
-Route::get('/mentor/blog/create', function () {
-    return view('mentor.blog.create', ['title' => 'Create Blog | Mentor UMKMPlus', 'active' => 'blog']);
-});
-
 // admin
 Route::get('/admin/reset-password', function () {
     return view('admin.auth.resetPassword', ['title' => 'Reset Password | Mentor UMKMPlus']);

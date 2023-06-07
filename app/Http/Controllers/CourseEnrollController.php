@@ -38,13 +38,13 @@ class CourseEnrollController extends Controller
         $courseEnroll = CourseEnroll::whereStudentId($student->id)->whereCourseId($course->id)->first();
         if ($courseEnroll && ($courseEnroll->status == 'proses' || $courseEnroll->status == 'menunggu pembayaran')) {
             return redirect($courseEnroll->snap_url);
-        } else if ($courseEnroll && ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai') ) {
+        } else if ($courseEnroll && ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai')) {
             return back()->with('error', 'Anda sudah terdaftar di kelas ini');
         }
         $course->discountPrice = ceil($course->price * $course->discount / 100);
         $data =
             [
-                'title' => 'Checkout Kelas ' . $course->title .' | UMKMPlus',
+                'title' => 'Checkout Kelas ' . $course->title . ' | UMKMPlus',
                 'course' => $course,
             ];
 
@@ -285,8 +285,9 @@ class CourseEnrollController extends Controller
         }
 
         $data = [
-            'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
+            'title' => 'Belajar ' . $courseEnroll->course->title . ' | Admin UMKMPlus',
             'active' => 'course',
+            'noModule' => $noModule,
             'courseEnroll' => $courseEnroll,
             'lastMedia' => $lastMedia ? $lastMedia : null,
         ];
@@ -319,6 +320,7 @@ class CourseEnrollController extends Controller
                 403
             );
         }
+        // if student not buy yet this course
         $mediaModule = MediaModule::with('module')->where('id', request()->id)->first();
         if ($mediaModule->module->course_id != $courseEnroll->course_id) {
             return ResponseFormatter::error(
@@ -330,6 +332,7 @@ class CourseEnrollController extends Controller
             );
         }
 
+        // update upto no module and media
         if ($courseEnroll->upto_no_module < $mediaModule->module->no_module) {
             $courseEnroll->update([
                 'upto_no_module' => $mediaModule->module->no_module,
@@ -346,6 +349,7 @@ class CourseEnrollController extends Controller
         $countModule = Module::where('course_id', $courseEnroll->course_id)->count();
         $lastMediaCourse = MediaModule::where('module_id', $countModule)->max('no_media');;
 
+        // get next media
         $nextMedia = MediaModule::where('module_id', $mediaModule->module_id)->where('no_media', $mediaModule->no_media + 1)->first();
         if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
             $next = $nextMedia->id;
@@ -353,7 +357,7 @@ class CourseEnrollController extends Controller
             $nextMedia = MediaModule::where('module_id', $mediaModule->module_id + 1)->where('no_media', 1)->first();
             if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
                 $next = $nextMedia->id;
-            } else if($countModule == $courseEnroll->upto_no_module && $lastMediaCourse == $courseEnroll->upto_no_media) {
+            } else if ($countModule == $courseEnroll->upto_no_module && $lastMediaCourse == $courseEnroll->upto_no_media) {
                 if ($courseEnroll->course->google_form && $courseEnroll->status != 'selesai') {
                     $next = "test";
                 } else {
@@ -366,6 +370,8 @@ class CourseEnrollController extends Controller
             [
                 'message' => 'Berhasil mengambil data',
                 'mediaModule' => $mediaModule,
+                'beforeNoModule' => $courseEnroll->upto_no_module - 1,
+                'noModule' => $courseEnroll->upto_no_module,
                 'next' => $next,
             ],
             'Berhasil mengambil data'
@@ -376,7 +382,7 @@ class CourseEnrollController extends Controller
     {
         $course = Course::where('id', $courseEnroll->course_id)->first();
         $data = [
-            'title' => 'Belajar '. $courseEnroll->title .' | Admin UMKMPlus',
+            'title' => 'Belajar ' . $courseEnroll->title . ' | Admin UMKMPlus',
             'active' => 'course',
             'courseEnroll' => $courseEnroll,
             'course' => $course,
@@ -404,10 +410,10 @@ class CourseEnrollController extends Controller
             return redirect()->route('course.testimonial', $courseEnroll->id);
         }
         $data =
-        [
-            'title' => 'Sertifikat | UMKM Plus',
-            'courseEnroll' => $courseEnroll
-        ];
+            [
+                'title' => 'Sertifikat | UMKM Plus',
+                'courseEnroll' => $courseEnroll
+            ];
 
         dd($data);
 
@@ -423,10 +429,10 @@ class CourseEnrollController extends Controller
 
         $courseEnroll->load('course');
         $data =
-        [
-            'title' => 'Testimonial | UMKM Plus',
-            'courseEnroll' => $courseEnroll
-        ];
+            [
+                'title' => 'Testimonial | UMKM Plus',
+                'courseEnroll' => $courseEnroll
+            ];
 
         return view('user.testimonials.create', $data);
     }

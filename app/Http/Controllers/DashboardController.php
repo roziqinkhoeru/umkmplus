@@ -176,7 +176,10 @@ class DashboardController extends Controller
     public function getCourseProfile()
     {
         $user = Auth::user()->customer;
-        $courseProfile = CourseEnroll::with('course', 'course.mentor', 'course.category', 'course.modules')->where('student_id', $user->id)->get();
+        $courseProfile = CourseEnroll::with('course', 'course.mentor', 'course.category', 'course.modules')
+        ->where('student_id', $user->id)
+        ->whereIn('status', ['selesai', 'aktif'])
+        ->get();
 
         if ($courseProfile) {
             return ResponseFormatter::success($courseProfile, 'Data course profile berhasil diambil');
