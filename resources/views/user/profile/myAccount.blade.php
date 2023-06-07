@@ -15,9 +15,7 @@
                     {{-- main content --}}
                     <div class="col-xxl-8 col-md-8">
                         <div class="profile__menu-right">
-                            <div class="tab-content" id="nav-tabContent">
-
-                            </div>
+                            <div class="tab-content" id="nav-tabContent"></div>
                         </div>
                     </div>
                 </div>
@@ -128,13 +126,13 @@
             // Display loading state
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
-                                            <div class="profile__info-top d-flex justify-content-between align-items-center">
+                                            <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
                                                 <h3 class="profile__info-title">Informasi Akun</h3>
                                                 <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                                     data-bs-target="#profile_edit_modal"><i
                                                         class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
                                             </div>
-                                            <div class="order__list white-bg">
+                                            <div class="order__list white-bg px-9">
                                                 <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
@@ -150,14 +148,13 @@
                 success: function(response) {
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="profile__info" id="profileInfo">
-                                <div class="profile__info-top d-flex justify-content-between align-items-center">
+                                <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
                                     <h3 class="profile__info-title">Informasi Akun</h3>
                                     <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                         data-bs-target="#profile_edit_modal"><i
                                             class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
                                 </div>
-
-                                <div class="profile__info-wrapper white-bg">
+                                <div class="profile__info-wrapper white-bg px-9">
                                     <div class="profile__info-item">
                                         <p>Nama</p>
                                         <h4>${response.data.customer.name}</h4>
@@ -191,19 +188,19 @@
                                     @method('PUT')
                                     @csrf
                                     <div class="profile__edit-input">
-                                        <p>Nama</p>
+                                        <p style="margin-bottom: 10px !important">Nama</p>
                                         <input type="text" name="name" id="name" value="${response.data.customer.name}" placeholder="Nama Anda">
                                     </div>
                                     <div class="profile__edit-input">
-                                        <p>Email</p>
+                                        <p style="margin-bottom: 10px !important">Email</p>
                                         <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda" disabled>
                                     </div>
                                     <div class="profile__edit-input">
-                                        <p>No Telepon</p>
+                                        <p style="margin-bottom: 10px !important">No Telepon</p>
                                         <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
                                     </div>
-                                    <div class="profile__edit-input">
-                                        <p>Alamat</p>
+                                    <div class="profile__edit-input" style="margin-bottom:36px !important">
+                                        <p style="margin-bottom: 10px !important">Alamat</p>
                                         <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
                                     </div>
                                     <div class="profile__edit-input">
@@ -320,11 +317,10 @@
             // Display loading state
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
-                                            <div class="order__info-top d-flex justify-content-between align-items-center">
+                                            <div class="order__info-top d-flex justify-content-between align-items-center px-9">
                                                 <h3 class="order__info-title">Kelas Saya</h3>
-                                                <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
                                             </div>
-                                            <div class="order__list white-bg">
+                                            <div class="order__list white-bg px-9">
                                                 <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
@@ -337,27 +333,16 @@
                 url: "{{ route('get.profile.course') }}",
                 dataType: "json",
                 success: function(response) {
+                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
-                                        <div class="order__info-top d-flex justify-content-between align-items-center">
+                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9">
                                             <h3 class="order__info-title">Kelas Saya</h3>
-                                            <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
                                         </div>
-                                        <div class="order__list white-bg table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Order ID</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Harga</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    ${getMyCourse(response.data)}
-                                                </tbody>
-                                            </table>
+                                        <div class="order__list white-bg px-9 pb-9">
+                                            <div class="d-grid gap-5 grid-cols-12">
+                                                ${getMyCourse(response.data)}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>`
@@ -380,18 +365,50 @@
                     maximumFractionDigits: 0,
                 };
                 let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                myCourse += `<tr>
-                            <td class="order__id">#${enroll.id}</td>
-                            <td>
-                                <a href="course-details.html" class="order__title">${enroll.course.title}</a>
-                                </td>
-                            <td>${coursePrice}</td>
-                            <td>${enroll.status}</td>
-                            <td>
-                                <a href="{{ url('/course/playing/${enroll.id}') }}" class="btn btn-primary">View</a>
-                                ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="btn btn-success">Sertifikat</a>` : ''}
-                            </td>
-                        </tr>`;
+                let badgeStatus = '';
+                switch (enroll.status) {
+                    case 'aktif':
+                        badgeStatus = 'text-bg-primary';
+                        break;
+                    case 'proses':
+                        badgeStatus = 'text-bg-warning'
+                        break;
+                    case 'menunggu pembayaran':
+                        badgeStatus = 'text-bg-warning'
+                        break;
+                    case 'selesai':
+                        badgeStatus = 'text-bg-success'
+                        break;
+                    default:
+                        break;
+                }
+                myCourse += `<div class="col-span-6-mycourse">
+                                <div class="mycourse-item">
+                                    <div class="d-flex flex-column">
+                                        <div class="mb-15">
+                                            <figure class="mycourse-item-image position-relative mb-15">
+                                                <img src="{{ asset('${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
+                                                <div class="course-tag-wrapper">
+                                                    <div class="course__tag">
+                                                        <span class="course-badge">${enroll.course.category.name}</span>
+                                                    </div>
+                                                </div>
+                                            </figure>
+                                            <div>
+                                                <h4 class="mb-5">${enroll.course.title}</h4>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <p class="mb-0">Oleh ${enroll.course.mentor.name}</p>
+                                                    <p class="mb-0"><span class="badge py-2 px-3 ${badgeStatus} text-uppercase rounded-pill">${enroll.status}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="tp-btn tp-btn-green rounded-2 w-100 text-center" style="line-height: 44px;height: 44px">Sertifikat</a>` : `<a href="{{ url('/course/${enroll.course.slug}') }}" class="tp-btn tp-btn-4 rounded-2 w-100 text-center">Lanjutkan Belajar</a>`}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
             })
             return myCourse;
         }
@@ -402,15 +419,12 @@
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
                                             <div
-                                                class="order__info-top d-flex justify-content-between align-items-center"
+                                                class="order__info-top d-flex justify-content-between align-items-center px-9"
                                             >
                                                 <h3 class="order__info-title">Riwayat Transaksi</h3>
-                                                <button type="button" class="order__info-btn">
-                                                    <i class="fa-regular fa-trash-can"></i> Clear
-                                                </button>
                                             </div>
                                             <div class="order__list white-bg">
-                                                <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
+                                                <div class="d-flex align-items-center justify-content-center pt-35 pb-60 px-9">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
                                             </div>
@@ -423,30 +437,18 @@
                 url: "{{ route('get.profile.transaction.history') }}",
                 dataType: "JSON",
                 success: function(response) {
+                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="order__info">
                                 <div
-                                    class="order__info-top d-flex justify-content-between align-items-center"
+                                    class="order__info-top d-flex justify-content-between align-items-center px-9"
                                 >
                                     <h3 class="order__info-title">Riwayat Transaksi</h3>
-                                    <button type="button" class="order__info-btn">
-                                        <i class="fa-regular fa-trash-can"></i> Clear
-                                    </button>
                                 </div>
-                                <div class="order__list white-bg table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Order ID</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Harga</th>
-                                                <th scope="col">Detail</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${getMyTransaction(response.data)}
-                                        </tbody>
-                                    </table>
+                                <div class="order__list white-bg px-9">
+                                    <div>
+                                        ${getMyTransaction(response.data)}
+                                    </div>
                                 </div>
                             </div>
                         </div>`
@@ -468,17 +470,80 @@
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0,
                 };
-                let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                myTransaction += `<tr>
-                                    <td class="order__id">#${enroll.id}</td>
-                                    <td>
-                                        <a href = "course-details.html" class="order__title">${enroll.course.title}</a>
-                                    </td>
-                                    <td>${coursePrice}</td>
-                                    <td>
-                                        <a href="course-details.html" class="order__view-btn">View</a
-                                    </td>
-                                </tr>
+                let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
+                let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll.course
+                    .discount / 100);
+                let badgeStatus = '';
+                let badgeText = '';
+                switch (enroll.status) {
+                    case 'aktif':
+                        badgeStatus = 'text-bg-success';
+                        badgeText = 'sukses';
+                        break;
+                    case 'proses':
+                        badgeStatus = 'text-bg-warning'
+                        badgeText = enroll.status;
+                        break;
+                    case 'menunggu pembayaran':
+                        badgeStatus = 'text-bg-warning'
+                        badgeText = enroll.status;
+                        break;
+                    case 'selesai':
+                        badgeStatus = 'text-bg-success'
+                        badgeText = 'sukses';
+                        break;
+                    default:
+                        break;
+                }
+                myTransaction += `
+                                <div class="card mb-25">
+                                    <div class="card-header" style="background: #246ba00a">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 d-none d-md-block">Order ID:
+                                                <a href="#" class="btn-anchor text-decoration-underline">${enroll.id}</a>
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="badge text-uppercase py-1 px-2 ${badgeStatus}">
+                                                    ${badgeText}
+                                                </span>
+                                            </p>
+                                            <div class="dropdown d-md-none">
+                                                <button class="btn btn-secondary dropdown-toggle shadow-none border-0 dropdown-dot-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" style="padding: 2px 0 !important;min-width: 8rem !important">
+                                                    <li><a class="dropdown-item text-sm" href="#">Lihat Invoice</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-wrap">
+                                                    <div class="mr-2 mb-2 mb-sm-0"><img
+                                                            src="{{ asset('${enroll.course.thumbnail}') }}"
+                                                            alt="thumbnail-course" class="card-image-transaction">
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-5 text-base fw-bold">${enroll.course.title}</p>
+                                                        <p class="mb-0">Harga Produk: <span class="fw-medium">${coursePrice}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="background: #246ba00a">
+                                        <div class="row">
+                                            <div class="col-sm-7">
+                                                <p class="mb-0">Total Pembayaran :</p>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <p class="mb-0 text-green fw-bold text-base">${courseTotalPrice.toLocaleString('id-ID', option)}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                 `;
             })
             return myTransaction;
@@ -488,25 +553,25 @@
         function formChangePassword() {
             htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                         <div class="password__change">
-                            <div class="password__change-top">
+                            <div class="password__change-top px-9">
                                 <h3 class="password__change-title">Ubah Kata Sandi</h3>
                             </div>
-                            <div class="password__form white-bg">
+                            <div class="password__form white-bg px-9">
                                 <form action="{{ route('profile.change.password') }}" method="POST" id="formChangePassword">
                                     @csrf @method('PUT')
                                     <div class="password__input">
-                                        <p>Password Lama</p>
+                                        <p style="margin-bottom: 10px !important">Password Lama</p>
                                         <input type="password" id="old_password" name="old_password" placeholder="Masukkan Password Lama">
                                     </div>
                                     <div class="password__input">
-                                        <p>Password Baru</p>
+                                        <p style="margin-bottom: 10px !important">Password Baru</p>
                                         <input type="password" id="password" name="password" placeholder="Masukkan Password Baru">
                                     </div>
-                                    <div class="password__input">
-                                        <p>Konfirmasi Password</p>
+                                    <div class="password__input" style="margin-bottom:36px !important">
+                                        <p style="margin-bottom: 10px !important">Konfirmasi Password</p>
                                         <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" >
                                     </div>
-                                    <div class="password__input">
+                                    <div class="password__input mb-5 text-right">
                                         <button type="submit "id="updatePasswordButton" class="tp-btn">Update password</button>
                                     </div>
                                 </form>
