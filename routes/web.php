@@ -35,9 +35,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 
-Route::get('/admin/blog', function () {
-    return view('admin.blog.index', ['title' => 'Blog | Admin UMKMPlus', 'active' => 'blog']);
-});
 
 // mentor
 Route::get('/mentor/blog', function () {
@@ -200,6 +197,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/testimonial', 'adminTestimonial')->name('admin.testimonial');
             Route::put('/admin/testimonial/{testimonial:id}', 'editStatusTestimonial')->name('admin.testimonial.status');
         });
+        // Blog
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('/admin/blog', 'adminBlog')->name('admin.blog');
+            Route::get('/admin/blog/create', 'adminBlogCreate')->name('admin.blog.create');
+            Route::get('/admin/blog/{blog:slug}', 'adminBlogShow')->name('admin.blog.show');
+        });
     });
     /** MENTOR **/
     Route::group(['middleware' => ['checkRole:mentor']], function () {
@@ -231,12 +234,25 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/mentor/un-student/{courseEnroll:id}', 'mentorUncompletedStudentEdit')->name('mentor.uncompleted.student.edit');
             Route::put('/mentor/un-student/{courseEnroll}', 'mentorUncompletedStudentUpdate')->name('mentor.uncompleted.student.update');
         });
+        // Blog
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('/mentor/blog', 'mentorBlog')->name('mentor.blog');
+            Route::get('/mentor/blog/create', 'mentorBlogCreate')->name('mentor.blog.create');
+            Route::get('/mentor/blog/{blog:slug}', 'mentorBlogShow')->name('mentor.blog.show');
+        });
     });
 
     /** MENTOR & ADMIN **/
     Route::group(['middleware' => ['checkRole:mentor,admin']], function () {
         Route::controller(CourseController::class)->group(function () {
             Route::put('/admin/course/{course:slug}/status', 'editStatusCourse')->name('admin.course.status');
+        });
+        // Blog
+        Route::controller(BlogController::class)->group(function () {
+            Route::post('/admin/blog', 'blogStore')->name('admin.blog.store');
+            Route::put('/admin/blog/{blog:slug}', 'blogUpdate')->name('admin.blog.update');
+            Route::delete('/admin/blog/{blog:slug}', 'blogDestroy')->name('admin.blog.show');
+            Route::put('/admin/blog/{blog:slug}/status', 'blogUpdateStatus')->name('admin.blog.update.status');
         });
     });
 });

@@ -8,7 +8,7 @@
                 <h4 class="page-title">Blog</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="/admin">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('mentor.blog') }}">
+                        <a href="{{ route('admin.blog') }}">
                             Data Blog
                         </a>
                     </li>
@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Tambah Blog
+                            Detail Blog
                         </a>
                     </li>
                 </ul>
@@ -39,26 +39,29 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Tambah Data Blog</div>
+                                <div class="card-title">Data Blog</div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="row g-3" action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data"
-                                id="addBlog">
+                            <form class="row g-3" action="{{ route('admin.blog.update', $blog->slug) }}" method="POST" enctype="multipart/form-data"
+                                id="editBlog">
                                 @csrf
+                                @method('PUT')
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" value="{{ old('title') }}"
-                                            id="title" name="title" required>
+                                        <input type="text" class="form-control" value="{{ $blog->title }}"
+                                            id="title" name="title">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="status" class="form-label">Status</label>
-                                        <select id="status" class="form-control" id="status" name="status" required>
+                                        <select id="status" class="form-control" id="status" name="status">
                                             @foreach ($statuses as $status)
-                                                <option value="{{ $status }}" >{{ ucfirst($status) }}</option>
+                                                <option value="{{ $status }}"
+                                                    @if ($status == $blog->status) selected @endif>
+                                                    {{ $status }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -66,26 +69,26 @@
                                 <div class="col-12">
                                     <div class="form-group form-group-default">
                                         <label for="headline" class="form-label">Headline</label>
-                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline" required>{{ old('headline') }}</textarea>
+                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline">{{ $blog->headline }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group form-group-default">
                                         <label for="content" class="form-label">Konten</label>
-                                        <textarea type="text" class="form-control" id="content" name="content" required>{{ old('content') }}</textarea>
+                                        <textarea type="text" class="form-control" id="content" name="content">{{ $blog->content }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group form-group-default">
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
-                                            accept="image/*" required>
-                                        <img id="imagePreview" src="#" alt="Thumbnail"
+                                            accept="image/*">
+                                        <img id="imagePreview" src="{{ asset('storage/'.$blog->thumbnail) }}" alt="Thumbnail"
                                             style="height: 200px; width: 300px;">
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary" id="updateButton">Tambah</button>
+                                    <button type="submit" class="btn btn-primary" id="updateButton">Ubah</button>
                                 </div>
                             </form>
                         </div>
@@ -178,19 +181,7 @@
             }
         }
 
-        // Menambahkan aturan validasi kustom untuk ukuran maksimum file
-        $.validator.addMethod('maxfilesize', function(value, element, param) {
-            var maxSize = param;
-
-            if (element.files.length > 0) {
-                var fileSize = element.files[0].size; // Ukuran file dalam byte
-                return fileSize <= maxSize;
-            }
-
-            return true;
-        }, '');
-
-        $('#addBlog').validate({
+        $('#editBlog').validate({
             rules: {
                 title: {
                     required: true,
@@ -203,11 +194,6 @@
                 },
                 content: {
                     required: true,
-                },
-                thumbnail: {
-                    required: true,
-                    maxfilesize: 2 * 1024 * 1024, // 2MB (dalam byte)
-                    extension: 'jpg|jpeg|png',
                 },
             },
             messages: {
@@ -223,12 +209,75 @@
                 content: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Konten tidak boleh kosong',
                 },
-                thumbnail: {
-                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Thumbnail tidak boleh kosong',
-                    maxfilesize: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Ukuran file maksimal 2MB',
-                    extension: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Ekstensi file yang diperbolehkan hanya .jpg, .jpeg, dan .png',
-                },
             },
+            // submitHandler: function(form, event) {
+            //     event.preventDefault();
+            //     let formData = new FormData(form);
+            //     Swal.fire({
+            //         title: 'Apakah anda yakin?',
+            //         text: "Anda akan mengubah data blog!",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //     }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $('#updateButton').html(
+            //                 '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+            //             $('#updateButton').prop('disabled', true);
+            //             $.ajax({
+            //                 url: "{{ route('admin.blog.update', $blog->slug) }}",
+            //                 type: "PUT",
+            //                 data: formData,
+            //                 processData: false,
+            //                 contentType: false,
+            //                 headers: {
+            //                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //                 },
+            //                 success: function(response) {
+            //                     $('#updateButton').html('Ubah');
+            //                     $('#updateButton').prop('disabled', false);
+            //                     $.notify({
+            //                         icon: 'flaticon-alarm-1',
+            //                         title: 'UMKMPlus Admin',
+            //                         message: response.meta.message,
+            //                     }, {
+            //                         type: 'secondary',
+            //                         placement: {
+            //                             from: "top",
+            //                             align: "right"
+            //                         },
+            //                         time: 2000,
+            //                     });
+            //                     window.location.href = response.data.redirect
+            //                 },
+            //                 error: function(xhr, status, error) {
+            //                     $('#updateButton').html('Ubah');
+            //                     $('#updateButton').prop('disabled', false);
+            //                     console.log(xhr.responseJSON);
+            //                     if (xhr.responseJSON)
+            //                         Swal.fire({
+            //                             icon: 'error',
+            //                             title: 'UBAH MENTOR GAGAL!',
+            //                             text: xhr.responseJSON.meta.message +
+            //                                 " Error: " + xhr
+            //                                 .responseJSON.data.error,
+            //                         })
+            //                     else
+            //                         Swal.fire({
+            //                             icon: 'error',
+            //                             title: 'UBAH MENTOR GAGAL!',
+            //                             text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+            //                                 error,
+            //                         })
+            //                     return false;
+            //                 }
+            //             });
+            //         } else {
+            //             return false;
+            //         }
+            //     });
+            // }
         });
     </script>
 @endsection

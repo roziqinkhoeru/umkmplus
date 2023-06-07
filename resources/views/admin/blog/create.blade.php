@@ -8,7 +8,7 @@
                 <h4 class="page-title">Blog</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="/admin">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('mentor.blog') }}">
+                        <a href="{{ route('admin.blog') }}">
                             Data Blog
                         </a>
                     </li>

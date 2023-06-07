@@ -182,6 +182,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'CustomDate' => App\Helpers\CustomDate::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
