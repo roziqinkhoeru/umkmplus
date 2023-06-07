@@ -30,7 +30,7 @@
                             </header>
                             <!-- Preview image figure-->
                             <figure class="mb-4"><img class="img-fluid rounded"
-                                    src="{{ asset($blog->thumbnail) }}" alt="blog-thumbnail" /></figure>
+                                    src="{{ asset('storage/'.$blog->thumbnail) }}" alt="blog-thumbnail" /></figure>
                             <!-- Post content-->
                             <section class="mb-5">
                                 {!! $blog->content !!}

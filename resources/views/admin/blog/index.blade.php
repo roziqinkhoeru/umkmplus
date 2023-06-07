@@ -51,16 +51,18 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($blogs as $blog)
-                                        <tr>
-                                            <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $blog->title }}</td>
-                                            <td>{{ $blog->user->customer->name }}</td>
-                                            <td>{{ CustomDate::tglIndo($blog->created_at) }}</td>
-                                            <td class="space-nowrap text-center">
-                                                <a href="{{ route('admin.blog.show', $blog->slug) }}" class="btn btn-primary btn-sm mr-1">Detail</a>
-                                                <button onclick="deleteBlog('{{ $blog->slug }}')" class="btn btn-danger btn-sm mr-1">Hapus</button>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $blog->title }}</td>
+                                                <td>{{ $blog->user->customer->name }}</td>
+                                                <td>{{ CustomDate::tglIndo($blog->created_at) }}</td>
+                                                <td class="space-nowrap text-center">
+                                                    <a href="{{ route('admin.blog.show', $blog->slug) }}"
+                                                        class="btn btn-primary btn-sm mr-1">Detail</a>
+                                                    <button onclick="deleteBlog('{{ $blog->slug }}')"
+                                                        class="btn btn-danger btn-sm mr-1">Hapus</button>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -74,6 +76,30 @@
 @endsection
 
 @section('script')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "{{ session('success') }}"
+                ",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             $('#blogTable').DataTable({
@@ -109,7 +135,7 @@
                                 text: 'BLog telah dihapus.',
                                 icon: 'success',
                             })
-                                location.reload();
+                            location.reload();
                         },
                         error: function(xhr, status, error) {
                             if (xhr.responseJSON)

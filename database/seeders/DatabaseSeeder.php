@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         Discount::factory()->count(100)->create();
         $this->call([
             TestimonialSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

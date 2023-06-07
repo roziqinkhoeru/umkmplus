@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.course') }}">
+                        <a href="{{ route('admin.blog') }}">
                             Data Blog
                         </a>
                     </li>
@@ -35,7 +35,7 @@
             {{-- Detail Course --}}
             <div class="row">
                 <div class="col-md-12">
-                {{-- blog data --}}
+                    {{-- blog data --}}
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
@@ -43,77 +43,241 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table-hover table-sales">
-                                <table class="table">
-                                    <tbody>
-                                        {{-- buatkan tag img untuk thumbnail --}}
-                                        <tr>
-                                            <td>Judul</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td>{{ $blog->title }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nama Penulis</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td>{{ $blog->user->customer->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Headline</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td>{{ $blog->headline }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Konten</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td>{!! $blog->content !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td><span
-                                                    class="badge @switch($blog->status)
-                                                                    @case(1)
-                                                                        badge-active
-                                                                        @break
-                                                                    @case(0)
-                                                                        badge-nonactive
-                                                                        @break
-                                                                @endswitch"><i
-                                                        class="fas fa-circle" style="font-size: 10px"></i>
-                                                    {{ $blog->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                                </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thumbnail</td>
-                                            <td class="text-right">:</td>
-                                            <td>
-                                                @if ($blog->thumbnail)
-                                                    <img src="{{ asset($blog->thumbnail) }}" alt="Thumbnail" style="height: 200px; width: 300px;">
-                                                @else
-                                                    <img src="{{ asset('assets/img/dummy/testimoni-1.png') }}" alt="Thumbnail" style="height: 200px; width: 300px;">
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form class="row g-3" method="POST" enctype="multipart/form-data"
+                                id="editBlog">
+                                @csrf
+                                @method('PUT')
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" value="{{ $blog->title }}"
+                                            id="title" name="title">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" class="form-control" id="status" name="status">
+                                            @foreach ($statuses as $status)
+                                                <option value="{{ $status }}"
+                                                    @if ($status == $blog->status) selected @endif>
+                                                    {{ $status }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group form-group-default">
+                                        <label for="headline" class="form-label">Headline</label>
+                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline">{{ $blog->headline }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group form-group-default">
+                                        <label for="content" class="form-label">Konten</label>
+                                        <textarea type="text" class="form-control" id="content" name="content">{{ $blog->content }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-group-default">
+                                        <label for="thumbnail" class="form-label">Thumbnail</label>
+                                        <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
+                                            accept="image/*">
+                                        <img id="imagePreview" src="{{ asset('storage/'.$blog->thumbnail) }}" alt="Thumbnail"
+                                            style="height: 200px; width: 300px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary" id="updateButton">Ubah</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 @endsection
 
 @section('script')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+    <script>
+        ClassicEditor.create(document.querySelector('#content'), {
+                toolbar: {
+                    items: [
+                        'undo', 'redo',
+                        '|', 'heading',
+                        '|', 'bold', 'italic',
+                        '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
+                    ]
+                },
+                heading: {
+                    options: [{
+                            model: 'paragraph',
+                            title: 'Paragraph',
+                            class: 'ck-heading_paragraph'
+                        },
+                        {
+                            model: 'heading1',
+                            view: 'h1',
+                            title: 'Heading 1',
+                            class: 'ck-heading_heading1'
+                        },
+                        {
+                            model: 'heading2',
+                            view: 'h2',
+                            title: 'Heading 2',
+                            class: 'ck-heading_heading2'
+                        }
+                    ]
+                },
+                input: {
+                    class: 'text-lg mb-15'
+                }
+            })
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('#editBlog').validate({
+            rules: {
+                title: {
+                    required: true,
+                },
+                status: {
+                    required: true,
+                },
+                headline: {
+                    required: true,
+                },
+                content: {
+                    required: true,
+                },
+            },
+            messages: {
+                title: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Judul tidak boleh kosong',
+                },
+                status: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Status tidak boleh kosong',
+                },
+                headline: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Headline tidak boleh kosong',
+                },
+                content: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Konten tidak boleh kosong',
+                },
+            },
+            // submitHandler: function(form, event) {
+            //     event.preventDefault();
+            //     let formData = new FormData(form);
+            //     Swal.fire({
+            //         title: 'Apakah anda yakin?',
+            //         text: "Anda akan mengubah data blog!",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //     }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $('#updateButton').html(
+            //                 '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+            //             $('#updateButton').prop('disabled', true);
+            //             $.ajax({
+            //                 url: "{{ route('admin.blog.update', $blog->slug) }}",
+            //                 type: "PUT",
+            //                 data: formData,
+            //                 processData: false,
+            //                 contentType: false,
+            //                 headers: {
+            //                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //                 },
+            //                 success: function(response) {
+            //                     $('#updateButton').html('Ubah');
+            //                     $('#updateButton').prop('disabled', false);
+            //                     $.notify({
+            //                         icon: 'flaticon-alarm-1',
+            //                         title: 'UMKMPlus Admin',
+            //                         message: response.meta.message,
+            //                     }, {
+            //                         type: 'secondary',
+            //                         placement: {
+            //                             from: "top",
+            //                             align: "right"
+            //                         },
+            //                         time: 2000,
+            //                     });
+            //                     window.location.href = response.data.redirect
+            //                 },
+            //                 error: function(xhr, status, error) {
+            //                     $('#updateButton').html('Ubah');
+            //                     $('#updateButton').prop('disabled', false);
+            //                     console.log(xhr.responseJSON);
+            //                     if (xhr.responseJSON)
+            //                         Swal.fire({
+            //                             icon: 'error',
+            //                             title: 'UBAH MENTOR GAGAL!',
+            //                             text: xhr.responseJSON.meta.message +
+            //                                 " Error: " + xhr
+            //                                 .responseJSON.data.error,
+            //                         })
+            //                     else
+            //                         Swal.fire({
+            //                             icon: 'error',
+            //                             title: 'UBAH MENTOR GAGAL!',
+            //                             text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+            //                                 error,
+            //                         })
+            //                     return false;
+            //                 }
+            //             });
+            //         } else {
+            //             return false;
+            //         }
+            //     });
+            // }
+        });
+    </script>
 @endsection

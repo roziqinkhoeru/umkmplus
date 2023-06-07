@@ -87,7 +87,7 @@
                                     <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
                                         <div class="postbox__thumb w-img">
                                             <a href="{{ url('/blog/${blog.slug}') }}">
-                                                <img src="{{ asset('${blog.thumbnail}') }}" alt="blog-${blog.title}">
+                                                <img src="{{ asset('storage/${blog.thumbnail}') }}" alt="blog-${blog.title}">
                                             </a>
                                         </div>
                                         <div class="postbox__content" style="padding: 30px">
