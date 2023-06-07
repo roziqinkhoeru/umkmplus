@@ -113,8 +113,10 @@ class CourseEnrollController extends Controller
     {
         $course->discountPrice = ceil($course->price * $course->discount / 100);
         $priceCheckout = $course->price - $course->discountPrice;
+        // menghilangkan angka belakang koma
+        // $priceCheckout = str_replace(',', '', $priceCheckout);
         if (!$request->discountID) {
-            $verifyPrice = Hash::check($request->priceCheckout, $priceCheckout);
+            $verifyPrice = Hash::check($priceCheckout, $request->priceCheckout);
             if (!$verifyPrice) {
                 return ResponseFormatter::error(
                     [

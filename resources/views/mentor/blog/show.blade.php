@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('mentor.blog') }}">
+                        <a href="{{ route('admin.blog') }}">
                             Data Blog
                         </a>
                     </li>
@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Tambah Blog
+                            Detail Blog
                         </a>
                     </li>
                 </ul>
@@ -39,26 +39,29 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Tambah Data Blog</div>
+                                <div class="card-title">Data Blog</div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="row g-3" action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data"
-                                id="addBlog">
+                            <form class="row g-3" action="{{ route('admin.blog.update', $blog->slug) }}" method="POST" enctype="multipart/form-data"
+                                id="editBlog">
                                 @csrf
+                                @method('PUT')
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" value="{{ old('title') }}"
-                                            id="title" name="title" required>
+                                        <input type="text" class="form-control" value="{{ $blog->title }}"
+                                            id="title" name="title">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="status" class="form-label">Status</label>
-                                        <select id="status" class="form-control" id="status" name="status" required>
+                                        <select id="status" class="form-control" id="status" name="status">
                                             @foreach ($statuses as $status)
-                                                <option value="{{ $status }}" >{{ ucfirst($status) }}</option>
+                                                <option value="{{ $status }}"
+                                                    @if ($status == $blog->status) selected @endif>
+                                                    {{ $status }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -66,26 +69,26 @@
                                 <div class="col-12">
                                     <div class="form-group form-group-default">
                                         <label for="headline" class="form-label">Headline</label>
-                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline" required>{{ old('headline') }}</textarea>
+                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline">{{ $blog->headline }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group form-group-default">
                                         <label for="content" class="form-label">Konten</label>
-                                        <textarea type="text" class="form-control" id="content" name="content" required>{{ old('content') }}</textarea>
+                                        <textarea type="text" class="form-control" id="content" name="content">{{ $blog->content }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group form-group-default">
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
-                                            accept="image/*" required>
-                                        <img id="imagePreview" src="#" alt="Thumbnail"
+                                            accept="image/*">
+                                        <img id="imagePreview" src="{{ asset('storage/'.$blog->thumbnail) }}" alt="Thumbnail"
                                             style="height: 200px; width: 300px;">
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary" id="updateButton">Tambah</button>
+                                    <button type="submit" class="btn btn-primary" id="updateButton">Ubah</button>
                                 </div>
                             </form>
                         </div>
@@ -178,19 +181,7 @@
             }
         }
 
-        // Menambahkan aturan validasi kustom untuk ukuran maksimum file
-        $.validator.addMethod('maxfilesize', function(value, element, param) {
-            var maxSize = param;
-
-            if (element.files.length > 0) {
-                var fileSize = element.files[0].size; // Ukuran file dalam byte
-                return fileSize <= maxSize;
-            }
-
-            return true;
-        }, '');
-
-        $('#addBlog').validate({
+        $('#editBlog').validate({
             rules: {
                 title: {
                     required: true,
@@ -203,11 +194,6 @@
                 },
                 content: {
                     required: true,
-                },
-                thumbnail: {
-                    required: true,
-                    maxfilesize: 2 * 1024 * 1024, // 2MB (dalam byte)
-                    extension: 'jpg|jpeg|png',
                 },
             },
             messages: {
@@ -222,11 +208,6 @@
                 },
                 content: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Konten tidak boleh kosong',
-                },
-                thumbnail: {
-                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Thumbnail tidak boleh kosong',
-                    maxfilesize: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Ukuran file maksimal 2MB',
-                    extension: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Ekstensi file yang diperbolehkan hanya .jpg, .jpeg, dan .png',
                 },
             },
         });

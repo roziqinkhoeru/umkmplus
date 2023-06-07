@@ -77,11 +77,11 @@
                                                     <button onclick="deleteBlog('{{ $blog->slug }}')"
                                                         class="btn btn-danger btn-sm mr-1">Hapus</button>
                                                         @if ($blog->status == "tampilkan")
-                                                            <button onclick="nonactivateBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-warning btn-sm mr-1">Nonaktifkan</button>
+                                                            <button onclick="hideBlog('{{ $blog->slug }}')"
+                                                                class="btn btn-warning btn-sm mr-1">Sembunyikan</button>
                                                         @else
-                                                            <button onclick="activateBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-success btn-sm">Aktifkan</button>
+                                                            <button onclick="showBlog('{{ $blog->slug }}')"
+                                                                class="btn btn-success btn-sm">Tampilkan</button>
                                                         @endif
                                                 </td>
                                             </tr>
@@ -180,10 +180,10 @@
         }
 
 
-        function nonactivateBlog(blog) {
+        function hideBlog(blog) {
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                text: "Blog akan dinonaktifkan dan tidak dapat mengakses sistem lagi!",
+                text: "Blog akan dinonaktifkan!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -229,7 +229,7 @@
             })
         }
 
-        function activateBlog(blog) {
+        function showBlog(blog) {
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Blog akan diaktifkan!",

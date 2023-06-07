@@ -103,7 +103,42 @@ class BlogController extends Controller
         return view('admin.blog.create', $data);
     }
 
-    public function adminBlogStore(Request $request)
+    public function mentorBlog()
+    {
+        $user = Auth::user()->id;
+        $blogs = Blog::with('user.customer:id,name')->where('user_id', $user)->orderBy("created_at", "desc")->get();
+        $data = [
+            'title' => 'Blog | Admin UMKMPlus',
+            'active' => 'blog',
+            'blogs' => $blogs
+        ];
+        return view('mentor.blog.index', $data);
+    }
+
+    public function mentorBlogShow(Blog $blog)
+    {
+        $statuses = ['tampilkan', 'sembunyikan'];
+        $data = [
+            'title' => 'Blog ' . $blog->title . '  | Admin UMKMPlus',
+            'active' => 'blog',
+            'blog' => $blog,
+            'statuses' => $statuses
+        ];
+        return view('mentor.blog.show', $data);
+    }
+
+    public function mentorBlogCreate()
+    {
+        $status = ['tampilkan', 'sembunyikan'];
+        $data = [
+            'title' => 'Tambah Blog | Admin UMKMPlus',
+            'active' => 'blog',
+            'statuses' => $status
+        ];
+        return view('mentor.blog.create', $data);
+    }
+
+    public function blogStore(Request $request)
     {
         $rules = [
             'title' => 'required|string|max:255',
@@ -126,8 +161,10 @@ class BlogController extends Controller
         $thumbnail = $request->file('thumbnail');
         $thumbnailUrl = $thumbnail->store('blogs', 'public');
 
+        $user = Auth::user();
+
         $createBlog = Blog::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'headline' => $request->headline,
@@ -137,12 +174,12 @@ class BlogController extends Controller
         ]);
 
         if ($createBlog) {
-            return $request->ajax() ? ResponseFormatter::success(
-                [
-                    'redirect' => route('admin.blog'),
-                ],
-                'Blog berhasil ditambahkan'
-            ) : redirect()->route('admin.blog')->with('success', 'Blog berhasil ditambahkan');
+            // check if admin or mentor
+            if ($user->roles()->first()->pivot->role_id == 1) {
+                return redirect()->route('admin.blog')->with('success', 'Blog berhasil ditambahkan');
+            } else if ($user->roles()->first()->pivot->role_id == 2) {
+                return redirect()->route('mentor.blog')->with('success', 'Blog berhasil ditambahkan');
+            }
         } else {
             return $request->ajax() ? ResponseFormatter::error(
                 null,
@@ -152,7 +189,7 @@ class BlogController extends Controller
         }
     }
 
-    public function adminBlogUpdate(Request $request, Blog $blog)
+    public function blogUpdate(Request $request, Blog $blog)
     {
         $rules = [
             'title' => 'required|string|max:255',
@@ -226,7 +263,7 @@ class BlogController extends Controller
         }
     }
 
-    public function adminBlogDestroy(Blog $blog)
+    public function blogDestroy(Blog $blog)
     {
         $delete = $blog->delete();
 
@@ -244,7 +281,7 @@ class BlogController extends Controller
         }
     }
 
-    public function adminBlogUpdateStatus(Blog $blog)
+    public function blogUpdateStatus(Blog $blog)
     {
         $rules = [
             'status' => 'required|string|in:tampilkan,sembunyikan',
