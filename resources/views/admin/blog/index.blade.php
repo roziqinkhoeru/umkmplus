@@ -46,6 +46,7 @@
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Tanggal Dibuat</th>
+                                            <th>Status</th>
                                             <th class="filter-none text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -56,11 +57,32 @@
                                                 <td>{{ $blog->title }}</td>
                                                 <td>{{ $blog->user->customer->name }}</td>
                                                 <td>{{ CustomDate::tglIndo($blog->created_at) }}</td>
+                                                <td class="text-capitalize text-center">
+                                                    <span
+                                                        class="badge @switch($blog->status)
+                                                            @case('tampilkan')
+                                                                badge-diterima
+                                                                @break
+                                                            @case('sembunyikan')
+                                                                badge-ditolak
+                                                                @break
+                                                        @endswitch"><i
+                                                            class="fas fa-circle" style="font-size: 10px"></i>
+                                                        {{ $blog->status }}
+                                                    </span>
+                                                </td>
                                                 <td class="space-nowrap text-center">
                                                     <a href="{{ route('admin.blog.show', $blog->slug) }}"
                                                         class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     <button onclick="deleteBlog('{{ $blog->slug }}')"
                                                         class="btn btn-danger btn-sm mr-1">Hapus</button>
+                                                        @if ($blog->status == "tampilkan")
+                                                            <button onclick="nonactivateBlog('{{ $blog->slug }}')"
+                                                                class="btn btn-warning btn-sm mr-1">Nonaktifkan</button>
+                                                        @else
+                                                            <button onclick="activateBlog('{{ $blog->slug }}')"
+                                                                class="btn btn-success btn-sm">Aktifkan</button>
+                                                        @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -81,8 +103,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: "{{ session('success') }}"
-                ",
+                text: "{{ session('success') }}",
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -136,6 +157,104 @@
                                 icon: 'success',
                             })
                             location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                        }
+                    });
+
+                }
+            })
+        }
+
+
+        function nonactivateBlog(blog) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Blog akan dinonaktifkan dan tidak dapat mengakses sistem lagi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Nonaktifkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "PUT",
+                        data: {
+                            status: "sembunyikan",
+                            _token: "{{ csrf_token() }}",
+                        },
+                        url: `{{ url('/admin/blog/${blog}/status') }}`,
+                        success: function(response) {
+                            location.reload();
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Blog telah dinonaktifkan.',
+                                icon: 'success',
+                            })
+
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: xhr.responseJSON.meta.message,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                        }
+                    });
+
+                }
+            })
+        }
+
+        function activateBlog(blog) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Blog akan diaktifkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Aktifkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "PUT",
+                        data: {
+                            status: "tampilkan",
+                            _token: "{{ csrf_token() }}",
+                        },
+                        url: `{{ url('/admin/blog/${blog}/status') }}`,
+                        success: function(response) {
+                            location.reload();
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Blog telah diaktifkan.',
+                                icon: 'success',
+                            })
                         },
                         error: function(xhr, status, error) {
                             if (xhr.responseJSON)

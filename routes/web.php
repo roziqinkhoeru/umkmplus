@@ -201,9 +201,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(BlogController::class)->group(function () {
             Route::get('/admin/blog', 'adminBlog')->name('admin.blog');
             Route::get('/admin/blog/create', 'adminBlogCreate')->name('admin.blog.create');
+            Route::post('/admin/blog', 'adminBlogStore')->name('admin.blog.store');
             Route::get('/admin/blog/{blog:slug}', 'adminBlogShow')->name('admin.blog.show');
             Route::put('/admin/blog/{blog:slug}', 'adminBlogUpdate')->name('admin.blog.update');
             Route::delete('/admin/blog/{blog:slug}', 'adminBlogDestroy')->name('admin.blog.show');
+            Route::put('/admin/blog/{blog:slug}/status', 'adminBlogUpdateStatus')->name('admin.blog.update.status');
         });
     });
     /** MENTOR **/

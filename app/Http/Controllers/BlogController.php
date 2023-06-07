@@ -92,6 +92,66 @@ class BlogController extends Controller
         return view('admin.blog.show', $data);
     }
 
+    public function adminBlogCreate()
+    {
+        $status = ['tampilkan', 'sembunyikan'];
+        $data = [
+            'title' => 'Tambah Blog | Admin UMKMPlus',
+            'active' => 'blog',
+            'statuses' => $status
+        ];
+        return view('admin.blog.create', $data);
+    }
+
+    public function adminBlogStore(Request $request)
+    {
+        $rules = [
+            'title' => 'required|string|max:255',
+            'headline' => 'required|string|max:255',
+            'content' => 'required|string',
+            'status' => 'required|string|in:tampilkan,sembunyikan',
+            'thumbnail' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $request->ajax() ? ResponseFormatter::error(
+                [
+                    'error' => $validator->errors()->first(),
+                ],
+                'Gagal menambahkan blog',
+                400
+            ) : back()->with('error', $validator->errors()->first());
+        }
+
+        $thumbnail = $request->file('thumbnail');
+        $thumbnailUrl = $thumbnail->store('blogs', 'public');
+
+        $createBlog = Blog::create([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'headline' => $request->headline,
+            'content' => $request->content,
+            'thumbnail' => $thumbnailUrl,
+            'status' => $request->status
+        ]);
+
+        if ($createBlog) {
+            return $request->ajax() ? ResponseFormatter::success(
+                [
+                    'redirect' => route('admin.blog'),
+                ],
+                'Blog berhasil ditambahkan'
+            ) : redirect()->route('admin.blog')->with('success', 'Blog berhasil ditambahkan');
+        } else {
+            return $request->ajax() ? ResponseFormatter::error(
+                null,
+                'Blog gagal ditambahkan',
+                500
+            ) : back()->with('error', 'Blog gagal ditambahkan');
+        }
+    }
+
     public function adminBlogUpdate(Request $request, Blog $blog)
     {
         $rules = [
@@ -179,6 +239,41 @@ class BlogController extends Controller
             return ResponseFormatter::error(
                 null,
                 'Blog gagal dihapus',
+                500
+            );
+        }
+    }
+
+    public function adminBlogUpdateStatus(Blog $blog)
+    {
+        $rules = [
+            'status' => 'required|string|in:tampilkan,sembunyikan',
+        ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'error' => $validator->errors()->first(),
+                ],
+                'Gagal memperbarui status blog',
+                400
+            );
+        }
+
+        $updateStatus = $blog->update([
+            'status' => request()->status
+        ]);
+
+        if ($updateStatus) {
+            return ResponseFormatter::success(
+                null,
+                'Status blog berhasil diperbarui'
+            );
+        } else {
+            return ResponseFormatter::error(
+                null,
+                'Status blog gagal diperbarui',
                 500
             );
         }
