@@ -34,7 +34,8 @@ class DiscountFactory extends Factory
             'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
             'job' => $this->faker->jobTitle(),
             'phone' => $this->faker->phoneNumber(),
-            'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years')
+            'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years'),
+            'gender' => $this->faker->randomElement(['laki-laki', 'perempuan']),
         ];
         $customer = Customer::create($customerRecord);
 

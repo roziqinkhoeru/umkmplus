@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email', 100);
             $table->string('phone', 100);
             $table->string('address', 255);
+            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
             $table->string('file_cv', 255);
             $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
             $table->string('job', 100);

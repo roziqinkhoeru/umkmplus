@@ -164,6 +164,10 @@
                                         <h4>${response.data.email}</h4>
                                     </div>
                                     <div class="profile__info-item">
+                                        <p>Jenis Kelamin</p>
+                                        <h4>${response.data.customer.gender}</h4>
+                                    </div>
+                                    <div class="profile__info-item">
                                         <p>No Telepon</p>
                                         <h4>${response.data.customer.phone}</h4>
                                     </div>
@@ -176,13 +180,46 @@
                         </div>`
                     $("#nav-tabContent").html(htmlString);
                     $("#profileEditModal").html(`
-                <div class="modal fade" id="profile_edit_modal" tabindex="-1" aria-labelledby="profile_edit_modal"aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="profile__edit-wrapper">
-                                <div class="profile__edit-close">
-                                    <button type="button" class="profile__edit-close-btn" data-bs-toggle="modal"
-                                        data-bs-target="#course_enroll_modal"><i class="fa-light fa-xmark"></i></button>
+                        <div class="modal fade" id="profile_edit_modal" tabindex="-1" aria-labelledby="profile_edit_modal"aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="profile__edit-wrapper">
+                                        <div class="profile__edit-close">
+                                            <button type="button" class="profile__edit-close-btn" data-bs-toggle="modal"
+                                                data-bs-target="#course_enroll_modal"><i class="fa-light fa-xmark"></i></button>
+                                        </div>
+                                        <form action="{{ route('update.profile') }}" method="POST" id="formUpdateProfile">
+                                            @method('PUT')
+                                            @csrf
+                                            <div class="profile__edit-input">
+                                                <p>Nama</p>
+                                                <input type="text" name="name" id="name" value="${response.data.customer.name}" placeholder="Nama Anda">
+                                            </div>
+                                            <div class="profile__edit-input">
+                                                <p>Email</p>
+                                                <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda">
+                                            </div>
+                                            <div class="profile__edit-input">
+                                                <p>No Telepon</p>
+                                                <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
+                                            </div>
+                                            <div class="profile__edit-input">
+                                                <p>Jenis Kelamin</p>
+                                                <select class="select-form w-100 h-52" aria-label="Default select example"
+                                                    name="gender" id="gender" required>
+                                                    <option value="laki-laki">laki-laki</option>
+                                                    <option value="perempuan">perempuan</option>
+                                                </select>
+                                            </div>
+                                            <div class="profile__edit-input">
+                                                <p>Alamat</p>
+                                                <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
+                                            </div>
+                                            <div class="profile__edit-input">
+                                                <button type="submit" id="updateProfileButton" class="tp-btn w-100">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                                 <form action="{{ route('update.profile') }}" method="POST" id="formUpdateProfile">
                                     @method('PUT')
@@ -227,6 +264,9 @@
                                 minlength: 10,
                                 maxlength: 16
                             },
+                            gender: {
+                                required: true
+                            },
                             address: {
                                 required: true,
                                 minlength: 5
@@ -246,6 +286,9 @@
                                 minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>No Telepon minimal 10 karakter',
                                 maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>No Telepon maksimal 16 karakter',
                             },
+                            gender: {
+                                required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis Kelamin tidak boleh kosong',
+                            },
                             address: {
                                 required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Alamat tidak boleh kosong',
                                 minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Alamat minimal 5 karakter',
@@ -262,6 +305,7 @@
                                     name: $('#name').val(),
                                     email: $('#email').val(),
                                     phone: $('#phone').val(),
+                                    gender: $('#gender').val(),
                                     address: $('#address').val(),
                                     _token: "{{ csrf_token() }}"
                                 },
@@ -272,6 +316,7 @@
                                     $('#name').val("");
                                     $('#email').val("");
                                     $('#phone').val("");
+                                    $('#gender').val("");
                                     $('#address').val("");
                                     $('#profile_edit_modal').modal('hide');
                                     Swal.fire({

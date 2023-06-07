@@ -165,7 +165,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkRole:admin']], function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('/admin', 'index')->name('admin.dashboard');
-            Route::get('/admin/nameAdmin', 'profile')->name('admin.profile');
+            Route::get('/admin/profile', 'profile')->name('admin.profile');
+            Route::put('/admin/profile/update', 'adminUpdateProfile')->name('admin.update.profile');
+            Route::get('/admin/profile/edit-password', 'adminEditPassword')->name('admin.edit.password');
+            Route::put('/admin/profile/change-password', 'adminChangePassword')->name('admin.change.password');
         });
         // Mentor
         Route::controller(MentorController::class)->group(function () {
@@ -205,7 +208,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/mentor/profile', 'mentorProfile')->name('mentor.profile');
             Route::get('/mentor/profile/edit', 'mentorEditProfile')->name('mentor.edit.profile');
             Route::put('/mentor/profile/update', 'mentorUpdateProfile')->name('mentor.update.profile');
-            Route::get('/mentor/profile/edit/password', 'mentorEditPassword')->name('mentor.edit.password');
+            Route::get('/mentor/profile/edit-password', 'mentorEditPassword')->name('mentor.edit.password');
             Route::put('/mentor/profile/change-password', 'mentorChangePassword')->name('mentor.change.password');
         });
         Route::controller(DiscountController::class)->group(function () {

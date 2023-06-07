@@ -84,6 +84,19 @@
                                             required value="{{ old('job') }}" class="input-form">
                                     </div>
                                 </div>
+                                {{-- gender --}}
+                                <div class="sign__input-wrapper mb-22">
+                                    <label for="gender">
+                                        <h5>Jenis Kelamin</h5>
+                                    </label>
+                                    <div class="sign__input">
+                                        <select class="select-form w-100 h-52" aria-label="Default select example"
+                                            name="gender" id="gender" required>
+                                            <option selected value="laki-laki">laki-laki</option>
+                                            <option value="perempuan">perempuan</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 {{-- specialist --}}
                                 <div class="sign__input-wrapper mb-22">
                                     <label for="specialist">
@@ -185,6 +198,9 @@
                 job: {
                     required: true,
                 },
+                gender: {
+                    required: true,
+                },
                 specialist: {
                     required: true,
                 },
@@ -214,6 +230,9 @@
                 },
                 job: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Pekerjaan tidak boleh kosong',
+                },
+                gender: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis kelamin tidak boleh kosong',
                 },
                 specialist: {
                     required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Spesialisasi tidak boleh kosong',

@@ -34,6 +34,7 @@ class MentorRegistrationController extends Controller
             'phone' => 'required|numeric',
             'address' => 'required',
             'job' => 'required',
+            'gender' => 'required',
             'file_cv' => 'required|mimes:pdf|max:2048',
             'specialist' => 'required',
         ];
@@ -61,6 +62,7 @@ class MentorRegistrationController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'job' => $request->job,
+            'gender' => $request->gender,
             'file_cv' => $filePath,
             'specialist' => $request->specialist,
         ]);

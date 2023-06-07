@@ -13,6 +13,6 @@ class Testimonial extends Model
 
     public function courseEnroll()
     {
-        return $this->belongsTo(CourseEnroll::class);
+        return $this->belongsTo(CourseEnroll::class, 'course_enroll_id');
     }
 }
