@@ -308,7 +308,9 @@
                                         title: 'UBAH PROFIL BERHASIL!',
                                         text: response.meta.message,
                                     })
-                                    $("#titleProfileName").html(`Welcome Back <span>${response.data.profile.customer.name}</span>`);
+                                    $("#titleProfileName").html(
+                                        `Welcome Back <span>${response.data.profile.customer.name}</span>`
+                                    );
                                     getContent('profile');
                                 },
                                 error: function(xhr, status, error) {
@@ -568,7 +570,10 @@
                                                 <p class="mb-0">Total Pembayaran :</p>
                                             </div>
                                             <div class="col-sm-5">
-                                                <p class="mb-0 text-green fw-bold text-base">${courseTotalPrice.toLocaleString('id-ID', option)}</p>
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap" style="gap: 8px 0">
+                                                    <p class="mb-0 text-green fw-bold text-base">${courseTotalPrice.toLocaleString('id-ID', option)}</p>
+                                                    ${enroll.status === 'menunggu pembayaran' ? `<a href="/checkout/${enroll.course.slug}" class="tp-btn tp-btn-4 btn-sm" style="padding: 4px 12px !important">Selesaikan</a>` : ''}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
