@@ -100,6 +100,7 @@ class DashboardController extends Controller
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required',
+                'gender' => 'required',
             ];
         } else {
             $rules = [
@@ -107,6 +108,7 @@ class DashboardController extends Controller
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+                'gender' => 'required',
             ];
         }
         $validator = Validator::make($request->all(), $rules);
@@ -139,7 +141,8 @@ class DashboardController extends Controller
             $updateCustomer = $customer->update([
                 'name' => $request->name,
                 'phone' => $request->phone,
-                'address' => $request->address
+                'address' => $request->address,
+                'gender' => $request->gender,
             ]);
 
             if (!$updateCustomer) {
