@@ -146,6 +146,7 @@
                 type: "GET",
                 dataType: "JSON",
                 success: function(response) {
+                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="profile__info" id="profileInfo">
                                 <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
@@ -165,7 +166,7 @@
                                     </div>
                                     <div class="profile__info-item">
                                         <p>Jenis Kelamin</p>
-                                        <h4>${response.data.customer.gender}</h4>
+                                        <h4 class="text-capitalize">${response.data.customer.gender}</h4>
                                     </div>
                                     <div class="profile__info-item">
                                         <p>No Telepon</p>
@@ -192,27 +193,27 @@
                                             @method('PUT')
                                             @csrf
                                             <div class="profile__edit-input">
-                                                <p>Nama</p>
+                                                <p style="margin-bottom: 10px !important">Nama</p>
                                                 <input type="text" name="name" id="name" value="${response.data.customer.name}" placeholder="Nama Anda">
                                             </div>
                                             <div class="profile__edit-input">
-                                                <p>Email</p>
-                                                <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda">
+                                                <p style="margin-bottom: 10px !important">Email</p>
+                                                <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda" disabled>
                                             </div>
                                             <div class="profile__edit-input">
-                                                <p>No Telepon</p>
+                                                <p style="margin-bottom: 10px !important">No Telepon</p>
                                                 <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
                                             </div>
                                             <div class="profile__edit-input">
-                                                <p>Jenis Kelamin</p>
-                                                <select class="select-form w-100 h-52" aria-label="Default select example"
-                                                    name="gender" id="gender" required>
-                                                    <option value="laki-laki">laki-laki</option>
-                                                    <option value="perempuan">perempuan</option>
+                                                <p style="margin-bottom: 10px !important">Jenis Kelamin</p>
+                                                <select class="select-form w-100 h-52" name="gender" id="gender" >
+                                                    <option value="">Pilih Jenis Kelamin</option>
+                                                    <option value="laki-laki">Laki-laki</option>
+                                                    <option value="perempuan">Perempuan</option>
                                                 </select>
                                             </div>
                                             <div class="profile__edit-input">
-                                                <p>Alamat</p>
+                                                <p style="margin-bottom: 10px !important">Alamat</p>
                                                 <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
                                             </div>
                                             <div class="profile__edit-input">
@@ -221,34 +222,12 @@
                                         </form>
                                     </div>
                                 </div>
-                                <form action="{{ route('update.profile') }}" method="POST" id="formUpdateProfile">
-                                    @method('PUT')
-                                    @csrf
-                                    <div class="profile__edit-input">
-                                        <p style="margin-bottom: 10px !important">Nama</p>
-                                        <input type="text" name="name" id="name" value="${response.data.customer.name}" placeholder="Nama Anda">
-                                    </div>
-                                    <div class="profile__edit-input">
-                                        <p style="margin-bottom: 10px !important">Email</p>
-                                        <input type="text" name="email" id="email" value="${response.data.email}" placeholder="Email Anda" disabled>
-                                    </div>
-                                    <div class="profile__edit-input">
-                                        <p style="margin-bottom: 10px !important">No Telepon</p>
-                                        <input type="text" name="phone" id="phone" value="${response.data.customer.phone}" placeholder="No Telepon Anda">
-                                    </div>
-                                    <div class="profile__edit-input" style="margin-bottom:36px !important">
-                                        <p style="margin-bottom: 10px !important">Alamat</p>
-                                        <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
-                                    </div>
-                                    <div class="profile__edit-input">
-                                        <button type="submit" id="updateProfileButton" class="tp-btn w-100">Update</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             `);
+                    $('#gender').val(response.data.customer.gender);
                     $("#formUpdateProfile").validate({
                         rules: {
                             name: {
@@ -265,7 +244,7 @@
                                 maxlength: 16
                             },
                             gender: {
-                                required: true
+                                // required: true,
                             },
                             address: {
                                 required: true,
@@ -287,7 +266,7 @@
                                 maxlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>No Telepon maksimal 16 karakter',
                             },
                             gender: {
-                                required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis Kelamin tidak boleh kosong',
+                                // required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis Kelamin tidak boleh kosong',
                             },
                             address: {
                                 required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Alamat tidak boleh kosong',
@@ -429,7 +408,7 @@
                 }
                 myCourse += `<div class="col-span-6-mycourse">
                                 <div class="mycourse-item">
-                                    <div class="d-flex flex-column">
+                                    <div class="d-flex flex-column h-100 justify-content-between">
                                         <div class="mb-15">
                                             <figure class="mycourse-item-image position-relative mb-15">
                                                 <img src="{{ asset('${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
@@ -440,8 +419,8 @@
                                                 </div>
                                             </figure>
                                             <div>
-                                                <h4 class="mb-5">${enroll.course.title}</h4>
-                                                <div class="d-flex align-items-center justify-content-between">
+                                                <h4 class="mb-8 line-clamp-3">${enroll.course.title}</h4>
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                     <p class="mb-0">Oleh ${enroll.course.mentor.name}</p>
                                                     <p class="mb-0"><span class="badge py-2 px-3 ${badgeStatus} text-uppercase rounded-pill">${enroll.status}</span></p>
                                                 </div>
