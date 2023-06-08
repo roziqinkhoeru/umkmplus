@@ -3,87 +3,82 @@
 @section('content')
     <div class="container">
         <div class="page-inner">
-            {{-- header --}}
-            <div class="page-header">
-                <h4 class="page-title">Ubah Password</h4>
-                <ul class="breadcrumbs">
-                    <li class="nav-home">
-                        <a href="/admin">
-                            <i class="flaticon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin/admin">Data Profil</a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        Form Ubah Password
-                    </li>
-                </ul>
-            </div>
-
-            {{-- main content --}}
+            <h4 class="page-title">Admin Profile</h4>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
+                <div class="col-md-8">
+                    <div class="card card-with-nav">
+                        {{-- tab --}}
                         <div class="card-header">
-                            <div class="card-title">Form Ubah Password</div>
-                            <div class="card-category">
-                                Form ini digunakan untuk mengubah password admin
+                            <div class="row row-nav-line">
+                                <ul class="nav nav-tabs nav-line nav-color-secondary w-100 pl-4" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.profile') }}" role="tab"
+                                            aria-selected="false">Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" href="{{ route('admin.edit.password') }}"
+                                            role="tab" aria-selected="true">Ubah
+                                            Password</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <form id="formChangePassword" action="#" method="POST">
-                            @csrf
-                            <div class="card-body">
-                                {{-- old password --}}
-                                <div class="form-group form-show-validation row">
-                                    <label for="old_password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Password
-                                        Lama
-                                        <span class="required-label">*</span></label>
-                                    <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input type="password" class="form-control" id="old_password" name="old_password"
-                                            placeholder="Masukkan Password Lama" required>
+                        {{-- form profile --}}
+                        <div class="card-body">
+                            <form action="#" method="POST" id="formChangePassword">
+                                @csrf
+                                <div class="row mt-3">
+                                    {{-- old password --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="old_password">Password Lama</label>
+                                            <input type="password" class="form-control" id="old_password"
+                                                name="old_password" placeholder="Masukkan Password Lama" required>
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- new password --}}
-                                <div class="form-group form-show-validation row">
-                                    <label for="password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Password
-                                        Baru
-                                        <span class="required-label">*</span></label>
-                                    <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" placeholder="Masukkan Password Baru"
-                                                id="password" name="password" required>
+                                    {{-- new password --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="password">Password Baru</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                placeholder="Masukkan Password Baru" required>
+                                        </div>
+                                    </div>
+                                    {{-- confirm new password --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="password_confirmation">Konfirmasi Password Baru</label>
+                                            <input type="password" class="form-control" id="password_confirmation"
+                                                name="password_confirmation" placeholder="Masukkan Password Baru" required>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- confirm new password --}}
-                                <div class="form-group form-show-validation row">
-                                    <label for="password_confirmation"
-                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Konfrmasi Password Baru
-                                        <span class="required-label">*</span></label>
-                                    <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input type="password" name="password_confirmation" class="form-control"
-                                            id="password_confirmation" placeholder="Masukkan Konfrmasi Password Baru"
-                                            required>
-                                    </div>
+                                <div class="text-right mt-3 mb-3">
+                                    <button class="btn btn-success" type="submit" id="updatePasswordButton">Ubah
+                                        Password</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-profile">
+                        <div class="card-header"
+                            style="background-image: url({{ asset('assets/template/admin/img/blogpost.jpg') }})">
+                            <div class="profile-picture">
+                                <div class="avatar avatar-xl">
+                                    <img src="{{ asset($admin->customer->profile_picture) }}"
+                                        alt="{{ $admin->username }}-admin-profile" class="avatar-img rounded-circle">
                                 </div>
                             </div>
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <a href="/admin/profile" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="updatePasswordButton" type="submit">Ubah
-                                            Password</button>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="user-profile text-center">
+                                <div class="name">{{ $admin->customer->name }}</div>
+                                <div class="job">admin</div>
+                                <div class="desc">Mengelola Data UMKMPlus</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
