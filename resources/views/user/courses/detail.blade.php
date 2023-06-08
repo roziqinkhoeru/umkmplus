@@ -69,8 +69,11 @@
                                 <div class="">
                                     @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
                                         <a href="{{ url('/course/playing/' . $courseEnroll->id) }}"
-                                            class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
+                                            class="tp-btn tp-btn-2 rounded-pill mb-15">Mulai
                                             Belajar</a>
+                                    @elseif($courseEnroll != null && Auth::check() && $courseEnroll->status == 'menunggu pembayaran')
+                                        <a href="{{ url('/checkout/' . $course->slug) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill mb-15">Lanjutkan Pembayaran</a>
                                     @else
                                         <div id="buttonCart">
                                             <a href="{{ url('/checkout/' . $course->slug) }}"
