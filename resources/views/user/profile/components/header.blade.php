@@ -3,29 +3,29 @@
     <div class="container">
         <div class="profile__basic-inner pb-20 white-bg">
             <div class="row align-items-center">
-                <div class="col-xxl-6 col-md-6">
+                <div class="col-xxl-8 col-md-8">
                     <div class="profile__basic d-md-flex align-items-center">
                         <div class="profile__basic-thumb mr-30">
                             <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user-umkmplus">
                         </div>
                         <div class="profile__basic-content">
                             <h3 class="profile__basic-title" id="titleProfileName">
-                                Welcome Back <span>{{ $profile->name }}</span>
+                                Selamat Datang Kembali <span>{{ $profile->name }}</span>
                             </h3>
-                            <p>{{ $profile->student_course_enrolls_count }} Running Courses <button
-                                    onclick="getContent('course')" class="btn-anchor">View Course</button></p>
+                            <p>{{ $profile->student_course_enrolls_count }} Kelas Berjalan <button
+                                    onclick="getContent('course')" class="btn-anchor">Lihat Kelas</button></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-md-6">
+                <div class="col-xxl-4 col-md-4">
                     <div class="profile__basic-cart d-flex align-items-center justify-content-md-end">
                         <div class="cart-info mr-10">
-                            <a href="{{ route('cart.index') }}">View cart</a>
+                            <a href="{{ route('cart.index') }}">Keranjang</a>
                         </div>
                         <div class="cart-item">
                             <a href="{{ route('cart.index') }}">
                                 <i class="fa-regular fa-basket-shopping"></i>
-                                <span class="cart-quantity">{{ $profile->carts_count }}</span>
+                                {!! $profile->carts_count == 0 ? '' : '<span class="cart-quantity">' . $profile->carts_count . '</span>' !!}
                             </a>
                         </div>
                     </div>
