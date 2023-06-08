@@ -91,3 +91,9 @@
     color: #0fae34 !important;
     font-weight: 500;
 }
+
+/* BLOG */
+/* create */
+#contentWrapper .ck.ck-content.ck-editor__editable {
+    min-height: 240px !important;
+}

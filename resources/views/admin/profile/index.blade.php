@@ -11,8 +11,15 @@
                         <div class="card-header">
                             <div class="row row-nav-line">
                                 <ul class="nav nav-tabs nav-line nav-color-secondary w-100 pl-4" role="tablist">
-                                    <li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#profile"
-                                            role="tab" aria-selected="false">Profile</a> </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" href="{{ route('admin.profile') }}" role="tab"
+                                            aria-selected="true">Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.edit.password') }}" role="tab"
+                                            aria-selected="false">Ubah
+                                            Password</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -23,7 +30,7 @@
                                     {{-- name --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Nama</label>
+                                            <label for="name">Nama</label>
                                             <input type="text" class="form-control" name="name" id="name"
                                                 placeholder="Nama" value="{{ $admin->customer->name }}">
                                         </div>
@@ -31,17 +38,17 @@
                                     {{-- username --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>username</label>
+                                            <label for="username">username</label>
                                             <input type="username" class="form-control" name="username" id="username"
-                                                placeholder="username" value="{{ $admin->username }}">
+                                                placeholder="username" value="{{ $admin->username }}" disabled>
                                         </div>
                                     </div>
                                     {{-- email --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Email</label>
+                                            <label for="email">Email</label>
                                             <input type="email" class="form-control" name="email" id="email"
-                                                placeholder="email" value="{{ $admin->email }}">
+                                                placeholder="email" value="{{ $admin->email }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -49,15 +56,16 @@
                                     {{-- birth date --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Tanggal Lahir</label>
+                                            <label for="dob">Tanggal Lahir</label>
                                             <input type="text" class="form-control" id="dob" name="dob"
-                                                value="{{ date("d/m/Y", strtotime($admin->customer->dob)) }}" placeholder="Birth Date">
+                                                value="{{ date('d/m/Y', strtotime($admin->customer->dob)) }}"
+                                                placeholder="Birth Date">
                                         </div>
                                     </div>
                                     {{-- gender --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>Jenis Kelamin</label>
+                                            <label for="gender">Jenis Kelamin</label>
                                             <select class="form-control" id="gender" name="gender">
                                                 <option value="Laki-laki"
                                                     {{ $admin->customer->gender == 'laki-laki' ? 'selected' : '' }}>
@@ -71,7 +79,7 @@
                                     {{-- phone --}}
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
-                                            <label>No Telepon</label>
+                                            <label for="phone">No Telepon</label>
                                             <input type="text" class="form-control" id="phone"
                                                 value="{{ $admin->customer->phone }}" name="phone" placeholder="Phone">
                                         </div>
@@ -81,7 +89,7 @@
                                     {{-- address --}}
                                     <div class="col-md-12">
                                         <div class="form-group form-group-default">
-                                            <label>Alamat</label>
+                                            <label for="address">Alamat</label>
                                             <input type="text" class="form-control"
                                                 value="{{ $admin->customer->address }}" id="address" name="address"
                                                 placeholder="Address">
@@ -89,8 +97,8 @@
                                     </div>
                                 </div>
                                 <div class="text-right mt-3 mb-3">
-                                    <button class="btn btn-success" type="submit" id="updateButton">Ubah</button>
-                                    <a href="{{ route('admin.edit.password') }}" class="btn btn-warning">Reset Password</a>
+                                    <button class="btn btn-success" type="submit" id="updateButton">Perbarui
+                                        Profil</button>
                                 </div>
                             </form>
                         </div>
@@ -102,8 +110,8 @@
                             style="background-image: url({{ asset('assets/template/admin/img/blogpost.jpg') }})">
                             <div class="profile-picture">
                                 <div class="avatar avatar-xl">
-                                    <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-name-admin"
-                                        class="avatar-img rounded-circle">
+                                    <img src="{{ asset($admin->customer->profile_picture) }}"
+                                        alt="{{ $admin->username }}-admin-profile" class="avatar-img rounded-circle">
                                 </div>
                             </div>
                         </div>
@@ -118,7 +126,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

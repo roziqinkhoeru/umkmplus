@@ -2,7 +2,7 @@
     {{-- user --}}
     <div class="user">
         <div class="avatar-sm float-left mr-2">
-            <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user0umkmplus-admin"
+            <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="{{ auth()->user()->username }}-profile"
                 class="avatar-img rounded-circle">
         </div>
         <div class="info">
@@ -24,13 +24,13 @@
                 <ul class="nav">
                     <li>
                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                        <a href="/admin/profile">
-                            <span class="link-collapse">Profil Saya</span>
-                        </a>
+                            <a href="/admin/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
                         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                        <a href="/mentor/profile">
-                            <span class="link-collapse">Profil Saya</span>
-                        </a>
+                            <a href="/mentor/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
                         @endif
                     </li>
                 </ul>

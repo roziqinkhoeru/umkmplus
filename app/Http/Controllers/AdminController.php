@@ -69,7 +69,7 @@ class AdminController extends Controller
                     : back()->with(['error' => $validator->errors()]);
             }
 
-        $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->toDateString();
+            $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->toDateString();
 
             // update customer
             $updateCustomer = $admin->update([
@@ -113,15 +113,16 @@ class AdminController extends Controller
                     'Update profil gagal',
                     400,
                 ) : back()->withInput()->withErrors(['error' => $e->getMessage()]);
-
         }
     }
 
     public function adminEditPassword()
     {
+        $admin = User::with('customer')->where('customer_id', Auth::user()->customer->id)->first();
         $data = [
             'title' => 'Edit Password | Admin UMKMPlus',
             'active' => 'profile',
+            'admin' => $admin,
         ];
 
         return view('admin.profile.editPassword', $data);
