@@ -51,7 +51,7 @@
                                     $discoutPrice = $course->price - ceil(($course->price * $course->discount) / 100);
                                 @endphp
                                 <h4 class="mb-10 text-green">Rp. {{ number_format($discoutPrice, 0, ',', '.') }} <span
-                                        class="text-decoration-line-through text-xs">{{ number_format($course->price, 0, ',', '.') }}</span>
+                                        class="text-decoration-line-through text-xs text-muted">{{ number_format($course->price, 0, ',', '.') }}</span>
                                 </h4>
                                 <p class="mb-10 text-base">Kelas terdiri dari</p>
                                 <div class="d-flex align-items-center mb-5">
