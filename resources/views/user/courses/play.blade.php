@@ -68,8 +68,8 @@
                                 @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                                     <div class="accordion-items">
                                         <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#module_{{ $module->no_module }}" aria-expanded="true"
-                                            aria-controls="module_{{ $module->no_module }}">
+                                            data-bs-target="#module_{{ $module->no_module }}_desktop" aria-expanded="true"
+                                            aria-controls="module_{{ $module->no_module }}_desktop">
                                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                                 <div class="">
                                                     <span class="text-base fw-bold d-block leading-xl"
@@ -87,7 +87,8 @@
                                                 </div>
                                             </div>
                                         </button>
-                                        <div class="collapse mt-15" id="module_{{ $module->no_module }}">
+                                        <div class="@if ($noModule != $module->id) collapse @endif mt-15"
+                                            id="module_{{ $module->no_module }}_desktop">
                                             <div class="">
                                                 {{-- File Module --}}
                                                 <button class="video-course-items" onclick="" role="presentation">
@@ -179,8 +180,8 @@
                     @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                         <div class="accordion-items">
                             <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#module_{{ $module->no_module }}" aria-expanded="false"
-                                aria-controls="module_{{ $module->no_module }}">
+                                data-bs-target="#module_{{ $module->no_module }}_mobile" aria-expanded="true"
+                                aria-controls="module_{{ $module->no_module }}_mobile">
                                 <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                     <div class="">
                                         <span class="text-base fw-bold d-block leading-xl"
@@ -196,7 +197,8 @@
                                     </div>
                                 </div>
                             </button>
-                            <div class="collapse mt-15" id="module_{{ $module->no_module }}">
+                            <div class="@if ($noModule != $module->id) collapse @endif  mt-15"
+                                id="module_{{ $module->no_module }}_mobile">
                                 <div class="">
                                     {{-- File Module --}}
                                     <button class="video-course-items" onclick="" role="presentation">
@@ -321,7 +323,7 @@
                 type: "GET",
                 url: `{{ url('/course/playing/' . $courseEnroll->id . '/media') }}`,
                 data: {
-                    id: content
+                    id: content,
                 },
                 success: function(response) {
                     htmlString = `
@@ -341,6 +343,12 @@
                         </div>
                     </div>`
                     $('#video_player').html(htmlString);
+                    $(`#module_${response.data.noModule}_desktop`).removeClass("collapse");
+                    $(`#module_${response.data.noModule}_mobile`).removeClass("collapse");
+                    console.log(response.data.noModule);
+                    $(`#module_${response.data.beforeNoModule}_desktop`).addClass("collapse");
+                    $(`#module_${response.data.beforeNoModule}_mobile`).addClass("collapse");
+                    console.log(response.data.beforeNoModule);
                 },
                 error: function(xhr, response, error) {
                     if (xhr.responseJSON)

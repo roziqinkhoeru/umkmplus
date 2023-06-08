@@ -119,7 +119,7 @@ class UserSeeder extends Seeder
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
                 'price' => $faker->numberBetween(50000, 1000000),
                 'discount' => 5,
-                'file_info' => "courses/info/Print-Kartu-UTS.pdf",
+                'file_info' => "courses/info/dummy-course.pdf",
                 'google_form' => "https://docs.google.com/forms/d/e/1FAIpQLScDv5I9giiJaDkk1h6DYjdmSjf_-ZTRByTvy8LvRH_XHUDn9g/viewform",
             ];
             $course = Course::create($courseRecord);
@@ -137,7 +137,7 @@ class UserSeeder extends Seeder
                 $moduleRecord = [
                     'course_id' => $course->id,
                     'title' => $faker->words(3, true),
-                    'file' => $faker->url(),
+                    'file' => "courses/modules/dummy-module.pdf",
                     'no_module' => $j,
                 ];
                 $module = Module::create($moduleRecord);

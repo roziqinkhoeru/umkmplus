@@ -69,7 +69,9 @@ class DashboardController extends Controller
     public function profile()
     {
         $user = Auth::user()->customer;
-        $profile = Customer::withCount('studentCourseEnrolls', 'carts')->where('id', $user->id)->first();
+        $profile = Customer::withCount(["studentCourseEnrolls as student_course_enrolls_count" => function ($query) {
+            $query->whereIn("status", ["aktif", "selesai"]);
+        }], 'carts')->where('id', $user->id)->first();
         $data = [
             'title' => 'Akun Saya | UMKMPlus',
             'active' => 'account',
@@ -176,7 +178,10 @@ class DashboardController extends Controller
     public function getCourseProfile()
     {
         $user = Auth::user()->customer;
-        $courseProfile = CourseEnroll::with('course', 'course.mentor', 'course.category', 'course.modules')->where('student_id', $user->id)->get();
+        $courseProfile = CourseEnroll::with('course', 'course.mentor', 'course.category', 'course.modules')
+        ->where('student_id', $user->id)
+        ->whereIn('status', ['selesai', 'aktif'])
+        ->get();
 
         if ($courseProfile) {
             return ResponseFormatter::success($courseProfile, 'Data course profile berhasil diambil');

@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="">
                                     @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
-                                        <a href="{{ url('/course/' . $course->slug) }}"
+                                        <a href="{{ url('/course/playing/' . $courseEnroll->id) }}"
                                             class="tp-btn tp-btn-2 rounded-pill me-2 mb-15">Mulai
                                             Belajar</a>
                                     @else
