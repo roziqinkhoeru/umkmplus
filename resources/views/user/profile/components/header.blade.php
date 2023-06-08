@@ -9,7 +9,7 @@
                             <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user-umkmplus">
                         </div>
                         <div class="profile__basic-content">
-                            <h3 class="profile__basic-title">
+                            <h3 class="profile__basic-title" id="titleProfileName">
                                 Welcome Back <span>{{ $profile->name }}</span>
                             </h3>
                             <p>{{ $profile->student_course_enrolls_count }} Running Courses <button
