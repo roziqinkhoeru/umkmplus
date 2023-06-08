@@ -35,11 +35,11 @@
                                 <div class="card-body">
                                     <h4 class="mb-10 text-2xl">{{ $course->title }}</h4>
                                     <p class="mb-5">Sub Total</p>
-                                    <p class="mb-15 text-xl fw-bold">
+                                    <p class="mb-15 text-xl fw-bold text-green">
                                         Rp
                                         {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                         {{-- condition::isDiscount=true --}}
-                                        <span class="text-green text-decoration-line-through text-xs">
+                                        <span class="text-muted text-decoration-line-through text-xs">
                                             Rp {{ number_format($course->price, 0, ',', '.') }}
                                         </span>
                                         {{-- end condition --}}
@@ -101,7 +101,8 @@
                                             </label>
                                             <div class="header__search-input">
                                                 <input type="text" placeholder="XXXXXX" class="rounded-2 text-uppercase"
-                                                    name="referral" id="referral" style="letter-spacing: 3px">
+                                                    name="referral" id="referral" style="letter-spacing: 3px"
+                                                    value="">
                                                 <button class="header__search-btn r-5" id="referral-button">
                                                     <i class="fa-regular fa-tags text-xl"
                                                         style="transform: translateY(4px);color: #031220"></i>
@@ -119,8 +120,8 @@
                                             class="mb-15 col-span-4" id="checkoutCourse">
                                             @csrf
                                             <input hidden type="text"
-                                                value="{{ Hash::make($course->price - $course->discountPrice) }}" name="priceCheckout"
-                                                id="priceCheckout" class="input-form">
+                                                value="{{ Hash::make($course->price - $course->discountPrice) }}"
+                                                name="priceCheckout" id="priceCheckout" class="input-form">
                                             <input hidden type="text" value="" name="discountID" id="discountID"
                                                 class="input-form">
                                             <div class="col-span-4">
@@ -188,19 +189,30 @@
                             `<i class="fa-regular fa-tags text-xl"
                                                     style="transform: translateY(4px);color: #031220"></i>`
                         );
-                        if (xhr.responseJSON)
+                        if (xhr.responseJSON) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'GAGAL!',
                                 text: xhr.responseJSON.meta.message,
                             })
-                        else
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'GAGAL!',
                                 text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
                                     error,
                             })
+                        }
+
+                        // Erase form input when referral doesn't exist
+                        $("#referral").val(""); // Clear the value of the referral input field
+                        $("#discountReferralLabel").html(""); // Clear the discount label
+                        $("#discountReferral").html(""); // Clear the discount value
+                        $("#discountID").val(""); // Clear the discount ID
+                        let subtotal = $("#subtotal").val();
+                        $("#totalPrice").html(
+                            `${subtotal}`); // Reset the total price to the original subtotal
+                        $("#priceCheckout").val(`${subtotal}`);
                     }
                 });
             })
