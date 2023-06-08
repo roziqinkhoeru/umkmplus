@@ -185,7 +185,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        if ($course->status == 'nonaktif') {
+        if ($course->status == 'nonaktif' || $course->status == 'pending') {
             return abort(404);
         }
         $course->load('mentor', 'modules', 'modules.mediaModules', 'courseEnrolls')->loadCount('modules');

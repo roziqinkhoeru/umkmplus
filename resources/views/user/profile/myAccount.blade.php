@@ -255,6 +255,9 @@
                                 required: true,
                                 minlength: 3
                             },
+                            gender: {
+                                required: true
+                            },
                             email: {
                                 required: true,
                                 email: true
@@ -276,6 +279,9 @@
                             name: {
                                 required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nama tidak boleh kosong',
                                 minlength: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nama minimal 3 karakter',
+                            },
+                            gender: {
+                                required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Jenis Kelamin tidak boleh kosong',
                             },
                             email: {
                                 required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak boleh kosong',
@@ -310,7 +316,6 @@
                                     _token: "{{ csrf_token() }}"
                                 },
                                 success: function(response) {
-                                    console.log(response);
                                     $('#updateProfileButton').html('Update Profil');
                                     $('#updateProfileButton').prop('disabled', false);
                                     $('#name').val("");
@@ -324,6 +329,7 @@
                                         title: 'UBAH PROFIL BERHASIL!',
                                         text: response.meta.message,
                                     })
+                                    $("#titleProfileName").html(`Welcome Back <span>${response.data.profile.customer.name}</span>`);
                                     getContent('profile');
                                 },
                                 error: function(xhr, status, error) {
@@ -378,7 +384,6 @@
                 url: "{{ route('get.profile.course') }}",
                 dataType: "json",
                 success: function(response) {
-                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
                                         <div class="order__info-top d-flex justify-content-between align-items-center px-9">
@@ -448,7 +453,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="tp-btn tp-btn-green rounded-2 w-100 text-center" style="line-height: 44px;height: 44px">Sertifikat</a>` : `<a href="{{ url('/course/${enroll.course.slug}') }}" class="tp-btn tp-btn-4 rounded-2 w-100 text-center">Lanjutkan Belajar</a>`}
+                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="tp-btn tp-btn-green rounded-2 w-100 text-center" style="line-height: 44px;height: 44px">Sertifikat</a>` : `<a href="{{ url('/course/playing/${enroll.id}') }}" class="tp-btn tp-btn-4 rounded-2 w-100 text-center">Lanjutkan Belajar</a>`}
                                         </div>
                                     </div>
                                 </div>

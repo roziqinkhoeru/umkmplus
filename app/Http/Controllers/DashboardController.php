@@ -99,6 +99,7 @@ class DashboardController extends Controller
         if ($customer->email == $request->email) {
             $rules = [
                 'name' => 'required|string|max:255',
+                'gender' => 'required',
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required',
@@ -106,6 +107,7 @@ class DashboardController extends Controller
         } else {
             $rules = [
                 'name' => 'required|string|max:255',
+                'gender' => 'required',
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id,
@@ -140,6 +142,7 @@ class DashboardController extends Controller
 
             $updateCustomer = $customer->update([
                 'name' => $request->name,
+                'gender' => $request->gender,
                 'phone' => $request->phone,
                 'address' => $request->address
             ]);
@@ -178,7 +181,7 @@ class DashboardController extends Controller
     public function getCourseProfile()
     {
         $user = Auth::user()->customer;
-        $courseProfile = CourseEnroll::with('course', 'course.mentor', 'course.category', 'course.modules')
+        $courseProfile = CourseEnroll::with('course', 'course.mentor:id,name', 'course.category')
         ->where('student_id', $user->id)
         ->whereIn('status', ['selesai', 'aktif'])
         ->get();

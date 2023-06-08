@@ -142,7 +142,7 @@ class CourseEnrollController extends Controller
 
             $orderID = Str::uuid()->toString();
             $discount_id = $request->discountID;
-            $grossAmount = $request->priceCheckout;
+            $grossAmount = $priceCheckout;
 
             $params = array(
                 'transaction_details' => [
