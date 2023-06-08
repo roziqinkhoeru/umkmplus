@@ -100,14 +100,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/cart/{cart:id}', 'destroy')->name('cart.destroy');
         });
 
-        // Course Enroll
-        Route::controller(CourseEnrollController::class)->group(function () {
-            Route::post('/checkout/{course:slug}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
-            Route::get('/checkout/{course:slug}', 'getCheckoutCourse')->name('course.get.checkout');
-            Route::post('/checkout/{course:slug}', 'checkoutCourse')->name('course.checkout');
-            Route::delete('/checkout/{courseEnroll:id}', 'destroy');
-        });
-
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/profile', 'profile')->name('profile');
             Route::get('/profile/get-profile', 'getProfile')->name('get.profile');
@@ -119,6 +111,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Course
         Route::controller(CourseEnrollController::class)->group(function () {
+            Route::post('/checkout/{course:slug}/getDiscount', 'getDiscountCourse')->name('course.get.discount');
+            Route::get('/checkout/{course:slug}', 'getCheckoutCourse')->name('course.get.checkout');
+            Route::post('/checkout/{course:slug}', 'checkoutCourse')->name('course.checkout');
+            Route::delete('/checkout/{courseEnroll:id}', 'destroy');
             Route::get('/course/playing/{courseEnroll:id}', 'coursePlaying')->name('course.playing');
             Route::get('/course/playing/{courseEnroll:id}/media', 'coursePlayingMedia')->name('course.playing.media');
             Route::get('/course/playing/{courseEnroll:id}/test', 'coursePlayingTest')->name('course.playing.test');

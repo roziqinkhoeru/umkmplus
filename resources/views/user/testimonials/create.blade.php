@@ -55,7 +55,7 @@
                                     </label>
                                     <div class="sign__input">
                                         <i class="fal fa-star icon-form"></i>
-                                        <input type="number" placeholder="Masukan Rating" name="rating"
+                                        <input type="number" placeholder="Masukan Rating" name="rating" min="1" max="5"
                                             id="rating" required value="{{ old('rating') }}" class="input-form">
                                     </div>
                                 </div>
