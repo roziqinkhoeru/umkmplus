@@ -69,11 +69,16 @@
                                 <div class="">
                                     @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
                                         <a href="{{ url('/course/playing/' . $courseEnroll->id) }}"
-                                            class="tp-btn tp-btn-2 rounded-pill mb-15">Mulai
-                                            Belajar</a>
+                                            class="tp-btn tp-btn-2 rounded-pill mb-15">Lanjutkan Belajar</a>
                                     @elseif($courseEnroll != null && Auth::check() && $courseEnroll->status == 'menunggu pembayaran')
                                         <a href="{{ url('/checkout/' . $course->slug) }}"
                                             class="tp-btn tp-btn-2 rounded-pill mb-15">Lanjutkan Pembayaran</a>
+                                    @elseif($courseEnroll != null && Auth::check() && $courseEnroll->status == 'selesai')
+                                        <a href="{{ url('/course/playing/' . $courseEnroll->id) }}"
+                                            class="tp-btn tp-btn-2 rounded-pill mb-15 me-2">Lanjutkan Belajar</a>
+                                        <button type="button" class="tp-btn tp-btn-3 rounded-pill tp-btn-green"
+                                            onclick="" title="Cetak Sertifikat"><i
+                                                class="far fa-id-card-alt"></i></button>
                                     @else
                                         <div id="buttonCart">
                                             <a href="{{ url('/checkout/' . $course->slug) }}"
