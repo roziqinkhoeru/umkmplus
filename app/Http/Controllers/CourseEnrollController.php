@@ -347,24 +347,25 @@ class CourseEnrollController extends Controller
         }
 
         $countModule = Module::where('course_id', $courseEnroll->course_id)->count();
-        $lastMediaCourse = MediaModule::where('module_id', $countModule)->max('no_media');;
+        $lastMediaCourse = MediaModule::where('module_id', $countModule)->max('no_media');
 
         // get next media
         $nextMedia = MediaModule::where('module_id', $mediaModule->module_id)->where('no_media', $mediaModule->no_media + 1)->first();
-        if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
+        if ($nextMedia) {
             $next = $nextMedia->id;
         } else {
             $nextMedia = MediaModule::where('module_id', $mediaModule->module_id + 1)->where('no_media', 1)->first();
-            if ($nextMedia && $nextMedia->module->course_id == $courseEnroll->course_id) {
+            if ($nextMedia && $courseEnroll->upto_no_module <= $countModule) {
                 $next = $nextMedia->id;
             } else if ($countModule == $courseEnroll->upto_no_module && $lastMediaCourse == $courseEnroll->upto_no_media) {
                 if ($courseEnroll->course->google_form && $courseEnroll->status != 'selesai') {
                     $next = "test";
-                } else {
-                    $next = "finish";
                 }
+            } else if ($countModule == ($courseEnroll->upto_no_module - 1)) {
+                $next = "finish";
             }
         }
+
 
         return ResponseFormatter::success(
             [

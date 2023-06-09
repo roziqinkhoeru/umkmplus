@@ -67,7 +67,7 @@
                                     <p class="mb-0">Ujian</p>
                                 </div>
                                 <div class="">
-                                    @if ($courseEnroll != null && Auth::check() && $courseEnroll->status == 'aktif')
+                                    @if ($courseEnroll != null && Auth::check() && ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai'))
                                         <a href="{{ url('/course/playing/' . $courseEnroll->id) }}"
                                             class="tp-btn tp-btn-2 rounded-pill mb-15">Lanjutkan Belajar</a>
                                     @elseif($courseEnroll != null && Auth::check() && $courseEnroll->status == 'menunggu pembayaran')
