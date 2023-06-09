@@ -554,7 +554,7 @@
                                                 <div class="d-flex flex-wrap">
                                                     <div class="mr-2 mb-2 mb-sm-0"><img
                                                             src="{{ asset('${enroll.course.thumbnail}') }}"
-                                                            alt="thumbnail-course" class="card-image-transaction">
+                                                            alt="${enroll.course.slug}-course-thumbnail" class="card-image-transaction">
                                                     </div>
                                                     <div>
                                                         <p class="mb-5 text-base fw-bold">${enroll.course.title}</p>
