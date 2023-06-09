@@ -93,7 +93,7 @@
                                         <label for="thumbnail" class="form-label mb-2">Thumbnail</label>
                                         <div class="input-file input-file-image">
                                             <img class="img-upload-preview" width="240" src="http://placehold.it/240x240"
-                                                alt="preview">
+                                                alt="blog-thumbnail-preview">
                                             <input type="file" class="form-control form-control-file" id="thumbnail"
                                                 name="thumbnail" accept="image/*" required>
                                             <label for="thumbnail" class="label-input-file btn btn-black btn-round">
