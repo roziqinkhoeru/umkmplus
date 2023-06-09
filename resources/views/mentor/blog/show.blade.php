@@ -43,8 +43,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="row g-3" action="{{ route('admin.blog.update', $blog->slug) }}" method="POST" enctype="multipart/form-data"
-                                id="editBlog">
+                            <form class="row g-3" action="{{ route('admin.blog.update', $blog->slug) }}" method="POST"
+                                enctype="multipart/form-data" id="editBlog">
                                 @csrf
                                 @method('PUT')
                                 <div class="col-md-6">
@@ -83,8 +83,8 @@
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
                                             accept="image/*">
-                                        <img id="imagePreview" src="{{ asset('storage/'.$blog->thumbnail) }}" alt="Thumbnail"
-                                            style="height: 200px; width: 300px;">
+                                        <img id="imagePreview" src="{{ asset($blog->thumbnail) }}"
+                                            alt="{{ $blog->slug }}-blog-thumbnail" style="height: 200px; width: 300px;">
                                     </div>
                                 </div>
                                 <div class="col-12">

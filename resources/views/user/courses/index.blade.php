@@ -218,8 +218,7 @@
                                                         {{-- course item image --}}
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
-                                                                <img src="{{ asset('${courseData.thumbnail}') }}"
-                                                                    alt="course-thumbnail">
+                                                                <img src="{{ asset('${courseData.thumbnail}') }}" alt="${courseData.slug}-course-thumbnail">
                                                                 <div class="course-tag-wrapper">
                                                                     <div class="course__tag">
                                                                         <span class="course-badge">${courseData.category.name}</span>
@@ -298,7 +297,7 @@
                                                                 <div class="course__tutor-2">
                                                                     <div>
                                                                         <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
-                                                                            alt="mentor-course-name">
+                                                                        alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                                                     </div>
                                                                 </div>
                                                             </div>

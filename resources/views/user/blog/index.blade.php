@@ -63,13 +63,17 @@
             getBlogs();
         });
 
-        $("#formSearchBlog").submit(function (e) {
+        $("#formSearchBlog").submit(function(e) {
             e.preventDefault();
             getBlogs();
         });
 
         function getBlogs() {
-            let htmlString = ""
+            let htmlString = "";
+            // loading state
+            $("#blogItemWrapper").html(
+                `<div class="text-center text-4xl col-span-full pt-150 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
+            );
             $.ajax({
                 url: "{{ route('blog.data') }}",
                 type: "GET",
@@ -79,30 +83,44 @@
                 success: function(response) {
                     if (response.data.blogCount === 0) {
                         // empty state
-                        htmlString = emptyState('Maaf, kelas belum tersedia');
+                        htmlString = emptyState('Maaf, blog belum tersedia');
                     } else {
+                        // success state
                         $.map(response.data.blogs, function(blog, index) {
+                            let dateRelease = new Date(blog.created_at);
+                            let options = {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric'
+                            };
+                            let createAt = dateRelease.toLocaleDateString('id-ID', options);
                             htmlString += `
                                 <div class="col-span-4">
-                                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden">
-                                        <div class="postbox__thumb w-img">
-                                            <a href="{{ url('/blog/${blog.slug}') }}">
-                                                <img src="{{ asset('storage/${blog.thumbnail}') }}" alt="blog-${blog.title}">
-                                            </a>
-                                        </div>
-                                        <div class="postbox__content" style="padding: 30px">
-                                            <div class="postbox__meta">
-                                                <span><i class="far fa-calendar-check"></i> July 21, 2020 </span>
-                                                <span><i class="far fa-user"></i>${blog.user.customer.name}</span>
+                                    <article class="postbox__item format-image transition-3 rounded-4 overflow-hidden h-100">
+                                        <div class="d-flex flex-column justify-content-between h-100">
+                                            <div>
+                                                <div class="postbox__thumb w-img">
+                                                    <a href="{{ url('/blog/${blog.slug}') }}">
+                                                        <img src="{{ asset('${blog.thumbnail}') }}" alt="${blog.slug}-blog-thumbnail">
+                                                    </a>
+                                                </div>
+                                                <div class="postbox__content" style="padding: 30px 30px 0;">
+                                                    <div class="postbox__meta">
+                                                        <span><i class="far fa-calendar-check me-2"></i>${createAt}</span>
+                                                        <span><i class="far fa-user me-2"></i>${blog.user.customer.name}</span>
+                                                    </div>
+                                                    <h3 class="postbox__title" style="margin-bottom: 12px !important">
+                                                        <a href="{{ url('/blog/${blog.slug}') }}" class="text-xl">${blog.title}</a>
+                                                    </h3>
+                                                    <div class="postbox__text">
+                                                        <p class="line-clamp-3">${blog.headline}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h3 class="postbox__title" style="margin-bottom: 12px !important">
-                                                <a href="{{ url('/blog/${blog.slug}') }}" class="text-xl">${blog.title}</a>
-                                            </h3>
-                                            <div class="postbox__text">
-                                                <p class="line-clamp-3">${blog.headline}</p>
-                                            </div>
-                                            <div class="postbox__read-more">
-                                                <a href="{{ url('/blog/${blog.slug}') }}" class="tp-btn tp-btn-2 rounded-3">read more</a>
+                                            <div style="padding: 0 30px 30px;">
+                                                <div class="postbox__read-more">
+                                                    <a href="{{ url('/blog/${blog.slug}') }}" class="tp-btn tp-btn-2 rounded-3">read more</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </article>
@@ -112,6 +130,7 @@
                     $('#blogItemWrapper').html(htmlString);
                 },
                 error: function() {
+                    // error state
                     $("#blogItemWrapper").html(errorState());
                 }
             });

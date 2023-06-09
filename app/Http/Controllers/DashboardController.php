@@ -68,12 +68,13 @@ class DashboardController extends Controller
 
     public function profile()
     {
-        $user = Auth::user()->customer;
+        $user = Auth::user();
         $profile = Customer::withCount(["studentCourseEnrolls as student_course_enrolls_count" => function ($query) {
             $query->whereIn("status", ["aktif", "selesai"]);
         }])
             ->withCount(["carts as carts_count"])
-            ->where('id', $user->id)->first();
+            ->with('user')
+            ->where('id', $user->customer_id)->first();
         $data = [
             'title' => 'Akun Saya | UMKMPlus',
             'active' => 'account',
@@ -200,7 +201,9 @@ class DashboardController extends Controller
     public function getTransactionHistory()
     {
         $user = Auth::user()->customer;
-        $transactionHistory = CourseEnroll::with('course', 'course.mentor', 'course.category')->where('student_id', $user->id)->get();
+        $transactionHistory = CourseEnroll::with('course', 'course.mentor', 'course.category')->where('student_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         if ($transactionHistory) {
             return ResponseFormatter::success($transactionHistory, 'Data transaction history berhasil diambil');

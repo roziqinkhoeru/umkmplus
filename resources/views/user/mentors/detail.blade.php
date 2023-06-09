@@ -9,8 +9,8 @@
                     <div class="col-lg-7">
                         <div class="d-sm-flex mb-30 mb-lg-0">
                             <div class="mentor-image-wrapper">
-                                <figure class="mb-0 mentor-image-circle"><img
-                                        src="{{ asset('assets/img/dummy/mentor-1.jpg') }}" alt="nama-mentor"></figure>
+                                <figure class="mb-0 mentor-image-circle"><img src="{{ asset($mentor->profile_picture) }}"
+                                        alt="{{ $mentor->slug }}-mentor-profile"></figure>
                             </div>
                             <div class="mentor-content-wrapper">
                                 <h2>{{ $mentor->name }}</h2>
@@ -75,7 +75,7 @@
                             <div class="course__thumb-2 w-img fix">
                                 <figure class="mb-0 position-relative">
                                     <img src="{{ asset('${courseData.thumbnail}') }}"
-                                        alt="course-thumbnail">
+                                        alt="${courseData.slug}-course-thumbnail">
                                     <div class="course-tag-wrapper">
                                         <div class="course__tag">
                                             <span class="course-badge">${courseData.category.name}</span>
@@ -138,8 +138,7 @@
                                     </div>
                                     <div class="course__tutor-2">
                                         <div>
-                                            <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
-                                                alt="mentor-course-name">
+                                            <img src="{{ asset('${courseData.mentor.profile_picture}') }}" alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                         </div>
                                     </div>
                                 </div>

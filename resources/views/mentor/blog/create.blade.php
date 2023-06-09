@@ -43,8 +43,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="row g-3" action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data"
-                                id="addBlog">
+                            <form class="row g-3" action="{{ route('admin.blog.store') }}" method="POST"
+                                enctype="multipart/form-data" id="addBlog">
                                 @csrf
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
@@ -58,7 +58,7 @@
                                         <label for="status" class="form-label">Status</label>
                                         <select id="status" class="form-control" id="status" name="status" required>
                                             @foreach ($statuses as $status)
-                                                <option value="{{ $status }}" >{{ ucfirst($status) }}</option>
+                                                <option value="{{ $status }}">{{ ucfirst($status) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -80,7 +80,7 @@
                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                         <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
                                             accept="image/*" required>
-                                        <img id="imagePreview" src="#" alt="Thumbnail"
+                                        <img id="imagePreview" src="#" alt="Thumbnail-salah-diganti-ya"
                                             style="height: 200px; width: 300px;">
                                     </div>
                                 </div>
