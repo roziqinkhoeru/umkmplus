@@ -1,13 +1,14 @@
 <div class="container-fluid">
     <div class="collapse" id="search-nav">
-        <form class="navbar-left navbar-form nav-search mr-md-3">
+        <form id="navbarSearchForm" class="navbar-left navbar-form nav-search mr-md-3" onsubmit="searchNavbarForm(event)">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <button type="submit" class="btn btn-search pr-1">
                         <i class="fa fa-search search-icon"></i>
                     </button>
                 </div>
-                <input type="text" placeholder="Search ..." class="form-control">
+                <input type="text" placeholder="Search ..." class="form-control" id="searchNavbar"
+                    name="searchNavbar">
             </div>
         </form>
     </div>
@@ -241,5 +242,19 @@
                 window.location.href = "{{ route('logout') }}";
             }
         })
+    }
+    // on submit form search
+    const searchNavbarForm = (e) => {
+        e.preventDefault();
+        const search = document.getElementById('searchNavbar').value;
+        if (search == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Kata kunci tidak boleh kosong!',
+            })
+        } else {
+            window.location.href = `/dashboard/search/${search}`;
+        }
     }
 </script>

@@ -167,12 +167,6 @@
                     <p>Blog</p>
                 </a>
             </li>
-            <li class="nav-item @if ($active == 'testimonial') active @endif">
-                <a href="/mentor/testimonial">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Testimonial</p>
-                </a>
-            </li>
         @endif
         {{-- logout --}}
         <li class="nav-item">
