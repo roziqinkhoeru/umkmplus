@@ -31,16 +31,15 @@
                                     <button class="btn-accordion" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#prepare_class" aria-expanded="false" aria-controls="prepare_class">
                                         <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                            <div class="">
+                                            <div class="btn-accordion-header-title">
                                                 <span class="text-base fw-bold d-block leading-xl"
                                                     style="margin-bottom: 2px">Persiapan Kelas</span>
                                                 <span class="mb-0 d-block leading-xl text-xs">Info | Resource</span>
                                             </div>
-                                            <div class="">
-                                                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                            <div class="btn-accordion-header-icon">
+                                                <div class="rounded-circle bg-white position-relative"
                                                     style="width: 24px;height: 24px;">
-                                                    <i class="fa-solid fa-sort-down"
-                                                        style="transform: translateY(-2px)"></i>
+                                                    <i class="fas fa-chevron-down text-xs"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -48,7 +47,7 @@
                                     <div class="collapse mt-15" id="prepare_class">
                                         <div class="">
                                             {{-- info or materi --}}
-                                            <button class="video-course-items" onclick="" role="presentation">
+                                            <button class="video-course-items" role="presentation">
                                                 <div class="">
                                                     <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                         style="width: 24px;height: 24px;">
@@ -57,7 +56,7 @@
                                                 </div>
                                                 <div class="">
                                                     <a href="{{ asset('storage/' . $courseEnroll->course->file_info) }}">
-                                                        <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                                        <p class="fw-bold mb-0 leading-xl">Download Materi Pengantar</p>
                                                     </a>
                                                 </div>
                                             </button>
@@ -67,33 +66,31 @@
                                 {{-- accordion desktop --}}
                                 @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                                     <div class="accordion-items">
-                                        <button class="btn-accordion" type="button" data-bs-toggle="collapse"
+                                        <button class="btn-accordion @if ($noModule == $module->no_module) active @endif"
+                                            type="button" data-bs-toggle="collapse"
                                             data-bs-target="#module_{{ $module->no_module }}_desktop" aria-expanded="false"
                                             aria-controls="module_{{ $module->no_module }}_desktop">
                                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                                <div class="">
+                                                <div class="btn-accordion-header-title">
                                                     <span class="text-base fw-bold d-block leading-xl"
                                                         style="margin-bottom: 2px">{{ $module->title }}</span>
                                                     <span
                                                         class="mb-0 d-block leading-xl text-xs">{{ $module->mediaModules->count() }}
                                                         video</span>
                                                 </div>
-                                                <div class="">
-                                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                                <div class="btn-accordion-header-icon">
+                                                    <div class="rounded-circle bg-white position-relative"
                                                         style="width: 24px;height: 24px;">
-                                                        <i class="fa-solid fa-sort-down"
-                                                            style="transform: translateY(-2px)"></i>
+                                                        <i class="fas fa-chevron-down text-xs"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </button>
-                                        <div class="collapse @if ($noModule == $module->no_module)
-                                            show
-                                        @endif mt-15"
+                                        <div class="collapse @if ($noModule == $module->no_module) show @endif mt-15"
                                             id="module_{{ $module->no_module }}_desktop">
                                             <div class="">
                                                 {{-- File Module --}}
-                                                <button class="video-course-items" onclick="" role="presentation">
+                                                <button class="video-course-items" role="presentation">
                                                     <div class="">
                                                         <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                             style="width: 24px;height: 24px;">
@@ -145,16 +142,16 @@
                         <button class="btn-accordion" type="button" data-bs-toggle="collapse"
                             data-bs-target="#prepare_class" aria-expanded="false" aria-controls="prepare_class">
                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                <div class="">
+                                <div class="btn-accordion-header-title">
                                     <span class="text-base fw-bold d-block leading-xl"
                                         style="margin-bottom: 2px">Persiapan
                                         Kelas</span>
                                     <span class="mb-0 d-block leading-xl text-xs">Info | Resource</span>
                                 </div>
-                                <div class="">
-                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                <div class="btn-accordion-header-icon">
+                                    <div class="rounded-circle bg-white position-relative"
                                         style="width: 24px;height: 24px;">
-                                        <i class="fa-solid fa-sort-down" style="transform: translateY(-2px)"></i>
+                                        <i class="fas fa-chevron-down text-xs"></i>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +159,7 @@
                         <div class="collapse mt-15" id="prepare_class">
                             <div class="">
                                 {{-- info or materi --}}
-                                <button class="video-course-items" onclick="" role="presentation">
+                                <button class="video-course-items" role="presentation">
                                     <div class="">
                                         <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                             style="width: 24px;height: 24px;">
@@ -171,7 +168,7 @@
                                     </div>
                                     <div class="">
                                         <a href="{{ asset('storage/' . $courseEnroll->course->file_info) }}">
-                                            <p class="fw-bold mb-0 leading-xl">Download Materi</p>
+                                            <p class="fw-bold mb-0 leading-xl">Download Materi Pengantar</p>
                                         </a>
                                     </div>
                                 </button>
@@ -181,31 +178,29 @@
                     {{-- accordion Mobile --}}
                     @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                         <div class="accordion-items">
-                            <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#module_{{ $module->no_module }}_mobile" aria-expanded="false"
-                                aria-controls="module_{{ $module->no_module }}_mobile">
+                            <button class="btn-accordion @if ($noModule == $module->no_module) active @endif" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#module_{{ $module->no_module }}_mobile"
+                                aria-expanded="false" aria-controls="module_{{ $module->no_module }}_mobile">
                                 <div class="w-100 d-flex justify-content-between align-items-center gap-3">
-                                    <div class="">
+                                    <div class="btn-accordion-header-title">
                                         <span class="text-base fw-bold d-block leading-xl"
                                             style="margin-bottom: 2px">{{ $module->title }}</span>
                                         <span class="mb-0 d-block leading-xl text-xs">{{ $module->mediaModules->count() }}
                                             video</span>
                                     </div>
-                                    <div class="">
-                                        <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                    <div class="btn-accordion-header-icon">
+                                        <div class="rounded-circle bg-white position-relative"
                                             style="width: 24px;height: 24px;">
-                                            <i class="fa-solid fa-sort-down" style="transform: translateY(-2px)"></i>
+                                            <i class="fas fa-chevron-down text-xs"></i>
                                         </div>
                                     </div>
                                 </div>
                             </button>
-                            <div class="collapse @if ($noModule == $module->no_module)
-                                show
-                            @endif mt-15"
+                            <div class="collapse @if ($noModule == $module->no_module) show @endif mt-15"
                                 id="module_{{ $module->no_module }}_mobile">
                                 <div class="">
                                     {{-- File Module --}}
-                                    <button class="video-course-items" onclick="" role="presentation">
+                                    <button class="video-course-items" role="presentation">
                                         <div class="">
                                             <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                                 style="width: 24px;height: 24px;">
@@ -300,6 +295,11 @@
             } else {
                 openVideo('{{ $lastMedia->id }}')
             }
+
+            $('.btn-accordion').click(function() {
+                // Rotate the accordion header icon
+                $(this).toggleClass('active');
+            });
         });
 
         let htmlString = "";
