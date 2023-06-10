@@ -68,7 +68,7 @@
                                 @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                                     <div class="accordion-items">
                                         <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#module_{{ $module->no_module }}_desktop" aria-expanded="true"
+                                            data-bs-target="#module_{{ $module->no_module }}_desktop" aria-expanded="false"
                                             aria-controls="module_{{ $module->no_module }}_desktop">
                                             <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                                 <div class="">
@@ -87,7 +87,9 @@
                                                 </div>
                                             </div>
                                         </button>
-                                        <div class="@if ($noModule != $module->id) collapse @endif mt-15"
+                                        <div class="collapse @if ($noModule == $module->no_module)
+                                            show
+                                        @endif mt-15"
                                             id="module_{{ $module->no_module }}_desktop">
                                             <div class="">
                                                 {{-- File Module --}}
@@ -180,7 +182,7 @@
                     @foreach ($courseEnroll->course->modules->sortBy('no_module') as $module)
                         <div class="accordion-items">
                             <button class="btn-accordion" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#module_{{ $module->no_module }}_mobile" aria-expanded="true"
+                                data-bs-target="#module_{{ $module->no_module }}_mobile" aria-expanded="false"
                                 aria-controls="module_{{ $module->no_module }}_mobile">
                                 <div class="w-100 d-flex justify-content-between align-items-center gap-3">
                                     <div class="">
@@ -197,7 +199,9 @@
                                     </div>
                                 </div>
                             </button>
-                            <div class="@if ($noModule != $module->id) collapse @endif  mt-15"
+                            <div class="collapse @if ($noModule == $module->no_module)
+                                show
+                            @endif mt-15"
                                 id="module_{{ $module->no_module }}_mobile">
                                 <div class="">
                                     {{-- File Module --}}
@@ -292,7 +296,6 @@
             var contentBeforeURL = urlParams.get('content');
             if (contentBeforeURL) {
                 $(`.videoCourse${contentBeforeURL}`).addClass('active');
-                $(`.videoCourse${contentBeforeURL}`).attr("aria-expanded", true);
                 openVideo(contentBeforeURL)
             } else {
                 openVideo('{{ $lastMedia->id }}')
@@ -324,6 +327,7 @@
                 url: `{{ url('/course/playing/' . $courseEnroll->id . '/media') }}`,
                 data: {
                     id: content,
+                    idBefore: contentBeforeURL
                 },
                 success: function(response) {
                     htmlString = `
@@ -341,16 +345,17 @@
                         <div class="ms-4">
                             ${response.data.next == "finish" ? `<a href="{{ url('/profile') }}" class="tp-btn tp-btn-4 tp-btn-green leading-btn-44 rounded-pill" >Selesai</a>`
                             : (response.data.next == "test" ? `<a href="{{ url('/course/playing/' . $courseEnroll->id . '/test') }}" class="tp-btn tp-btn-4 tp-btn-yellow-4 rounded-pill">Ujian</a>`
-                            : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>` )}
+                            : (response.data.next == 'settle' ? `<a href="{{ url('/course/playing/' . $courseEnroll->id . '/test/finish') }}" class="tp-btn tp-btn-4 tp-btn-green-4 rounded-pill">Selesaikan</a>`
+                            : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>` ))}
                         </div>
                     </div>`
                     $('#video_player').html(htmlString);
-                    $(`#module_${response.data.noModule}_desktop`).removeClass("collapse");
-                    $(`#module_${response.data.noModule}_mobile`).removeClass("collapse");
-                    console.log(response.data.noModule);
-                    $(`#module_${response.data.beforeNoModule}_desktop`).addClass("collapse");
-                    $(`#module_${response.data.beforeNoModule}_mobile`).addClass("collapse");
                     console.log(response.data.beforeNoModule);
+                    $(`#module_${response.data.beforeNoModule}_desktop`).removeClass("show");
+                    $(`#module_${response.data.beforeNoModule}_mobile`).removeClass("show");
+                    console.log(response.data.noModule);
+                    $(`#module_${response.data.noModule}_desktop`).addClass("show");
+                    $(`#module_${response.data.noModule}_mobile`).addClass("show");
                 },
                 error: function(xhr, response, error) {
                     if (xhr.responseJSON)
