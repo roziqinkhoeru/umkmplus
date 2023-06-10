@@ -387,60 +387,72 @@
         // get my course data
         function getMyCourse(data) {
             let myCourse = '';
-            $.map(data, function(enroll) {
-                let option = {
-                    style: 'currency',
-                    currency: 'IDR',
-                    useGrouping: true,
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                };
-                let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
-                let badgeStatus = '';
-                switch (enroll.status) {
-                    case 'aktif':
-                        badgeStatus = 'text-bg-primary';
-                        break;
-                    case 'proses':
-                        badgeStatus = 'text-bg-warning'
-                        break;
-                    case 'menunggu pembayaran':
-                        badgeStatus = 'text-bg-warning'
-                        break;
-                    case 'selesai':
-                        badgeStatus = 'text-bg-success'
-                        break;
-                    default:
-                        break;
-                }
-                myCourse += `<div class="col-span-6-mycourse">
-                                <div class="mycourse-item">
-                                    <div class="d-flex flex-column h-100 justify-content-between">
-                                        <div class="mb-15">
-                                            <figure class="mycourse-item-image position-relative mb-15">
-                                                <img src="{{ asset('${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
-                                                <div class="course-tag-wrapper">
-                                                    <div class="course__tag">
-                                                        <span class="course-badge">${enroll.course.category.name}</span>
+            if (data.length === 0) {
+                myCourse += `<div class="col-span-full pt-50 pb-45">
+                                <div class="text-center">
+                                    <h3 class="text-2xl">Kelas Kosong</h3>
+                                    <p class="text-base">Kamu belum masuk ke dalam kelas apapun</p>
+                                    <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari Kelas</a>
+                                </div>
+                            </div>`
+            } else {
+                $.map(data, function(enroll) {
+                    let option = {
+                        style: 'currency',
+                        currency: 'IDR',
+                        useGrouping: true,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    };
+                    let coursePrice = enroll.total_price.toLocaleString('id-ID', option);
+                    let badgeStatus = '';
+                    switch (enroll.status) {
+                        case 'aktif':
+                            badgeStatus = 'text-bg-primary';
+                            break;
+                        case 'proses':
+                            badgeStatus = 'text-bg-warning'
+                            break;
+                        case 'menunggu pembayaran':
+                            badgeStatus = 'text-bg-warning'
+                            break;
+                        case 'selesai':
+                            badgeStatus = 'text-bg-success'
+                            break;
+                        default:
+                            break;
+                    }
+                    myCourse += `<div class="col-span-6-mycourse">
+                                    <div class="mycourse-item">
+                                        <div class="d-flex flex-column h-100 justify-content-between">
+                                            <div class="mb-15">
+                                                <figure class="mycourse-item-image position-relative mb-15">
+                                                    <img src="{{ asset('${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
+                                                    <div class="course-tag-wrapper">
+                                                        <div class="course__tag">
+                                                            <span class="course-badge">${enroll.course.category.name}</span>
+                                                        </div>
+                                                    </div>
+                                                </figure>
+                                                <div>
+                                                    <h4 class="mb-10 line-clamp-3">
+                                                        <a href="{{ url('/course/playing/${enroll.id}') }}" class="text-tp-blue-3">${enroll.course.title}</a>
+                                                    </h4>
+                                                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                                        <p class="mb-0">Oleh ${enroll.course.mentor.name}</p>
+                                                        <p class="mb-0"><span class="badge py-2 px-3 ${badgeStatus} text-uppercase rounded-pill">${enroll.status}</span></p>
                                                     </div>
                                                 </div>
-                                            </figure>
-                                            <div>
-                                                <h4 class="mb-8 line-clamp-3">${enroll.course.title}</h4>
-                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                                    <p class="mb-0">Oleh ${enroll.course.mentor.name}</p>
-                                                    <p class="mb-0"><span class="badge py-2 px-3 ${badgeStatus} text-uppercase rounded-pill">${enroll.status}</span></p>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="tp-btn tp-btn-green rounded-2 w-100 text-center" style="line-height: 44px;height: 44px">Sertifikat</a>` : `<a href="{{ url('/course/playing/${enroll.id}') }}" class="tp-btn tp-btn-4 rounded-2 w-100 text-center">Lanjutkan Belajar</a>`}
+                                            <div>
+                                                ${enroll.status == 'selesai' ? `<a href="{{ url('/course/certificate/${enroll.id}') }}" class="tp-btn tp-btn-green rounded-2 w-100 text-center" style="line-height: 44px;height: 44px">Sertifikat</a>` : `<a href="{{ url('/course/playing/${enroll.id}') }}" class="tp-btn tp-btn-4 rounded-2 w-100 text-center">Lanjutkan Belajar</a>`}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
-            })
+                            `;
+                })
+            }
             return myCourse;
         }
 
@@ -493,40 +505,49 @@
         // get my transaction
         function getMyTransaction(data) {
             let myTransaction = '';
-            $.map(data, function(enroll) {
-                let option = {
-                    style: 'currency',
-                    currency: 'IDR',
-                    useGrouping: true,
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                };
-                let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
-                let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll.course
-                    .discount / 100);
-                let badgeStatus = '';
-                let badgeText = '';
-                switch (enroll.status) {
-                    case 'aktif':
-                        badgeStatus = 'text-bg-success';
-                        badgeText = 'sukses';
-                        break;
-                    case 'proses':
-                        badgeStatus = 'text-bg-warning'
-                        badgeText = enroll.status;
-                        break;
-                    case 'menunggu pembayaran':
-                        badgeStatus = 'text-bg-warning'
-                        badgeText = enroll.status;
-                        break;
-                    case 'selesai':
-                        badgeStatus = 'text-bg-success'
-                        badgeText = 'sukses';
-                        break;
-                    default:
-                        break;
-                }
-                myTransaction += `
+            if (data === 0) {
+                myTransaction = `<div class="col-span-full pt-50 pb-75">
+                                    <div class="text-center">
+                                        <h3 class="text-2xl">Transaksi Kosong</h3>
+                                        <p class="text-base">Kamu belum melakukan transaksi  apapun</p>
+                                        <a href="/course" class="tp-btn tp-btn-4 rounded-2">Beli Kelas</a>
+                                    </div>
+                                </div>`;
+            } else {
+                $.map(data, function(enroll) {
+                    let option = {
+                        style: 'currency',
+                        currency: 'IDR',
+                        useGrouping: true,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    };
+                    let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
+                    let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll.course
+                        .discount / 100);
+                    let badgeStatus = '';
+                    let badgeText = '';
+                    switch (enroll.status) {
+                        case 'aktif':
+                            badgeStatus = 'text-bg-success';
+                            badgeText = 'sukses';
+                            break;
+                        case 'proses':
+                            badgeStatus = 'text-bg-warning'
+                            badgeText = enroll.status;
+                            break;
+                        case 'menunggu pembayaran':
+                            badgeStatus = 'text-bg-warning'
+                            badgeText = enroll.status;
+                            break;
+                        case 'selesai':
+                            badgeStatus = 'text-bg-success'
+                            badgeText = 'sukses';
+                            break;
+                        default:
+                            break;
+                    }
+                    myTransaction += `
                                 <div class="card mb-25">
                                     <div class="card-header" style="background: #246ba00a">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -579,7 +600,8 @@
                                     </div>
                                 </div>
                 `;
-            })
+                })
+            }
             return myTransaction;
         }
 
