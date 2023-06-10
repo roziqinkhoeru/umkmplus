@@ -16,7 +16,7 @@
     <meta property="og:image" content="{{ asset('assets/icon/apple-touch-icon.png') }}">
     <meta property="og:url" content="https://www.umkmplus.site">
 
-    <!-- Place favicon.ico in the root directory -->
+    {{-- Place favicon.ico in the root directory --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     {{-- apple touch icon --}}
