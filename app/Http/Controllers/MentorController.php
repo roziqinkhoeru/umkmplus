@@ -197,7 +197,7 @@ class MentorController extends Controller
                 'address' => $request->address,
                 'job' => $request->job,
                 'file_cv' => $request->file_cv,
-                'profile_picture' => 'assets/img/dummy/mentor-1.jpg', // default profile photo
+                'profile_picture' => 'assets/img/dummy/profile-placeholder.png', // default profile photo
                 'status' => 1,
             ]);
 
@@ -407,7 +407,6 @@ class MentorController extends Controller
                     'Update profil mentor gagal',
                     400,
                 ) : back()->withInput()->withErrors(['error' => $e->getMessage()]);
-
         }
     }
 
