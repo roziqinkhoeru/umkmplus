@@ -37,6 +37,10 @@
 .leading-xl {
     line-height: 1.5 !important;
 }
+.leading-btn-44 {
+    line-height: 44px !important;
+    height: 44px !important;
+}
 /* weight */
 .font-semibold {
     font-weight: 600 !important;
@@ -84,6 +88,14 @@
 }
 .tp-btn.btn-delete:hover {
     background: #9b222e !important;
+    color: #fff !important;
+}
+.tp-btn-yellow-4 {
+    background: #ffaa2c !important;
+    color: #fff !important;
+}
+.tp-btn-yellow-4:hover {
+    background: #ee6002 !important;
     color: #fff !important;
 }
 
@@ -189,6 +201,9 @@ label.error {
 }
 .bg-tp-theme-1 {
     background: #3d6ce7;
+}
+.text-tp-blue-3:hover {
+    color: #3c66ed !important;
 }
 
 /* border */
