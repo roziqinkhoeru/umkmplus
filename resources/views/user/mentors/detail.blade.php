@@ -31,7 +31,7 @@
                         <div class="card rounded-2-5">
                             <div class="card-body p-4">
                                 <p class="fw-bold text-tp-theme-1 mb-8 text-lg">Tentang Mentor</p>
-                                <p class="mb-0">{{ $mentor->about }}</p>
+                                <p class="mb-0">{{ $mentor->dataMentor->about }}</p>
                             </div>
                         </div>
                     </div>
@@ -65,10 +65,18 @@
                 success: function(response) {
                     let htmlString = "";
                     $.map(response.data, function(courseData, index) {
-                        let coursePrice = new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR'
-                        }).format(courseData.price);
+                        let option = {
+                                style: 'currency',
+                                currency: 'IDR',
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            };
+                            let coursePrice = new Intl.NumberFormat('id-ID', option).format(courseData.price);
+                        let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
+                            courseData.discount / 100);
+                        let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
+                            option);
                         htmlString += `<div class="col-span-3-course">
                         <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block" href="/course/${courseData.slug}">
                             {{-- course item image --}}
@@ -88,7 +96,9 @@
                                 <h3 class="course__title-2 line-clamp-3-hover text-lg leading-lg mb-2">
                                     ${courseData.title}
                                 </h3>
-                                <p class="mb-10 fw-medium text-green-2">${coursePrice}</p>
+                                <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Gratis'}
+                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice : ''}</span>
+                                                            </p>
                                 <div class="course__bottom-2 d-flex align-items-center justify-content-between">
                                     <div class="course__action">
                                         <ul>

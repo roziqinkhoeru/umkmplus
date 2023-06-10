@@ -75,11 +75,13 @@
                                 </div>
                                 {{-- dob --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="dob" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                    <label for="dob" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Tanggal
+                                        Lahir
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="dob" class="form-control" id="dob"
-                                            placeholder="Tanggal Lahir" value="{{ date("d/m/Y", strtotime($admin->customer->dob)) }}" required>
+                                            placeholder="Tanggal Lahir" value="{{ date('d/m/Y', strtotime($mentor->dob)) }}"
+                                            required>
                                     </div>
                                 </div>
                                 {{-- gender --}}
@@ -87,11 +89,13 @@
                                     <label for="gender" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                            <select class="form-control w-100 h-52" aria-label="Default select example"
-                                                name="gender" id="gender" required>
-                                                <option value="laki-laki">laki-laki</option>
-                                                <option value="perempuan">perempuan</option>
-                                            </select>
+                                        <select class="form-control w-100 h-52" aria-label="Default select example"
+                                            name="gender" id="gender" required>
+                                            <option value="laki-laki" @if ($mentor->gender == 'laki-laki') selected @endif>
+                                                laki-laki</option>
+                                            <option value="perempuan" @if ($mentor->gender == 'perempuan') selected @endif>
+                                                perempuan</option>
+                                        </select>
                                     </div>
                                 </div>
                                 {{-- address --}}
@@ -112,14 +116,23 @@
                                             placeholder="Masukkan Pekerjaan" value="{{ $mentor->job }}" required>
                                     </div>
                                 </div>
+                                {{-- about --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="about" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Tentang
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <textarea name="about" class="form-control" id="about" rows="5" maxlength="400"
+                                            placeholder="Masukkan Deskripsi Diri" required>{{ $mentor->dataMentor->about }}</textarea>
+                                    </div>
+                                </div>
                                 {{-- specialist --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
                                         Spesialisasi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <select class="form-control" aria-label="Default select example" name="specialist"
-                                            id="specialist" required>
+                                        <select class="form-control" aria-label="Default select example"
+                                            name="specialist" id="specialist" required>
                                             {{-- <option hidden>Pilih Spesialisasi</option> --}}
                                             @foreach ($categories as $category)
                                                 <option @if ($category->name == $mentor->specialist) selected @endif
@@ -130,7 +143,8 @@
                                 </div>
                                 {{-- email --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Alamat Email
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Alamat
+                                        Email
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="email" name="email" class="form-control" id="email"
@@ -157,7 +171,6 @@
 
 @section('script')
     <script>
-
         $(document).ready(function() {
             $('#dob').datetimepicker({
                 format: 'DD/MM/YYYY',
@@ -209,6 +222,11 @@
                 specialist: {
                     required: true,
                 },
+                about: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 400,
+                },
             },
             messages: {
                 name: {
@@ -249,6 +267,11 @@
                 specialist: {
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Spesialis tidak boleh kosong',
                 },
+                about: {
+                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tentang mentor tidak boleh kosong',
+                    minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tentang mentor minimal 3 karakter',
+                    maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tentang mentor maksimal 400 karakter',
+                },
             },
             highlight: function(element) {
                 $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -258,15 +281,22 @@
             },
             submitHandler: function(form, event) {
                 event.preventDefault();
-                Swal.fire({
+                swal({
                     title: 'Apakah anda yakin?',
                     text: "Anda akan mengubah data profil!",
                     icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    buttons: {
+                        confirm: {
+                            text: 'Ya, Ubah data!',
+                            className: 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
                 }).then((result) => {
-                    if (result.isConfirmed) {
+                    if (result) {
                         $('#updateButton').html(
                             '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                         $('#updateButton').prop('disabled', true);
@@ -282,6 +312,7 @@
                                 gender: $('#gender').val(),
                                 address: $('#address').val(),
                                 job: $('#job').val(),
+                                about: $('#about').val(),
                                 specialist: $('#specialist').val(),
                                 _token: "{{ csrf_token() }}"
                             },

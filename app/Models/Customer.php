@@ -46,9 +46,19 @@ class Customer extends Model
         return $this->belongsToMany(Specialist::class, 'customer_specialists');
     }
 
+    function dataMentor()
+    {
+        return $this->hasOne(Mentor::class, 'customer_id');
+    }
+
+    public function withdraw()
+    {
+        return $this->hasMany(Withdraw::class);
+    }
     public static function scopeMentor($query)
     {
-        return $query->select('customers.id', 'customers.name','customers.slug', 'customers.profile_picture', 'customers.job', 'customers.status', 'users.email', 'role_users.role_id')
+        return $query->select('customers.id', 'customers.name','customers.slug', 'users.email', 'role_users.role_id')
+        ->with('dataMentor')
         ->leftJoin('users', 'users.customer_id', '=', 'customers.id')
         ->leftJoin('role_users', 'role_users.user_id', '=', 'users.id')
             ->where('role_users.role_id', 2);
@@ -63,7 +73,7 @@ class Customer extends Model
     public static function scopeDataCourseStudent($query)
     {
         return $query->select('customers.id', 'customers.name', 'customers.profile_picture', 'customers.job', 'customers.slug', DB::raw('count(course_enrolls.id) as total_student'))
-        ->with('specialists')
+        ->with(['dataMentor', 'specialists:name'])
         ->leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
         ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
         ->where(function ($query) {
