@@ -161,6 +161,11 @@
     .card-join-mentor .card .card-body {
         padding: 2rem;
     }
+
+    /* PLAYING COURSE */
+    .playing-course-iframe {
+        height: 480px !important;
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -218,6 +223,11 @@
     /* JOIN MENTOR */
     .card-join-mentor {
         margin-bottom: 40px;
+    }
+
+    /* PLAYING COURSE */
+    .playing-course-iframe {
+        height: 400px !important;
     }
 }
 
@@ -306,5 +316,10 @@
     }
     .card-join-mentor .card .card-body {
         padding: 0;
+    }
+
+    /* PLAYING COURSE */
+    .playing-course-iframe {
+        height: 280px !important;
     }
 }

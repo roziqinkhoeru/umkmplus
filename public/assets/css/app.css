@@ -644,9 +644,18 @@
 .video-course-items:last-child {
     margin-bottom: 0;
 }
+.video-course-items.active {
+    background: #0e1133 !important;
+}
+.video-course-items.active:hover {
+    background: #0e1133 !important;
+}
 .video-course-items p {
     text-align: left;
     color: #ffffff;
+}
+.playing-course-iframe {
+    height: 560px !important;
 }
 
 /* video */
