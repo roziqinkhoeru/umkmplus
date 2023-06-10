@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -143,5 +144,26 @@ class TestimonialController extends Controller
         return ResponseFormatter::error([
             'error' => 'Status Testimonial gagal diubah'
         ], 'Status Testimonial gagal diubah', 400);
+    }
+
+    public function mentorCourseTestimonial(Course $course)
+    {
+        $testimonials = Testimonial::with([
+            'courseEnroll.student' => function ($query) {
+                $query->select('id', 'name', 'job');
+            }
+        ])->whereHas('courseEnroll', function ($query) use ($course) {
+            $query->where('course_id', $course->id);
+        })->get();
+
+        if ($testimonials) {
+            return ResponseFormatter::success([
+                'testimonials' => $testimonials
+            ], 'Data Testimonial berhasil diambil');
+        }
+
+        return ResponseFormatter::error([
+            'error' => 'Data Testimonial gagal diambil'
+        ], 'Data Testimonial gagal diambil', 400);
     }
 }

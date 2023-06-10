@@ -230,6 +230,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/mentor/blog/create', 'mentorBlogCreate')->name('mentor.blog.create');
             Route::get('/mentor/blog/{blog:slug}', 'mentorBlogShow')->name('mentor.blog.show');
         });
+        // Testimonial
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::get('/mentor/testimonial/{course:slug}', 'mentorCourseTestimonial')->name('mentor.course.testimonial');
+        });
     });
 
     /** MENTOR & ADMIN **/
