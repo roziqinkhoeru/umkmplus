@@ -291,12 +291,18 @@ class CourseEnrollController extends Controller
             return back()->with('error', 'Anda tidak memiliki akses ke halaman ini');
         }
 
+        // check if course is finished
         if ($courseEnroll->status != 'selesai') {
             $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', $courseEnroll->upto_no_module)->first()->id;
             $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
         } else {
             $noModule = Module::where('course_id', $courseEnroll->course->id)->where('no_module', 1)->first()->id;
             $lastMedia = MediaModule::where('module_id', $noModule)->where('no_media', $courseEnroll->upto_no_media)->first();
+        }
+
+        // check if have request
+        if(request()->content) {
+            $noModule = MediaModule::find(request()->content)->module->no_module;
         }
 
         $data = [
@@ -362,32 +368,39 @@ class CourseEnrollController extends Controller
         }
 
         $countModule = Module::where('course_id', $courseEnroll->course_id)->count();
-        $lastMediaCourse = MediaModule::where('module_id', $countModule)->max('no_media');
+        $lastMedia = MediaModule::where('module_id', $mediaModule->module_id)->orderBy('no_media', 'desc')->first();
 
         // get next media
         $nextMedia = MediaModule::where('module_id', $mediaModule->module_id)->where('no_media', $mediaModule->no_media + 1)->first();
         if ($nextMedia) {
             $next = $nextMedia->id;
         } else {
-            $nextMedia = MediaModule::where('module_id', $mediaModule->module_id + 1)->where('no_media', 1)->first();
-            if ($nextMedia && $courseEnroll->upto_no_module <= $countModule) {
+            $nextModule = Module::where('course_id', $courseEnroll->course_id)->where('no_module', $mediaModule->module->no_module + 1)->first();
+            if ($nextModule != null && $nextModule->no_module <= $countModule) {
+                $nextMedia = MediaModule::where('module_id', $nextModule->id)->where('no_media', 1)->first();
                 $next = $nextMedia->id;
-            } else if ($countModule == $courseEnroll->upto_no_module && $lastMediaCourse == $courseEnroll->upto_no_media) {
-                if ($courseEnroll->course->google_form && $courseEnroll->status != 'selesai') {
+            } else if ($courseEnroll->upto_no_module == $countModule) {
+                if ($courseEnroll->course->google_form != null && $courseEnroll->status != 'selesai') {
                     $next = "test";
+                } else {
+                    $next = "settle";
                 }
-            } else if ($countModule == ($courseEnroll->upto_no_module - 1)) {
+            } else {
                 $next = "finish";
             }
         }
-
+        $idBefore = request()->idBefore;
+        if ($idBefore == null) {
+            $idBefore = Module::where('course_id', $courseEnroll->course_id)->where('no_module', 1)->first()->id;
+        }
+        $beforeNoModule = MediaModule::find($idBefore)->module->no_module;
 
         return ResponseFormatter::success(
             [
                 'message' => 'Berhasil mengambil data',
                 'mediaModule' => $mediaModule,
-                'beforeNoModule' => $courseEnroll->upto_no_module - 1,
-                'noModule' => $courseEnroll->upto_no_module,
+                'beforeNoModule' =>  $beforeNoModule,
+                'noModule' => $mediaModule->module->no_module,
                 'next' => $next,
             ],
             'Berhasil mengambil data'
