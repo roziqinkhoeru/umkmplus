@@ -116,20 +116,14 @@
                                         <p class="col-span-2 mb-30 text-right fw-bold text-xl text-green" id="totalPrice">Rp
                                             {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
                                         </p>
-                                        <form action="{{ url('/checkout/' . $course->slug) }}" method="post"
-                                            class="mb-15 col-span-4" id="checkoutCourse">
-                                            @csrf
-                                            <input hidden type="text"
-                                                value="{{ Hash::make($course->price - $course->discountPrice) }}"
-                                                name="priceCheckout" id="priceCheckout" class="input-form">
-                                            <input hidden type="text" value="" name="discountID" id="discountID"
-                                                class="input-form">
+                                        <input type="hidden" name="discountID" id="discountID">
+                                        <div class="mb-15 col-span-4" id="checkoutCourse">
                                             <div class="col-span-4">
-                                                <button type="submit" id="pay-button"
+                                                <button type="submit" id="pay-button" onclick="checkoutPayment()"
                                                     class="tp-btn tp-btn-2 w-100 text-center rounded-2">Bayar
                                                     Sekarang</button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -176,8 +170,13 @@
                         let newTotalPrice = subtotal - response.data.priceDiscount;
                         let newTotalPriceFormat = new Intl.NumberFormat('id-ID', option).format(
                             newTotalPrice);
-                        $("#totalPrice").html(`${newTotalPriceFormat}`);
-                        $("#priceCheckout").val(`${newTotalPrice}`);
+
+                        // check if new total price is < 0
+                        if (newTotalPrice <= 0) {
+                            $("#totalPrice").html(`Gratis`);
+                        } else {
+                            $("#totalPrice").html(`${newTotalPriceFormat}`);
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Sukses!',
@@ -218,19 +217,30 @@
             })
 
             function checkoutPayment() {
+                $('#pay-button').html(
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
+                );
                 $.ajax({
                     type: "POST",
                     url: "{{ url('/checkout/' . $course->slug) }}",
                     data: {
                         discountID: $("#discountID").val(),
-                        priceCheckout: $("#priceCheckout").val(),
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
                         $('#pay-button').html(
                             'Proses Pembayaran...'
                         ).prop("disabled", true);
-                        window.open(response.data.snapURL, '_blank');
+                        if (response.data.snapURL) {
+                            window.open(response.data.snapURL, '_blank');
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil!',
+                                text: response.meta.message,
+                            })
+                            window.location.href = response.data.redirect
+                        }
 
                     },
                     error: function(xhr, status, error) {
@@ -254,12 +264,5 @@
                     }
                 })
             }
-            $("#checkoutCourse").submit(function(e) {
-                e.preventDefault();
-                $('#pay-button').html(
-                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
-                );
-                checkoutPayment();
-            })
         </script>
     @endsection

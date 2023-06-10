@@ -7,10 +7,12 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Customer;
 use App\Models\CustomerSpecialist;
+use App\Models\Mentor;
 use App\Models\MentorRegistration;
 use App\Models\RoleUser;
 use App\Models\Specialist;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +40,6 @@ class MentorController extends Controller
     {
         if ($request->name == '') {
             $mentors = Customer::dataCourseStudent()
-                ->limit(8)
                 ->get();
             foreach ($mentors as $mentor) {
                 $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentor->id)->count();
@@ -47,14 +48,12 @@ class MentorController extends Controller
         } else {
             $mentors = Customer::dataCourseStudent()
                 ->where('customers.name', 'like', '%' . $request->name . '%')
-                ->limit(8)
                 ->get();
             foreach ($mentors as $mentor) {
                 $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentor->id)->count();
                 $mentor->total_course = $totalCourse;
             }
         }
-
         return response()->json([
             'status' => 'success',
             'data' => $mentors,
@@ -64,7 +63,7 @@ class MentorController extends Controller
 
     public function show(Customer $customer)
     {
-        $mentor = Customer::join('users', 'users.customer_id', '=', 'customers.id')
+        $mentor = Customer::with('dataMentor')->join('users', 'users.customer_id', '=', 'customers.id')
             ->join('role_users', 'role_users.user_id', '=', 'users.id')->whereName($customer->name)->first();
         if ($mentor->role_id != '2') {
             return abort(404);
@@ -87,7 +86,7 @@ class MentorController extends Controller
     /** ROLE ADMIN **/
     public function adminMentor()
     {
-        $mentors = Customer::mentor()->get()->load('mentorCourses', 'mentorCourses.category')->map(function ($mentor) {
+        $mentors = Customer::mentor()->get()->load('mentorCourses', 'mentorCourses.category', 'dataMentor')->map(function ($mentor) {
             $mentor->mentorCourses = $mentor->mentorCourses->take(3); // Mengambil 5 mentorCourses
             return $mentor;
         });
@@ -115,7 +114,8 @@ class MentorController extends Controller
 
     public function editStatusMentor(Request $request, Customer $customer)
     {
-        $update = $customer->update([
+        $mentor = Mentor::where('customer_id', $customer->id)->first();
+        $update = $mentor->update([
             'status' => $request->status
         ]);
         if ($update) {
@@ -196,15 +196,23 @@ class MentorController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'job' => $request->job,
-                'file_cv' => $request->file_cv,
                 'profile_picture' => 'assets/img/dummy/mentor-1.jpg', // default profile photo
-                'status' => 1,
             ]);
 
             if (!$customer) {
-                DB::rollBack();
+                throw new Exception('Gagal Menambahkan Mentor.');
             }
 
+            // create data mentor
+            $mentor = Mentor::create([
+                'customer_id' => $customer->id,
+                'file_cv' => $request->file_cv,
+                'status' => 1,
+            ]);
+
+            if (!$mentor) {
+                throw new Exception('Gagal Menambahkan Mentor.');
+            }
             // Create Specialist
             $specialist = Specialist::whereName($request->specialist)->first();
 
@@ -214,7 +222,7 @@ class MentorController extends Controller
             ]);
 
             if (!$specialistCreate) {
-                DB::rollBack();
+                throw new Exception('Gagal Menambahkan Mentor.');
             }
 
             // create user
@@ -231,7 +239,7 @@ class MentorController extends Controller
             ]);
 
             if (!$user) {
-                DB::rollBack();
+                throw new Exception('Gagal Menambahkan Mentor.');
             } else {
                 DB::commit();
                 return $request->ajax()
@@ -289,7 +297,7 @@ class MentorController extends Controller
     public function mentorProfile()
     {
         $user = Auth::user()->customer;
-        $mentor = $user->load('mentorCourses', 'mentorCourses.category', 'user');
+        $mentor = Customer::with('mentorCourses', 'mentorCourses.category', 'user', 'dataMentor')->where('id', $user->id)->first();
         $data = [
             'title' => 'Profil Mentor | Mentor UMKMPlus',
             'active' => 'profile',
@@ -301,7 +309,8 @@ class MentorController extends Controller
 
     public function mentorEditProfile()
     {
-        $mentor = Auth::user()->customer;
+        $user = Auth::user();
+        $mentor = Customer::with('dataMentor')->where('id', $user->id)->first();
         $categories = Category::get();
         $data = [
             'title' => 'Edit Profil Mentor | Mentor UMKMPlus',
@@ -316,19 +325,20 @@ class MentorController extends Controller
     public function mentorUpdateProfile(Request $request)
     {
         $user = Auth::user();
-        $mentor = $user->customer;
+        $customer = $user->customer;
         try {
             DB::beginTransaction();
 
             $rules = [
                 'name' => 'required|min:3',
                 'phone' => 'required|numeric',
-                'dob' => 'required|date',
+                'dob' => 'required',
                 'gender' => 'required',
                 'address' => 'required|min:3',
                 'job' => 'required',
                 'username' => 'required|min:3|max:25|unique:users,username,' . $user->id,
                 'email' => 'required|email|unique:users,email,' . $user->id,
+                'about' => 'required|min:3',
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -344,32 +354,43 @@ class MentorController extends Controller
                     : back()->with(['error' => $validator->errors()]);
             }
 
+            $dob = Carbon::createFromFormat('d/m/Y', $request->dob)->toDateString();
+
             // update customer
-            $updateCustomer = $mentor->update([
+            $updateCustomer = $customer->update([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name, '-'),
                 'phone' => $request->phone,
-                'dob' => $request->dob,
+                'dob' => $dob,
                 'gender' => $request->gender,
                 'address' => $request->address,
                 'job' => $request->job,
-                'file_cv' => $request->file_cv,
             ]);
 
             if (!$updateCustomer) {
-                throw new Exception('Gagal memperbarui data mentor.');
+                throw new Exception('Gagal memperbarui data profil.');
+            }
+
+            // update data mentor
+            $updateMentor = Mentor::whereCustomerId($customer->id)->update([
+                'file_cv' => $request->file_cv,
+                'about' => $request->about,
+            ]);
+
+            if (!$updateMentor) {
+                throw new Exception('Gagal memperbarui data profil.');
             }
 
             // update Specialist
             $specialist = Specialist::whereName($request->specialist)->first();
-            $specialistMentor = CustomerSpecialist::whereCustomerId($mentor->id)->first();
-            if ($specialistMentor) {
-                $specialistUpdate = CustomerSpecialist::whereCustomerId($mentor->id)->update([
+            $specialistCustomer = CustomerSpecialist::whereCustomerId($customer->id)->first();
+            if ($specialistCustomer) {
+                $specialistUpdate = CustomerSpecialist::whereCustomerId($customer->id)->update([
                     'specialist_id' => $specialist->id,
                 ]);
             } else {
                 $specialistUpdate = CustomerSpecialist::create([
-                    'customer_id' => $mentor->id,
+                    'customer_id' => $customer->id,
                     'specialist_id' => $specialist->id,
                 ]);
             }
@@ -407,7 +428,6 @@ class MentorController extends Controller
                     'Update profil mentor gagal',
                     400,
                 ) : back()->withInput()->withErrors(['error' => $e->getMessage()]);
-
         }
     }
 

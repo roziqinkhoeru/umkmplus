@@ -11,6 +11,7 @@ use App\Models\MediaModule;
 use App\Models\Module;
 use App\Models\Testimonial;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -113,23 +114,44 @@ class CourseEnrollController extends Controller
     {
         $course->discountPrice = ceil($course->price * $course->discount / 100);
         $priceCheckout = $course->price - $course->discountPrice;
-        // menghilangkan angka belakang koma
-        // $priceCheckout = str_replace(',', '', $priceCheckout);
-        if (!$request->discountID) {
-            $verifyPrice = Hash::check($priceCheckout, $request->priceCheckout);
-            if (!$verifyPrice) {
-                return ResponseFormatter::error(
-                    [
-                        'message' => 'Terjadi kesalahan saat mengambil harga',
-                    ],
-                    'Terjadi kesalahan saat mengambil harga',
-                    500
-                );
-            }
-        }
         $student = Auth::user()->customer;
 
         try {
+            $orderID = Str::uuid()->toString();
+            // check if student use the referral code
+            if ($request->discountID) {
+                $discount = Discount::find($request->discountID);
+                $grossAmount = $priceCheckout - $discount->discount;
+
+                // check if gross amount is free
+                if ($grossAmount <= 0) {
+                    $grossAmount = 0;
+                    $courseEnroll = CourseEnroll::create([
+                        'id' => $orderID,
+                        'student_id' => $student->id,
+                        'course_id' => $course->id,
+                        'discount_id' => $request->discountID,
+                        'total_price' => $grossAmount,
+                        'status' => 'aktif',
+                        'started_at' => Carbon::now(),
+                        'upto_no_module' => 1,
+                        'upto_no_media' => 1,
+                    ]);
+                    if (!$courseEnroll) {
+                        throw new Exception('Terjadi kesalahan saat membuat transaksi.');
+                    }
+                    DB::commit();
+                    return ResponseFormatter::success(
+                        [
+                            'redirect' => url('/course/playing/'. $orderID),
+                            'message' => "Pembelian kelas berhasil"
+                        ], "Pembelian kelas berhasil"
+                    );
+                }
+            } else {
+                $grossAmount = $priceCheckout;
+            }
+
             DB::beginTransaction();
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -140,9 +162,6 @@ class CourseEnrollController extends Controller
             // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = true;
 
-            $orderID = Str::uuid()->toString();
-            $discount_id = $request->discountID;
-            $grossAmount = $priceCheckout;
 
             $params = array(
                 'transaction_details' => [
@@ -161,20 +180,14 @@ class CourseEnrollController extends Controller
             $snapURL = $midtransTransaction->redirect_url;
 
             if (!$snapToken) {
-                return ResponseFormatter::error(
-                    [
-                        'message' => 'Terjadi kesalahan saat mengambil token',
-                    ],
-                    'Terjadi kesalahan saat mengambil token',
-                    500
-                );
+                throw new Exception('Terjadi kesalahan saat membuat transaksi.');
             }
 
             $courseEnroll = CourseEnroll::create([
                 'id' => $orderID,
                 'student_id' => $student->id,
                 'course_id' => $course->id,
-                'discount_id' => $discount_id,
+                'discount_id' => $request->discountID,
                 'status' => 'menunggu pembayaran',
                 'total_price' => $grossAmount,
                 'snap_token' => $snapToken,
@@ -182,14 +195,7 @@ class CourseEnrollController extends Controller
             ]);
 
             if (!$courseEnroll) {
-                DB::rollBack();
-                return ResponseFormatter::error(
-                    [
-                        'message' => 'Terjadi kesalahan saat membuat transaksi',
-                    ],
-                    'Terjadi kesalahan saat membuat transaksi',
-                    500
-                );
+                throw new Exception('Terjadi kesalahan saat membuat transaksi.');
             }
 
             DB::commit();
@@ -205,7 +211,14 @@ class CourseEnrollController extends Controller
             return response()->json(['data' => $data,]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => $e->getMessage()]);
+            return $request->ajax()
+                ? ResponseFormatter::error(
+                    [
+                        'error' => $e->getMessage(),
+                    ],
+                    'Transaksi gagal, mohon coba beberapa saat lagi',
+                    400,
+                ) : back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
     }
     public function midtransCallback(Request $request)
@@ -243,6 +256,8 @@ class CourseEnrollController extends Controller
                 $courseEnroll->update([
                     'status' => 'aktif',
                     'started_at' => Carbon::now(),
+                    'upto_no_module' => 1,
+                    'upto_no_media' => 1,
                 ]);
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();

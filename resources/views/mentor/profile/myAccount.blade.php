@@ -67,6 +67,13 @@
                                             <td>{{ $mentor->phone }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal Lahir</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>{{ CustomDate::tglIndo($mentor->dob) }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Jenis Kelamin</td>
                                             <td class="text-right">
                                                 :
@@ -85,7 +92,7 @@
                                             <td class="text-right">
                                                 :
                                             </td>
-                                            <td>{{ $mentor->about }}</td>
+                                            <td>{{ $mentor->dataMentor->about }}</td>
                                         </tr>
                                         <tr>
                                             <td>File CV</td>
@@ -93,8 +100,8 @@
                                                 :
                                             </td>
                                             <td>
-                                                @if ($mentor->file_cv)
-                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}" class="">{{ substr($mentor->file_cv, 3) }}</a>
+                                                @if ($mentor->dataMentor->file_cv)
+                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}" class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
                                                 @else
                                                     <span>CV tidak tersedia</span>
                                                 @endif
@@ -106,7 +113,7 @@
                                                 :
                                             </td>
                                             <td><span
-                                                    class="badge @switch($mentor->status)
+                                                    class="badge @switch($mentor->dataMentor->status)
                                                                     @case(1)
                                                                         badge-active
                                                                         @break
@@ -115,7 +122,7 @@
                                                                         @break
                                                                 @endswitch"><i
                                                         class="fas fa-circle" style="font-size: 10px"></i>
-                                                    {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                                    {{ $mentor->dataMentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                                 </span></td>
                                         </tr>
                                         <tr>
@@ -149,65 +156,6 @@
                 </div>
             </div>
 
-            {{-- Student Course --}}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title">Data Kelas</div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="courseTable" class="display table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th>Judul</th>
-                                            <th class="text-center">Kategori</th>
-                                            <th>Harga</th>
-                                            <th>Diskon</th>
-                                            <th class="text-center">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($mentor->mentorCourses as $course)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td>{{ $course->title }}</td>
-                                                <td class="text-center">{{ $course->category->name }}</td>
-                                                <td class="space-nowrap">
-                                                    {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
-                                                <td>{{ $course->discount }}%</td>
-                                                <td class="text-center space-nowrap text-capitalize">
-                                                    <span
-                                                        class="badge @switch($course->status)
-                                                                @case('nonaktif')
-                                                                    @break
-                                                                @case('aktif')
-                                                                    badge-active
-                                                                    @break
-                                                                @case('pending')
-                                                                    badge-pending
-                                                                    @break
-                                                                @case('ditolak')
-                                                                    badge-ditolak
-                                                                    @break
-                                                            @endswitch"><i
-                                                            class="fas fa-circle" style="font-size: 10px"></i>
-                                                        {{ $course->status }}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

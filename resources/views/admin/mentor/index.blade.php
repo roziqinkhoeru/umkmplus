@@ -68,16 +68,16 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <span
-                                                        class="badge @if ($mentor->status == 1) badge-active
+                                                        class="badge @if ($mentor->dataMentor->status == 1) badge-active
                                                     @else
                                                         badge-nonactive @endif"><i
                                                             class="fas fa-circle" style="font-size: 10px"></i>
-                                                        {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}</span>
+                                                        {{ $mentor->dataMentor->status == 1 ? 'Aktif' : 'Nonaktif' }}</span>
                                                 </td>
                                                 <td class="space-nowrap">
                                                     <a href="{{ url('/admin/mentor/' . $mentor->slug) }}"
                                                         class="btn btn-primary btn-sm mr-1">Detail</a>
-                                                    @if ($mentor->status == 1)
+                                                    @if ($mentor->dataMentor->status == 1)
                                                         <button onclick="nonaktifkanMentor('{{ $mentor->slug }}')"
                                                             class="btn btn-danger btn-sm mr-1">Nonaktifkan</button>
                                                     @else
@@ -109,17 +109,22 @@
         });
 
         function nonaktifkanMentor(mentor) {
-            Swal.fire({
+            swal({
                 title: 'Apakah anda yakin?',
-                text: "Mentor akan dinonaktifkan dan tidak dapat mengakses sistem lagi!",
+                text: "Mentor akan dinonaktifkan!",
                 icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Nonaktifkan',
-                cancelButtonText: 'Batal'
+                buttons: {
+                    confirm: {
+                        text: 'Ya, Nonaktifkan mentor!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
             }).then((result) => {
-                if (result.isConfirmed) {
+                if (result) {
                     $.ajax({
                         type: "PUT",
                         data: {
@@ -129,7 +134,7 @@
                         url: `{{ url('/admin/mentor/${mentor}') }}`,
                         success: function(response) {
                             location.reload();
-                            Swal.fire({
+                            swal({
                                 title: 'Berhasil!',
                                 text: 'Mentor telah dinonaktifkan.',
                                 icon: 'success',
@@ -138,13 +143,13 @@
                         },
                         error: function(xhr, status, error) {
                             if (xhr.responseJSON)
-                                Swal.fire({
+                                swal({
                                     icon: 'error',
                                     title: 'GAGAL!',
                                     text: xhr.responseJSON.meta.message,
                                 })
                             else
-                                Swal.fire({
+                                swal({
                                     icon: 'error',
                                     title: 'GAGAL!',
                                     text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
@@ -158,17 +163,22 @@
         }
 
         function aktifkanMentor(mentor) {
-            Swal.fire({
+            swal({
                 title: 'Apakah anda yakin?',
                 text: "Mentor akan diaktifkan!",
                 icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Aktifkan',
-                cancelButtonText: 'Batal'
+                buttons: {
+                    confirm: {
+                        text: 'Ya, Aktifkan mentor!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
             }).then((result) => {
-                if (result.isConfirmed) {
+                if (result) {
                     $.ajax({
                         type: "PUT",
                         data: {
@@ -178,7 +188,7 @@
                         url: `{{ url('/admin/mentor/${mentor}') }}`,
                         success: function(response) {
                             location.reload();
-                            Swal.fire({
+                            swal({
                                 title: 'Berhasil!',
                                 text: 'Mentor telah diaktifkan.',
                                 icon: 'success',
@@ -186,13 +196,13 @@
                         },
                         error: function(xhr, status, error) {
                             if (xhr.responseJSON)
-                                Swal.fire({
+                                swal({
                                     icon: 'error',
                                     title: 'GAGAL!',
                                     text: xhr.responseJSON.meta.message,
                                 })
                             else
-                                Swal.fire({
+                                swal({
                                     icon: 'error',
                                     title: 'GAGAL!',
                                     text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +

@@ -15,15 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('slug', 100)->nullable();
-            $table->text('address')->nullable();
-            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
             $table->string('profile_picture',255)->nullable();
             $table->string('job', 255)->nullable();
-            $table->text('about')->nullable();
+            $table->text('address')->nullable();
+            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
             $table->string('phone', 20);
             $table->date('dob')->nullable();
-            $table->boolean('status')->nullable();
-            $table->string('file_cv',255)->nullable();
             $table->timestamps();
         });
     }
