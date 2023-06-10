@@ -30,7 +30,7 @@ class AdminController extends Controller
     {
         $admin = User::with('customer')->where('customer_id', Auth::user()->customer->id)->first();
         $data = [
-            'title' => 'Profile ' . $admin->customer->name . ' | Admin UMKMPlus',
+            'title' => 'Profile Saya | Admin UMKMPlus',
             'active' => 'profile',
             'admin' => $admin,
         ];

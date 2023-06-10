@@ -17,7 +17,7 @@ class StudentController extends Controller
             ->student()
             ->get();
         $data = [
-            'title' => 'Data Siswa | UMKM Plus',
+            'title' => 'Data Siswa | Admin UMKMPlus',
             'active' => 'student',
             'students' => $students,
         ];
@@ -29,7 +29,7 @@ class StudentController extends Controller
     {
         $customer->load(['studentCourseEnrolls.course.category', 'studentCourseEnrolls.course.mentor']);
         $data = [
-            'title' => 'Detail Siswa | UMKM Plus',
+            'title' => 'Detail Siswa | Admin UMKMPlus',
             'active' => 'student',
             'student' => $customer,
         ];
@@ -45,7 +45,7 @@ class StudentController extends Controller
             ->with(['course.category', 'student.user'])
             ->get();
         $data = [
-            'title' => 'Data Siswa | Mentor UMKM Plus',
+            'title' => 'Data Siswa | Mentor UMKMPlus',
             'active' => 'student',
             'enrolls' => $enrolls,
         ];
@@ -64,7 +64,7 @@ class StudentController extends Controller
             ->orderBy('finished_at', 'asc')
             ->get();
         $data = [
-            'title' => 'Data Siswa | Mentor UMKM Plus',
+            'title' => 'Data Siswa | Mentor UMKMPlus',
             'active' => 'student',
             'enrolls' => $enrolls,
         ];
@@ -76,7 +76,7 @@ class StudentController extends Controller
     {
         $courseEnroll->load(['course.category', 'student.user']);
         $data = [
-            'title' => 'Edit Siswa | Mentor UMKM Plus',
+            'title' => 'Edit Siswa | Mentor UMKMPlus',
             'active' => 'student',
             'courseEnroll' => $courseEnroll,
         ];

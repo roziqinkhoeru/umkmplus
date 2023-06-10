@@ -299,7 +299,7 @@ class MentorController extends Controller
         $user = Auth::user()->customer;
         $mentor = Customer::with('mentorCourses', 'mentorCourses.category', 'user', 'dataMentor')->where('id', $user->id)->first();
         $data = [
-            'title' => 'Profil Mentor | Mentor UMKMPlus',
+            'title' => 'Profil Saya | Mentor UMKMPlus',
             'active' => 'profile',
             'mentor' => $mentor
         ];
@@ -313,7 +313,7 @@ class MentorController extends Controller
         $mentor = Customer::with('dataMentor')->where('id', $user->id)->first();
         $categories = Category::get();
         $data = [
-            'title' => 'Edit Profil Mentor | Mentor UMKMPlus',
+            'title' => 'Edit Profil | Mentor UMKMPlus',
             'active' => 'profile',
             'mentor' => $mentor,
             'categories' => $categories
@@ -434,7 +434,7 @@ class MentorController extends Controller
     public function mentorEditPassword()
     {
         $data = [
-            'title' => 'Edit Password Mentor | Mentor UMKMPlus',
+            'title' => 'Edit Password | Mentor UMKMPlus',
             'active' => 'profile',
         ];
 

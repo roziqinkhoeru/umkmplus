@@ -16,7 +16,7 @@ class CartController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Cart | Admin UMKMPlus'
+            'title' => 'Cart | UMKMPlus'
         ];
 
         return view('user.cart.index', $data);

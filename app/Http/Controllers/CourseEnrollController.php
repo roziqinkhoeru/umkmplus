@@ -143,9 +143,10 @@ class CourseEnrollController extends Controller
                     DB::commit();
                     return ResponseFormatter::success(
                         [
-                            'redirect' => url('/course/playing/'. $orderID),
+                            'redirect' => url('/course/playing/' . $orderID),
                             'message' => "Pembelian kelas berhasil"
-                        ], "Pembelian kelas berhasil"
+                        ],
+                        "Pembelian kelas berhasil"
                     );
                 }
             } else {
@@ -301,12 +302,12 @@ class CourseEnrollController extends Controller
         }
 
         // check if have request
-        if(request()->content) {
+        if (request()->content) {
             $noModule = MediaModule::find(request()->content)->module->no_module;
         }
 
         $data = [
-            'title' => 'Belajar ' . $courseEnroll->course->title . ' | Admin UMKMPlus',
+            'title' => 'Belajar Kelas ' . $courseEnroll->course->title . ' | UMKMPlus',
             'active' => 'course',
             'noModule' => $noModule,
             'courseEnroll' => $courseEnroll,
@@ -411,7 +412,7 @@ class CourseEnrollController extends Controller
     {
         $course = Course::where('id', $courseEnroll->course_id)->first();
         $data = [
-            'title' => 'Belajar ' . $courseEnroll->title . ' | Admin UMKMPlus',
+            'title' => 'Belajar Kelas ' . $courseEnroll->title . ' | UMKMPlus',
             'active' => 'course',
             'courseEnroll' => $courseEnroll,
             'course' => $course,
@@ -440,7 +441,7 @@ class CourseEnrollController extends Controller
         }
         $data =
             [
-                'title' => 'Sertifikat | UMKM Plus',
+                'title' => 'Sertifikat Kelas ' . $courseEnroll->title . ' | UMKM Plus',
                 'courseEnroll' => $courseEnroll
             ];
 
@@ -459,7 +460,7 @@ class CourseEnrollController extends Controller
         $courseEnroll->load('course');
         $data =
             [
-                'title' => 'Testimonial | UMKM Plus',
+                'title' => 'Testimonial Kelas ' . $courseEnroll->title . ' | UMKM Plus',
                 'courseEnroll' => $courseEnroll
             ];
 

@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $data =
             [
-                'title' => 'Kategori | UMKM Plus',
+                'title' => 'Kategori | UMKMPlus',
                 'categories' => Category::all()
             ];
 
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $data =
             [
-                'title' => 'Tambah Kategori | UMKM Plus',
+                'title' => 'Tambah Kategori | Admin UMKMPlus',
             ];
 
         return view('categories.create', $data);
@@ -91,7 +91,7 @@ class CategoryController extends Controller
     {
         $data =
             [
-                'title' => 'Kategori | UMKM Plus',
+                'title' => 'Kategori | Admin UMKMPlus',
             ];
 
         return view('categories.show', $data);
@@ -104,7 +104,7 @@ class CategoryController extends Controller
     {
         $data =
             [
-                'title' => 'Edit Kategori | UMKM Plus',
+                'title' => 'Edit Kategori | Admin UMKMPlus',
                 'category' => $category
             ];
 
