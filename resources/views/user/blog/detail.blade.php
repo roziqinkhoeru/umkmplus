@@ -8,8 +8,8 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="d-flex align-items-center mb-4">
-                            <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                alt="blog-authorName" />
+                            <img class="img-fluid rounded-circle" src="{{ asset($blog->user->customer->profile_picture) }}"
+                                alt="blog-{{ $blog->user->customer->name }}" />
                             <div class="ms-3">
                                 <div class="fw-bold">{{ $blog->user->customer->name }}</div>
                                 <div class="text-muted">{{ $blog->user->customer->job }}</div>

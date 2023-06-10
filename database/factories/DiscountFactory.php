@@ -12,6 +12,7 @@ use App\Models\RoleUser;
 use App\Models\MediaModule;
 use App\Models\CourseEnroll;
 use App\Models\CustomerSpecialist;
+use App\Models\Mentor;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -30,9 +31,9 @@ class DiscountFactory extends Factory
         // Customer factory
         $customerRecord = [
             'name' => $this->faker->name(),
-            'address' => $this->faker->address(),
-            'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-            'job' => $this->faker->jobTitle(),
+                'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                'job' => "Pekerjaan",
+                'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
             'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years'),
             'gender' => $this->faker->randomElement(['laki-laki', 'perempuan']),
@@ -66,9 +67,12 @@ class DiscountFactory extends Factory
             ];
         } else if ($roleUserRecord['role_id'] == 2) {
             $customer->update([
+                'slug' =>  Str::lower(Str::slug($customer->name, '-')),
+            ]);
+            Mentor::create([
+                'customer_id' => $customer->id,
                 'status' => 1,
                 'about' => $this->faker->paragraph(3),
-                'slug' =>  Str::lower(Str::slug($customer->name, '-')),
             ]);
             $customerSpecialistRecord = [
                 'customer_id' => $customer->id,

@@ -86,7 +86,7 @@
                                             <td class="text-right">
                                                 :
                                             </td>
-                                            <td>{{ $mentor->about }}</td>
+                                            <td>{{ $mentor->dataMentor->about }}</td>
                                         </tr>
                                         <tr>
                                             <td>File CV</td>
@@ -94,8 +94,8 @@
                                                 :
                                             </td>
                                             <td>
-                                                @if ($mentor->file_cv)
-                                                    <a href="{{ asset('storage/' . $mentor->file_cv) }}" class="">{{ substr($mentor->file_cv, 3) }}</a>
+                                                @if ($mentor->dataMentor->file_cv)
+                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}" class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
                                                 @else
                                                     <span>CV tidak tersedia</span>
                                                 @endif

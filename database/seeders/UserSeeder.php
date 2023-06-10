@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\MediaModule;
+use App\Models\Mentor;
 use App\Models\Module;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -28,8 +29,6 @@ class UserSeeder extends Seeder
                 [
                     'name' => "Admin",
                     'address' => "Admin Address",
-                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-                    'job' => "Admin",
                     'phone' => "0123456789",
                     'dob' => "2000-01-01",
                     'gender' => "laki-laki",
@@ -37,19 +36,18 @@ class UserSeeder extends Seeder
                 [
                     'name' => "Mentor",
                     'slug' => "mentor",
-                    'address' => "Mentor Address",
-                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                     'job' => "Mentor",
+                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'address' => "Mentor Address",
                     'phone' => "0123456789",
                     'dob' => "2000-01-01",
-                    'about' => "Inventore reprehenderit aut doloremque voluptatem. Rem nihil voluptatem voluptatem sunt voluptas. Eos debitis et amet ut. Impedit aperiam ducimus et totam qui deleniti.",
                     'gender' => "laki-laki",
                 ],
                 [
                     'name' => "Student",
-                    'address' => "Student Address",
                     'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
                     'job' => "Student",
+                    'address' => "Student Address",
                     'phone' => "0123456789",
                     'dob' => "2000-01-01",
                     'gender' => "laki-laki",
@@ -59,6 +57,14 @@ class UserSeeder extends Seeder
         foreach ($customerRecords as $customerRecord) {
             Customer::firstOrCreate($customerRecord);
         }
+
+        $mentorRecord = [
+            'customer_id' => 2,
+            'about' => "Inventore reprehenderit aut doloremque voluptatem. Rem nihil voluptatem voluptatem sunt voluptas. Eos debitis et amet ut. Impedit aperiam ducimus et totam qui deleniti.",
+            'status' => 1,
+        ];
+
+        Mentor::firstOrCreate($mentorRecord);
 
         $userRecords =
             [

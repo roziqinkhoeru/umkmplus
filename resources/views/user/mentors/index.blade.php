@@ -116,7 +116,7 @@
                                 <h5 class="course__title text-lg mb-1 text-center">
                                     ${mentorData.name}
                                 </h5>
-                                <p class="mb-2 text-center">Personal Branding</p>
+                                <p class="mb-2 text-center">${mentorData.job}</p>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="me-3 d-flex align-items-center mb-0">
                                         <i class="material-symbols-rounded me-2">school</i>${mentorData.total_student}<span

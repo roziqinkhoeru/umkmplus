@@ -189,7 +189,7 @@
         <li class="nav-item dropdown hidden-caret">
             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                 <div class="avatar-sm">
-                    <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-admin"
+                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="profile-admin"
                         class="avatar-img rounded-circle">
                 </div>
             </a>
@@ -197,7 +197,7 @@
                 <div class="dropdown-user-scroll scrollbar-outer">
                     <li>
                         <div class="user-box">
-                            <div class="avatar-lg"><img src="{{ asset('assets/template/admin/img/profile.jpg') }}"
+                            <div class="avatar-lg"><img src="{{ asset(auth()->user()->customer->profile_picture) }}"
                                     alt="image profile" class="avatar-img rounded"></div>
                             <div class="u-text">
                                 <h4>{{ Auth::user()->username }}</h4>

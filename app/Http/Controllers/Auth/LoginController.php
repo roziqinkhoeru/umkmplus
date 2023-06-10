@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Mentor;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -72,9 +73,9 @@ class LoginController extends Controller
                         )
                         : back()->withErrors($msg);
                 } else if ($role['pivot_role_id'] == 2) {
-                    $mentor = User::where('customer_id', $user->id)->with('customer')->first();
+                    $mentor = Mentor::where('customer_id', $user->id)->first();
                     // check if mentor is nonactive
-                    if ($mentor->customer->status == 0) {
+                    if ($mentor->status == 0) {
                         // Logout
                         Auth::logout();
                         $request->session()->invalidate();

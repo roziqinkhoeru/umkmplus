@@ -2,7 +2,7 @@
     {{-- user --}}
     <div class="user">
         <div class="avatar-sm float-left mr-2">
-            <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user0umkmplus-admin"
+            <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="profile-user0umkmplus-admin"
                 class="avatar-img rounded-circle">
         </div>
         <div class="info">
