@@ -303,7 +303,7 @@
         const openVideo = (content) => {
             // $('#video_player').removeClass('collapse-off');
             // $('#video_player').addClass('collapse-on');
-            $("#infoMediaModule").html(`<i class="fas fa-circle-notch text-lg spinners-2"></i>`);
+            $("#infoMediaModule").html(`<p class="text-lg">Loading...</p>`);
             // Mendapatkan parameter dari URL
             var urlParams = new URLSearchParams(window.location.search);
             // Mengambil nilai parameter dengan nama tertentu
@@ -329,16 +329,18 @@
                     htmlString = `
                     {{-- player --}}
                     <div class="mb-35">
-                        <div class="w-100 rounded-4 bg-secondary" style="height: 450px"><iframe width="100%" height="450" src="https://www.youtube-nocookie.com/embed/${response.data.mediaModule.video_url}" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="w-100 rounded-4 bg-secondary playing-course-iframe">
+                            <iframe class="playing-course-iframe" style="border-radius: 20px;" width="100%" src="https://www.youtube-nocookie.com/embed/${response.data.mediaModule.video_url}" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between mb-20">
                         <div class="" id="infoMediaModule">
                             <h3 class="mb-10">${response.data.mediaModule.title}</h3>
                             <p class="mb-0 text-base">Modul: ${response.data.mediaModule.module.title}</p>
                         </div>
-                        <div class="">
-                            ${response.data.next == "finish" ? `<a href="{{ url('/profile') }}" class="tp-btn tp-btn-4 rounded-pill" >Selesai</a>`
-                            : (response.data.next == "test" ? `<a href="{{ url('/course/playing/' . $courseEnroll->id . '/test') }}" class="tp-btn tp-btn-4 rounded-pill">Ujian</a>`
+                        <div class="ms-4">
+                            ${response.data.next == "finish" ? `<a href="{{ url('/profile') }}" class="tp-btn tp-btn-4 tp-btn-green leading-btn-44 rounded-pill" >Selesai</a>`
+                            : (response.data.next == "test" ? `<a href="{{ url('/course/playing/' . $courseEnroll->id . '/test') }}" class="tp-btn tp-btn-4 tp-btn-yellow-4 rounded-pill">Ujian</a>`
                             : `<button class="tp-btn tp-btn-4 rounded-pill" onclick="openVideo('${response.data.next}')">Next</button>` )}
                         </div>
                     </div>`
