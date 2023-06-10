@@ -619,6 +619,28 @@
     text-align: left;
     width: 100%;
 }
+.btn-accordion .btn-accordion-header-icon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    -ms-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+}
+.btn-accordion.active .btn-accordion-header-icon i {
+    transform: translate(-50%, -50%) rotate(-180deg);
+    -webkit-transform: translate(-50%, -50%) rotate(-180deg);
+    -moz-transform: translate(-50%, -50%) rotate(-180deg);
+    -ms-transform: translate(-50%, -50%) rotate(-180deg);
+    -o-transform: translate(-50%, -50%) rotate(-180deg);
+}
 .video-course-items {
     display: flex;
     align-items: center;
