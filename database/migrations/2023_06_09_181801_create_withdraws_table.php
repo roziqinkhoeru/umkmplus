@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->bigInteger('amount');
-            $table->string('status', 20)->default('pending');
-            $table->string('bank_name', 255)->nullable();
-            $table->string('bank_account', 255)->nullable();
+            $table->enum('status', ['pending', 'ditolak', 'berhasil', 'proses'])->default('pending');
+            $table->string('bank', 50);
+            $table->string('account_name', 50);
+            $table->string('account_number', 50);
+            $table->string('payment_proof', 255)->nullable();
             $table->timestamps();
         });
     }

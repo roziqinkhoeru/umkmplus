@@ -19,6 +19,7 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\MentorRegistrationController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\WithdrawController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,6 +194,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/admin/blog/create', 'adminBlogCreate')->name('admin.blog.create');
             Route::get('/admin/blog/{blog:slug}', 'adminBlogShow')->name('admin.blog.show');
         });
+        // Withdraw
+        Route::controller(WithdrawController::class)->group(function () {
+            Route::get('/admin/withdraw', 'adminWithdraw')->name('admin.withdraw');
+            Route::get('/admin/withdraw/get', 'getAdminWithdraw')->name('get.admin.withdraw');
+            Route::get('/admin/withdraw/{withdraw:id}', 'adminWithdrawEdit')->name('admin.withdraw.edit');
+            Route::put('/admin/withdraw/{withdraw:id}', 'adminWithdrawUpdate')->name('admin.withdraw.update');
+            Route::put('/admin/withdraw/{withdraw:id}/status', 'adminWithdrawUpdateStatus')->name('admin.withdraw.delete');
+        });
     });
     /** MENTOR **/
     Route::group(['middleware' => ['checkRole:mentor']], function () {
@@ -233,6 +242,12 @@ Route::group(['middleware' => ['auth']], function () {
         // Testimonial
         Route::controller(TestimonialController::class)->group(function () {
             Route::get('/mentor/testimonial/{course:slug}', 'mentorCourseTestimonial')->name('mentor.course.testimonial');
+        });
+        // Withdraw
+        Route::controller(WithdrawController::class)->group(function () {
+            Route::get('/mentor/withdraw', 'mentorWithdraw')->name('mentor.withdraw');
+            Route::get('/mentor/withdraw/create', 'mentorWithdrawCreate')->name('mentor.withdraw.create');
+            Route::post('/mentor/withdraw', 'mentorWithdrawStore')->name('mentor.withdraw.store');
         });
     });
 

@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
             'status' => 1,
         ];
 
-        Mentor::firstOrCreate($mentorRecord);
+        $mentor = Mentor::firstOrCreate($mentorRecord);
 
         $userRecords =
             [
@@ -176,6 +176,11 @@ class UserSeeder extends Seeder
                 'total_price' => $course->price,
             ];
             $courseEnroll = CourseEnroll::create($courseEnrollRecord);
+
+            if ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai') {
+                $mentor->balance += ($courseEnroll->total_price * 0.8);
+                $mentor->save();
+            }
 
             $blogRecord = [
                 'user_id' => 2,
