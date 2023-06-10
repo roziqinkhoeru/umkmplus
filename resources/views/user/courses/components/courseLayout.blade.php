@@ -29,12 +29,6 @@
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/icon/apple-touch-icon-152x152.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/icon/apple-touch-icon-180x180.png') }}">
 
-    {{-- android touch icon --}}
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/icon/android_192.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/icon/android_32.png') }}">
-    <link rel="icon" type="image/png" sizes="100x100" href="{{ asset('assets/icon/android_100.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/icon/android_16.png') }}">
-
     {{-- manifest --}}
     {{-- <link rel="manifest" href="{{ asset('assets/img/brand/manifest.json') }}"> --}}
 
