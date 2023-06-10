@@ -2,7 +2,7 @@
     {{-- user --}}
     <div class="user">
         <div class="avatar-sm float-left mr-2">
-            <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="profile-user0umkmplus-admin"
+            <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="{{ auth()->user()->username }}-profile"
                 class="avatar-img rounded-circle">
         </div>
         <div class="info">
@@ -24,13 +24,13 @@
                 <ul class="nav">
                     <li>
                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                        <a href="/admin/profile">
-                            <span class="link-collapse">Profil Saya</span>
-                        </a>
+                            <a href="/admin/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
                         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                        <a href="/mentor/profile">
-                            <span class="link-collapse">Profil Saya</span>
-                        </a>
+                            <a href="/mentor/profile">
+                                <span class="link-collapse">Profil Saya</span>
+                            </a>
                         @endif
                     </li>
                 </ul>
@@ -165,12 +165,6 @@
                 <a href="/mentor/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
-                </a>
-            </li>
-            <li class="nav-item @if ($active == 'testimonial') active @endif">
-                <a href="/mentor/testimonial">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Testimonial</p>
                 </a>
             </li>
         @endif

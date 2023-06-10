@@ -110,7 +110,7 @@
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
                                                     <img src="{{ asset('${cartCourse.thumbnail}') }}"
-                                                        alt="thumbnail-course" class="thumbnail-course-cart">
+                                                        alt="${cartCourse.slug}-course-thumbnail" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
                                                         <p class="mb-5 text-base fw-medium">${cartCourse.title}</p>
                                                         <p class="mb-0">Mentor: ${cartCourse.mentor_name}</p>
@@ -131,7 +131,7 @@
                                         <div class="card-body">
                                             <div class="d-flex gap-3">
                                                 <div><img src="{{ asset('${cartCourse.thumbnail}') }}"
-                                                        alt="thumbnail-course-cart" class="thumbnail-course-cart-mobile"></div>
+                                                    alt="${cartCourse.slug}-course-thumbnail" class="thumbnail-course-cart-mobile"></div>
                                                 <div class="">
                                                     <p class="text-base mb-5">${cartCourse.title}</p>
                                                     <p class="text-base fw-semibold mb-0">${subTotal} <span

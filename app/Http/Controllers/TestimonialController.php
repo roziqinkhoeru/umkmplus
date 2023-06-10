@@ -115,7 +115,7 @@ class TestimonialController extends Controller
                 $query->select('id', 'title');
             },
             'courseEnroll.student' => function ($query) {
-                $query->select('id', 'name');
+                $query->select('id', 'name', 'job');
             }
         ])->get();
         $data =

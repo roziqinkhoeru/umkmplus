@@ -183,7 +183,7 @@
                     sort: $("input[name='sort']:checked").val(),
                     category: $("input[name='categorySort']:checked").val(),
                     search: $("#search").val(),
-            },
+                },
                 success: function(response) {
                     let htmlString = ``;
                     $("#countCourse").html(`<h4>Showing ${response.courseCount} Courses</h4>`);
@@ -217,8 +217,7 @@
                                                         {{-- course item image --}}
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
-                                                                <img src="{{ asset('${courseData.thumbnail}') }}"
-                                                                    alt="course-thumbnail">
+                                                                <img src="{{ asset('${courseData.thumbnail}') }}" alt="${courseData.slug}-course-thumbnail">
                                                                 <div class="course-tag-wrapper">
                                                                     <div class="course__tag">
                                                                         <span class="course-badge">${courseData.category.name}</span>
@@ -232,7 +231,6 @@
                                                                 class="course__title-2 line-clamp-3-hover text-lg leading-lg mb-2">
                                                                 ${courseData.title}
                                                             </h3>
-
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Gratis'}
                                                             <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice : ''}</span>
                                                         </p>
@@ -297,7 +295,7 @@
                                                                 <div class="course__tutor-2">
                                                                     <div>
                                                                         <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
-                                                                            alt="mentor-course-name">
+                                                                        alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                                                     </div>
                                                                 </div>
                                                             </div>

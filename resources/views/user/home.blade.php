@@ -172,10 +172,11 @@
                                             <div
                                                 class="course__bottom d-sm-flex align-items-center justify-content-between">
                                                 <div class="testimoni-author-wrapper">
-                                                    <img src="{{ ($testimonial->courseEnroll ? asset($testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png')) }}" alt="testimoni-{{ $loop->iteration }}">
+                                                    <img src="{{ $testimonial->courseEnroll ? asset($testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png') }}"
+                                                        alt="{{ $testimonial->courseEnroll ? Str::slug($testimonial->courseEnroll->student->name) : '' }}-testimoni-profile">
                                                     <div>
                                                         <p class="testimoni-author-name">
-                                                            {{ ($testimonial->courseEnroll ? $testimonial->courseEnroll->student->name : "") }}
+                                                            {{ $testimonial->courseEnroll ? $testimonial->courseEnroll->student->name : '' }}
                                                         </p>
                                                         <p class="testimoni-author-job">
                                                             @if ($testimonial->courseEnroll)
@@ -281,7 +282,7 @@
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
                                                                 <img src="{{ asset('${courseData.thumbnail}') }}"
-                                                                    alt="course-thumbnail">
+                                                                    alt="${courseData.slug}-course-thumbnail">
                                                                 <div class="course-tag-wrapper">
                                                                     <div class="course__tag">
                                                                         <span class="course-badge">${courseData.category.name}</span>
@@ -357,7 +358,7 @@
                                                                 <div class="course__tutor-2">
                                                                     <div>
                                                                         <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
-                                                                            alt="mentor-course-name">
+                                                                            alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -397,7 +398,7 @@
                             <a href="/mentor/${mentorData.slug}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('${mentorData.profile_picture}') }}" alt="mentor-1">
+                                    <img src="{{ asset('${mentorData.profile_picture}') }}" alt="${mentorData.slug}-mentor-profile">
                                 </div>
                                 <div class="course__content p-relative">
                                     <h5 class="course__title text-lg mb-1 text-center">

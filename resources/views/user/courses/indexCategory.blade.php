@@ -220,9 +220,11 @@
                                 minimumFractionDigits: 0,
                                 maximumFractionDigits: 0,
                             };
-                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price * courseData.discount / 100);
+                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
+                                courseData.discount / 100);
                             let coursePrice = courseData.price.toLocaleString('id-ID', option);
-                            let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID', option);
+                            let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
+                                option);
                             let date = new Date(courseData.created_at);
                             let options = {
                                 day: '2-digit',
@@ -237,7 +239,7 @@
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
                                                                 <img src="{{ asset('${courseData.thumbnail}') }}"
-                                                                    alt="course-thumbnail">
+                                                                alt="${courseData.slug}-course-thumbnail">
                                                                 <div class="course-tag-wrapper">
                                                                     <div class="course__tag">
                                                                         <span class="course-badge">${courseData.category.name}</span>
@@ -252,7 +254,7 @@
                                                                 ${courseData.title}
                                                             </h3>
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Free'}
-                                                            <span class="text-decoration-line-through text-xs">${courseData.price != 0 ? coursePrice : ''}</span>
+                                                            <span class="text-decoration-line-through text-xs text-muted">${courseData.price != 0 ? coursePrice : ''}</span>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
                                                                 <div class="course__action">
@@ -314,7 +316,7 @@
                                                                 <div class="course__tutor-2">
                                                                     <div>
                                                                         <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
-                                                                            alt="mentor-course-name">
+                                                                            alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                                                     </div>
                                                                 </div>
                                                             </div>

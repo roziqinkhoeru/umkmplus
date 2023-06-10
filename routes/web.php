@@ -34,6 +34,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('/dashboard/search/{any}', function () {
+    return view('admin.search', ['title' => 'Search | Dashboard UMKMPlus', 'active' => 'search']);
+});
 
 // admin
 Route::get('/admin/reset-password', function () {

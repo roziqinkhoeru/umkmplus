@@ -8,7 +8,7 @@
                 <h4 class="page-title">Blog</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/blog">Data Blog</a>
+                        <a href="#">Data Blog</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Tanggal Dibuat</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Status</th>
                                             <th class="filter-none text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -71,18 +71,18 @@
                                                         {{ $blog->status }}
                                                     </span>
                                                 </td>
-                                                <td class="space-nowrap text-center">
+                                                <td class="space-nowrap">
                                                     <a href="{{ route('admin.blog.show', $blog->slug) }}"
                                                         class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     <button onclick="deleteBlog('{{ $blog->slug }}')"
                                                         class="btn btn-danger btn-sm mr-1">Hapus</button>
-                                                        @if ($blog->status == "tampilkan")
-                                                            <button onclick="hideBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-warning btn-sm mr-1">Sembunyikan</button>
-                                                        @else
-                                                            <button onclick="showBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-success btn-sm">Tampilkan</button>
-                                                        @endif
+                                                    @if ($blog->status == 'tampilkan')
+                                                        <button onclick="hideBlog('{{ $blog->slug }}')"
+                                                            class="btn btn-warning btn-sm">Sembunyikan</button>
+                                                    @else
+                                                        <button onclick="showBlog('{{ $blog->slug }}')"
+                                                            class="btn btn-success btn-sm">Tampilkan</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

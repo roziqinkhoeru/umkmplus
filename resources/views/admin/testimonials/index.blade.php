@@ -8,7 +8,7 @@
                 <h4 class="page-title">Testimonial</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -40,8 +40,9 @@
                                             <th class="text-center">#</th>
                                             <th>Nama</th>
                                             <th class="filter-none">Judul Kelas</th>
+                                            <th class="filter-none">Pekerjaan</th>
                                             <th class="filter-none">Testimonial</th>
-                                            <th class="filter-none">Rating</th>
+                                            <th class="text-center">Rating</th>
                                             <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
@@ -53,22 +54,21 @@
                                                 </td>
                                                 <td>{{ $testimonial->courseEnroll ? $testimonial->courseEnroll->course->title : '' }}
                                                 </td>
+                                                <td>{{ $testimonial->courseEnroll ? $testimonial->courseEnroll->student->job : '' }}
                                                 <td>{{ $testimonial->testimonial }}</td>
-                                                <td>{{ $testimonial->rating }}</td>
+                                                </td>
+                                                <td class="text-center">{{ $testimonial->rating }}</td>
                                                 <td class="space-nowrap text-center">
-                                                    <a href="{{ url('admin/testimonial/' . $testimonial->id) }}"
-                                                        class="btn btn-primary btn-sm">Detail</a>
-                                                        @if ($testimonial->status == "tampilkan")
-                                                            <button onclick="hideTestimonial('{{ $testimonial->id }}')"
-                                                                class="btn btn-danger btn-sm mr-1">Nonaktifkan</button>
-                                                        @else
-                                                            <button onclick="showTestimonial('{{ $testimonial->id }}')"
-                                                                class="btn btn-warning btn-sm">Aktifkan</button>
-                                                        @endif
+                                                    @if ($testimonial->status == 'tampilkan')
+                                                        <button onclick="hideTestimonial('{{ $testimonial->id }}')"
+                                                            class="btn btn-danger btn-sm">Nonaktifkan</button>
+                                                    @else
+                                                        <button onclick="showTestimonial('{{ $testimonial->id }}')"
+                                                            class="btn btn-warning btn-sm">Aktifkan</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>

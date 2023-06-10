@@ -1,13 +1,14 @@
 <div class="container-fluid">
     <div class="collapse" id="search-nav">
-        <form class="navbar-left navbar-form nav-search mr-md-3">
+        <form id="navbarSearchForm" class="navbar-left navbar-form nav-search mr-md-3" onsubmit="searchNavbarForm(event)">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <button type="submit" class="btn btn-search pr-1">
                         <i class="fa fa-search search-icon"></i>
                     </button>
                 </div>
-                <input type="text" placeholder="Search ..." class="form-control">
+                <input type="text" placeholder="Search ..." class="form-control" id="searchNavbar"
+                    name="searchNavbar">
             </div>
         </form>
     </div>
@@ -189,8 +190,8 @@
         <li class="nav-item dropdown hidden-caret">
             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                 <div class="avatar-sm">
-                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="profile-admin"
-                        class="avatar-img rounded-circle">
+                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                        alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -198,7 +199,8 @@
                     <li>
                         <div class="user-box">
                             <div class="avatar-lg"><img src="{{ asset(auth()->user()->customer->profile_picture) }}"
-                                    alt="image profile" class="avatar-img rounded"></div>
+                                    alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded">
+                            </div>
                             <div class="u-text">
                                 <h4>{{ Auth::user()->username }}</h4>
                                 <p class="text-muted">{{ Auth::user()->email }}</p><a href="/admin/nameAdmin"
@@ -240,5 +242,19 @@
                 window.location.href = "{{ route('logout') }}";
             }
         })
+    }
+    // on submit form search
+    const searchNavbarForm = (e) => {
+        e.preventDefault();
+        const search = document.getElementById('searchNavbar').value;
+        if (search == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Kata kunci tidak boleh kosong!',
+            })
+        } else {
+            window.location.href = `/dashboard/search/${search}`;
+        }
     }
 </script>

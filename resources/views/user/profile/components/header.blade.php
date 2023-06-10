@@ -6,7 +6,8 @@
                 <div class="col-xxl-8 col-md-8">
                     <div class="profile__basic d-md-flex align-items-center">
                         <div class="profile__basic-thumb mr-30">
-                            <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="profile-user-umkmplus">
+                            <img src="{{ asset($profile->profile_picture) }}"
+                                alt="{{ $profile->user->username }}-user-profile" class="object-cover-center">
                         </div>
                         <div class="profile__basic-content">
                             <h3 class="profile__basic-title" id="titleProfileName">
