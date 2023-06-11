@@ -97,3 +97,9 @@
 #contentWrapper .ck.ck-content.ck-editor__editable {
     min-height: 240px !important;
 }
+.btn-delete-image {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: 10.5px !important;
+    text-transform: uppercase;
+}
