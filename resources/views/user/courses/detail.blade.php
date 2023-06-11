@@ -33,7 +33,7 @@
                     <div class="col-lg-8">
                         <div class="mb-32 mb-lg-0">
                             <figure class="position-relative thumbnail-course-wrapper">
-                                <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->slug }}-course-thumbnail">
+                                <img src="{{ asset('storage/'.$course->thumbnail) }}" alt="{{ $course->slug }}-course-thumbnail">
                                 <div class="dark-screen"></div>
                                 <div class="course__video-play">
                                     <a href="/course-playing/courseName" class="play-btn popup-video">
@@ -182,7 +182,7 @@
                             <a href="/mentor/{{ $course->mentor->slug }}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset($course->mentor->profile_picture) }}"
+                                    <img src="{{ asset('storage/'.$course->mentor->profile_picture) }}"
                                         alt="{{ $course->mentor->slug }}-mentor-profile">
                                 </div>
                                 <div class="course__content p-relative">

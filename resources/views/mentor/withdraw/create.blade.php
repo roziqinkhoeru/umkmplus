@@ -63,7 +63,7 @@
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control"
-                                                placeholder="Masukkan Nomer Rekening Bank" value="{{ old('accountName') }}"
+                                                placeholder="Masukkan Nama Pemilik Bank" value="{{ old('accountName') }}"
                                                 aria-label="accountName" aria-describedby="accountName-addon"
                                                 id="accountName" name="accountName" required>
                                         </div>

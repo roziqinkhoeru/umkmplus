@@ -118,7 +118,7 @@
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
-                                                Upload a Image
+                                                Upload Bukti Pembayaran
                                             </label>
                                         </div>
                                     </div>

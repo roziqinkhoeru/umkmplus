@@ -6,7 +6,7 @@
                 <div class="col-xxl-8 col-md-8">
                     <div class="profile__basic d-md-flex align-items-center">
                         <div class="profile__basic-thumb mr-30">
-                            <img src="{{ asset($profile->profile_picture) }}"
+                            <img src="{{ asset('storage/'.$profile->profile_picture) }}"
                                 alt="{{ $profile->user->username }}-user-profile" class="object-cover-center">
                         </div>
                         <div class="profile__basic-content">

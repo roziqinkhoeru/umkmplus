@@ -31,7 +31,7 @@ class DiscountFactory extends Factory
         // Customer factory
         $customerRecord = [
             'name' => $this->faker->name(),
-            'profile_picture' => 'assets/img/dummy/profile-placeholder.png',
+            'profile_picture' => 'profile/mentor-1.jpg',
             'job' => "Pekerjaan",
             'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
@@ -99,7 +99,7 @@ class DiscountFactory extends Factory
                     'category_id' => $this->faker->numberBetween(1, 5),
                     'title' => $this->faker->sentence(3),
                     'description' => $this->faker->paragraph(3),
-                    'thumbnail' => "assets/img/dummy/thumbnail-course.png",
+                    'thumbnail' => "courses/thumbnail/thumbnail-course.png",
                     'price' => $this->faker->numberBetween(50000, 1000000),
                     'discount' => 5,
                     'file_info' => "courses/info/dummy-course.pdf",

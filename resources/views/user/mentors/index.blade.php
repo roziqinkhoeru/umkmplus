@@ -110,7 +110,7 @@
                         <a href="/mentor/${mentorData.slug}"
                             class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                             <div class="mentor-card-thumbnail mt-3">
-                                <img src="{{ asset('${mentorData.profile_picture}') }}" alt="${mentorData.slug}-mentor-profile">
+                                <img src="{{ asset('storage/${mentorData.profile_picture}') }}" alt="${mentorData.slug}-mentor-profile">
                             </div>
                             <div class="course__content p-relative">
                                 <h5 class="course__title text-lg mb-1 text-center">
