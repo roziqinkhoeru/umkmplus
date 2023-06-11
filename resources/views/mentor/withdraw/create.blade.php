@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- accountNumber --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountNumber" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nomer
+                                    <label for="accountNumber"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nomer
                                         Rekening Bank
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -57,7 +58,7 @@
                                 </div>
                                 {{-- accountName --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama
+                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nama
                                         Pemilik Bank
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -71,7 +72,7 @@
                                 </div>
                                 {{-- bank --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="bank" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="bank" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Bank
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -87,29 +88,37 @@
                                 </div>
                                 {{-- amount --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Jumlah
+                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Jumlah
                                         Withdraw <br> (Maks. Rp {{ number_format($balance, 0, ',', '.') }})
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input type="number" name="amount" class="form-control" id="amount"
-                                            placeholder="Masukkan Jumlah Withdraw" value="{{ old('amount') }}"
-                                            min="100000" max="{{ $balance }}" required>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="amount" class="form-control" id="amount"
+                                                placeholder="Masukkan Jumlah Withdraw" value="{{ old('amount') }}"
+                                                min="100000" max="{{ $balance }}" required>
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <a href="/mentor/withdraw" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="createButton" type="submit">Kirim</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <a href="/mentor/withdraw" class="btn btn-default btn-outline-dark">Batal</a>
+                                <button class="btn btn-primary ml-3" id="createButton" type="submit">Kirim</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
