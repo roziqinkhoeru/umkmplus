@@ -43,20 +43,30 @@
                             <div class="card-body">
                                 {{-- Kode --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="code" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Kode
+                                    <label for="code" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kode
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="code" name="code"
-                                            value="{{ $discount->code }}" required>
+                                            value="{{ $discount->code }}" required oninput="convertToUppercase()"
+                                            placeholder="Masukkan Kode">
                                     </div>
                                 </div>
                                 {{-- Diskon --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Diskon (Rp)
+                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Diskon
+                                        (Rp)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input type="number" class="form-control" id="discount" name="discount"
-                                            value="{{ $discount->discount }}" required>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="discount" class="form-control" id="discount"
+                                                placeholder="Masukkan Nominal Diskon" value="{{ $discount->discount }}"
+                                                required>
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,6 +88,11 @@
 
 @section('script')
     <script>
+        function convertToUppercase() {
+            var input = document.getElementById("code");
+            input.value = input.value.toUpperCase();
+        }
+
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Kode tidak boleh ada spasi");
