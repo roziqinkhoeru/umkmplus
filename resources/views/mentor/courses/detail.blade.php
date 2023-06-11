@@ -192,6 +192,36 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Testimonial Course --}}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Data Testimoni</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="testimonialTable" class="display table table-striped table-hover" >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Testimoni</th>
+                                            <th>Rating</th>
+                                            <th class="text-center filter-none">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -205,6 +235,8 @@
                     "orderable": false,
                 }]
             });
+
+            getTestimoniCourse();
         });
 
         let statisticCourseChart = document.getElementById('statisticCourseChart').getContext('2d');
@@ -243,5 +275,32 @@
                 }
             }
         });
+
+        function getTestimoniCourse() {
+            $.ajax({
+                url: "{{ route('mentor.course.testimonial', $course->slug) }}",
+                type: "GET",
+                dataType: "JSON",
+                success: function(response) {
+                    if (response.data.testimonials.length > 0) {
+                        $.each(response.data.testimonials, function(index, testimonial) {
+                            var rowData = [
+                                index + 1,
+                                testimonial.course_enroll.student.name,
+                                testimonial.testimonial,
+                                testimonial.rating,
+                                testimonial.status,
+                            ];
+                            $('#testimonialTable').DataTable().row.add(rowData).draw(false);
+                        });
+                    } else {
+                        console.log("Data Kosong");
+                    }
+                },
+                error: function() {
+                console.log('error');
+            }
+            });
+        }
     </script>
 @endsection

@@ -159,6 +159,12 @@
                     <p>Blog</p>
                 </a>
             </li>
+            <li class="nav-item @if ($active == 'withdraw') active @endif">
+                <a href="/admin/withdraw">
+                    <i class="fas fa-money-bill"></i>
+                    <p>Keuangan</p>
+                </a>
+            </li>
         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
             <li class="nav-item @if ($active == 'discount') active @endif">
                 <a href="{{ route('mentor.discount') }}">
@@ -170,6 +176,12 @@
                 <a href="/mentor/blog">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
+                </a>
+            </li>
+            <li class="nav-item @if ($active == 'withdraw') active @endif">
+                <a href="/mentor/withdraw">
+                    <i class="fas fa-money-bill"></i>
+                    <p>Keuangan</p>
                 </a>
             </li>
         @endif

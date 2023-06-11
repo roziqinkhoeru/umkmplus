@@ -31,9 +31,9 @@ class DiscountFactory extends Factory
         // Customer factory
         $customerRecord = [
             'name' => $this->faker->name(),
-                'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
-                'job' => "Pekerjaan",
-                'address' => $this->faker->address(),
+            'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+            'job' => "Pekerjaan",
+            'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
             'dob' => $this->faker->dateTimeBetween('-45 years', '-18 years'),
             'gender' => $this->faker->randomElement(['laki-laki', 'perempuan']),
@@ -69,7 +69,7 @@ class DiscountFactory extends Factory
             $customer->update([
                 'slug' =>  Str::lower(Str::slug($customer->name, '-')),
             ]);
-            Mentor::create([
+            $mentor = Mentor::create([
                 'customer_id' => $customer->id,
                 'status' => 1,
                 'about' => $this->faker->paragraph(3),
@@ -176,6 +176,12 @@ class DiscountFactory extends Factory
                     'total_price' => $course->price,
                 ];
                 $courseEnroll = CourseEnroll::create($courseEnrollRecord);
+
+                $mentor = Mentor::where('customer_id',$course->mentor_id)->first();
+                if ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai') {
+                    $mentor->balance += ($courseEnroll->total_price * 0.8);
+                    $mentor->save();
+                }
             }
         };
 

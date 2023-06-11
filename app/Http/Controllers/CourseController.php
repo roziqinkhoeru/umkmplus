@@ -387,7 +387,7 @@ class CourseController extends Controller
 
     public function mentorCourseShow(Course $course)
     {
-        $course->load('courseEnrolls.student', 'modules.mediaModules', 'mentor', 'category');
+        $course->load('courseEnrolls.student', 'modules', 'mentor', 'category');
         $data = [
             'title' => 'Detail Kelas ' . $course->title . ' | Mentor UMKMPlus',
             'active' => 'course',

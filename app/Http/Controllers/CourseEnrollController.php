@@ -8,6 +8,7 @@ use App\Models\CourseEnroll;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\MediaModule;
+use App\Models\Mentor;
 use App\Models\Module;
 use App\Models\Testimonial;
 use Carbon\Carbon;
@@ -235,7 +236,11 @@ class CourseEnrollController extends Controller
             $type = $notif->payment_type;
             $order_id = $notif->order_id;
             $fraud = $notif->fraud_status;
-            $courseEnroll = CourseEnroll::find($order_id);
+            $courseEnroll = CourseEnroll::with('course')->find($order_id);
+            $courseEnroll->update([
+                'status' => 'proses'
+            ]);
+            $mentor = Mentor::where('customer_id', $courseEnroll->course->mentor_id)->first();
 
             if ($transaction == 'capture') {
                 // For credit card transaction, we need to check whether transaction is challenge by FDS or not
@@ -251,6 +256,8 @@ class CourseEnrollController extends Controller
                             'upto_no_module' => 1,
                             'upto_no_media' => 1,
                         ]);
+                        $mentor->balance += ($courseEnroll->total_price * 0.8);
+                        $mentor->save();
                     }
                 }
             } else if ($transaction == 'settlement') {
@@ -260,6 +267,8 @@ class CourseEnrollController extends Controller
                     'upto_no_module' => 1,
                     'upto_no_media' => 1,
                 ]);
+                $mentor->balance += ($courseEnroll->total_price * 0.8);
+                $mentor->save();
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
             }

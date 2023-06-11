@@ -136,6 +136,14 @@
                                         <span class="text">Blog</span>
                                     </div>
                                 </a>
+                                <a class="col-6 col-md-4 p-0" href="/admin/withdraw">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-info rounded-circle">
+                                            <i class="fas fa-money-bill"></i>
+                                        </div>
+                                        <span class="text">Withdraw</span>
+                                    </div>
+                                </a>
                             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
                                 <a class="col-6 col-md-4 p-0" href="/mentor/blog">
                                     <div class="quick-actions-item">
@@ -143,6 +151,14 @@
                                             <i class="fas fa-pen-alt"></i>
                                         </div>
                                         <span class="text">Blog</span>
+                                    </div>
+                                </a>
+                                <a class="col-6 col-md-4 p-0" href="/mentor/withdraw">
+                                    <div class="quick-actions-item">
+                                        <div class="avatar-item bg-info rounded-circle">
+                                            <i class="fas fa-money-bill"></i>
+                                        </div>
+                                        <span class="text">Withdraw</span>
                                     </div>
                                 </a>
                             @endif
