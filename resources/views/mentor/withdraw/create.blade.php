@@ -16,13 +16,13 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/Withdraw">DataZ Withdraw</a>
+                        <a href="/mentor/Withdraw">Data Withdraw</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Permohonan Withdraw
+                        <a href="#">Form Permohonan Withdraw</a>
                     </li>
                 </ul>
             </div>
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Form  Permohonan Withdraw</div>
+                            <div class="card-title">Form Permohonan Withdraw</div>
                             <div class="card-category">
                                 Form ini digunakan untuk menambah data Permohonan Withdraw
                             </div>
@@ -42,25 +42,30 @@
                             <div class="card-body">
                                 {{-- accountNumber --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountNumber" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nomer Rekening Bank
+                                    <label for="accountNumber" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nomer
+                                        Rekening Bank
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Masukkan Nomer Rekening Bank"
+                                            <input type="text" class="form-control"
+                                                placeholder="Masukkan Nomer Rekening Bank"
                                                 value="{{ old('accountNumber') }}" aria-label="accountNumber"
-                                                aria-describedby="accountNumber-addon" id="accountNumber" name="accountNumber" required>
+                                                aria-describedby="accountNumber-addon" id="accountNumber"
+                                                name="accountNumber" required>
                                         </div>
                                     </div>
                                 </div>
                                 {{-- accountName --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama Pemilik Bank
+                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama
+                                        Pemilik Bank
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Masukkan Nomer Rekening Bank"
-                                                value="{{ old('accountName') }}" aria-label="accountName"
-                                                aria-describedby="accountName-addon" id="accountName" name="accountName" required>
+                                            <input type="text" class="form-control"
+                                                placeholder="Masukkan Nomer Rekening Bank" value="{{ old('accountName') }}"
+                                                aria-label="accountName" aria-describedby="accountName-addon"
+                                                id="accountName" name="accountName" required>
                                         </div>
                                     </div>
                                 </div>
@@ -82,12 +87,13 @@
                                 </div>
                                 {{-- amount --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Jumlah Withdraw <br> (Maks. Rp {{ number_format($balance,0,',','.') }})
+                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Jumlah
+                                        Withdraw <br> (Maks. Rp {{ number_format($balance, 0, ',', '.') }})
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="number" name="amount" class="form-control" id="amount"
-                                            placeholder="Masukkan Jumlah Withdraw" value="{{ old('amount') }}" min="100000" max="{{ $balance }}"
-                                            required>
+                                            placeholder="Masukkan Jumlah Withdraw" value="{{ old('amount') }}"
+                                            min="100000" max="{{ $balance }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         <a href="/mentor/withdraw" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="createButton"
-                                            type="submit">Kirim</button>
+                                        <button class="btn btn-primary ml-3" id="createButton" type="submit">Kirim</button>
                                     </div>
                                 </div>
                             </div>
