@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/profile', 'profile')->name('profile');
+            Route::get('/profile/get-dashboard', 'getDashboard')->name('get.dashboard');
             Route::get('/profile/get-profile', 'getProfile')->name('get.profile');
             Route::put('/profile/update-profile', 'updateProfile')->name('update.profile');
             Route::get('/profile/get-courses', 'getCourseProfile')->name('get.profile.course');

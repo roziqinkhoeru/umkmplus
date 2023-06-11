@@ -95,6 +95,28 @@ class DashboardController extends Controller
         return ResponseFormatter::error(null, 'Data profile tidak ada', 404);
     }
 
+    public function getDashboard()
+    {
+        $user = Auth::user();
+        $activeCourse = CourseEnroll::where('student_id', $user->customer->id)->where('status', 'aktif')->count();
+        $finishCourse = CourseEnroll::where('student_id', $user->customer->id)->where('status', 'selesai')->count();
+
+        $statCourseCategory = Category::withCount(['courses as total_course' => function ($query) use ($user) {
+            $query->join('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
+                ->where('course_enrolls.student_id', $user->customer->id)
+                ->whereIn('course_enrolls.status', ['aktif', 'selesai']);
+        }])->get();
+
+        return ResponseFormatter::success(
+            [
+                'activeCourse' => $activeCourse,
+                'finishCourse' => $finishCourse,
+                'statCourseCategory' => $statCourseCategory
+            ],
+            'Data profile berhasil diambil'
+        );
+    }
+
     public function updateProfile(Request $request)
     {
         $user = User::find(Auth::user()->id);

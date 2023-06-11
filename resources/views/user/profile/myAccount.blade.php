@@ -141,7 +141,7 @@
                                         `);
 
             $.ajax({
-                url: "{{ route('get.profile') }}",
+                url: "{{ route('get.dashboard') }}",
                 type: "GET",
                 dataType: "JSON",
                 success: function(response) {
@@ -166,7 +166,7 @@
                                                                 <div class="col col-stats ms-3 ms-sm-0">
                                                                     <div class="numbers">
                                                                         <p class="card-category">Kelas Diikuti</p>
-                                                                        <h4 class="card-title">1,294</h4>
+                                                                        <h4 class="card-title">${response.data.activeCourse}</h4>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -186,7 +186,7 @@
                                                                 <div class="col col-stats ms-3 ms-sm-0">
                                                                     <div class="numbers">
                                                                         <p class="card-category">Kelas Lulus</p>
-                                                                        <h4 class="card-title">576</h4>
+                                                                        <h4 class="card-title">${response.data.finishCourse}</h4>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -209,10 +209,16 @@
                                 </div>`;
                     $("#nav-tabContent").html(htmlString);
 
+                    let categoryName = [];
+                    let totalCourse = [];
+                    $.map(response.data.statCourseCategory, function (category, index) {
+                        categoryName.push(category.name)
+                        totalCourse.push(category.total_course)
+                    });
                     const strengthData = {
-                        labels: ['Branding', 'Desain', 'Marketing', 'Programming', 'UI/UX'],
+                        labels: categoryName,
                         datasets: [{
-                            data: [2, 1, 3, 0, 0],
+                            data: totalCourse,
                             borderColor: '#1d7af3',
                             backgroundColor: 'rgba(29, 122, 243, 0.25)',
                             pointBackgroundColor: "#ffffff",
