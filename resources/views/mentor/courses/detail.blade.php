@@ -111,6 +111,17 @@
                                                     {{ Str::upper($course->status) }}
                                                 </span></td>
                                         </tr>
+                                        <tr>
+                                            <td>Aksi</td>
+                                            <td class="text-right">
+                                                :
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('mentor.module', $course->slug) }}" class="btn btn-primary">Modul</a>
+                                                <a href="{{ route('mentor.course.edit', $course->slug) }}" class="btn btn-warning">Edit</a>
+                                                <a href="{{ route('mentor.course.destroy', $course->slug) }}" class="btn btn-danger">Hapus</a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -204,7 +215,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="testimonialTable" class="display table table-striped table-hover" >
+                                <table id="testimonialTable" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
@@ -298,8 +309,8 @@
                     }
                 },
                 error: function() {
-                console.log('error');
-            }
+                    console.log('error');
+                }
             });
         }
     </script>

@@ -159,8 +159,7 @@ class WithdrawController extends Controller
         try {
             DB::beginTransaction();
             $paymentProof = $request->file('paymentProof');
-            $paymentProofPath = $paymentProof->store('withdraw', 'public');
-            $paymentProofUrl = asset('storage/' . $paymentProofPath);
+            $paymentProofUrl = $paymentProof->store('withdraw', 'public');
 
             $updateWithdraw = $withdraw->update([
                 'payment_proof' => $paymentProofUrl,

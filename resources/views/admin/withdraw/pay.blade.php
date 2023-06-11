@@ -111,11 +111,11 @@
                                             alt="blog-payment-proof-preview" id="imagePreview">
                                         <input type="file" class="form-control form-control-file" id="paymentProof"
                                             onchange="previewImage(event)" name="paymentProof" accept="image/*" required>
-                                        <label for="paymentProof" class="label-input-file btn btn-black btn-round">
+                                        <label for="paymentProof" class="label-input-file btn btn-black btn-round mt-2">
                                             <span class="btn-label">
                                                 <i class="fa fa-file-image"></i>
                                             </span>
-                                            Upload a Image
+                                            Upload Bukti Pembayaran
                                         </label>
                                     </div>
                                 </div>

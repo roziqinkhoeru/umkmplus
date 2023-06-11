@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Tambah Kelas</h4>
+                <h4 class="page-title">Edit Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="/mentor">
@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Tambah Kelas
+                        Form Edit Kelas
                     </li>
                 </ul>
             </div>
@@ -32,13 +32,14 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Form Tambah Kelas</div>
+                            <div class="card-title">Form Edit Kelas</div>
                             <div class="card-category">
-                                Form ini digunakan untuk menambah data Tambah Kelas
+                                Form ini digunakan untuk mengubah data Kelas
                             </div>
                         </div>
                         <form id="createCourseForm" action="#" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
@@ -47,7 +48,7 @@
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Masukkan Judul Kelas"
-                                                value="{{ old('title') }}" aria-label="title"
+                                                value="{{ $course->title }}" aria-label="title"
                                                 aria-describedby="title-addon" id="title" name="title" required>
                                         </div>
                                     </div>
@@ -59,7 +60,7 @@
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
                                             <textarea type="text" class="form-control" placeholder="Masukkan Deskripsi Kelas" aria-label="description"
-                                                aria-describedby="description-addon" id="description" name="description" rows="5" required>{{ old('description') }}</textarea>
+                                                aria-describedby="description-addon" id="description" name="description" rows="5" required>{{ $course->description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +74,7 @@
                                             id="category_id" required>
                                             {{-- <option hidden>Pilih Spesialisasi</option> --}}
                                             @foreach ($categories as $category)
-                                                <option @if ($category->id == old('category')) selected @endif
+                                                <option @if ($category->id == $course->category_id) selected @endif
                                                     value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
@@ -85,7 +86,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <input type="number" name="price" class="form-control" id="price"
-                                            placeholder="Masukkan Harga Kelas" value="{{ old('price') }}" required>
+                                            placeholder="Masukkan Harga Kelas" value="{{ $course->price }}" required>
                                     </div>
                                 </div>
                                 {{-- thumbnail --}}
@@ -94,10 +95,10 @@
                                         class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Thumbnail<span
                                             class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <img class="img-upload-preview" width="240" src="http://placehold.it/240x240"
-                                            alt="image-course" id="imagePreview">
+                                        <img class="img-upload-preview" width="240" src="{{ asset('storage/'.$course->thumbnail) }}"
+                                            alt="image-{{ $course->title }}" id="imagePreview">
                                         <input type="file" class="form-control form-control-file" id="thumbnail"
-                                            onchange="previewImage(event)" name="thumbnail" accept="image/*" required>
+                                            onchange="previewImage(event)" name="thumbnail" accept="image/*">
                                         <label for="thumbnail" class="label-input-file btn btn-black btn-round mt-2">
                                             <span class="btn-label">
                                                 <i class="fa fa-file-image"></i>
@@ -111,8 +112,14 @@
                                     <label for="file_info" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
+                                        @if ($course->file_info)
+                                            <div>
+                                                <a href="{{ asset('storage/' . $course->file_info) }}" target="_blank"
+                                                    class="mb-2">File sebelum</a>
+                                            </div>
+                                        @endif
                                         <input type="file" class="form-control form-control-file" id="file_info"
-                                            name="file_info" accept="application/pdf" required>
+                                            name="file_info" accept="application/pdf">
                                         <label for="file_info" class="label-input-file btn btn-black btn-round mt-2">
                                             <span class="btn-label">
                                                 <i class="fa fa-file-pdf"></i>
@@ -129,7 +136,7 @@
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <input type="number" name="discount" class="form-control" id="discount"
                                             min="0" max="100" placeholder="Masukkan Diskon Kelas"
-                                            value="{{ old('discount') }}" required>
+                                            value="{{ $course->discount }}" required>
                                     </div>
                                 </div>
                                 {{-- google_form --}}
@@ -140,7 +147,7 @@
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control"
-                                                placeholder="Masukkan Link Google Form" value="{{ old('google_form') }}"
+                                                placeholder="Masukkan Link Google Form" value="{{ $course->google_form }}"
                                                 aria-label="google_form" aria-describedby="google_form-addon"
                                                 id="google_form" name="google_form" required>
                                         </div>
@@ -153,7 +160,7 @@
                                     <div class="col-md-12 text-right">
                                         <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
                                         <button class="btn btn-primary ml-3" id="createButton"
-                                            type="submit">Tambah</button>
+                                            type="submit">Ubah</button>
                                     </div>
                                 </div>
                             </div>
@@ -173,10 +180,6 @@
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $.validator.addMethod("nowhitespace", function(value, element) {
-            return this.optional(element) || /^\S+$/i.test(value);
-        }, "Username tidak boleh ada spasi");
-
         function previewImage(event) {
             var input = event.target;
             var preview = document.getElementById('imagePreview');
@@ -228,12 +231,10 @@
                     min: 0,
                 },
                 thumbnail: {
-                    required: true,
                     extension: "jpg|jpeg|png",
                     maxfilesize: 2 * 1024 * 1024, // 2MB (dalam byte)
                 },
                 file_info: {
-                    required: true,
                     extension: "pdf",
                     maxfilesize: 5 * 1024 * 1024, // 5MB (dalam byte)
                 },
@@ -267,12 +268,10 @@
                     min: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>harga minimal 0',
                 },
                 thumbnail: {
-                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>thumbnail tidak boleh kosong',
                     extension: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>thumbnail harus berupa file gambar (jpg, jpeg, png)',
                     maxfilesize: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>ukuran thumbnail maksimal 2MB',
                 },
                 file_info: {
-                    required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>file tidak boleh kosong',
                     extension: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>file harus berupa file pdf',
                     maxfilesize: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>ukuran file maksimal 5MB',
                 },
@@ -300,13 +299,13 @@
                 $('#createButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#createButton').prop('disabled', true);
                 $.ajax({
-                    url: "{{ route('mentor.course.store') }}",
+                    url: "{{ route('mentor.course.update', $course->slug) }}",
                     type: "POST",
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        $('#createButton').html('Tambah');
+                        $('#createButton').html('Edit');
                         $('#createButton').prop('disabled', false);
                         $.notify({
                             icon: 'flaticon-alarm-1',
@@ -323,7 +322,7 @@
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        $('#createButton').html('Tambah');
+                        $('#createButton').html('Edit');
                         $('#createButton').prop('disabled', false);
                         if (xhr.responseJSON)
                             Swal.fire({

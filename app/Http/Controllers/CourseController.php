@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
 use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Course;
+use App\Models\Module;
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\MediaModule;
-use App\Models\Module;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
@@ -104,7 +106,6 @@ class CourseController extends Controller
             'data' => $courses
         ]);
     }
-
 
     public function getCourseMentor(Customer $customer)
     {
@@ -375,16 +376,6 @@ class CourseController extends Controller
         return view('mentor.courses.index', $data);
     }
 
-    public function mentorCourseCreate()
-    {
-        $data = [
-            'title' => 'Create Course | Mentor UMKMPlus',
-            'active' => 'course',
-        ];
-
-        return view('mentor.courses.create', $data);
-    }
-
     public function mentorCourseShow(Course $course)
     {
         $course->load('courseEnrolls.student', 'modules', 'mentor', 'category');
@@ -394,5 +385,173 @@ class CourseController extends Controller
             'course' => $course
         ];
         return view('mentor.courses.detail', $data);
+    }
+    public function mentorCourseCreate()
+    {
+        $categories = Category::all();
+        $data = [
+            'title' => 'Tambah Kelas | Mentor UMKMPlus',
+            'active' => 'course',
+            'categories' => $categories
+        ];
+
+        return view('mentor.courses.create', $data);
+    }
+
+    public function mentorCourseStore(Request $request)
+    {
+        $rules =
+            [
+                'title' => 'required|max:100',
+                'description' => 'required',
+                'category_id' => 'required|exists:categories,id',
+                'price' => 'required|integer|min:0',
+                'thumbnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+                'file_info' => 'required|mimes:pdf|max:5120',
+                'discount' => 'required|integer|min:0|max:100',
+                'google_form' => 'required|url',
+            ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Gagal membuat kelas',
+                    'error' => $validator->errors()->first()
+                ],
+                'Gagal membuat kelas',
+                422
+            );
+        }
+
+        $thumbnail = request()->file('thumbnail')->store('courses/thumbnail', 'public');
+        $fileInfo = request()->file('file_info')->store('courses/info', 'public');
+
+        $course = Course::create([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'thumbnail' => $thumbnail,
+            'file_info' => $fileInfo,
+            'google_form' => $request->google_form,
+            'mentor_id' => Auth::user()->customer->id,
+            'status' => 'pending'
+        ]);
+
+        if ($course) {
+            return ResponseFormatter::success(
+                [
+                    'message' => 'Kelas berhasil dibuat',
+                    'redirect' => route('mentor.module.create', $course->slug)
+                ],
+                'success'
+            );
+        }
+
+        return ResponseFormatter::error(
+            [
+                'message' => 'Kelas gagal dibuat',
+            ],
+            'error',
+        );
+    }
+
+
+    public function mentorCourseEdit(Course $course)
+    {
+        $categories = Category::all();
+        $data = [
+            'title' => 'Edit Kelas | Mentor UMKMPlus',
+            'active' => 'course',
+            'categories' => $categories,
+            'course' => $course
+        ];
+
+        return view('mentor.courses.edit', $data);
+    }
+
+    public function mentorCourseUpdate(Request $request, Course $course)
+    {
+        $rules =
+            [
+                'title' => 'required|max:100',
+                'description' => 'required',
+                'category_id' => 'required|exists:categories,id',
+                'price' => 'required|integer|min:0',
+                'thumbnail' => 'image|mimes:jpg,jpeg,png|max:2048',
+                'file_info' => 'mimes:pdf|max:5120',
+                'discount' => 'required|integer|min:0|max:100',
+                'google_form' => 'required|url',
+            ];
+        $validator = Validator::make(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'message' => 'Gagal membuat kelas',
+                    'error' => $validator->errors()->first()
+                ],
+                'Gagal membuat kelas',
+                422
+            );
+        }
+
+        $thumbnail = $course->thumbnail;
+        $fileInfo = $course->file_info;
+
+        if (request()->file('thumbnail')) {
+            // delete file old thumbnail
+            if ($course->thumbnail != 'storage/courses/thumbnail/thumbnail-course.png') {
+                # code...
+                $exists = Storage::disk('public')->exists($course->thumbnail);
+                if ($exists) {
+                    Storage::disk('public')->delete($course->thumbnail);
+                }
+            }
+            $thumbnail = request()->file('thumbnail')->store('courses/thumbnail', 'public');
+        }
+
+        if (request()->file('file_info')) {
+            // delete file old file_info
+            $exists = Storage::disk('public')->exists($course->file_info);
+            if ($exists) {
+                Storage::disk('public')->delete($course->file_info);
+            }
+            $fileInfo = request()->file('file_info')->store('courses/info', 'public');
+        }
+
+        $course->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'thumbnail' => $thumbnail,
+            'file_info' => $fileInfo,
+            'google_form' => $request->google_form,
+            'mentor_id' => Auth::user()->customer->id,
+            // 'status' => 'pending'
+        ]);
+
+        if ($course) {
+            return ResponseFormatter::success(
+                [
+                    'message' => 'Kelas berhasil diupdate',
+                    'redirect' => route('mentor.course')
+                ],
+                'Kelas berhasil diupdate'
+            );
+        }
+
+        return ResponseFormatter::error(
+            [
+                'message' => 'Kelas gagal diupdate',
+            ],
+            'error',
+        );
     }
 }

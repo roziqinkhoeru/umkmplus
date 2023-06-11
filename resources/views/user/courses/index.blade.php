@@ -217,7 +217,7 @@
                                                         {{-- course item image --}}
                                                         <div class="course__thumb-2 w-img fix">
                                                             <figure class="mb-0 position-relative">
-                                                                <img src="{{ asset('${courseData.thumbnail}') }}" alt="${courseData.slug}-course-thumbnail">
+                                                                <img src="{{ asset('storage/${courseData.thumbnail}') }}" alt="${courseData.slug}-course-thumbnail">
                                                                 <div class="course-tag-wrapper">
                                                                     <div class="course__tag">
                                                                         <span class="course-badge">${courseData.category.name}</span>

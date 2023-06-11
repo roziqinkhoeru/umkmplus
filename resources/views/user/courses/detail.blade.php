@@ -33,7 +33,7 @@
                     <div class="col-lg-8">
                         <div class="mb-32 mb-lg-0">
                             <figure class="position-relative thumbnail-course-wrapper">
-                                <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->slug }}-course-thumbnail">
+                                <img src="{{ asset('storage/'.$course->thumbnail) }}" alt="{{ $course->slug }}-course-thumbnail">
                                 <div class="dark-screen"></div>
                                 <div class="course__video-play">
                                     <a href="/course-playing/courseName" class="play-btn popup-video">

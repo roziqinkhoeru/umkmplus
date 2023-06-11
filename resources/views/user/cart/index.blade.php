@@ -109,7 +109,7 @@
                             cartCourseContentDesktop += `<tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
-                                                    <img src="{{ asset('${cartCourse.thumbnail}') }}"
+                                                    <img src="{{ asset('storage/${cartCourse.thumbnail}') }}"
                                                         alt="${cartCourse.slug}-course-thumbnail" class="thumbnail-course-cart">
                                                     <div style="text-align: left !important">
                                                         <p class="mb-5 text-base fw-medium">${cartCourse.title}</p>
@@ -130,7 +130,7 @@
                                     <div class="card-header"><span class="badge text-bg-dark">${cartCourse.category_name}</span></div>
                                         <div class="card-body">
                                             <div class="d-flex gap-3">
-                                                <div><img src="{{ asset('${cartCourse.thumbnail}') }}"
+                                                <div><img src="{{ asset('storage/${cartCourse.thumbnail}') }}"
                                                     alt="${cartCourse.slug}-course-thumbnail" class="thumbnail-course-cart-mobile"></div>
                                                 <div class="">
                                                     <p class="text-base mb-5">${cartCourse.title}</p>

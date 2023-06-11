@@ -35,7 +35,7 @@
                                 </div>
                             </header>
                             <!-- Preview image figure-->
-                            <figure class="mb-4"><img class="img-fluid rounded-4" src="{{ asset($blog->thumbnail) }}"
+                            <figure class="mb-4"><img class="img-fluid rounded-4" src="{{ asset("storage/".$blog->thumbnail) }}"
                                     alt="{{ $blog->slug }}-blog-thumbnail" /></figure>
                             <!-- Post content-->
                             <section class="mb-5">

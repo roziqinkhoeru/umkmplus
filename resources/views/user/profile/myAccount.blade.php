@@ -427,7 +427,7 @@
                                         <div class="d-flex flex-column h-100 justify-content-between">
                                             <div class="mb-15">
                                                 <figure class="mycourse-item-image position-relative mb-15">
-                                                    <img src="{{ asset('${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
+                                                    <img src="{{ asset('storage/${enroll.course.thumbnail}') }}" alt="${enroll.course.slug}-course-thumbnail" />
                                                     <div class="course-tag-wrapper">
                                                         <div class="course__tag">
                                                             <span class="course-badge">${enroll.course.category.name}</span>
@@ -574,7 +574,7 @@
                                             <div class="col-12">
                                                 <div class="d-flex flex-wrap">
                                                     <div class="mr-2 mb-2 mb-sm-0"><img
-                                                            src="{{ asset('${enroll.course.thumbnail}') }}"
+                                                            src="{{ asset('storage/${enroll.course.thumbnail}') }}"
                                                             alt="${enroll.course.slug}-course-thumbnail" class="card-image-transaction">
                                                     </div>
                                                     <div>
