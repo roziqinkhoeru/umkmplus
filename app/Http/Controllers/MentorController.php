@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
-use App\Models\Category;
+use Exception;
+use Carbon\Carbon;
+use App\Models\Blog;
+use App\Models\User;
 use App\Models\Course;
-use App\Models\Customer;
-use App\Models\CustomerSpecialist;
 use App\Models\Mentor;
-use App\Models\MentorRegistration;
+use App\Models\Category;
+use App\Models\Customer;
 use App\Models\RoleUser;
 use App\Models\Specialist;
-use App\Models\User;
-use Carbon\Carbon;
-use Exception;
+use Illuminate\Support\Str;
+use App\Models\CourseEnroll;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Helpers\ResponseFormatter;
+use App\Models\CustomerSpecialist;
+use App\Models\MentorRegistration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class MentorController extends Controller
 {
@@ -286,10 +288,31 @@ class MentorController extends Controller
     /* ROLE MENTOR */
     public function mentorDashboard()
     {
+        $user = Auth::user();
+        $countStudent = CourseEnroll::with('course')->whereHas('course', function ($query) use ($user) {
+            $query->where('mentor_id', $user->customer->id);
+        })->count();
+        $countCourse = Course::where('mentor_id', $user->customer->id)->count();
+        $countBlog = Blog::where('user_id', $user->id)->count();
+        $countCourseCategories = Category::withCount(['courses' => function ($query) use ($user) {
+            $query->where('mentor_id', $user->customer->id);
+        }])->get();
+        $revenue = CourseEnroll::with('course')->whereHas('course', function ($query) use ($user) {
+            $query->where('mentor_id', $user->customer->id);
+        })
+        ->whereIn('status', ['aktif', 'selesai'])
+        ->whereRaw('YEAR(created_at) = ?', [2023])
+        ->sum('total_price');
         $data = [
             'title' => 'Dashboard Mentor | Mentor UMKMPlus',
             'active' => 'dashboard',
+            'countStudent' => $countStudent,
+            'countCourse' => $countCourse,
+            'countBlog' => $countBlog,
+            'countCourseCategories' => $countCourseCategories,
+            'revenue' => $revenue * 0.8,
         ];
+        // dd($data);
 
         return view('mentor.dashboard', $data);
     }
