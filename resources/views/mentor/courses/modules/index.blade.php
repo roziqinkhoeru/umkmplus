@@ -95,7 +95,7 @@
                                 module.no_module,
                                 `<a href="/mentor/module/${module.slug}/media" class="btn btn-sm btn-primary">Media</a>
                                 <a href="/mentor/course/{{ $course->slug }}/module/${module.slug}/edit" class="btn btn-sm btn-warning">Edit</a>
-                                <button class="btn btn-sm btn-danger" onclick="deleteModuleModule('${module.slug}')">Hapus</button>`
+                                <button class="btn btn-sm btn-danger" onclick="deleteModule('${module.slug}')">Hapus</button>`
                             ];
                             var rowNode = $('#moduleTable').DataTable().row.add(rowData).draw(false).node();
                             $(rowNode).find('td').eq(0).addClass('text-center');
@@ -115,7 +115,7 @@
             });
         }
 
-        function deleteModuleModule(module) {
+        function deleteModule(module) {
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Modul akan dihapus!",
@@ -152,14 +152,14 @@
                             if (xhr.responseJSON)
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'HAPUS MEDIA GAGAL!',
+                                    title: 'HAPUS MODULE GAGAL!',
                                     text: xhr.responseJSON.meta.message + " Error: " + xhr
                                         .responseJSON.data.error,
                                 })
                             else
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'HAPUS MEDIA GAGAL!',
+                                    title: 'HAPUS MODULE GAGAL!',
                                     text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
                                         error,
                                 })

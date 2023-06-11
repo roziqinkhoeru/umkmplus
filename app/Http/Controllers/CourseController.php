@@ -523,7 +523,7 @@ class CourseController extends Controller
             $fileInfo = request()->file('file_info')->store('courses/info', 'public');
         }
 
-        $course->update([
+        $updateCourse = $course->update([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'description' => $request->description,
@@ -537,7 +537,9 @@ class CourseController extends Controller
             // 'status' => 'pending'
         ]);
 
-        if ($course) {
+        dd($updateCourse);
+
+        if ($updateCourse) {
             return ResponseFormatter::success(
                 [
                     'message' => 'Kelas berhasil diupdate',

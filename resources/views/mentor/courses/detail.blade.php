@@ -117,9 +117,12 @@
                                                 :
                                             </td>
                                             <td>
-                                                <a href="{{ route('mentor.module', $course->slug) }}" class="btn btn-primary">Modul</a>
-                                                <a href="{{ route('mentor.course.edit', $course->slug) }}" class="btn btn-warning">Edit</a>
-                                                <a href="{{ route('mentor.course.destroy', $course->slug) }}" class="btn btn-danger">Hapus</a>
+                                                <a href="{{ route('mentor.module', $course->slug) }}"
+                                                    class="btn btn-primary">Modul</a>
+                                                <a href="{{ route('mentor.course.edit', $course->slug) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                                <button onclick="deleteCourse('{{ $course->slug }}')"
+                                                    class="btn btn-danger" id="deleteCourse">Hapus</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -310,6 +313,64 @@
                 },
                 error: function() {
                     console.log('error');
+                }
+            });
+        }
+
+        function deleteCourse(course) {
+            $("#deleteCourse").html(
+                '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Kelas akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `{{ url('/mentor/course/${course}') }}`,
+                        type: "DELETE",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            $.notify({
+                                icon: 'flaticon-alarm-1',
+                                title: 'UMKMPlus mentor',
+                                message: response.meta.message,
+                            }, {
+                                type: 'secondary',
+                                placement: {
+                                    from: "top",
+                                    align: "right"
+                                },
+                                time: 2000,
+                            });
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            $("#deleteCourse").html("Hapus");
+                            if (xhr.responseJSON)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'HAPUS KELAS GAGAL!',
+                                    text: xhr.responseJSON.meta.message + " Error: " + xhr
+                                        .responseJSON.data.error,
+                                })
+                            else
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'HAPUS KELAS GAGAL!',
+                                    text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                        error,
+                                })
+                            return false;
+                        }
+                    });
                 }
             });
         }
