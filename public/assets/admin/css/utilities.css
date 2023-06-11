@@ -183,6 +183,9 @@ label.error {
 .bg-secondaries {
     background-color: #f7f7fb !important;
 }
+.bg-green {
+    background-color: #31b380 !important;
+}
 
 /* border */
 .border-light-2 {
