@@ -2,8 +2,13 @@
     {{-- user --}}
     <div class="user">
         <div class="avatar-sm float-left mr-2">
-            <img src="{{ asset(auth()->user()->customer->profile_picture) }}" alt="{{ auth()->user()->username }}-profile"
-                class="avatar-img rounded-circle">
+            @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="admin-profile"
+                    class="avatar-img rounded-circle">
+            @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                    alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
+            @endif
         </div>
         <div class="info">
             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
