@@ -101,7 +101,7 @@
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
-                                                Upload a Image
+                                                Unggah Thumbnail
                                             </label>
                                             <button type="button" onclick="deleteImage()"
                                                 class="btn btn-danger btn-round btn-delete-image mt-2">
@@ -113,8 +113,9 @@
                                 </div>
                                 {{-- button --}}
                                 <div class="col-12">
-                                    <div class="text-right"><button type="submit" class="btn btn-primary"
-                                            id="updateButton">Buat Blog</button></div>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary" id="updateButton">Buat Blog</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
