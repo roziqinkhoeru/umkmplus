@@ -23,9 +23,8 @@
         </section>
         {{-- profile menu area end --}}
 
-        <div class="profile__edit-modal" id="profileEditModal">
-            {{-- Modal --}}
-        </div>
+        {{-- Modal --}}
+        <div class="profile__edit-modal" id="profileEditModal"></div>
     </main>
 @endsection
 
@@ -64,7 +63,7 @@
             if (contentBeforeURL) {
                 getContent(contentBeforeURL)
             } else {
-                getContent('profile')
+                getContent('dashboard')
             }
         });
 
@@ -102,6 +101,9 @@
             toggleAriaSelected(content, true);
 
             switch (content) {
+                case 'dashboard':
+                    getDashboard()
+                    break;
                 case 'profile':
                     getProfile()
                     break;
@@ -120,6 +122,136 @@
         }
 
         let htmlString = ""
+
+        // menu dashboard
+        function getDashboard() {
+            // Display loading state
+            $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
+                                            <div class="order__info">
+                                                <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                                    <h3 class="order__info-title">Dashboard Saya</h3>
+                                                </div>
+                                                <div class="order__list white-bg px-9">
+                                                    <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
+                                                        <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        `);
+
+            $.ajax({
+                url: "{{ route('get.profile') }}",
+                type: "GET",
+                dataType: "JSON",
+                success: function(response) {
+                    htmlString = `<div class="tab-pane fade show active" role="tabpanel">
+                                    <div class="order__info">
+                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                            <h3 class="order__info-title">Dashboard Saya</h3>
+                                        </div>
+                                        <div class="order__list white-bg px-9 pb-9">
+                                            <h5 class="mb-25" style="color: #4A545C">Statistik Kelas</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="card-light card-stats card-round">
+                                                        <div class="card-body ">
+                                                            <div class="d-flex align-items-center flex-wrap">
+                                                                <div class="col-icon">
+                                                                    <div
+                                                                        class="icon-big text-center icon-primary bubble-shadow-small">
+                                                                        <i class="fal fa-book-reader"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col col-stats ms-3 ms-sm-0">
+                                                                    <div class="numbers">
+                                                                        <p class="card-category">Kelas Diikuti</p>
+                                                                        <h4 class="card-title">1,294</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card-light card-stats card-round">
+                                                        <div class="card-body">
+                                                            <div class="d-flex align-items-center flex-wrap">
+                                                                <div class="col-icon">
+                                                                    <div
+                                                                        class="icon-big text-center icon-secondary bubble-shadow-small">
+                                                                        <i class="fal fa-file-certificate"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col col-stats ms-3 ms-sm-0">
+                                                                    <div class="numbers">
+                                                                        <p class="card-category">Kelas Lulus</p>
+                                                                        <h4 class="card-title">576</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 class="mb-40 mt-10" style="color: #4A545C">Statistik Belajar</h5>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-10">
+                                                        <div class="chart-container">
+                                                            <canvas id="strengthChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                    $("#nav-tabContent").html(htmlString);
+
+                    const strengthData = {
+                        labels: ['Branding', 'Desain', 'Marketing', 'Programming', 'UI/UX'],
+                        datasets: [{
+                            data: [2, 1, 3, 0, 0],
+                            borderColor: '#1d7af3',
+                            backgroundColor: 'rgba(29, 122, 243, 0.25)',
+                            pointBackgroundColor: "#ffffff",
+                            pointHoverRadius: 3,
+                            pointRadius: 4,
+                            pointBorderColor: '#1d7af3',
+                            pointBorderWidth: 3,
+                            label: 'My Skill'
+                        }]
+                    }
+                    const strengthConfig = {
+                        type: 'radar',
+                        data: strengthData,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            legend: {
+                                display: false,
+                            },
+                            scales: {
+                                pointLabels: {
+                                    display: true,
+                                    centerPointLabels: true,
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    const strengthChart = document.getElementById('strengthChart').getContext('2d');
+                    new Chart(strengthChart, strengthConfig);
+                },
+                error: function(xhr, status, error) {
+                    $("#nav-tabContent").html(errorState());
+                }
+            });
+        }
 
         // menu profile
         function getProfile() {
@@ -281,7 +413,8 @@
                         },
                         submitHandler: function(form) {
                             $('#updateProfileButton').html(
-                                '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+                                '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
+                            );
                             $('#updateProfileButton').prop('disabled', true);
                             $.ajax({
                                 url: "{{ route('update.profile') }}",
@@ -295,8 +428,10 @@
                                     _token: "{{ csrf_token() }}"
                                 },
                                 success: function(response) {
-                                    $('#updateProfileButton').html('Update Profil');
-                                    $('#updateProfileButton').prop('disabled', false);
+                                    $('#updateProfileButton').html(
+                                        'Update Profil');
+                                    $('#updateProfileButton').prop('disabled',
+                                        false);
                                     $('#name').val("");
                                     $('#email').val("");
                                     $('#phone').val("");
@@ -314,15 +449,19 @@
                                     getContent('profile');
                                 },
                                 error: function(xhr, status, error) {
-                                    $('#updateProfileButton').html('Update Profil');
-                                    $('#updateProfileButton').prop('disabled', false);
+                                    $('#updateProfileButton').html(
+                                        'Update Profil');
+                                    $('#updateProfileButton').prop('disabled',
+                                        false);
                                     if (xhr.responseJSON) {
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'UBAH PROFIL GAGAL!',
                                             text: xhr.responseJSON.meta
-                                                .message + ", Error: " + xhr
-                                                .responseJSON.data.error,
+                                                .message + ", Error: " +
+                                                xhr
+                                                .responseJSON.data
+                                                .error,
                                         })
                                     } else {
                                         Swal.fire({
@@ -339,7 +478,7 @@
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
+                    $("#nav-tabContent").html(errorState());
                 }
             });
         }
@@ -380,7 +519,7 @@
                     $("#nav-tabContent").html(htmlString);
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
+                    $("#nav-tabContent").html(errorState());
                 }
             })
         }
@@ -388,7 +527,7 @@
         function getMyCourse(data) {
             let myCourse = '';
             if (data.length === 0) {
-                myCourse += `<div class="col-span-full pt-50 pb-45">
+                myCourse = `<div class="col-span-full pt-50 pb-45">
                                 <div class="text-center">
                                     <h3 class="text-2xl">Kelas Kosong</h3>
                                     <p class="text-base">Kamu belum masuk ke dalam kelas apapun</p>
@@ -498,7 +637,7 @@
                     $("#nav-tabContent").html(htmlString);
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
+                    $("#nav-tabContent").html(errorState());
                 }
             });
         }
@@ -523,7 +662,8 @@
                         maximumFractionDigits: 0,
                     };
                     let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
-                    let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll.course
+                    let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll
+                        .course
                         .discount / 100);
                     let badgeStatus = '';
                     let badgeText = '';
@@ -667,7 +807,8 @@
                     },
                 },
                 submitHandler: function(form) {
-                    $('#updatePasswordButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
+                    $('#updatePasswordButton').html(
+                        '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                     $('#updatePasswordButton').prop('disabled', true);
                     $.ajax({
                         url: "{{ route('profile.change.password') }}",
@@ -697,7 +838,8 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'UBAH PASSWORD GAGAL!',
-                                    text: xhr.responseJSON.meta.message + " Error: " + xhr
+                                    text: xhr.responseJSON.meta.message +
+                                        " Error: " + xhr
                                         .responseJSON.data.error,
                                 })
                             } else {
