@@ -118,6 +118,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- Chart JS --}}
+    <script src="{{ asset('assets/template/admin/js/plugin/chart.js/chart.min.js') }}"></script>
+    {{-- Chart Circle --}}
+    <script src="{{ asset('assets/template/admin/js/plugin/chart-circle/circles.min.js') }}"></script>
 
     {{-- script custom --}}
     @yield('script')
