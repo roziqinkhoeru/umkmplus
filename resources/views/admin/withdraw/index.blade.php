@@ -8,7 +8,7 @@
                 <h4 class="page-title">Withdraw</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/withdraw">
+                        <a href="{{ route('admin.withdraw') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -145,7 +145,8 @@
                                 : (withdraw.status == "proses" ? `<a href="/admin/withdraw/${withdraw.id}" class="btn btn-sm btn-primary">Bayar</a>`: ``))}
                                 ${(withdraw.status == "ditolak" || withdraw.status == "berhasil" ? `` : `<button class="btn btn-sm btn-danger" onclick="rejectWithdraw('${withdraw.id}')">Ditolak</button>`)}`
                             ];
-                            var rowNode = $('#withdrawTable').DataTable().row.add(rowData).draw(false).node();
+                            var rowNode = $('#withdrawTable').DataTable().row.add(rowData).draw(false)
+                                .node();
 
                             $(rowNode).find('td').eq(0).addClass('text-center');
                             $(rowNode).find('td').eq(1).addClass('text-center');
@@ -198,15 +199,15 @@
                         },
                         dataType: "JSON",
                         success: function(response) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    text: response.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(() => {
-                                    location.reload();
-                                });
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            });
                         },
                         error: function(xhr, status, error) {
                             Swal.fire({
@@ -243,15 +244,15 @@
                         },
                         dataType: "JSON",
                         success: function(response) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    text: response.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(() => {
-                                    location.reload();
-                                });
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            });
                         },
                         error: function(xhr, status, error) {
                             Swal.fire({
