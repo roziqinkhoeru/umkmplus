@@ -20,41 +20,6 @@
                 <i class="fa fa-search"></i>
             </a>
         </li>
-        {{-- notification --}}
-        <li class="nav-item dropdown hidden-caret">
-            <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell"></i>
-                {{-- <span class="notification">4</span> --}}
-            </a>
-            <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                <li>
-                    <div class="dropdown-title">
-                        You don't have notifications
-                    </div>
-                </li>
-                <li>
-                    <div class="notif-scroll scrollbar-outer">
-                        <div class="notif-center">
-                            <a href="#">
-                                <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i>
-                                </div>
-                                <div class="notif-content">
-                                    <span class="block">
-                                        Nothing to show
-                                    </span>
-                                    <span class="time">no time</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </li>
         {{-- quick link --}}
         <li class="nav-item dropdown hidden-caret">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -206,21 +171,36 @@
         <li class="nav-item dropdown hidden-caret">
             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                 <div class="avatar-sm">
-                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
-                        alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
+                    @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                        <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="admin-profile"
+                            class="avatar-img rounded-circle">
+                    @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                        <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                            alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
+                    @endif
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
                 <div class="dropdown-user-scroll scrollbar-outer">
                     <li>
                         <div class="user-box">
-                            <div class="avatar-lg"><img src="{{ asset(auth()->user()->customer->profile_picture) }}"
-                                    alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded">
+                            <div class="avatar-lg">
+                                @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                    <img src="{{ asset('assets/template/admin/img/profile.jpg') }}"
+                                        alt="admin-profile" class="avatar-img rounded">
+                                @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                                        alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded">
+                                @endif
                             </div>
                             <div class="u-text">
                                 <h4>{{ Auth::user()->username }}</h4>
-                                <p class="text-muted">{{ Auth::user()->email }}</p><a href="/admin/nameAdmin"
-                                    class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                <p class="text-muted">{{ Auth::user()->email }}</p>
+                                @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
+                                    <a href="/admin/profile" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
+                                    <a href="/mentor/profile" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                @endif
                             </div>
                         </div>
                     </li>

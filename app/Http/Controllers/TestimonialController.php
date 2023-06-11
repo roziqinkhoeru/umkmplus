@@ -18,7 +18,7 @@ class TestimonialController extends Controller
     {
         $data =
             [
-                'title' => 'Testimonial | UMKM Plus',
+                'title' => 'Testimonial | UMKMPlus',
                 'testimonials' => Testimonial::all()
             ];
 
@@ -121,7 +121,7 @@ class TestimonialController extends Controller
         ])->get();
         $data =
             [
-                'title' => 'Testimonial | UMKM Plus',
+                'title' => 'Testimonial | Admin UMKMPlus',
                 'active' => 'testimonial',
                 'testimonials' => $testimonials
             ];

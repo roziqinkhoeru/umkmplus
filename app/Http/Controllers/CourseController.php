@@ -83,7 +83,7 @@ class CourseController extends Controller
 
         $data =
             [
-                'title' => 'Kelas Saya | UMKM Plus',
+                'title' => 'Kelas Saya | UMKMPlus',
                 'courses' => $courses,
             ];
 
@@ -235,7 +235,7 @@ class CourseController extends Controller
 
         $data =
             [
-                'title' => 'Kelas | Admin UMKM Plus',
+                'title' => 'Kelas | Admin UMKMPlus',
                 'active' => 'course',
                 'courses' => $courses
             ];
@@ -273,7 +273,7 @@ class CourseController extends Controller
 
         $data =
             [
-                'title' => 'Pendaftaran Kelas | Admin UMKM Plus',
+                'title' => 'Pendaftaran Kelas | Admin UMKMPlus',
                 'active' => 'course',
                 'courses' => $courses
             ];
@@ -286,7 +286,7 @@ class CourseController extends Controller
         $course->load('modules.mediaModules', 'mentor', 'category');
         $data =
             [
-                'title' => 'Detail Pendaftaran Kelas | Admin UMKM Plus',
+                'title' => 'Detail Pendaftaran Kelas | Admin UMKMPlus',
                 'active' => 'course',
                 'course' => $course
             ];
@@ -297,7 +297,7 @@ class CourseController extends Controller
     public function editApprovalApplication(Request $request, Course $course)
     {
         $data = [
-            'title' => 'Edit Pendaftaran Kelas | Admin UMKM Plus',
+            'title' => 'Edit Pendaftaran Kelas | Admin UMKMPlus',
             'active' => 'course',
             'course' => $course,
         ];
@@ -367,7 +367,7 @@ class CourseController extends Controller
     {
         $courses = Course::with('category')->withCount('courseEnrolls')->whereMentorId(Auth::user()->customer->id)->get();
         $data = [
-            'title' => 'Courses | Mentor UMKMPlus',
+            'title' => 'Kelas | Mentor UMKMPlus',
             'active' => 'course',
             'courses' => $courses
         ];
@@ -378,7 +378,7 @@ class CourseController extends Controller
     public function mentorCourseCreate()
     {
         $data = [
-            'title' => 'Create Course | Mentor UMKMPlus',
+            'title' => 'Buat Kelas | Mentor UMKMPlus',
             'active' => 'course',
         ];
 
@@ -389,7 +389,7 @@ class CourseController extends Controller
     {
         $course->load('courseEnrolls.student', 'modules', 'mentor', 'category');
         $data = [
-            'title' => 'Detail ' . $course->title . ' | Mentor UMKMPlus',
+            'title' => 'Detail Kelas ' . $course->title . ' | Mentor UMKMPlus',
             'active' => 'course',
             'course' => $course
         ];

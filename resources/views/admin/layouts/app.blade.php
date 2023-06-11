@@ -3,10 +3,40 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{ $title }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('assets/template/admin/img/icon.ico') }}" type="image/x-icon" />
+    <meta name="description"
+        content="Website UMKMPlus. Pelajari keterampilan bisnis berharga dengan kursus komprehensif kami. Tingkatkan karier Anda dan tingkatkan pengetahuan bisnis Anda, hanya di UMKMPlus">
+    <meta name="keywords"
+        content="business courses, business academy, career development, business skills, kursus bisnis, akademi bisnis, pengembangan karier, keterampilan bisnis, umkmplus, umkm">
+    <meta name="author" content="UMKMPlus">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="UMKMPlus - Learn Valuable Business Skills">
+    <meta property="og:description"
+        content="Tingkatkan karier Anda dan tingkatkan pengetahuan bisnis Anda dengan kursus komprehensif kami.">
+    <meta property="og:image" content="{{ asset('assets/icon/apple-touch-icon.png') }}">
+    <meta property="og:url" content="https://www.umkmplus.site">
+
+    <title>{{ $title }}</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+
+    {{-- apple touch icon --}}
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/icon/apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/icon/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/icon/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/icon/apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/icon/apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/icon/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/icon/apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/icon/apple-touch-icon-180x180.png') }}">
+
+    {{-- manifest --}}
+    {{-- <link rel="manifest" href="{{ asset('assets/img/brand/manifest.json') }}"> --}}
+
+    {{-- microsoft touch icon --}}
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/icon/apple-touch-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
 
     {{-- Fonts and icons --}}
     <script src="{{ asset('assets/template/admin/js/plugin/webfont/webfont.min.js') }}"></script>

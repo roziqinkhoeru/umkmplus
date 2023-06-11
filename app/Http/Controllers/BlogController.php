@@ -108,7 +108,7 @@ class BlogController extends Controller
         $user = Auth::user()->id;
         $blogs = Blog::with('user.customer:id,name')->where('user_id', $user)->orderBy("created_at", "desc")->get();
         $data = [
-            'title' => 'Blog | Admin UMKMPlus',
+            'title' => 'Blog | Mentor UMKMPlus',
             'active' => 'blog',
             'blogs' => $blogs
         ];
@@ -119,7 +119,7 @@ class BlogController extends Controller
     {
         $statuses = ['tampilkan', 'sembunyikan'];
         $data = [
-            'title' => 'Blog ' . $blog->title . '  | Admin UMKMPlus',
+            'title' => 'Blog ' . $blog->title . '  | Mentor UMKMPlus',
             'active' => 'blog',
             'blog' => $blog,
             'statuses' => $statuses
@@ -131,7 +131,7 @@ class BlogController extends Controller
     {
         $status = ['tampilkan', 'sembunyikan'];
         $data = [
-            'title' => 'Tambah Blog | Admin UMKMPlus',
+            'title' => 'Tambah Blog | Mentor UMKMPlus',
             'active' => 'blog',
             'statuses' => $status
         ];

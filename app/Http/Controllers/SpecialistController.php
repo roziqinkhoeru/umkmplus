@@ -24,7 +24,7 @@ class SpecialistController extends Controller
     {
         $data =
             [
-                'title' => 'Tambah Spesialis | UMKM Plus',
+                'title' => 'Tambah Spesialis | UMKMPlus',
             ];
 
         return view('specialists.create', $data);
@@ -76,10 +76,10 @@ class SpecialistController extends Controller
     public function edit(Specialist $specialist)
     {
         $data =
-        [
-            'title' => 'Edit Spesialis | UMKM Plus',
-            'specialist' => $specialist
-        ];
+            [
+                'title' => 'Edit Spesialis | UMKMPlus',
+                'specialist' => $specialist
+            ];
 
         return view('specialists.edit', $data);
     }

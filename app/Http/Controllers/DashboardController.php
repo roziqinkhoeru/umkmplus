@@ -31,7 +31,7 @@ class DashboardController extends Controller
             $countCart = Cart::countCart();
             $data =
                 [
-                    'title' => 'UMKM Plus',
+                    'title' => 'UMKMPlus',
                     'categories' => $categories,
                     'testimonials' => $testimonials,
                     'countCart' => $countCart,
@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
             $data =
                 [
-                    'title' => 'UMKM Plus',
+                    'title' => 'UMKMPlus',
                     'categories' => $categories,
                     'testimonials' => $testimonials
                 ];
@@ -76,7 +76,7 @@ class DashboardController extends Controller
             ->with('user')
             ->where('id', $user->customer_id)->first();
         $data = [
-            'title' => 'Akun Saya | UMKMPlus',
+            'title' => 'Profil Saya | UMKMPlus',
             'active' => 'account',
             'profile' => $profile
         ];
