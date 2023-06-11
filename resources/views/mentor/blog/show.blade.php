@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Blog</h4>
+                <h4 class="page-title">Detail Blog</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="/mentor/dashboard">
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.blog') }}">
+                        <a href="{{ route('mentor.blog') }}">
                             Data Blog
                         </a>
                     </li>
@@ -47,13 +47,18 @@
                                 enctype="multipart/form-data" id="editBlog">
                                 @csrf
                                 @method('PUT')
+                                {{-- title --}}
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="title" class="form-label">Title</label>
                                         <input type="text" class="form-control" value="{{ $blog->title }}"
                                             id="title" name="title">
                                     </div>
+                                    <p id="titleCountWrapper" class="mb-3 mt-1 text-xs text-success"><span
+                                            id="titleCount"></span> karakter
+                                        tersisa</p>
                                 </div>
+                                {{-- status --}}
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label for="status" class="form-label">Status</label>
@@ -66,29 +71,49 @@
                                         </select>
                                     </div>
                                 </div>
+                                {{-- headline --}}
                                 <div class="col-12">
-                                    <div class="form-group form-group-default">
+                                    <div class="form-group form-group-default mb-0">
                                         <label for="headline" class="form-label">Headline</label>
-                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline">{{ $blog->headline }}</textarea>
+                                        <textarea class="form-control" aria-label="With textarea" id="headline" name="headline" rows="3" maxlength="120">{{ $blog->headline }}</textarea>
                                     </div>
+                                    <p class="mb-3 mt-1 text-xs text-success" id="headlineCountWrapper"><span
+                                            id="headlineCount">120</span>
+                                        karakter
+                                        tersisa.</p>
                                 </div>
+                                {{-- kontent --}}
                                 <div class="col-12">
-                                    <div class="form-group form-group-default">
-                                        <label for="content" class="form-label">Konten</label>
+                                    <div id="contentWrapper" class="form-group form-group-default pb-3">
+                                        <label for="content" class="form-label mb-2">Konten</label>
                                         <textarea type="text" class="form-control" id="content" name="content">{{ $blog->content }}</textarea>
                                     </div>
                                 </div>
+                                {{-- thumbnail --}}
                                 <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label for="thumbnail" class="form-label">Thumbnail</label>
-                                        <input type="file" id="thumbnail" onchange="previewImage(event)" name="thumbnail"
-                                            accept="image/*">
-                                        <img id="imagePreview" src="{{ asset("storage/".$blog->thumbnail) }}"
-                                            alt="{{ $blog->slug }}-blog-thumbnail" style="height: 200px; width: 300px;">
+                                    <div class="form-group form-group-default pb-3 mb-4">
+                                        <label for="thumbnail" class="form-label mb-2">Thumbnail</label>
+                                        <div class="input-file input-file-image">
+                                            <img class="img-upload-preview" width="240"
+                                                src="{{ asset('storage/' . $blog->thumbnail) }}"
+                                                alt="{{ $blog->slug }}-blog-thumbnail">
+                                            <input type="file" class="form-control form-control-file" id="thumbnail"
+                                                name="thumbnail" accept="image/*" required>
+                                            <label for="thumbnail" class="label-input-file btn btn-black btn-round">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-image"></i>
+                                                </span>
+                                                Upload a Image
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
+                                {{-- button --}}
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary" id="updateButton">Ubah</button>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary" id="updateButton">Perbarui
+                                            Blog</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -166,20 +191,41 @@
     </script>
 
     <script>
-        function previewImage(event) {
-            var input = event.target;
-            var preview = document.getElementById('imagePreview');
+        $(document).ready(function() {
+            const headlineTextarea = $("#headline");
+            const headlineCountWrapper = $("#headlineCountWrapper");
+            const headlineCount = $("#headlineCount");
+            const titleInput = $("#title");
+            const titleCountWrapper = $("#titleCountWrapper");
+            const titleCount = $("#titleCount");
+            const maxLengthTitle = 100; // Set the maximum character count here
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+            updateTitleCharacterCount();
+            updateHeadlineCharacterCount();
 
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                };
+            titleInput.on("input", updateTitleCharacterCount);
+            headlineTextarea.on("input", updateHeadlineCharacterCount);
 
-                reader.readAsDataURL(input.files[0]);
+            function updateHeadlineCharacterCount() {
+                const maxLength = headlineTextarea.attr("maxlength");
+                const remainingCharacters = maxLength - headlineTextarea.val().length;
+
+                headlineCount.text(remainingCharacters);
+                headlineCountWrapper
+                    .toggleClass("text-success", remainingCharacters > 30)
+                    .toggleClass("text-warning", remainingCharacters <= 30 && remainingCharacters > 0)
+                    .toggleClass("text-danger", remainingCharacters === 0);
             }
-        }
+
+            function updateTitleCharacterCount() {
+                const remainingCharacters = maxLengthTitle - titleInput.val().length;
+                titleCount.text(remainingCharacters);
+                titleCountWrapper
+                    .toggleClass("text-success", remainingCharacters > 30)
+                    .toggleClass("text-warning", remainingCharacters <= 30 && remainingCharacters > 0)
+                    .toggleClass("text-danger", remainingCharacters <= 0);
+            }
+        });
 
         $('#editBlog').validate({
             rules: {

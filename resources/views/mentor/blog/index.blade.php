@@ -46,7 +46,7 @@
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Tanggal Dibuat</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Status</th>
                                             <th class="filter-none text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -71,18 +71,18 @@
                                                         {{ $blog->status }}
                                                     </span>
                                                 </td>
-                                                <td class="space-nowrap text-center">
+                                                <td class="space-nowrap">
                                                     <a href="{{ route('mentor.blog.show', $blog->slug) }}"
                                                         class="btn btn-primary btn-sm mr-1">Detail</a>
                                                     <button onclick="deleteBlog('{{ $blog->slug }}')"
                                                         class="btn btn-danger btn-sm mr-1">Hapus</button>
-                                                        @if ($blog->status == "tampilkan")
-                                                            <button onclick="hideBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-warning btn-sm mr-1">Sembunyikan</button>
-                                                        @else
-                                                            <button onclick="showBlog('{{ $blog->slug }}')"
-                                                                class="btn btn-success btn-sm">Tampilkan</button>
-                                                        @endif
+                                                    @if ($blog->status == 'tampilkan')
+                                                        <button onclick="hideBlog('{{ $blog->slug }}')"
+                                                            class="btn btn-warning btn-sm mr-1">Sembunyikan</button>
+                                                    @else
+                                                        <button onclick="showBlog('{{ $blog->slug }}')"
+                                                            class="btn btn-success btn-sm">Tampilkan</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
