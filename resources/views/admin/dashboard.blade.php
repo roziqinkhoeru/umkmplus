@@ -120,7 +120,7 @@
                         </div>
                         <div class="card-body pb-0">
                             <div class="mb-4 mt-2">
-                                <h1>Rp 120.450.200</h1>
+                                <h1>Rp 120.450.200 <span class="text-base">/ 142 kelas</span></h1>
                             </div>
                             <div class="pull-in">
                                 <canvas id="annualFinancialChart"></canvas>
@@ -149,6 +149,8 @@
             time: 2000,
         });
 
+        // category chart
+        // data
         const categoryData = {
             labels: ['Branding', 'Desain', 'Marketing', 'Finance', 'Technology & E-Commerce'],
             datasets: [{
@@ -162,6 +164,7 @@
                 ],
             }],
         }
+        // config
         const categoryConfig = {
             type: 'doughnut',
             data: categoryData,
@@ -181,10 +184,12 @@
                 }
             }
         }
-
+        // define
         const categoryChart = document.getElementById('categoryChart').getContext('2d');
         new Chart(categoryChart, categoryConfig);
 
+        // annual financial chart
+        // data
         const annualFinancialData = {
             labels: ["Januari",
                 "Februari",
@@ -200,7 +205,7 @@
                 "Desember"
             ],
             datasets: [{
-                label: "Annual Financial Analytics",
+                label: "Pendapatan",
                 fill: !0,
                 backgroundColor: "rgba(255,255,255,0.2)",
                 borderColor: "#fff",
@@ -216,9 +221,12 @@
                 pointHoverBorderWidth: 1,
                 pointRadius: 1,
                 pointHitRadius: 5,
-                data: [65, 59, 80, 81, 56, 55, 40, 65, 40, 52, 73, 75],
+                data: [9800000, 6500000, 8200000, 7500000, 9800000, 8000000, 9000000, 10200000, 8500000,
+                    12500000, 7000000, 13450200
+                ],
             }]
         }
+        // config
         const annualFinancialConfig = {
             type: 'line',
             data: annualFinancialData,
@@ -256,10 +264,24 @@
                             fontStyle: "bold"
                         }
                     }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            // Format the tooltip label as Indonesian Rupiah without trailing zeros
+                            var value = tooltipItem.yLabel;
+                            var formattedValue = new Intl.NumberFormat("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                                minimumFractionDigits: 0
+                            }).format(value);
+                            return "Pendapatan: " + formattedValue;
+                        }
+                    },
                 }
             }
         }
-
+        // define
         const annualFinancialChart = document.getElementById('annualFinancialChart').getContext('2d');
         new Chart(annualFinancialChart, annualFinancialConfig);
     </script>
