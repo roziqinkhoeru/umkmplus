@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Bayar Permohonan Withdraw
+                        <a href="#">Form Bayar Permohonan Withdraw</a>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,8 @@
                                 Form ini digunakan untuk menambah data bayar permohonan withdraw
                             </div>
                         </div>
-                        <form id="withdrawForm" action="{{ url('/admin/withdraw/' . $withdraw->id) }}" method="POST" enctype="multipart/form-data">
+                        <form id="withdrawForm" action="{{ url('/admin/withdraw/' . $withdraw->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -80,8 +81,8 @@
                                     <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Jumlah
                                         Withdraw</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input disabled type="number" name="amount" class="form-control" id="amount"
-                                            value="{{ $withdraw->amount }}">
+                                        <input disabled type="text" name="amount" class="form-control" id="amount"
+                                            value="{{ 'Rp ' . number_format($withdraw->amount, 0, ',', '.') }}">
                                     </div>
                                 </div>
                                 {{-- nameMentor --}}
@@ -98,8 +99,8 @@
                                     <label for="balance" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Saldo
                                         Mentor</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <input disabled type="number" name="balance" class="form-control" id="balance"
-                                            value="{{ $withdraw->customer->dataMentor->balance }}">
+                                        <input disabled type="text" name="balance" class="form-control" id="balance"
+                                            value="{{ 'Rp ' . number_format($withdraw->customer->dataMentor->balance, 0, ',', '.') }}">
                                     </div>
                                 </div>
                                 {{-- paymentProof --}}
@@ -107,16 +108,19 @@
                                     <label for="paymentProof" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Bukti
                                         Pembayaran <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
-                                        <img class="img-upload-preview" width="240" src="http://placehold.it/240x240"
-                                            alt="blog-payment-proof-preview" id="imagePreview">
-                                        <input type="file" class="form-control form-control-file" id="paymentProof"
-                                            onchange="previewImage(event)" name="paymentProof" accept="image/*" required>
-                                        <label for="paymentProof" class="label-input-file btn btn-black btn-round mt-2">
-                                            <span class="btn-label">
-                                                <i class="fa fa-file-image"></i>
-                                            </span>
-                                            Upload Bukti Pembayaran
-                                        </label>
+                                        <div class="input-file input-file-image">
+                                            <img class="img-upload-preview" width="240" src="http://placehold.it/240x240"
+                                                alt="blog-payment-proof-preview" id="imagePreview">
+                                            <input type="file" class="form-control form-control-file"
+                                                id="paymentProof" name="paymentProof" accept="image/*" required
+                                                onchange="previewImage(event)">
+                                            <label for="paymentProof" class="label-input-file btn btn-black btn-round">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-image"></i>
+                                                </span>
+                                                Upload Bukti Pembayaran
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -160,20 +164,29 @@
             return true;
         }, '');
 
-        function previewImage(event) {
-            var input = event.target;
-            var preview = document.getElementById('imagePreview');
+        window.onload = function() {
+            var imagePreview = document.getElementById('imagePreview');
+            var storedImage = localStorage.getItem('imageWDPreview');
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
+            if (storedImage) {
+                imagePreview.src = storedImage;
             }
+        };
+
+
+        function previewImage(event) {
+            var imagePreview = document.getElementById('imagePreview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                localStorage.setItem('imageWDPreview', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
         }
+
 
         $("#withdrawForm").validate({
             rules: {
@@ -211,6 +224,7 @@
                     cancelButtonText: 'Batal',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        localStorage.removeItem('imageWDPreview');
                         form.submit();
                     } else {
                         $('#updateButton').html('Kirim');

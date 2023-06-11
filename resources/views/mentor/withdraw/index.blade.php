@@ -25,7 +25,7 @@
 
             {{-- Balance --}}
             <div class="row">
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-round">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -37,14 +37,14 @@
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Pendapatan</p>
-                                        <h4 class="card-title">Rp {{ number_format($revenue,0,',','.') }}</h4>
+                                        <h4 class="card-title">Rp {{ number_format($revenue, 0, ',', '.') }}</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-round">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -56,7 +56,7 @@
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Saldo</p>
-                                        <h4 class="card-title">Rp {{ number_format($balance,0,',','.') }}</h4>
+                                        <h4 class="card-title">Rp {{ number_format($balance, 0, ',', '.') }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -87,11 +87,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
-                                            <th>Bank</th>
-                                            <th class="text-center">Nama Akun Bank</th>
-                                            <th class="text-center">Nomer Akun Bank</th>
-                                            <th class="text-center space-nowrap">Jumlah</th>
-                                            <th class="text-center">Status</th>
+                                            <th class="filter-none">Bank</th>
+                                            <th class="">Nama Akun Bank</th>
+                                            <th class="filter-none">Nomor Akun Bank</th>
+                                            <th class="space-nowrap">Jumlah</th>
+                                            <th class="text-center space-nowrap filter-none">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -99,9 +99,9 @@
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $withdraw->bank }}</td>
-                                                <td class="text-center">{{ $withdraw->account_name }}</td>
-                                                <td class="text-center">{{ $withdraw->account_number }}</td>
-                                                <td class="text-center space-nowrap">
+                                                <td class="">{{ $withdraw->account_name }}</td>
+                                                <td class="">{{ $withdraw->account_number }}</td>
+                                                <td class="space-nowrap">
                                                     {{ 'Rp ' . number_format($withdraw->amount, 0, ',', '.') }}</td>
                                                 <td class="text-center text-capitalize">
                                                     <span
@@ -137,28 +137,28 @@
 @endsection
 
 @section('script')
-@if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000
-        })
-    </script>
-@endif
-@if (session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal',
-            text: '{{ session('error') }}',
-            showConfirmButton: false,
-            timer: 2000
-        })
-    </script>
-@endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
 
     <script>
         $(document).ready(function() {

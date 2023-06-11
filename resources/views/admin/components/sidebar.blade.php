@@ -142,13 +142,13 @@
         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
             <li class="nav-item @if ($active == 'testimonial') active @endif">
                 <a href="/admin/testimonial">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas fa-star"></i>
                     <p>Testimonial</p>
                 </a>
             </li>
             <li class="nav-item @if ($active == 'application') active @endif">
                 <a href="/admin/mentor/application">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas fa-id-badge"></i>
                     <p>Pendaftar Mentor</p>
                 </a>
             </li>
