@@ -31,7 +31,7 @@ class DiscountFactory extends Factory
         // Customer factory
         $customerRecord = [
             'name' => $this->faker->name(),
-            'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+            'profile_picture' => 'assets/img/dummy/profile-placeholder.png',
             'job' => "Pekerjaan",
             'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
@@ -96,7 +96,7 @@ class DiscountFactory extends Factory
                 // course factory
                 $courseRecord = [
                     'mentor_id' => $customer->id,
-                    'category_id' => $this->faker->numberBetween(1, 3),
+                    'category_id' => $this->faker->numberBetween(1, 5),
                     'title' => $this->faker->sentence(3),
                     'description' => $this->faker->paragraph(3),
                     'thumbnail' => "assets/img/dummy/thumbnail-course.png",
@@ -148,7 +148,7 @@ class DiscountFactory extends Factory
                     'title' => $this->faker->sentence(3),
                     'content' => '<p class="text-lg mb-15">' . implode('</p><p class="text-lg mb-15">', $this->faker->paragraphs(6)) . '</p>',
                     'headline' => $this->faker->paragraph(),
-                    'thumbnail' => "blogs/blog1.png",
+                    'thumbnail' => "assets/img/dummy/blog1.png",
                     'status' => $this->faker->randomElement(['tampilkan', 'sembunyikan']),
                 ];
                 $blog = Blog::create($blogRecord);
@@ -177,7 +177,7 @@ class DiscountFactory extends Factory
                 ];
                 $courseEnroll = CourseEnroll::create($courseEnrollRecord);
 
-                $mentor = Mentor::where('customer_id',$course->mentor_id)->first();
+                $mentor = Mentor::where('customer_id', $course->mentor_id)->first();
                 if ($courseEnroll->status == 'aktif' || $courseEnroll->status == 'selesai') {
                     $mentor->balance += ($courseEnroll->total_price * 0.8);
                     $mentor->save();

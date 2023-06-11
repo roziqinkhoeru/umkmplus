@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
                     'name' => "Mentor",
                     'slug' => "mentor",
                     'job' => "Mentor",
-                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'profile_picture' => 'assets/img/dummy/profile-placeholder.png',
                     'address' => "Mentor Address",
                     'phone' => "0123456789",
                     'dob' => "2000-01-01",
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
                 ],
                 [
                     'name' => "Student",
-                    'profile_picture' => 'assets/img/dummy/mentor-1.jpg',
+                    'profile_picture' => 'assets/img/dummy/profile-placeholder.png',
                     'job' => "Student",
                     'address' => "Student Address",
                     'phone' => "0123456789",
@@ -119,7 +119,7 @@ class UserSeeder extends Seeder
             # code...
             $courseRecord = [
                 'mentor_id' => 2,
-                'category_id' => $faker->numberBetween(1, 3),
+                'category_id' => $faker->numberBetween(1, 5),
                 'title' => $faker->sentence(3),
                 'description' => $faker->paragraph(3),
                 'thumbnail' => "assets/img/dummy/thumbnail-course.png",
@@ -187,7 +187,7 @@ class UserSeeder extends Seeder
                 'title' => $faker->sentence(3),
                 'content' => '<p class="text-lg mb-15">' . implode('</p><p class="text-lg mb-15">', $faker->paragraphs(6)) . '</p>',
                 'headline' => $faker->paragraph(),
-                'thumbnail' => "blogs/blog1.png",
+                'thumbnail' => "assets/img/dummy/blog1.png",
                 'status' => $faker->randomElement(['tampilkan', 'sembunyikan']),
             ];
             $blog = Blog::create($blogRecord);
