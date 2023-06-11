@@ -67,8 +67,8 @@
                             style="background-image: url({{ asset('assets/template/admin/img/blogpost.jpg') }})">
                             <div class="profile-picture">
                                 <div class="avatar avatar-xl">
-                                    <img src="{{ asset($admin->customer->profile_picture) }}"
-                                        alt="{{ $admin->username }}-admin-profile" class="avatar-img rounded-circle">
+                                    <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="admin-profile"
+                                        class="avatar-img rounded-circle">
                                 </div>
                             </div>
                         </div>
