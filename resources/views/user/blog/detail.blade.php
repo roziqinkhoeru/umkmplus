@@ -13,7 +13,7 @@
                     <div class="col-lg-3">
                         <div class="d-flex align-items-center mb-4">
                             <img class="img-fluid rounded-circle object-cover-center"
-                                src="{{ asset($blog->user->customer->profile_picture) }}" alt="blog-author"
+                                src="{{ asset('storage/'.$blog->user->customer->profile_picture) }}" alt="blog-author"
                                 style="width: 50px;height: 50px;" />
                             <div class="ms-3">
                                 <div class="fw-bold">{{ $blog->user->customer->name }}</div>

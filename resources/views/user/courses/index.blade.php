@@ -294,7 +294,7 @@
                                                                 </div>
                                                                 <div class="course__tutor-2">
                                                                     <div>
-                                                                        <img src="{{ asset('${courseData.mentor.profile_picture}') }}"
+                                                                        <img src="{{ asset('storage/${courseData.mentor.profile_picture}') }}"
                                                                         alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                                                     </div>
                                                                 </div>

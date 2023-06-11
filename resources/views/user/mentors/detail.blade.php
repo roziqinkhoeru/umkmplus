@@ -9,7 +9,7 @@
                     <div class="col-lg-7">
                         <div class="d-sm-flex mb-30 mb-lg-0">
                             <div class="mentor-image-wrapper">
-                                <figure class="mb-0 mentor-image-circle"><img src="{{ asset($mentor->profile_picture) }}"
+                                <figure class="mb-0 mentor-image-circle"><img src="{{ asset('storage/'.$mentor->profile_picture) }}"
                                         alt="{{ $mentor->slug }}-mentor-profile"></figure>
                             </div>
                             <div class="mentor-content-wrapper">
@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="course__tutor-2">
                                         <div>
-                                            <img src="{{ asset('${courseData.mentor.profile_picture}') }}" alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
+                                            <img src="{{ asset('storage/${courseData.mentor.profile_picture}') }}" alt="${courseData.mentor.slug}-mentor-profile" class="object-cover-center">
                                         </div>
                                     </div>
                                 </div>
