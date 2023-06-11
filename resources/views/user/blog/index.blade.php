@@ -101,7 +101,7 @@
                                             <div>
                                                 <div class="postbox__thumb w-img">
                                                     <a href="{{ url('/blog/${blog.slug}') }}">
-                                                        <img src="{{ asset('${blog.thumbnail}') }}" alt="${blog.slug}-blog-thumbnail">
+                                                        <img src="{{ asset('storage/${blog.thumbnail}') }}" alt="${blog.slug}-blog-thumbnail">
                                                     </a>
                                                 </div>
                                                 <div class="postbox__content" style="padding: 30px 30px 0;">

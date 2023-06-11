@@ -6,12 +6,15 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\WithdrawController;
 use Symfony\Component\Routing\RouteCompiler;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MediaModuleController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CourseEnrollController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -19,7 +22,6 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\MentorRegistrationController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\WithdrawController;
 
 /*
 |--------------------------------------------------------------------------
@@ -222,11 +224,37 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/mentor/discount/{discount:id}', 'edit')->name('mentor.discount.edit');
             Route::put('/mentor/discount/{discount:id}', 'update')->name('mentor.discount.update');
         });
+        // Course
         Route::controller(CourseController::class)->group(function () {
             Route::get('/mentor/course', 'mentorCourse')->name('mentor.course');
             Route::get('/mentor/course/create', 'mentorCourseCreate')->name('mentor.course.create');
+            Route::post('/mentor/course', 'mentorCourseStore')->name('mentor.course.store');
             Route::get('/mentor/course/{course:slug}', 'mentorCourseShow')->name('mentor.course.show');
+            Route::get('/mentor/course/{course:slug}/edit', 'mentorCourseEdit')->name('mentor.course.edit');
+            Route::put('/mentor/course/{course:slug}', 'mentorCourseUpdate')->name('mentor.course.update');
+            Route::delete('/mentor/course/{course:slug}', 'mentorCourseDestroy')->name('mentor.course.destroy');
         });
+        // Module
+        Route::controller(ModuleController::class)->group(function () {
+            Route::get('/mentor/course/{course:slug}/module', 'mentorModule')->name('mentor.module');
+            Route::get('/mentor/course/{course:slug}/module/get', 'getMentorModule')->name('get.mentor.module');
+            Route::get('/mentor/course/{course:slug}/module/create', 'mentorModuleCreate')->name('mentor.module.create');
+            Route::post('/mentor/course/{course:slug}/module', 'mentorModuleStore')->name('mentor.module.store');
+            Route::get('/mentor/course/{course:slug}/module/{module:slug}/edit', 'mentorModuleEdit')->name('mentor.module.edit');
+            Route::put('/mentor/course/{course:slug}/module/{module:slug}', 'mentorModuleUpdate')->name('mentor.module.update');
+            Route::delete('/mentor/course/{course:slug}/module/{module:slug}', 'mentorModuleDestroy')->name('mentor.module.destroy');
+        });
+        // Media Module
+        Route::controller(MediaModuleController::class)->group(function () {
+            Route::get('/mentor/module/{module:slug}/media', 'mentorMediaModule')->name('mentor.media.module');
+            Route::get('/mentor/module/{module:slug}/media/get', 'getMentorMediaModule')->name('get.mentor.media.module');
+            Route::get('/mentor/module/{module:slug}/media/create', 'mentorMediaModuleCreate')->name('mentor.media.module.create');
+            Route::post('/mentor/module/{module:slug}/media', 'mentorMediaModuleStore')->name('mentor.media.module.store');
+            Route::get('/mentor/module/{module:slug}/media/{mediaModule:id}/edit', 'mentorMediaModuleEdit')->name('mentor.media.module.edit');
+            Route::put('/mentor/module/{module:slug}/media/{mediaModule:id}', 'mentorMediaModuleUpdate')->name('mentor.media.module.update');
+            Route::delete('/mentor/module/{module:slug}/media/{mediaModule:id}', 'mentorMediaModuleDestroy')->name('mentor.media.module.destroy');
+        });
+        // Student
         Route::controller(StudentController::class)->group(function () {
             Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
             Route::get('/mentor/un-student', 'mentorUncompletedStudent')->name('mentor.uncompleted.student');

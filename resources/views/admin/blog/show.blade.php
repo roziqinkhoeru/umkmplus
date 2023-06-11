@@ -95,7 +95,7 @@
                                         <label for="thumbnail" class="form-label mb-2">Thumbnail</label>
                                         <div class="input-file input-file-image">
                                             <img class="img-upload-preview" width="240"
-                                                src="{{ asset($blog->thumbnail) }}"
+                                                src="{{ asset("storage/".$blog->thumbnail) }}"
                                                 alt="{{ $blog->slug }}-blog-thumbnail">
                                             <input type="file" class="form-control form-control-file" id="thumbnail"
                                                 name="thumbnail" accept="image/*" required>

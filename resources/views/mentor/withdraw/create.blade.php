@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/Withdraw">DataZ Withdraw</a>
+                        <a href="/mentor/Withdraw">Data Withdraw</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -58,7 +58,7 @@
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Masukkan Nomer Rekening Bank"
+                                            <input type="text" class="form-control" placeholder="Masukkan Nama Pemilik Bank"
                                                 value="{{ old('accountName') }}" aria-label="accountName"
                                                 aria-describedby="accountName-addon" id="accountName" name="accountName" required>
                                         </div>
