@@ -114,12 +114,18 @@
                                             <input type="file" class="form-control form-control-file"
                                                 id="paymentProof" name="paymentProof" accept="image/*" required
                                                 onchange="previewImage(event)">
-                                            <label for="paymentProof" class="label-input-file btn btn-black btn-round">
+                                            <label for="paymentProof"
+                                                class="label-input-file btn btn-black btn-round mt-2">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
                                                 Upload Bukti Pembayaran
                                             </label>
+                                            <button type="button" onclick="deleteImage()"
+                                                class="btn btn-danger btn-round ml-3 btn-delete-image mt-2">
+                                                <span class="btn-label"><i class="fas fa-trash-alt"></i></span>
+                                                Hapus
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +133,8 @@
                             <div class="card-action">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="/admin/withdraw" class="btn btn-default btn-outline-dark">Batal</a>
+                                        <button onclick="backToWithdraw()" class="btn btn-default btn-outline-dark"
+                                            role="presentation">Batal</button>
                                         <button class="btn btn-primary ml-3" id="updateButton"
                                             type="submit">Kirim</button>
                                     </div>
@@ -149,6 +156,11 @@
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        function backToWithdraw() {
+            localStorage.removeItem('imageWDPreview');
+            window.location.href = "{{ route('admin.withdraw') }}"
+        }
+
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Username tidak boleh ada spasi");
@@ -173,7 +185,6 @@
             }
         };
 
-
         function previewImage(event) {
             var imagePreview = document.getElementById('imagePreview');
             var file = event.target.files[0];
@@ -185,6 +196,12 @@
             };
 
             reader.readAsDataURL(file);
+        }
+
+        function deleteImage() {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = 'http://placehold.it/240x240'; // Replace with your default image URL
+            localStorage.removeItem('imageWDPreview');
         }
 
 

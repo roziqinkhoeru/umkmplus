@@ -153,8 +153,6 @@
                             $(rowNode).find('td').eq(6).addClass('text-center text-capitalize');
                             $(rowNode).find('td').eq(7).addClass('text-center space-nowrap');
                         });
-                    } else {
-                        console.log("Data Kosong");
                     }
                 }
             });
