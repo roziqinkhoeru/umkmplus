@@ -554,4 +554,42 @@ class CourseController extends Controller
             'error',
         );
     }
+
+    // delete course
+    public function mentorCourseDestroy(Course $course)
+    {
+        // delete file old thumbnail
+        if ($course->thumbnail != 'storage/courses/thumbnail/thumbnail-course.png') {
+            # code...
+            $exists = Storage::disk('public')->exists($course->thumbnail);
+            if ($exists) {
+                Storage::disk('public')->delete($course->thumbnail);
+            }
+        }
+
+        // delete file old file_info
+        $exists = Storage::disk('public')->exists($course->file_info);
+        if ($exists) {
+            Storage::disk('public')->delete($course->file_info);
+        }
+
+        $course->delete();
+
+        if ($course) {
+            return ResponseFormatter::success(
+                [
+                    'message' => 'Kelas berhasil dihapus',
+                    'redirect' => route('mentor.course')
+                ],
+                'Kelas berhasil dihapus'
+            );
+        }
+
+        return ResponseFormatter::error(
+            [
+                'message' => 'Kelas gagal dihapus',
+            ],
+            'error',
+        );
+    }
 }
