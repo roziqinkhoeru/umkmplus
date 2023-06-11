@@ -44,7 +44,8 @@
                             <div class="card-body">
                                 {{-- accountNumber --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountNumber" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nomer
+                                    <label for="accountNumber"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nomer
                                         Rekening Bank</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -57,7 +58,7 @@
                                 </div>
                                 {{-- accountName --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama
+                                    <label for="accountName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nama
                                         Pemilik Bank</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -69,7 +70,7 @@
                                 </div>
                                 {{-- bank --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="bank" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="bank" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Bank</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" value="{{ $withdraw->bank }}"
@@ -78,7 +79,7 @@
                                 </div>
                                 {{-- amount --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Jumlah
+                                    <label for="amount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Jumlah
                                         Withdraw</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" name="amount" class="form-control" id="amount"
@@ -87,7 +88,7 @@
                                 </div>
                                 {{-- nameMentor --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="nameMentor" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Nama
+                                    <label for="nameMentor" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Nama
                                         Mentor</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" name="nameMentor" class="form-control"
@@ -96,7 +97,7 @@
                                 </div>
                                 {{-- balance --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="balance" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Saldo
+                                    <label for="balance" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Saldo
                                         Mentor</label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" name="balance" class="form-control" id="balance"
@@ -105,7 +106,7 @@
                                 </div>
                                 {{-- paymentProof --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="paymentProof" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Bukti
+                                    <label for="paymentProof" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Bukti
                                         Pembayaran <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-file input-file-image">
@@ -115,14 +116,14 @@
                                                 id="paymentProof" name="paymentProof" accept="image/*" required
                                                 onchange="previewImage(event)">
                                             <label for="paymentProof"
-                                                class="label-input-file btn btn-black btn-round mt-2">
+                                                class="label-input-file btn btn-black btn-round mt-2 mr-3">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
                                                 Upload Bukti Pembayaran
                                             </label>
                                             <button type="button" onclick="deleteImage()"
-                                                class="btn btn-danger btn-round ml-3 btn-delete-image mt-2">
+                                                class="btn btn-danger btn-round">
                                                 <span class="btn-label"><i class="fas fa-trash-alt"></i></span>
                                                 Hapus
                                             </button>

@@ -96,14 +96,15 @@
                                                 alt="blog-thumbnail-preview" id="imagePreview">
                                             <input type="file" class="form-control form-control-file" id="thumbnail"
                                                 name="thumbnail" accept="image/*" required onchange="previewImage(event)">
-                                            <label for="thumbnail" class="label-input-file btn btn-black btn-round mt-2">
+                                            <label for="thumbnail"
+                                                class="label-input-file btn btn-black btn-round mt-2 mr-3">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
                                                 Upload a Image
                                             </label>
                                             <button type="button" onclick="deleteImage()"
-                                                class="btn btn-danger btn-round ml-3 btn-delete-image mt-2">
+                                                class="btn btn-danger btn-round btn-delete-image mt-2">
                                                 <span class="btn-label"><i class="fas fa-trash-alt"></i></span>
                                                 Hapus
                                             </button>
