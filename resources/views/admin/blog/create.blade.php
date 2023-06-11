@@ -93,15 +93,20 @@
                                         <label for="thumbnail" class="form-label mb-2">Thumbnail</label>
                                         <div class="input-file input-file-image">
                                             <img class="img-upload-preview" width="240" src="http://placehold.it/240x240"
-                                                alt="blog-thumbnail-preview">
+                                                alt="blog-thumbnail-preview" id="imagePreview">
                                             <input type="file" class="form-control form-control-file" id="thumbnail"
-                                                name="thumbnail" accept="image/*" required>
-                                            <label for="thumbnail" class="label-input-file btn btn-black btn-round">
+                                                name="thumbnail" accept="image/*" required onchange="previewImage(event)">
+                                            <label for="thumbnail" class="label-input-file btn btn-black btn-round mt-2">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
                                                 </span>
                                                 Upload a Image
                                             </label>
+                                            <button type="button" onclick="deleteImage()"
+                                                class="btn btn-danger btn-round ml-3 btn-delete-image mt-2">
+                                                <span class="btn-label"><i class="fas fa-trash-alt"></i></span>
+                                                Hapus
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +191,34 @@
     </script>
 
     <script>
+        window.onload = function() {
+            const imagePreview = document.getElementById('imagePreview');
+            var storedImage = localStorage.getItem('imageBlogPreview');
+
+            if (storedImage) {
+                imagePreview.src = storedImage;
+            }
+        };
+
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                localStorage.setItem('imageBlogPreview', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function deleteImage() {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = 'http://placehold.it/240x240'; // Replace with your default image URL
+            localStorage.removeItem('imageBlogPreview');
+        }
+
         $(document).ready(function() {
             const headlineTextarea = $("#headline");
             const headlineCountWrapper = $("#headlineCountWrapper");
