@@ -25,7 +25,7 @@
 
             {{-- Balance --}}
             <div class="row">
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-round">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -60,17 +60,16 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
-                                            <th>Bank</th>
-                                            <th class="text-center">Nama Mentor</th>
-                                            <th class="text-center">Nama Akun Bank</th>
-                                            <th class="text-center">Nomer Akun Bank</th>
-                                            <th class="text-center space-nowrap">Jumlah</th>
+                                            <th class="">Nama Lengkap</th>
+                                            <th class="filter-none">Bank</th>
+                                            <th class="filter-none">Nama Akun Bank</th>
+                                            <th class="filter-none">Nomor Akun Bank</th>
+                                            <th class="space-nowrap">Jumlah</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center space-nowrap filter-none">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -141,19 +140,18 @@
                                 withdraw.account_number,
                                 amount,
                                 getStatusBadge(withdraw.status),
-                                `${(withdraw.status == "pending" ? `<button class="btn btn-sm btn-warning" onclick="processWithdraw('${withdraw.id}')">Proses</button>`
-                                : (withdraw.status == "proses" ? `<a href="/admin/withdraw/${withdraw.id}" class="btn btn-sm btn-primary">Bayar</a>`: ``))}
+                                `${(withdraw.status == "pending" ? `<button class="btn btn-sm btn-warning mr-2" onclick="processWithdraw('${withdraw.id}')">Proses</button>`
+                                : (withdraw.status == "proses" ? `<a href="/admin/withdraw/${withdraw.id}" class="btn btn-sm btn-primary mr-2">Bayar</a>`: ``))}
                                 ${(withdraw.status == "ditolak" || withdraw.status == "berhasil" ? `` : `<button class="btn btn-sm btn-danger" onclick="rejectWithdraw('${withdraw.id}')">Ditolak</button>`)}`
                             ];
                             var rowNode = $('#withdrawTable').DataTable().row.add(rowData).draw(false)
                                 .node();
 
                             $(rowNode).find('td').eq(0).addClass('text-center');
-                            $(rowNode).find('td').eq(1).addClass('text-center');
-                            $(rowNode).find('td').eq(2).addClass('text-center');
-                            $(rowNode).find('td').eq(3).addClass('text-center');
-                            $(rowNode).find('td').eq(4).addClass('text-center space-nowrap');
-                            $(rowNode).find('td').eq(5).addClass('text-center text-capitalize');
+                            $(rowNode).find('td').eq(4).addClass('space-nowrap');
+                            $(rowNode).find('td').eq(5).addClass('space-nowrap');
+                            $(rowNode).find('td').eq(6).addClass('text-center text-capitalize');
+                            $(rowNode).find('td').eq(7).addClass('text-center space-nowrap');
                         });
                     } else {
                         console.log("Data Kosong");
