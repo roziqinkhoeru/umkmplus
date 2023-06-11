@@ -80,7 +80,7 @@
                                         <div class="avatar-item bg-success rounded-circle">
                                             <i class="fas fa-chalkboard-teacher"></i>
                                         </div>
-                                        <span class="text">Mentors</span>
+                                        <span class="text">Mentor</span>
                                     </div>
                                 </a>
                             @endif
@@ -91,7 +91,7 @@
                                         <div class="avatar-item bg-danger rounded-circle">
                                             <i class="fas fa-user-graduate"></i>
                                         </div>
-                                        <span class="text">Students</span>
+                                        <span class="text">Siswa</span>
                                     </div>
                                 </a>
                             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
@@ -100,7 +100,7 @@
                                         <div class="avatar-item bg-danger rounded-circle">
                                             <i class="fas fa-user-graduate"></i>
                                         </div>
-                                        <span class="text">Students</span>
+                                        <span class="text">Siswa</span>
                                     </div>
                                 </a>
                             @endif
@@ -109,9 +109,9 @@
                                 <a class="col-6 col-md-4 p-0" href="{{ route('admin.mentor.application') }}">
                                     <div class="quick-actions-item">
                                         <div class="avatar-item bg-warning rounded-circle">
-                                            <i class="fas fa-file-alt"></i>
+                                            <i class="fas fa-id-badge"></i>
                                         </div>
-                                        <span class="text">Applications</span>
+                                        <span class="text">Pendaftar Mentor</span>
                                     </div>
                                 </a>
                             @endif
@@ -122,7 +122,7 @@
                                         <div class="avatar-item bg-warning rounded-circle">
                                             <i class="fas fa-ticket-alt"></i>
                                         </div>
-                                        <span class="text">Code Discount</span>
+                                        <span class="text">Kode Diskon</span>
                                     </div>
                                 </a>
                             @endif
@@ -138,10 +138,10 @@
                                 </a>
                                 <a class="col-6 col-md-4 p-0" href="/admin/withdraw">
                                     <div class="quick-actions-item">
-                                        <div class="avatar-item bg-info rounded-circle">
+                                        <div class="avatar-item bg-green rounded-circle">
                                             <i class="fas fa-money-bill"></i>
                                         </div>
-                                        <span class="text">Withdraw</span>
+                                        <span class="text">Keuangan</span>
                                     </div>
                                 </a>
                             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
@@ -155,10 +155,10 @@
                                 </a>
                                 <a class="col-6 col-md-4 p-0" href="/mentor/withdraw">
                                     <div class="quick-actions-item">
-                                        <div class="avatar-item bg-info rounded-circle">
+                                        <div class="avatar-item bg-green rounded-circle">
                                             <i class="fas fa-money-bill"></i>
                                         </div>
-                                        <span class="text">Withdraw</span>
+                                        <span class="text">Keuangan</span>
                                     </div>
                                 </a>
                             @endif
