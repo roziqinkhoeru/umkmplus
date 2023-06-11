@@ -29,7 +29,7 @@ class WithdrawController extends Controller
                 'active' => 'withdraw',
                 'withdraws' => $withdraws,
                 'balance' => $balance,
-                'revenue' => ceil($revenue * 0.8)
+                'revenue' => $revenue * 0.8
             ];
         return view('mentor.withdraw.index', $data);
     }
@@ -98,7 +98,7 @@ class WithdrawController extends Controller
     public function adminWithdraw(Request $request)
     {
         $revenue = CourseEnroll::whereIn('status', ['aktif', 'selesai'])->sum('total_price');
-        $revenue = ceil($revenue * 0.2);
+        $revenue = $revenue * 0.2;
         $data =
             [
                 'title' => 'Withdraw | Admin UMKMPlus',

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('course_enrolls', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade');
-            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('discount_id')->nullable()->constrained('discounts')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign('student_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('no action');
+            $table->foreignId('discount_id')->nullable()->constrained('discounts')->onUpdate('cascade')->nullOnDelete();
             $table->enum('status', ['menunggu pembayaran', 'proses', 'aktif', 'selesai'])->default('menunggu pembayaran');
             $table->integer('upto_no_module')->default(0);
             $table->integer('upto_no_media')->default(0);

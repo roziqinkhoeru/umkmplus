@@ -31,7 +31,7 @@
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Siswa</p>
-                                        <h4 class="card-title">1,294</h4>
+                                        <h4 class="card-title">{{ number_format($countStudent, 0, ',', '.') }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Kelas</p>
-                                        <h4 class="card-title">1,345</h4>
+                                        <h4 class="card-title">{{ number_format($countCourse, 0, ',', '.') }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Blog</p>
-                                        <h4 class="card-title">576</h4>
+                                        <h4 class="card-title">{{ number_format($countBlog, 0, ',', '.') }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,8 @@
                         </div>
                         <div class="card-body pb-0">
                             <div class="mb-4 mt-2">
-                                <h1>Rp 120.450.200 <span class="text-base">/ 142 kelas</span></h1>
+                                <h1>Rp {{ number_format($revenue, 0, ',', '.') }} <span class="text-base">/
+                                        {{ number_format($countCourse, 0, ',', '.') }} kelas</span></h1>
                             </div>
                             <div class="pull-in">
                                 <canvas id="annualFinancialChart"></canvas>
@@ -114,6 +115,17 @@
 @endsection
 
 @section('script')
+    {{-- data course category --}}
+    <script>
+        let categoryName = [];
+        let countCourseCategory = [];
+    </script>
+    @foreach ($countCourseCategories as $countCourseCategory)
+        <script>
+            categoryName.push("{{ $countCourseCategory->name }}");
+            countCourseCategory.push('{{ $countCourseCategory->courses_count }}');
+        </script>
+    @endforeach
     <script>
         //Notify
         $.notify({
@@ -132,9 +144,9 @@
         // category chart
         // data
         const categoryData = {
-            labels: ['Branding', 'Desain', 'Marketing', 'Finance', 'Technology & E-Commerce'],
+            labels: categoryName,
             datasets: [{
-                data: [10, 20, 30, 27, 63],
+                data: countCourseCategory,
                 backgroundColor: [
                     '#FF9F55',
                     '#6DCFF6',

@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
+use App\Models\Blog;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Category;
 use App\Models\Customer;
 use Illuminate\Support\Str;
+use App\Models\CourseEnroll;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,9 +23,26 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $countStudent = CourseEnroll::groupBy('student_id')->count();
+        $countMentor = Course::groupBy('mentor_id')->count();
+        $countCourse = Course::count();
+        $countBlog = Blog::where('user_id', $user->id)->count();
+        $countCourseCategories = Category::withCount(['courses'])->get();
+        $revenue = CourseEnroll::with('course')
+        ->whereIn('status', ['aktif', 'selesai'])
+        ->whereRaw('YEAR(created_at) = ?', [2023])
+        ->sum('total_price');
+
         $data = [
             'title' => 'Dashboard Admin | Admin UMKMPlus',
-            'active' => 'dashboard'
+            'active' => 'dashboard',
+            'countStudent' => $countStudent,
+            'countMentor' => $countMentor,
+            'countCourse' => $countCourse,
+            'countBlog' => $countBlog,
+            'countCourseCategories' => $countCourseCategories,
+            'revenue' => $revenue * 0.2,
         ];
 
         return view('admin.dashboard', $data);

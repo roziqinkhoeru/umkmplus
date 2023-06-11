@@ -175,7 +175,7 @@
                         <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="admin-profile"
                             class="avatar-img rounded-circle">
                     @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                        <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                        <img src="{{ asset("storage/".auth()->user()->customer->profile_picture) }}"
                             alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
                     @endif
                 </div>
@@ -189,7 +189,7 @@
                                     <img src="{{ asset('assets/template/admin/img/profile.jpg') }}"
                                         alt="admin-profile" class="avatar-img rounded">
                                 @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                                    <img src="{{ asset(auth()->user()->customer->profile_picture) }}"
+                                    <img src="{{ asset("storage/".auth()->user()->customer->profile_picture) }}"
                                         alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded">
                                 @endif
                             </div>

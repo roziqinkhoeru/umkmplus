@@ -91,6 +91,7 @@
                                             <th class="">Nama Akun Bank</th>
                                             <th class="filter-none">Nomor Akun Bank</th>
                                             <th class="space-nowrap">Jumlah</th>
+                                            <th class="space-nowrap">Bukti Transfer</th>
                                             <th class="text-center space-nowrap filter-none">Status</th>
                                         </tr>
                                     </thead>
@@ -103,6 +104,11 @@
                                                 <td class="">{{ $withdraw->account_number }}</td>
                                                 <td class="space-nowrap">
                                                     {{ 'Rp ' . number_format($withdraw->amount, 0, ',', '.') }}</td>
+                                                <td class="space-nowrap">@if ($withdraw->payment_proof)
+                                                    <a href="{{ asset('storage/' . $withdraw->payment_proof) }}"
+                                                        target="_blank" rel="noopener noreferrer" class="btn btn-primary">Bukti Transfer
+                                                    </a>
+                                                @endif</td>
                                                 <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($withdraw->status)
