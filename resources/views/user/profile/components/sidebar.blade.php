@@ -3,15 +3,21 @@
     <div class="profile__menu-left white-bg mb-50 pt-5">
         <div class="profile__menu-tab">
             <div class="nav nav-tabs flex-column justify-content-start text-start">
+                {{-- my dashboard --}}
+                <button onclick="getContent('dashboard')" class="nav-link" type="button" role="tab" aria-selected=""
+                    id="dashboard">
+                    <i class="fa-regular fa-tachometer-alt-fastest"></i>
+                    Dashboard Saya
+                </button>
                 {{-- my account --}}
-                <button onclick="getContent('profile')" class="nav-link " type="button" role="tab"
-                    aria-selected="" id="profile">
+                <button onclick="getContent('profile')" class="nav-link " type="button" role="tab" aria-selected=""
+                    id="profile">
                     <i class="fa-regular fa-user"></i>
                     Akun Saya
                 </button>
                 {{-- my courses --}}
-                <button onclick="getContent('course')" class="nav-link " type="button"
-                    role="tab" aria-selected="" id="course">
+                <button onclick="getContent('course')" class="nav-link " type="button" role="tab" aria-selected=""
+                    id="course">
                     <i class="fa-regular fa-book-open"></i>
                     Kelas Saya
                 </button>
@@ -22,8 +28,8 @@
                     Riwayat Transaksi
                 </button>
                 {{-- change password --}}
-                <button onclick="getContent('change-password')" class="nav-link "
-                    type="button" role="tab" aria-selected="" id="change-password">
+                <button onclick="getContent('change-password')" class="nav-link " type="button" role="tab"
+                    aria-selected="" id="change-password">
                     <i class="fa-regular fa-lock"></i>
                     Ubah Kata Sandi
                 </button>

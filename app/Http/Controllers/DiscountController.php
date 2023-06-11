@@ -16,7 +16,7 @@ class DiscountController extends Controller
     {
         $discount = Discount::where('mentor_id', auth()->user()->customer->id)->get();
         $data = [
-            'title' => 'Diskon | UMKM Plus',
+            'title' => 'Diskon | Mentor UMKMPlus',
             'active' => 'discount',
             'discounts' => $discount,
         ];
@@ -31,7 +31,7 @@ class DiscountController extends Controller
     {
         $data =
             [
-                'title' => 'Tambah Diskon | UMKM Plus',
+                'title' => 'Tambah Diskon | Mentor UMKMPlus',
                 'active' => 'discount',
             ];
 
@@ -44,10 +44,10 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
         $rules =
-        [
-            'code' => 'required|unique:discounts,code',
-            'discount' => 'required|numeric',
-        ];
+            [
+                'code' => 'required|unique:discounts,code',
+                'discount' => 'required|numeric',
+            ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -88,11 +88,11 @@ class DiscountController extends Controller
     public function edit(Discount $discount)
     {
         $data =
-        [
-            'title' => 'Edit Diskon | UMKM Plus',
-            'active' => 'discount',
-            'discount' => $discount
-        ];
+            [
+                'title' => 'Edit Diskon | Mentor UMKMPlus',
+                'active' => 'discount',
+                'discount' => $discount
+            ];
 
         return view('mentor.discounts.edit', $data);
     }
@@ -103,10 +103,10 @@ class DiscountController extends Controller
     public function update(Request $request, Discount $discount)
     {
         $rules =
-        [
-            'code' => 'required|unique:discounts,code,' . $discount->id,
-            'discount' => 'required|numeric',
-        ];
+            [
+                'code' => 'required|unique:discounts,code,' . $discount->id,
+                'discount' => 'required|numeric',
+            ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {

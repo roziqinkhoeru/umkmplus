@@ -43,7 +43,7 @@ Route::get('/dashboard/search/{any}', function () {
 
 // admin
 Route::get('/admin/reset-password', function () {
-    return view('admin.auth.resetPassword', ['title' => 'Reset Password | Mentor UMKMPlus']);
+    return view('admin.auth.resetPassword', ['title' => 'Reset Password | Admin UMKMPlus']);
 });
 
 // Auth

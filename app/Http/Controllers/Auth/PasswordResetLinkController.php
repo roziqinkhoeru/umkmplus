@@ -18,7 +18,7 @@ class PasswordResetLinkController extends Controller
     public function create(): View
     {
         $data = [
-            'title' => 'Forgot Password | UMKMPlus',
+            'title' => 'Lupa Password | UMKMPlus',
             'ptSection' => '54px',
         ];
         return view('auth.forgotPassword', $data);
@@ -81,7 +81,7 @@ class PasswordResetLinkController extends Controller
     public function adminCreate(): View
     {
         $data = [
-            'title' => 'Forgot Password | Admin UMKMPlus'
+            'title' => 'Lupa Password | Admin UMKMPlus'
         ];
         return view('admin.auth.forgotPassword', $data);
     }
