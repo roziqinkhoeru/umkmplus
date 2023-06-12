@@ -137,6 +137,11 @@
 
     @section('script')
         <script>
+            let optionCurrency = {
+                            style: 'currency',
+                            currency: 'IDR',
+                            maximumFractionDigits: 0
+                        }
             $("#formReferral").submit(function(e) {
                 e.preventDefault();
                 $('#referral-button').html(
@@ -156,19 +161,15 @@
                         );
                         $('#referral').prop("disabled", true);
                         $("#discountReferralLabel").html(`Discount Referral`);
-                        let option = {
-                            style: 'currency',
-                            currency: 'IDR',
-                            maximumFractionDigits: 0
-                        }
-                        let discountReferral = new Intl.NumberFormat('id-ID', option).format(response.data
+
+                        let discountReferral = new Intl.NumberFormat('id-ID', optionCurrency).format(response.data
                             .priceDiscount);
                         $("#discountReferral").html(`${discountReferral}`);
                         $("#discountID").val(response.data.discount.id);
 
                         let subtotal = $("#subtotal").val();
                         let newTotalPrice = subtotal - response.data.priceDiscount;
-                        let newTotalPriceFormat = new Intl.NumberFormat('id-ID', option).format(
+                        let newTotalPriceFormat = new Intl.NumberFormat('id-ID', optionCurrency).format(
                             newTotalPrice);
 
                         // check if new total price is < 0
@@ -208,7 +209,7 @@
                         $("#discountReferralLabel").html(""); // Clear the discount label
                         $("#discountReferral").html(""); // Clear the discount value
                         $("#discountID").val(""); // Clear the discount ID
-                        let subtotal = $("#subtotal").val();
+                        let subtotal = $("#subtotal").val().toLocaleString('id-ID', option);
                         $("#totalPrice").html(
                             `${subtotal}`); // Reset the total price to the original subtotal
                         $("#priceCheckout").val(`${subtotal}`);

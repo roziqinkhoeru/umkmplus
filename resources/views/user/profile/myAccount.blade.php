@@ -668,9 +668,7 @@
                         maximumFractionDigits: 0,
                     };
                     let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
-                    let courseTotalPrice = enroll.course.price - Math.ceil(enroll.course.price * enroll
-                        .course
-                        .discount / 100);
+                    let courseTotalPrice = enroll.total_price;
                     let badgeStatus = '';
                     let badgeText = '';
                     switch (enroll.status) {
