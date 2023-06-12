@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
                 [
                     'name' => "Admin",
                     'address' => "Admin Address",
+                    'profile_picture' => 'profile/mentor-1.jpg',
                     'phone' => "0123456789",
                     'dob' => "2000-01-01",
                     'gender' => "laki-laki",
