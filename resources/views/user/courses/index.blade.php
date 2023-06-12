@@ -158,9 +158,12 @@
                 ([k, v]) => [v.value, v.checked]
             )
         )
-        console.log(x);
 
-        $(".formSearch").submit(function(e) {
+        $(".formSearchDesktop").submit(function(e) {
+            e.preventDefault();
+            getCourse()
+        });
+        $(".formSearchMobile").submit(function(e) {
             e.preventDefault();
             getCourse()
         });
@@ -171,18 +174,37 @@
             return slug;
         }
 
-        function getCourse() {
+        function getCourse(device) {
             // loading state
             $("#courseCategory").html(
                 `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
             );
+            let search = "";
+            console.log(device);
+            if (device == "desktop") {
+                console.log('desktop');
+                // console.log($("#searchCourseDesktop").val());
+                $("#searchCourseMobile").val("");
+                search = $("#searchCourseDesktop").val();
+            } else if (device == "mobile") {
+                console.log('mobile');
+                // console.log($("#searchCourseMobile").val());
+                $("#searchCourseDesktop").val("");
+                search = $("#searchCourseMobile").val();
+            } else {
+                if ($("#searchCourseDesktop").val() != "") {
+                    search = $("#searchCourseDesktop").val();
+                } else if ($("#searchCourseMobile").val() != "") {
+                    search = $("#searchCourseMobile").val();
+                }
+            }
             $.ajax({
                 type: "GET",
                 url: "{{ url('/course/data') }}",
                 data: {
                     sort: $("input[name='sort']:checked").val(),
                     category: $("input[name='categorySort']:checked").val(),
-                    search: $("#search").val(),
+                    search: search,
                 },
                 success: function(response) {
                     let htmlString = ``;
@@ -305,6 +327,13 @@
                         });
                     }
                     $("#courseCategory").html(htmlString);
+
+                    if (device == "desktop") {
+                        $("#searchCourseMobile").val("");
+                    } else if (device == "mobile") {
+                        $('#offcanvasmodal').modal('hide');
+                        $("#searchCourseDesktop").val("");
+                    }
                 },
                 // error state
                 error: function() {
