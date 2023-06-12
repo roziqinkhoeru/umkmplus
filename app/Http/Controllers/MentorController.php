@@ -289,9 +289,12 @@ class MentorController extends Controller
     public function mentorDashboard()
     {
         $user = Auth::user();
-        $countStudent = CourseEnroll::with('course')->whereHas('course', function ($query) use ($user) {
+        $countStudent = CourseEnroll::select(DB::raw('COUNT(*) as countStudent'))->with('course')->whereHas('course', function ($query) use ($user) {
             $query->where('mentor_id', $user->customer->id);
-        })->count();
+        })
+        ->groupBy('student_id')
+        ->get();
+        $countStudent = count($countStudent);
         $countCourse = Course::where('mentor_id', $user->customer->id)->count();
         $countBlog = Blog::where('user_id', $user->id)->count();
         $countCourseCategories = Category::withCount(['courses' => function ($query) use ($user) {

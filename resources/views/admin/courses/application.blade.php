@@ -50,6 +50,7 @@
                                             <th>Mentor</th>
                                             <th class="text-center">Kategori</th>
                                             <th>Harga</th>
+                                            <th>Tanggal Dibuat</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center filter-none">Aksi</th>
                                         </tr>
@@ -63,6 +64,7 @@
                                                 <td class="text-center">{{ $course->category->name }}</td>
                                                 <td class="space-nowrap">
                                                     {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
+                                                    <td class="text-center">{{ CustomDate::tglIndo($course->created_at) }}</td>
                                                 <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($course->status)

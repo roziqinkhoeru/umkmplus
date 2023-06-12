@@ -266,10 +266,11 @@ class CourseController extends Controller
 
     public function application()
     {
-        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status', 'slug')
+        $courses = Course::select('title', 'mentor_id', 'category_id', 'price', 'status', 'slug', 'created_at')
             ->where('status', '=', 'pending')
             ->orWhere('status', '=', 'ditolak')
             ->with('category:id,name', 'mentor:id,name')
+            ->orderBy('created_at', 'asc')
             ->get();
 
         $data =
