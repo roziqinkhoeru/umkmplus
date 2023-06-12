@@ -1,3 +1,7 @@
 ⚠️bukti tf detail abis wd terima
 ⚠️check all mentor page
 ⚠️check course->checkout->finish
+⚠️Bug di perbarui blog mentor::redirect salah / apa?
+⚠️Bug di perbarui blog mentor::redirect salah / apa?
+⚠️Create blog mentor->controller post->route('admin.blog.store')? benar atau salah?
+⚠️Update blog mentor->controller post->route('admin.blog.update')? benar atau salah?

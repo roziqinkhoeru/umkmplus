@@ -45,7 +45,7 @@
 
                                 {{-- Check Score In Google Form --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Cek Nilai
+                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Cek Nilai
                                         Ujian
                                     </label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -55,7 +55,8 @@
                                 </div>
                                 {{-- Name --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama Lengkap
+                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nama
+                                        Lengkap
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="text" class="form-control" id="name" name="name"
@@ -64,7 +65,7 @@
                                 </div>
                                 {{-- Course --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="courseTitle" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul
+                                    <label for="courseTitle" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
                                         Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -74,7 +75,8 @@
                                 </div>
                                 {{-- email --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Alamat Email
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Alamat
+                                        Email
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input disabled type="email" name="email" class="form-control" id="email"
@@ -84,7 +86,8 @@
                                 </div>
                                 {{-- Skor --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="score" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Skor Kelas
+                                    <label for="score" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Skor
+                                        Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="score" name="score"

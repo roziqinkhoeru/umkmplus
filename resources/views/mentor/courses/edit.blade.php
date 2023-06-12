@@ -43,7 +43,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Kelas
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -55,7 +56,8 @@
                                 </div>
                                 {{-- description --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="description" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Deskripsi
+                                    <label for="description"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Deskripsi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -66,7 +68,7 @@
                                 </div>
                                 {{-- category --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="category_id" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="category_id" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Kategori
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -82,7 +84,8 @@
                                 </div>
                                 {{-- price --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="price" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Harga (Rp)
+                                    <label for="price" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Harga
+                                        (Rp)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <input type="number" name="price" class="form-control" id="price"
@@ -92,10 +95,11 @@
                                 {{-- thumbnail --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="thumbnail"
-                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Thumbnail<span
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Thumbnail<span
                                             class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <img class="img-upload-preview" width="240" src="{{ asset('storage/'.$course->thumbnail) }}"
+                                        <img class="img-upload-preview" width="240"
+                                            src="{{ asset('storage/' . $course->thumbnail) }}"
                                             alt="image-{{ $course->title }}" id="imagePreview">
                                         <input type="file" class="form-control form-control-file" id="thumbnail"
                                             onchange="previewImage(event)" name="thumbnail" accept="image/*">
@@ -109,7 +113,7 @@
                                 </div>
                                 {{-- file_info --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file_info" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file_info" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         @if ($course->file_info)
@@ -130,7 +134,7 @@
                                 </div>
                                 {{-- discount --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Diskon
+                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Diskon
                                         Kelas (%)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -141,7 +145,7 @@
                                 </div>
                                 {{-- google_form --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="google_form" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Link
+                                    <label for="google_form" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Link
                                         Google Form
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">

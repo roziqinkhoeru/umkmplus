@@ -8,7 +8,7 @@
                 <h4 class="page-title">Mentor</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -101,7 +101,8 @@
                                             </td>
                                             <td>
                                                 @if ($mentor->dataMentor->file_cv)
-                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}" class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
+                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}"
+                                                        class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
                                                 @else
                                                     <span>CV tidak tersedia</span>
                                                 @endif
@@ -125,16 +126,15 @@
                                                     {{ $mentor->dataMentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                                 </span></td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-right">
-                                                <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
-                                                    class="btn btn-primary btn-sm">Edit</a>
-                                                    {{-- a href reset password --}}
-                                                <a href="{{ route('mentor.edit.password') }}" class="btn btn-warning btn-sm">Reset Password</a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
+                                <div class="text-right mt-5 mb-2">
+                                    <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
+                                        class="btn btn-primary btn-sm mr-2">Edit</a>
+                                    {{-- a href reset password --}}
+                                    <a href="{{ route('mentor.edit.password') }}" class="btn btn-warning btn-sm mr-3">Reset
+                                        Password</a>
+                                </div>
                             </div>
                         </div>
                     </div>

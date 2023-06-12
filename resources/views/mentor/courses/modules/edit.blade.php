@@ -43,7 +43,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Modul
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -55,7 +56,7 @@
                                 </div>
                                 {{-- file --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         @if ($module->file)
@@ -76,7 +77,7 @@
                                 </div>
                                 {{-- no_module --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="no_module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Urutan
+                                    <label for="no_module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Urutan
                                         Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">

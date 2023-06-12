@@ -48,7 +48,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Media
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Media
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -60,7 +61,8 @@
                                 </div>
                                 {{-- video_url --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="video_url" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Kode Video
+                                    <label for="video_url" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kode
+                                        Video
                                         (Youtube)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -73,7 +75,8 @@
                                 </div>
                                 {{-- duration --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="duration" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Durasi Video
+                                    <label for="duration" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Durasi
+                                        Video
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">

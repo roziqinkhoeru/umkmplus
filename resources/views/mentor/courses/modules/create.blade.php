@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Modul
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -54,7 +55,7 @@
                                 </div>
                                 {{-- file --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <input type="file" class="form-control form-control-file" id="file"
@@ -67,16 +68,16 @@
                                         </label>
                                     </div>
                                 </div>
-                            {{-- Submit --}}
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="createButton"
-                                            type="submit">Tambah</button>
+                                {{-- Submit --}}
+                                <div class="card-action">
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
+                                            <button class="btn btn-primary ml-3" id="createButton"
+                                                type="submit">Tambah</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -174,7 +175,8 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'TAMBAH MODULE GAGAL!',
-                                text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
+                                text: xhr.responseJSON.meta.message + " Error: " + xhr
+                                    .responseJSON.data.error,
                             })
                         else
                             Swal.fire({
