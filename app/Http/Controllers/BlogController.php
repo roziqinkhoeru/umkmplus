@@ -29,6 +29,7 @@ class BlogController extends Controller
             ->when($request->search, function ($query) use ($request) {
                 $query->where('title', 'LIKE', '%' . $request->search . '%');
             })
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $blogCount = $blog->count();
