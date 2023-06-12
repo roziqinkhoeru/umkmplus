@@ -55,7 +55,8 @@ class CourseEnrollController extends Controller
 
     public function getDiscountCourse(Request $request, Course $course)
     {
-        $discount = Discount::whereCode($request->discount_code)->first();
+        $discountCode = Str::upper($request->discount_code);
+        $discount = Discount::whereCode($discountCode)->first();
         // check if discount code belong to this mentor
         if (!$discount || $discount->mentor_id != $course->mentor_id) {
             return ResponseFormatter::error(

@@ -87,7 +87,7 @@ class DiscountFactory extends Factory
                 // Discount factory
                 $discountRecord = [
                     'mentor_id' => $customer->id,
-                    'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
+                    'code' => Str::upper($this->faker->unique()->regexify('[A-Za-z0-9]{10}')),
                     'discount' => $this->faker->numberBetween(100000, 300000),
                     'status' => $this->faker->randomElement([0, 1]),
                 ];
@@ -187,7 +187,7 @@ class DiscountFactory extends Factory
 
         return [
             'mentor_id' => 2,
-            'code' => $this->faker->unique()->regexify('[A-Za-z0-9]{10}'),
+            'code' => Str::upper($this->faker->unique()->regexify('[A-Za-z0-9]{10}')),
             'discount' => $this->faker->numberBetween(100000, 300000),
             'status' => $this->faker->randomElement([0, 1]),
         ];
