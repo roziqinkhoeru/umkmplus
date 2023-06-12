@@ -22,7 +22,7 @@ class BlogSeeder extends Seeder
                 'title' => $faker->sentence(3),
                 'content' => '<p class="text-lg mb-15">' . implode('</p><p class="text-lg mb-15">', $faker->paragraphs(6)) . '</p>',
                 'headline' => $faker->paragraph(),
-                'thumbnail' => "assets/img/dummy/blog1.png",
+                'thumbnail' => "blogs/blog1.png",
                 'status' => $faker->randomElement(['tampilkan', 'sembunyikan']),
             ];
             $blog = Blog::create($blogRecord);

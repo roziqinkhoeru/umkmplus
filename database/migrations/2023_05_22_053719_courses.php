@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('discount')->default(0);
             $table->string('file_info', 255);
             $table->string('google_form', 255)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
