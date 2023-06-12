@@ -223,7 +223,7 @@ class BlogController extends Controller
                     400
                 ) : back()->with('error', $validator->errors()->first());
             }
-            if ($blog->thumbnail != 'storage/blogs/blog1.png') {
+            if ($blog->thumbnail != 'blogs/blog1.png') {
                 // Delete file thumbnail before
                 $exists = Storage::disk('public')->exists('blogs/' . $blog->thumbnail);
                 if ($exists) {
@@ -248,12 +248,21 @@ class BlogController extends Controller
         ]);
 
         if ($updateBlog) {
-            return $request->ajax() ? ResponseFormatter::success(
-                [
-                    'redirect' => route('admin.blog'),
-                ],
-                'Blog berhasil diperbarui'
-            ) : redirect()->route('admin.blog')->with('success', 'Blog berhasil diperbarui');
+            if (auth()->user()->roles()->first()->pivot->role_id == 1) {
+                return $request->ajax() ? ResponseFormatter::success(
+                    [
+                        'redirect' => route('admin.blog'),
+                    ],
+                    'Blog berhasil diperbarui'
+                ) : redirect()->route('admin.blog')->with('success', 'Blog berhasil diperbarui');
+            } else if (auth()->user()->roles()->first()->pivot->role_id == 2) {
+                return $request->ajax() ? ResponseFormatter::success(
+                    [
+                        'redirect' => route('mentor.blog'),
+                    ],
+                    'Blog berhasil diperbarui'
+                ) : redirect()->route('mentor.blog')->with('success', 'Blog berhasil diperbarui');
+            }
         } else {
             return $request->ajax() ? ResponseFormatter::error(
                 null,

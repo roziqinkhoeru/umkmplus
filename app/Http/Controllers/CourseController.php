@@ -561,19 +561,19 @@ class CourseController extends Controller
     public function mentorCourseDestroy(Course $course)
     {
         // delete file old thumbnail
-        if ($course->thumbnail != 'storage/courses/thumbnail/thumbnail-course.png') {
-            # code...
-            $exists = Storage::disk('public')->exists($course->thumbnail);
-            if ($exists) {
-                Storage::disk('public')->delete($course->thumbnail);
-            }
-        }
+        // if ($course->thumbnail != 'courses/thumbnail/thumbnail-course.png') {
+        //     # code...
+        //     $exists = Storage::disk('public')->exists($course->thumbnail);
+        //     if ($exists) {
+        //         Storage::disk('public')->delete($course->thumbnail);
+        //     }
+        // }
 
-        // delete file old file_info
-        $exists = Storage::disk('public')->exists($course->file_info);
-        if ($exists) {
-            Storage::disk('public')->delete($course->file_info);
-        }
+        // // delete file old file_info
+        // $exists = Storage::disk('public')->exists($course->file_info);
+        // if ($exists) {
+        //     Storage::disk('public')->delete($course->file_info);
+        // }
 
         $course->delete();
 

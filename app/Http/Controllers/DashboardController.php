@@ -104,7 +104,8 @@ class DashboardController extends Controller
         $statCourseCategory = Category::withCount(['courses as total_course' => function ($query) use ($user) {
             $query->join('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
                 ->where('course_enrolls.student_id', $user->customer->id)
-                ->whereIn('course_enrolls.status', ['aktif', 'selesai']);
+                ->whereIn('course_enrolls.status', ['aktif', 'selesai'])
+                ->withTrashed();
         }])->get();
 
         return ResponseFormatter::success(
@@ -212,6 +213,9 @@ class DashboardController extends Controller
         $courseProfile = CourseEnroll::with('course', 'course.mentor:id,name', 'course.category')
             ->where('student_id', $user->id)
             ->whereIn('status', ['selesai', 'aktif'])
+            ->with(['course' => function ($query) {
+                $query->withTrashed();
+            }])
             ->get();
 
         if ($courseProfile) {
@@ -223,8 +227,12 @@ class DashboardController extends Controller
     public function getTransactionHistory()
     {
         $user = Auth::user()->customer;
-        $transactionHistory = CourseEnroll::with('course', 'course.mentor', 'course.category')->where('student_id', $user->id)
-            ->orderBy('created_at', 'desc')
+        $transactionHistory = CourseEnroll::with('course', 'course.mentor', 'course.category')
+        ->where('student_id', $user->id)
+        ->with(['course' => function ($query) {
+            $query->withTrashed();
+        }])
+        ->orderBy('created_at', 'desc')
             ->get();
 
         if ($transactionHistory) {
