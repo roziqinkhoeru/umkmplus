@@ -39,10 +39,13 @@ class StudentController extends Controller
 
     public function mentorStudent()
     {
-        $enrolls = CourseEnroll::whereHas('course', function ($query) {
-            $query->where('mentor_id', auth()->user()->customer->id);
-        })
-            ->with(['course.category', 'student.user'])
+        $enrolls = CourseEnroll::with('course','student.user')
+            ->with(['course' => function ($query) {
+                $query->withTrashed();
+            }])
+            ->whereHas('course', function ($query) {
+                $query->where('mentor_id', auth()->user()->customer->id);
+            })
             ->get();
         $data = [
             'title' => 'Data Siswa | Mentor UMKMPlus',

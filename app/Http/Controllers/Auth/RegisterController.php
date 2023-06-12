@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'gender' => $request->gender,
+            'profile_picture' => 'profile/mentor-1.jpg',
             'slug' => str_replace(' ', '-', $request->name)
         ]);
 
@@ -70,12 +71,12 @@ class RegisterController extends Controller
 
         if ($user) {
             return $request->ajax()
-            ? ResponseFormatter::success(
-                [
-                    'redirect' => redirect('/login')->getTargetUrl(),
-                ],
-                'Pendaftaran berhasil',
-            ) : redirect('/login')->with('success', 'Pendaftaran berhasil');
+                ? ResponseFormatter::success(
+                    [
+                        'redirect' => redirect('/login')->getTargetUrl(),
+                    ],
+                    'Pendaftaran berhasil',
+                ) : redirect('/login')->with('success', 'Pendaftaran berhasil');
         }
 
         return $request->ajax()

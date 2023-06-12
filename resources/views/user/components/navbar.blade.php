@@ -50,7 +50,7 @@
                     <div class="col-xxl-5 col-xl-5 col-lg-2 col-md-6 col-6">
                         <div class="header__bottom-right d-flex justify-content-end align-items-center pl-30">
                             <div class="header__search w-100 d-none d-xl-block">
-                                <form action="{{ url('/course') }}" method="GET" id="formSearch">
+                                <form action="{{ url('/course') }}" method="GET" class="formSearch">
                                     <div class="header__search-input">
                                         <input type="text" placeholder="Cari kelas..." class="rounded-pill"
                                             id="search" name="search"
@@ -145,9 +145,9 @@
                             </div>
                         </div>
                         <div class="offcanvas__search mb-25">
-                            <form action="#">
-                                <input type="text" placeholder="Cari kelas...">
-                                <button type="submit"><i class="far fa-search"></i></button>
+                            <form form action="{{ url('/course') }}" method="GET" class="formSearch">
+                                <input type="text" placeholder="Cari kelas..." id="search" name="search" @if (request()->has('search')) value="{{ request()->search }}" @endif >
+                                <button type="submit"  onclick="getCourse()"><i class="far fa-search"></i></button>
                             </form>
                         </div>
                         <div class="mobile-menu fix"></div>

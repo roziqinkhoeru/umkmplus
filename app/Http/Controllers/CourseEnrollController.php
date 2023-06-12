@@ -448,6 +448,11 @@ class CourseEnrollController extends Controller
         if (!$testimonial) {
             return redirect()->route('course.testimonial', $courseEnroll->id);
         }
+        if ($courseEnroll->score == null) {
+            return redirect()->route('profile', "content=course")->with('error', 'Mentor belum memberikan nilai');
+        } else if ($courseEnroll->score == 0) {
+            return redirect()->route('course.playing.test', $courseEnroll->id);
+        }
         $data =
             [
                 'title' => 'Sertifikat Kelas ' . $courseEnroll->title . ' | UMKM Plus',

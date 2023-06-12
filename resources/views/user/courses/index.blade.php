@@ -160,7 +160,7 @@
         )
         console.log(x);
 
-        $("#formSearch").submit(function(e) {
+        $(".formSearch").submit(function(e) {
             e.preventDefault();
             getCourse()
         });

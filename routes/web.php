@@ -90,7 +90,6 @@ Route::controller(CourseController::class)->group(function () {
 Route::controller(BlogController::class)->group(function () {
     Route::get('/blog', 'index')->name('blog.index');
     Route::get('/blog/data', 'getBlog')->name('blog.data');
-    Route::get('/blog/sear', 'getBlog')->name('blog.data');
     Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
 });
 

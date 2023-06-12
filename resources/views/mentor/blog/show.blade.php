@@ -256,6 +256,14 @@
                     required: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Konten tidak boleh kosong',
                 },
             },
+            submithandler: function(form) {
+                // tombol spin
+                $('#updateButton').prop('disabled', true);
+                $('#updateButton').html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+                );
+                form.submit();
+            }
         });
     </script>
 @endsection
