@@ -108,8 +108,10 @@
                                                     @if ($withdraw->payment_proof)
                                                         <a href="{{ asset('storage/' . $withdraw->payment_proof) }}"
                                                             target="_blank" rel="noopener noreferrer"
-                                                            class="btn btn-primary btn-sm">Bukti Transfer
+                                                            class="btn btn-primary btn-sm">Lihat
                                                         </a>
+                                                    @else
+                                                        Tidak Tersedia
                                                     @endif
                                                 </td>
                                                 <td class="text-center text-capitalize">
