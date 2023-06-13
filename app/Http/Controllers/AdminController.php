@@ -24,8 +24,8 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $countStudent = CourseEnroll::groupBy('student_id')->count();
-        $countMentor = Course::groupBy('mentor_id')->count();
+        $countStudent = User::leftJoin('role_users', 'role_users.role_id', '=', 'users.id')->where('role_users.role_id', '3')->count();
+        $countMentor = User::leftJoin('role_users', 'role_users.role_id', '=', 'users.id')->where('role_users.role_id', '2')->count();
         $countCourse = Course::count();
         $countBlog = Blog::where('user_id', $user->id)->count();
         $countCourseCategories = Category::withCount(['courses'])->get();

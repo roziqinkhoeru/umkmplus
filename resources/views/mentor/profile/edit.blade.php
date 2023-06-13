@@ -286,20 +286,15 @@
             },
             submitHandler: function(form, event) {
                 event.preventDefault();
-                swal({
+                Swal.fire({
                     title: 'Apakah anda yakin?',
                     text: "Anda akan mengubah data profil!",
                     icon: 'warning',
-                    buttons: {
-                        confirm: {
-                            text: 'Ya, Ubah data!',
-                            className: 'btn btn-success'
-                        },
-                        cancel: {
-                            visible: true,
-                            className: 'btn btn-danger'
-                        }
-                    }
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Ubah data!',
+                cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result) {
                         $('#updateButton').html(

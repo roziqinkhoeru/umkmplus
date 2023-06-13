@@ -204,13 +204,8 @@
             submitHandler: function(form, event) {
                 event.preventDefault();
                 var formData = new FormData(form);
-                // Melintasi setiap pasangan key-value dalam FormData
-                formData.forEach(function(value, key) {
-                    console.log(key, value);
-                })
                 $('#updateButton').html('<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                 $('#updateButton').prop('disabled', true);
-                console.log("Token yang dikirim: " + "{{ csrf_token() }}");
 
                 $.ajax({
                     url: "{{ route('mentor.module.update', [$course->slug, $module->slug]) }}",
@@ -241,7 +236,6 @@
                     error: function(xhr, status, error) {
                         $('#updateButton').html('Ubah');
                         $('#updateButton').prop('disabled', false);
-                        console.log("Token yang diterima oleh server: " + xhr.getResponseHeader(
                             'X-CSRF-TOKEN'));
 
                         if (xhr.responseJSON)

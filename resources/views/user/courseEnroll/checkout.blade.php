@@ -168,7 +168,7 @@
                         $('#referral-button').html(
                             `<i class="fa-regular fa-tags text-xl"
                                                     style="transform: translateY(4px);color: #031220"></i>`
-                        );
+                        ).prop("disabled", true);
                         $('#referral').prop("disabled", true);
                         $("#discountReferralLabel").html(`Discount Referral`);
 

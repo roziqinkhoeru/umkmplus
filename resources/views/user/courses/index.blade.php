@@ -180,15 +180,10 @@
                 `<div class="text-center text-4xl col-span-full pt-100 pb-65"><i class="fas fa-spinner-third spinners-3"></i></div>`
             );
             let search = "";
-            console.log(device);
             if (device == "desktop") {
-                console.log('desktop');
-                // console.log($("#searchCourseDesktop").val());
                 $("#searchCourseMobile").val("");
                 search = $("#searchCourseDesktop").val();
             } else if (device == "mobile") {
-                console.log('mobile');
-                // console.log($("#searchCourseMobile").val());
                 $("#searchCourseDesktop").val("");
                 search = $("#searchCourseMobile").val();
             } else {

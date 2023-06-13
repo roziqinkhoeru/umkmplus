@@ -140,7 +140,6 @@
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseJSON);
                         // Tindakan yang dilakukan ketika permintaan gagal
                         $('#addButton').html('Kirim');
                         $('#addButton').prop('disabled', false);

@@ -68,7 +68,6 @@
                         window.location.href = response.data.redirect
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr);
                         $('#loginButton').html('Masuk');
                         $('#loginButton').prop('disabled', false);
                         if (xhr.responseJSON)
