@@ -52,7 +52,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'gender' => $request->gender,
-            'profile_picture' => 'profile/mentor-1.jpg',
+            'profile_picture' => 'profile/profile-placeholder.png',
             'slug' => str_replace(' ', '-', $request->name)
         ]);
 
