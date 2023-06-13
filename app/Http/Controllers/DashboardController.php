@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
 use App\Models\Cart;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Course;
-use App\Models\CourseEnroll;
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Testimonial;
-use App\Models\User;
+use App\Models\CourseEnroll;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
@@ -129,7 +130,6 @@ class DashboardController extends Controller
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required',
-                'gender' => 'required',
             ];
         } else {
             $rules = [
@@ -138,7 +138,6 @@ class DashboardController extends Controller
                 'phone' => 'required|numeric',
                 'address' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id,
-                'gender' => 'required',
             ];
         }
         $validator = Validator::make($request->all(), $rules);
@@ -173,7 +172,6 @@ class DashboardController extends Controller
                 'gender' => $request->gender,
                 'phone' => $request->phone,
                 'address' => $request->address,
-                'gender' => $request->gender,
             ]);
 
             if (!$updateCustomer) {
@@ -195,6 +193,73 @@ class DashboardController extends Controller
                     'profile' => $profile,
                 ],
                 'Berhasil mengubah data profile'
+            );
+        } catch (\Exception $e) {
+            return ResponseFormatter::error(
+                [
+                    'error' => $e->getMessage(),
+                ],
+                $e->getMessage(),
+                400
+            );
+        }
+    }
+
+    public function updatePhotoProfile(Request $request)
+    {
+        $user = Auth::user();
+        $customer = $user->customer;
+        $rules = [
+            'profileImage' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'error' => $validator->errors()->first(),
+                ],
+                "Photo profile tidak sesuai",
+                400
+            );
+        }
+
+        try {
+            DB::beginTransaction();
+            // check if photo profile is default
+            if ($customer->profile_picture != 'profile/profile-placeholder.png' || $customer->profile_picture != 'profile/mentor-1.jpg') {
+                // Delete file photo profile before
+                $exists = Storage::disk('public')->exists($customer->profile_picture);
+                if ($exists) {
+                    Storage::disk('public')->delete($customer->profile_picture);
+                }
+            }
+            $profile_picture = $request->file('profileImage');
+            $profile_picture_path = $profile_picture->store('profile', 'public');
+
+            $updateUser = $customer->update([
+                'profile_picture' => $profile_picture_path,
+            ]);
+
+            if (!$updateUser) {
+                DB::rollBack();
+                return ResponseFormatter::error(
+                    [
+                        'error' => 'Gagal mengubah photo profile',
+                    ],
+                    'Gagal mengubah photo profile',
+                    400
+                );
+            }
+
+            DB::commit();
+            $profile_picture_update = Customer::where('id', $customer->id)->first()->profile_picture;
+
+            return ResponseFormatter::success(
+                [
+                    'profile_picture' => $profile_picture_update,
+                ],
+                'Berhasil mengubah photo profile'
             );
         } catch (\Exception $e) {
             return ResponseFormatter::error(

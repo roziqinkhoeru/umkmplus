@@ -67,6 +67,13 @@
     <title>{{ $title }}</title>
 </head>
 
+{{-- condition: profile user not complete yet --}}
+@if (Auth::check())
+    @if (auth()->user()->customer->phone == "00000000000" || auth()->user()->customer->address == null || auth()->user()->customer->gender == null)
+
+    @endif
+@endif
+
 <body>
     {{-- pre loader area start --}}
     <div id="loading">

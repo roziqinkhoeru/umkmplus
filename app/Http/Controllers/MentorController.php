@@ -457,6 +457,72 @@ class MentorController extends Controller
         }
     }
 
+    public function mentorUpdatePhotoProfile(Request $request)
+    {
+        $user = Auth::user();
+        $customer = $user->customer;
+        $rules = [
+            'photo_profile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'error' => $validator->errors()->first(),
+                ],
+                "Photo profile tidak sesuai",
+                400
+            );
+        }
+
+        try {
+            DB::beginTransaction();
+            // check if photo profile is default
+            if ($customer->profile_picture != 'profile/profile-placeholder.png' || $customer->profile_picture != 'profile/mentor-1.jpg') {
+                // Delete file photo profile before
+                $exists = Storage::disk('public')->exists($customer->profile_picture);
+                if ($exists) {
+                    Storage::disk('public')->delete($customer->profile_picture);
+                }
+            }
+            $photo_profile = $request->file('photo_profile');
+            $photo_profile_path = $photo_profile->store('profile', 'public');
+
+            $updateUser = $customer->update([
+                'photo_profile' => $photo_profile_path,
+            ]);
+
+            if (!$updateUser) {
+                DB::rollBack();
+                return ResponseFormatter::error(
+                    [
+                        'error' => 'Gagal mengubah photo profile',
+                    ],
+                    'Gagal mengubah photo profile',
+                    400
+                );
+            }
+
+            DB::commit();
+            $profile = User::with('customer')->where('id', $user->id)->first();
+
+            return ResponseFormatter::success(
+                [
+                    'profile' => $profile,
+                ],
+                'Berhasil mengubah photo profile'
+            );
+        } catch (\Exception $e) {
+            return ResponseFormatter::error(
+                [
+                    'error' => $e->getMessage(),
+                ],
+                $e->getMessage(),
+                400
+            );
+        }
+    }
     public function mentorEditPassword()
     {
         $data = [

@@ -284,7 +284,6 @@
                 type: "GET",
                 dataType: "JSON",
                 success: function(response) {
-                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="profile__info" id="profileInfo">
                                 <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
@@ -623,7 +622,6 @@
                 url: "{{ route('get.profile.transaction.history') }}",
                 dataType: "JSON",
                 success: function(response) {
-                    console.log(response.data);
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="order__info">
                                 <div
@@ -858,5 +856,90 @@
                 }
             });
         }
+
+
+        // Menambahkan aturan validasi kustom untuk ukuran maksimum file
+        $.validator.addMethod('maxfilesize', function(value, element, param) {
+            var maxSize = param;
+
+            if (element.files.length > 0) {
+                var fileSize = element.files[0].size; // Ukuran file dalam byte
+                return fileSize <= maxSize;
+            }
+
+            return true;
+        }, '');
+
+        // change profile picture
+        $("#formUpdateProfileImage").validate({
+            rules: {
+                profileImage: {
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    maxfilesize: 3 * 1024 * 1024, // 3MB (dalam byte),
+                },
+            },
+            messages: {
+                profileImage: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>File tidak boleh kosong',
+                    extension: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>File harus berupa gambar (jpg, jpeg, png)',
+                    maxfilesize: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Ukuran file maksimal 3MB',
+                },
+            },
+            submitHandler: function(form) {
+                $('#updateProfileImageButton').html(
+                    '<i class="fas fa-circle-notch text-lg spinners-2"></i>'
+                );
+                $('#updateProfileImageButton').prop('disabled', true);
+                var formData = new FormData(form);
+                $.ajax({
+                    url: "{{ route('update.photo.profile') }}",
+                    type: "POST",
+                        processData: false,
+                        contentType: false,
+                    data: formData,
+                    success: function(response) {
+                        $('#updateProfileImageButton').html(
+                            'Ubah');
+                        $('#updateProfileImageButton').prop('disabled',
+                            false);
+                        $('#image_profile_edit_modal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'UBAH FOTO PROFIL BERHASIL!',
+                            text: response.meta.message,
+                        })
+                        $("#photoProfile").attr('src', `{{ asset('storage/${response.data.profile_picture}') }}`);
+                        $("#imagePreview").attr('src', `{{ asset('storage/${response.data.profile_picture}') }}`);
+                        getContent('profile');
+                    },
+                    error: function(xhr, status, error) {
+                        $('#updateProfileImageButton').html(
+                            'Ubah');
+                        $('#updateProfileImageButton').prop('disabled',
+                            false);
+                        if (xhr.responseJSON) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'UBAH FOTO PROFIL GAGAL!',
+                                text: xhr.responseJSON.meta
+                                    .message + ", Error: " +
+                                    xhr
+                                    .responseJSON.data
+                                    .error,
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'UBAH FOTO PROFIL GAGAL!',
+                                text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
+                                    error,
+                            })
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
     </script>
 @endsection

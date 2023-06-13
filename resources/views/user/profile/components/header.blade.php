@@ -7,7 +7,7 @@
                     <div class="profile__basic d-md-flex align-items-center">
                         <div class="profile__basic-thumb mr-30">
                             <img src="{{ asset('storage/' . $profile->profile_picture) }}"
-                                alt="{{ $profile->user->username }}-user-profile" class="object-cover-center">
+                                alt="{{ $profile->user->username }}-user-profile" class="object-cover-center" id="photoProfile">
                         </div>
                         <div class="profile__basic-content">
                             <h3 class="profile__basic-title" id="titleProfileName">
@@ -47,13 +47,13 @@
                     <button type="button" class="profile__edit-close-btn" data-bs-toggle="modal"
                         data-bs-target="#course_enroll_modal"><i class="fa-light fa-xmark"></i></button>
                 </div>
-                <form action="#" method="POST" id="formUpdateProfileImage">
+                <form action="#" method="POST" id="formUpdateProfileImage" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="profile__edit-input">
                         <p style="margin-bottom: 25px !important">Foto Profil</p>
                         <figure class="profile-image-edit-wrapper">
-                            <img src="{{ asset('assets/img/dummy/thumbnail-course.png') }}" alt="profile-image-preview"
+                            <img src="{{ asset('storage/' . $profile->profile_picture) }}" alt="profile-image-preview"
                                 id="imagePreview">
                         </figure>
                     </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-6">
                                 <button type="submit" id="updateProfileImageButton"
-                                    class="tp-btn w-100">Update</button>
+                                    class="tp-btn w-100">Ubah</button>
                             </div>
                         </div>
                     </div>
