@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Ubah Password Mentor
+                        <a href="#">Form Ubah Password Mentor</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- old password --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="old_password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Password
+                                    <label for="old_password"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Password
                                         Lama
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -52,7 +53,7 @@
                                 </div>
                                 {{-- new password --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Password
+                                    <label for="password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Password
                                         Baru
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -65,7 +66,7 @@
                                 {{-- confirm new password --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="password_confirmation"
-                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Konfrmasi Password Baru
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Konfrmasi Password Baru
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="password" name="password_confirmation" class="form-control"

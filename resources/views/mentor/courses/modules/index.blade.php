@@ -22,7 +22,13 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Data Module
+                        <a href="/mentor/course/{{ $course->slug }}">Kelas {{ $course->title }}</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Data Module</a>
                     </li>
                 </ul>
             </div>
@@ -35,7 +41,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Module Kelas {{ $course->title }}</div>
                                 <div class="card-tools">
-                                    <a href="{{ url('/mentor/course/'.$course->slug.'/module/create') }}"
+                                    <a href="{{ url('/mentor/course/' . $course->slug . '/module/create') }}"
                                         class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
@@ -51,13 +57,12 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Judul</th>
-                                            <th class="text-center">File</th>
                                             <th class="text-center">Urutan Module</th>
+                                            <th class="text-center">File</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -91,18 +96,19 @@
                             var rowData = [
                                 index + 1,
                                 module.title,
-                                `<a href="{{ asset('storage/${module.file}') }}" target="_blank" class="btn btn-warning">File</a>`,
                                 module.no_module,
-                                `<a href="/mentor/module/${module.slug}/media" class="btn btn-sm btn-primary">Media</a>
-                                <a href="/mentor/course/{{ $course->slug }}/module/${module.slug}/edit" class="btn btn-sm btn-warning">Edit</a>
+                                `<a href="{{ asset('storage/${module.file}') }}" target="_blank" class="btn btn-info btn-sm">Lihat</a>`,
+                                `<a href="/mentor/module/${module.slug}/media" class="btn btn-sm btn-primary mr-1">Media</a>
+                                <a href="/mentor/course/{{ $course->slug }}/module/${module.slug}/edit" class="btn btn-sm btn-warning mr-1">Edit</a>
                                 <button class="btn btn-sm btn-danger" onclick="deleteModule('${module.slug}')">Hapus</button>`
                             ];
-                            var rowNode = $('#moduleTable').DataTable().row.add(rowData).draw(false).node();
+                            var rowNode = $('#moduleTable').DataTable().row.add(rowData).draw(false)
+                                .node();
                             $(rowNode).find('td').eq(0).addClass('text-center');
-                            $(rowNode).find('td').eq(1).addClass('text-center');
                             $(rowNode).find('td').eq(2).addClass('text-center');
-                            $(rowNode).find('td').eq(3).addClass('text-center');
-                            $(rowNode).find('td').eq(4).addClass('text-center');
+                            $(rowNode).find('td').eq(3).addClass('text-center filter-none');
+                            $(rowNode).find('td').eq(4).addClass(
+                                'text-center filter-none space-nowrap');
 
                         });
                     } else {
@@ -128,7 +134,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `{{ url('/mentor/course/'.$course->slug.'/module/${module}') }}`,
+                        url: `{{ url('/mentor/course/' . $course->slug . '/module/${module}') }}`,
                         type: "DELETE",
                         data: {
                             _token: "{{ csrf_token() }}",

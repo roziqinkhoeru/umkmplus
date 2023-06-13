@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- fullname --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="fullname" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama Lengkap
+                                    <label for="fullname" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nama
+                                        Lengkap
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="fullname" name="fullname"
@@ -52,7 +53,7 @@
                                 </div>
                                 {{-- username --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="username" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Username
+                                    <label for="username" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Username
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -67,7 +68,8 @@
                                 </div>
                                 {{-- phone --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="phone" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                    <label for="phone" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> No
+                                        Telepon
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="phone" class="form-control" id="phone"
@@ -77,7 +79,7 @@
                                 </div>
                                 {{-- address --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Alamat
+                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Alamat
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="address" class="form-control" id="address"
@@ -87,7 +89,8 @@
                                 </div>
                                 {{-- job --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="job" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Pekerjaan
+                                    <label for="job" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
+                                        Pekerjaan
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="job" class="form-control" id="job"
@@ -97,7 +100,7 @@
                                 </div>
                                 {{-- specialist --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Spesialisasi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -113,7 +116,8 @@
                                 </div>
                                 {{-- email --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Alamat Email
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Alamat
+                                        Email
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="email" name="email" class="form-control" id="email"
@@ -123,7 +127,8 @@
                                 </div>
                                 {{-- password --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="password" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Password
+                                    <label for="password"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Password
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="password" class="form-control" id="password" name="password"

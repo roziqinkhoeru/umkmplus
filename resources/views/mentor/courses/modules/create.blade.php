@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Tambah Modul
+                        <a href="#">Form Tambah Modul</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Modul
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -54,29 +55,37 @@
                                 </div>
                                 {{-- file --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <input type="file" class="form-control form-control-file" id="file"
-                                            name="file" accept="application/pdf" required>
-                                        <label for="file" class="label-input-file btn btn-black btn-round mt-2">
-                                            <span class="btn-label">
-                                                <i class="fa fa-file-pdf"></i>
-                                            </span>
-                                            Upload File Info
-                                        </label>
+                                        <div class="mb-2">
+                                            <div class="d-flex flex-column flex-sm-row">
+                                                <div id="filePreview"></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-file input-file-image">
+                                            <input type="file" class="form-control form-control-file" id="file"
+                                                name="file" accept="application/pdf" required
+                                                onchange="previewFile(event)">
+                                            <label for="file" class="label-input-file btn btn-black btn-round mt-2">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-pdf"></i>
+                                                </span>
+                                                Unggah File Info
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            {{-- Submit --}}
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
-                                        <button class="btn btn-primary ml-3" id="createButton"
-                                            type="submit">Tambah</button>
+                                {{-- Submit --}}
+                                <div class="card-action">
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
+                                            <button class="btn btn-primary ml-3" id="createButton"
+                                                type="submit">Tambah</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -93,6 +102,23 @@
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        function previewFile(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+            const filePreview = document.getElementById("filePreview");
+
+            if (file) {
+                filePreview.innerHTML = `
+                                        <div class="text-sm-center">
+                                            <figure class="file-pdf-info">
+                                            <img src="{{ asset('assets/img/decoration/pdf.png') }}" alt="pdf-file-new">
+                                            </figure>
+                                            <p class="mb-0 line-clamp-max-w-320">${file.name}</p>
+                                        </div>
+                `;
+            }
+        }
+
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Username tidak boleh ada spasi");
@@ -174,7 +200,8 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'TAMBAH MODULE GAGAL!',
-                                text: xhr.responseJSON.meta.message + " Error: " + xhr.responseJSON.data.error,
+                                text: xhr.responseJSON.meta.message + " Error: " + xhr
+                                    .responseJSON.data.error,
                             })
                         else
                             Swal.fire({

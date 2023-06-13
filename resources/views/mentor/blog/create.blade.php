@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Tambah Blog
+                            Buat Blog
                         </a>
                     </li>
                 </ul>
@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Tambah Data Blog</div>
+                                <div class="card-title">Form Buat Blog</div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -114,7 +114,7 @@
                                 {{-- button --}}
                                 <div class="col-12">
                                     <div class="text-right">
-                                        <button type="submit" class="btn btn-primary" id="updateButton">Tambah</button>
+                                        <button type="submit" class="btn btn-primary" id="updateButton">Buat</button>
                                     </div>
                                 </div>
                             </form>

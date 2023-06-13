@@ -42,7 +42,7 @@
                                             <th>Nama</th>
                                             <th class="filter-none">Email</th>
                                             <th>Selesai Pada</th>
-                                            <th class="text-center">Skor</th>
+                                            <th class="text-center filter-none">Skor</th>
                                             <th class="text-center filter-none">Status</th>
                                             <th class="text-center filter-none">Aksi</th>
                                         </tr>

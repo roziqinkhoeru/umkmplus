@@ -113,6 +113,10 @@
 
 @section('script')
     <script>
+        window.onload = function() {
+            localStorage.removeItem('imageThumbnailCourse');
+        };
+
         $(document).ready(function() {
             $('#courseTable').DataTable({
                 "columnDefs": [{

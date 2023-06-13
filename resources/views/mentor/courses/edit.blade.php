@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Edit Kelas
+                        <a href="#">Form Edit Kelas</a>
                     </li>
                 </ul>
             </div>
@@ -43,7 +43,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Kelas
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Kelas
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -55,7 +56,8 @@
                                 </div>
                                 {{-- description --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="description" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Deskripsi
+                                    <label for="description"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Deskripsi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -66,7 +68,7 @@
                                 </div>
                                 {{-- category --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="category_id" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="category_id" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Kategori
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -82,66 +84,95 @@
                                 </div>
                                 {{-- price --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="price" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Harga (Rp)
+                                    <label for="price" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Harga
+                                        (Rp)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <input type="number" name="price" class="form-control" id="price"
-                                            placeholder="Masukkan Harga Kelas" value="{{ $course->price }}" required>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="price" class="form-control" id="price"
+                                                placeholder="Masukkan Harga Kelas" value="{{ $course->price }}" required>
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">.00</span>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- thumbnail --}}
                                 <div class="form-group form-show-validation row">
                                     <label for="thumbnail"
-                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Thumbnail<span
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Thumbnail<span
                                             class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <img class="img-upload-preview" width="240" src="{{ asset('storage/'.$course->thumbnail) }}"
-                                            alt="image-{{ $course->title }}" id="imagePreview">
-                                        <input type="file" class="form-control form-control-file" id="thumbnail"
-                                            onchange="previewImage(event)" name="thumbnail" accept="image/*">
-                                        <label for="thumbnail" class="label-input-file btn btn-black btn-round mt-2">
-                                            <span class="btn-label">
-                                                <i class="fa fa-file-image"></i>
-                                            </span>
-                                            Upload Thumbnail
-                                        </label>
+                                        <div class="input-file input-file-image">
+                                            <img class="img-upload-preview" width="240"
+                                                src="{{ asset('storage/' . $course->thumbnail) }}" alt="course-thumbnail"
+                                                id="imagePreview">
+                                            <input type="file" class="form-control form-control-file" id="thumbnail"
+                                                name="thumbnail" accept="image/*" required onchange="previewImage(event)">
+                                            <label for="thumbnail" class="label-input-file btn btn-black btn-round mt-2">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-image"></i>
+                                                </span>
+                                                Unggah Thumbnail
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- file_info --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file_info" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file_info" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        @if ($course->file_info)
-                                            <div>
-                                                <a href="{{ asset('storage/' . $course->file_info) }}" target="_blank"
-                                                    class="mb-2">File sebelum</a>
+                                        <div class="mb-2">
+                                            <div class="d-flex flex-column flex-sm-row">
+                                                @if ($course->file_info)
+                                                    <div class="mr-0 mr-sm-5 mb-4 mb-sm-0 mt-3 mt-sm-0">
+                                                        <div class="text-sm-center">
+                                                            <figure class="file-pdf-info">
+                                                                <img src="{{ asset('assets/img/decoration/pdf.png') }}"
+                                                                    alt="pdf-file-old">
+                                                            </figure>
+                                                            <a href="{{ asset('storage/' . $course->file_info) }}"
+                                                                target="_blank" class="mb-0">File sebelum</a>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                <div id="filePreview"></div>
                                             </div>
-                                        @endif
-                                        <input type="file" class="form-control form-control-file" id="file_info"
-                                            name="file_info" accept="application/pdf">
-                                        <label for="file_info" class="label-input-file btn btn-black btn-round mt-2">
-                                            <span class="btn-label">
-                                                <i class="fa fa-file-pdf"></i>
-                                            </span>
-                                            Upload File Info
-                                        </label>
+                                        </div>
+                                        <div class="input-file input-file-image">
+                                            <input type="file" class="form-control form-control-file" id="file_info"
+                                                name="file_info" accept="application/pdf" required
+                                                onchange="previewFile(event)">
+                                            <label for="file_info" class="label-input-file btn btn-black btn-round mt-2">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-pdf"></i>
+                                                </span>
+                                                Upload File Info
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- discount --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Diskon
+                                    <label for="discount" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Diskon
                                         Kelas (%)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <input type="number" name="discount" class="form-control" id="discount"
-                                            min="0" max="100" placeholder="Masukkan Diskon Kelas"
-                                            value="{{ $course->discount }}" required>
+                                        <div class="input-group mb-3">
+                                            <input type="number" name="discount" class="form-control" id="discount"
+                                                min="0" max="100" placeholder="Masukkan Diskon Kelas"
+                                                value="{{ $course->discount }}" required>
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">%</span>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- google_form --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="google_form" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Link
+                                    <label for="google_form" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Link
                                         Google Form
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -181,17 +212,31 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function previewImage(event) {
-            var input = event.target;
-            var preview = document.getElementById('imagePreview');
+            const imagePreview = document.getElementById('imagePreview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            };
 
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                };
+            reader.readAsDataURL(file);
+        }
 
-                reader.readAsDataURL(input.files[0]);
+        function previewFile(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+            const filePreview = document.getElementById("filePreview");
+
+            if (file) {
+                filePreview.innerHTML = `
+                                        <div class="text-sm-center">
+                                            <figure class="file-pdf-info">
+                                            <img src="{{ asset('assets/img/decoration/pdf.png') }}" alt="pdf-file-new">
+                                            </figure>
+                                            <p class="mb-0 line-clamp-max-w-320">${file.name}</p>
+                                        </div>
+                `;
             }
         }
 

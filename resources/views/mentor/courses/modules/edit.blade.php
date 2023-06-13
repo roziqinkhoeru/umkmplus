@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Edit Modul
+                        <a href="#">Form Edit Modul</a>
                     </li>
                 </ul>
             </div>
@@ -43,7 +43,8 @@
                             <div class="card-body">
                                 {{-- title --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Judul Modul
+                                    <label for="title" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Judul
+                                        Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -55,28 +56,42 @@
                                 </div>
                                 {{-- file --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File
+                                    <label for="file" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">File
                                         Info<span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        @if ($module->file)
-                                            <div>
-                                                <a href="{{ asset('storage/' . $module->file) }}" target="_blank"
-                                                    class="mb-2">File sebelum</a>
+                                        <div class="mb-2">
+                                            <div class="d-flex flex-column flex-sm-row">
+                                                @if ($module->file)
+                                                    <div class="mr-0 mr-sm-5 mb-4 mb-sm-0 mt-3 mt-sm-0">
+                                                        <div class="text-sm-center">
+                                                            <figure class="file-pdf-info">
+                                                                <img src="{{ asset('assets/img/decoration/pdf.png') }}"
+                                                                    alt="pdf-file-old">
+                                                            </figure>
+                                                            <a href="{{ asset('storage/' . $module->file) }}"
+                                                                target="_blank" class="mb-0">File sebelum</a>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                <div id="filePreview"></div>
                                             </div>
-                                        @endif
-                                        <input type="file" class="form-control form-control-file" id="file"
-                                            name="file" accept="application/pdf">
-                                        <label for="file" class="label-input-file btn btn-black btn-round mt-2">
-                                            <span class="btn-label">
-                                                <i class="fa fa-file-pdf"></i>
-                                            </span>
-                                            Upload File Info
-                                        </label>
+                                        </div>
+                                        <div class="input-file input-file-image">
+                                            <input type="file" class="form-control form-control-file" id="file"
+                                                name="file" accept="application/pdf" required
+                                                onchange="previewFile(event)">
+                                            <label for="file" class="label-input-file btn btn-black btn-round mt-2">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-pdf"></i>
+                                                </span>
+                                                Unggah File Info
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- no_module --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="no_module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Urutan
+                                    <label for="no_module" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Urutan
                                         Modul
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
@@ -114,6 +129,23 @@
         integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        function previewFile(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+            const filePreview = document.getElementById("filePreview");
+
+            if (file) {
+                filePreview.innerHTML = `
+                                        <div class="text-sm-center">
+                                            <figure class="file-pdf-info">
+                                            <img src="{{ asset('assets/img/decoration/pdf.png') }}" alt="pdf-file-new">
+                                            </figure>
+                                            <p class="mb-0 line-clamp-max-w-320">${file.name}</p>
+                                        </div>
+                `;
+            }
+        }
+
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Username tidak boleh ada spasi");

@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/Withdraw">Data Withdraw</a>
+                        <a href="/mentor/withdraw">Data Withdraw</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -118,7 +118,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

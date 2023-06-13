@@ -8,7 +8,7 @@
                 <h4 class="page-title">Ubah Mentor</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,13 +16,13 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/mentor">Data Mentor</a>
+                        <a href="{{ route('mentor.profile') }}">Profil Mentor</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Ubah Mentor
+                        <a href="#">Form Ubah Mentor</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +42,8 @@
                             <div class="card-body">
                                 {{-- name --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Nama Lengkap
+                                    <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Nama
+                                        Lengkap
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" class="form-control" id="name" name="name"
@@ -51,7 +52,7 @@
                                 </div>
                                 {{-- username --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="username" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Username
+                                    <label for="username" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Username
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-group">
@@ -66,7 +67,8 @@
                                 </div>
                                 {{-- phone --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="phone" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                    <label for="phone" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> No
+                                        Telepon
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="phone" class="form-control" id="phone"
@@ -75,7 +77,7 @@
                                 </div>
                                 {{-- dob --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="dob" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Tanggal
+                                    <label for="dob" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Tanggal
                                         Lahir
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -86,7 +88,8 @@
                                 </div>
                                 {{-- gender --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="gender" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> No Telepon
+                                    <label for="gender" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> No
+                                        Telepon
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <select class="form-control w-100 h-52" aria-label="Default select example"
@@ -100,7 +103,7 @@
                                 </div>
                                 {{-- address --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Alamat
+                                    <label for="address" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right"> Alamat
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="address" class="form-control" id="address"
@@ -109,7 +112,8 @@
                                 </div>
                                 {{-- job --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="job" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Pekerjaan
+                                    <label for="job" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
+                                        Pekerjaan
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <input type="text" name="job" class="form-control" id="job"
@@ -118,7 +122,8 @@
                                 </div>
                                 {{-- about --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="about" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right"> Tentang
+                                    <label for="about" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
+                                        Tentang
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <textarea name="about" class="form-control" id="about" rows="5" maxlength="400"
@@ -127,7 +132,7 @@
                                 </div>
                                 {{-- specialist --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
+                                    <label for="specialist" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">
                                         Spesialisasi
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
@@ -143,7 +148,7 @@
                                 </div>
                                 {{-- email --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Alamat
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Alamat
                                         Email
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">

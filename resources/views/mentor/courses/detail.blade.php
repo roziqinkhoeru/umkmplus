@@ -5,7 +5,7 @@
         <div class="page-inner">
             {{-- header --}}
             <div class="page-header">
-                <h4 class="page-title">Kelas</h4>
+                <h4 class="page-title">Detail Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="{{ route('mentor.dashboard') }}">
@@ -111,22 +111,16 @@
                                                     {{ Str::upper($course->status) }}
                                                 </span></td>
                                         </tr>
-                                        <tr>
-                                            <td>Aksi</td>
-                                            <td class="text-right">
-                                                :
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('mentor.module', $course->slug) }}"
-                                                    class="btn btn-primary">Modul</a>
-                                                <a href="{{ route('mentor.course.edit', $course->slug) }}"
-                                                    class="btn btn-warning">Edit</a>
-                                                <button onclick="deleteCourse('{{ $course->slug }}')"
-                                                    class="btn btn-danger" id="deleteCourse">Hapus</button>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
+                                <div class="mt-5 mb-2 text-right">
+                                    <a href="{{ route('mentor.module', $course->slug) }}"
+                                        class="btn btn-primary btn-sm mr-2">Modul</a>
+                                    <a href="{{ route('mentor.course.edit', $course->slug) }}"
+                                        class="btn btn-warning btn-sm mr-2">Edit</a>
+                                    <button onclick="deleteCourse('{{ $course->slug }}')" class="btn btn-danger btn-sm"
+                                        id="deleteCourse">Hapus</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,13 +217,12 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Nama Siswa</th>
-                                            <th>Testimoni</th>
+                                            <th class="filter-none">Testimoni</th>
                                             <th>Rating</th>
-                                            <th class="text-center filter-none">Status</th>
+                                            <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -244,6 +237,12 @@
     <script>
         $(document).ready(function() {
             $('#courseTable').DataTable({
+                "columnDefs": [{
+                    "targets": 'filter-none',
+                    "orderable": false,
+                }]
+            });
+            $('#testimonialTable').DataTable({
                 "columnDefs": [{
                     "targets": 'filter-none',
                     "orderable": false,
@@ -298,14 +297,30 @@
                 success: function(response) {
                     if (response.data.testimonials.length > 0) {
                         $.each(response.data.testimonials, function(index, testimonial) {
-                            var rowData = [
+                            let rowData = [
                                 index + 1,
                                 testimonial.course_enroll.student.name,
                                 testimonial.testimonial,
                                 testimonial.rating,
                                 testimonial.status,
                             ];
-                            $('#testimonialTable').DataTable().row.add(rowData).draw(false);
+                            let rowNode = $('#testimonialTable').DataTable().row.add(rowData).draw(
+                                false).node();
+
+                            $(rowNode).find('td').eq(0).addClass('text-center');
+
+                            let statusCell = $(rowNode).find('td').eq(4);
+                            statusCell.addClass('text-center text-capitalize');
+
+                            if (testimonial.status === 'sembunyikan') {
+                                statusCell.html(
+                                    `<span class="badge badge-ditolak"><i class="fas fa-circle" style="font-size: 10px"></i> ${testimonial.status}</span>`
+                                );
+                            } else if (testimonial.status === 'ditampilkan') {
+                                statusCell.html(
+                                    `<span class="badge badge-diterima"><i class="fas fa-circle" style="font-size: 10px"></i> ${testimonial.status}</span>`
+                                );
+                            }
                         });
                     } else {
                         console.log("Data Kosong");
