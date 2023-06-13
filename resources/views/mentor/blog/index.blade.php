@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/blog">Data Blog</a>
+                        <a href="#">Data Blog</a>
                     </li>
                 </ul>
             </div>
