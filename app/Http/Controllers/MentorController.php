@@ -199,6 +199,7 @@ class MentorController extends Controller
                 'address' => $request->address,
                 'job' => $request->job,
                 'profile_picture' => 'profile/profile-placeholder.png', // default profile photo
+                'dob' => null
             ]);
 
             if (!$customer) {
@@ -208,7 +209,7 @@ class MentorController extends Controller
             // create data mentor
             $mentor = Mentor::create([
                 'customer_id' => $customer->id,
-                'file_cv' => $request->file_cv,
+                'file_cv' => $mentorRegistration->file_cv,
                 'status' => 1,
             ]);
 
@@ -229,7 +230,7 @@ class MentorController extends Controller
 
             // create user
             $user = User::create([
-                'username' => $request->username,
+                'username' => Str::lower($request->username),
                 'customer_id' => $customer->id,
                 'email' => $request->email,
                 'password' => Hash::make($request->password), // Hash::make() untuk mengenkripsi password

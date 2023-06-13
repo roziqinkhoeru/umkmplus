@@ -31,7 +31,6 @@
     <script>
         // Mendengarkan event message dari iframe
         window.addEventListener('message', function(event) {
-            console.log(event);
             // Memeriksa apakah pesan berasal dari iframe formulir Google yang disematkan
             if (event.origin === 'https://docs.google.com') {
                 console.log('Pesan diterima: ');

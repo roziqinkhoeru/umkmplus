@@ -37,7 +37,7 @@
                                     alt="{{ $course->slug }}-course-thumbnail">
                                 <div class="dark-screen"></div>
                                 <div class="course__video-play">
-                                    <a href="/course-playing/courseName" class="play-btn popup-video">
+                                    <a href="https://www.youtube.com/watch?v={{ $course->modules[0]->mediaModules[0]->video_url }}" class="play-btn popup-video">
                                         <i class="fas fa-play"></i>
                                     </a>
                                 </div>
@@ -256,7 +256,6 @@
                         },
                         error: function(xhr, status, error) {
                             if (xhr.responseJSON) {
-                                console.log(xhr.responseJSON.message);
                                 if (xhr.responseJSON.message == "Unauthenticated.") {
                                     window.location.href = "{{ route('login') }}";
                                 } else {
@@ -282,7 +281,6 @@
 
         function deleteCart(cart) {
             event.preventDefault();
-            console.log(cart);
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Anda akan menghapus kelas dari keranjang!",

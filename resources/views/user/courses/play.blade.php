@@ -350,10 +350,8 @@
                         </div>
                     </div>`
                     $('#video_player').html(htmlString);
-                    console.log(response.data.beforeNoModule);
                     $(`#module_${response.data.beforeNoModule}_desktop`).removeClass("show");
                     $(`#module_${response.data.beforeNoModule}_mobile`).removeClass("show");
-                    console.log(response.data.noModule);
                     $(`#module_${response.data.noModule}_desktop`).addClass("show");
                     $(`#module_${response.data.noModule}_mobile`).addClass("show");
                 },
