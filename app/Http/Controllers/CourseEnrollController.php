@@ -120,8 +120,31 @@ class CourseEnrollController extends Controller
 
         try {
             $orderID = Str::uuid()->toString();
+            // check if course is free
+            if ($course->price == 0) {
+                $courseEnroll = CourseEnroll::create([
+                    'id' => $orderID,
+                    'student_id' => $student->id,
+                    'course_id' => $course->id,
+                    'total_price' => $course->price,
+                    'status' => 'aktif',
+                    'started_at' => Carbon::now(),
+                    'upto_no_module' => 1,
+                    'upto_no_media' => 1,
+                ]);
+                if (!$courseEnroll) {
+                    throw new Exception('Terjadi kesalahan saat membuat transaksi.');
+                }
+                DB::commit();
+                return ResponseFormatter::success(
+                    [
+                        'redirect' => url('/course/playing/' . $orderID),
+                        'message' => "Pembelian kelas berhasil"
+                    ],
+                    "Pembelian kelas berhasil"
+                );
+            } else if ($request->discountID) {
             // check if student use the referral code
-            if ($request->discountID) {
                 $discount = Discount::find($request->discountID);
                 $grossAmount = $priceCheckout - $discount->discount;
 

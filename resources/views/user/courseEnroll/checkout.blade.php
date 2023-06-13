@@ -36,12 +36,17 @@
                                     <h4 class="mb-10 text-2xl">{{ $course->title }}</h4>
                                     <p class="mb-5">Sub Total</p>
                                     <p class="mb-15 text-xl fw-bold text-green">
-                                        Rp
-                                        {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
-                                        {{-- condition::isDiscount=true --}}
-                                        <span class="text-muted text-decoration-line-through text-xs">
-                                            Rp {{ number_format($course->price, 0, ',', '.') }}
-                                        </span>
+                                        @if ($course->price == 0 || $course->discount == 100)
+                                            Gratis
+                                        @else
+                                            Rp {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
+                                        @endif
+                                        {{-- condition::price is not 0 --}}
+                                        @if ($course->price != 0)
+                                            <span class="text-muted text-decoration-line-through text-xs">
+                                                Rp {{ number_format($course->price, 0, ',', '.') }}
+                                            </span>
+                                        @endif
                                         {{-- end condition --}}
                                     </p>
                                     <hr class="mb-20">
@@ -113,8 +118,13 @@
                                         <p class="col-span-2 mb-6 text-right" id="discountReferral">
                                         </p>
                                         <p class="col-span-2 mb-30 font-semibold">Total</p>
-                                        <p class="col-span-2 mb-30 text-right fw-bold text-xl text-green" id="totalPrice">Rp
-                                            {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
+                                        <p class="col-span-2 mb-30 text-right fw-bold text-xl text-green" id="totalPrice">
+                                            @if ($course->price == 0 || $course->discount == 100)
+                                                Gratis
+                                            @else
+                                                Rp
+                                                {{ number_format($course->price - $course->discountPrice, 0, ',', '.') }}
+                                            @endif
                                         </p>
                                         <input type="hidden" name="discountID" id="discountID">
                                         <div class="mb-15 col-span-4" id="checkoutCourse">
@@ -138,10 +148,10 @@
     @section('script')
         <script>
             let optionCurrency = {
-                            style: 'currency',
-                            currency: 'IDR',
-                            maximumFractionDigits: 0
-                        }
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }
             $("#formReferral").submit(function(e) {
                 e.preventDefault();
                 $('#referral-button').html(
@@ -162,7 +172,8 @@
                         $('#referral').prop("disabled", true);
                         $("#discountReferralLabel").html(`Discount Referral`);
 
-                        let discountReferral = new Intl.NumberFormat('id-ID', optionCurrency).format(response.data
+                        let discountReferral = new Intl.NumberFormat('id-ID', optionCurrency).format(
+                            response.data
                             .priceDiscount);
                         $("#discountReferral").html(`${discountReferral}`);
                         $("#discountID").val(response.data.discount.id);

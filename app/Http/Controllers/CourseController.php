@@ -445,10 +445,9 @@ class CourseController extends Controller
         if ($course) {
             return ResponseFormatter::success(
                 [
-                    'message' => 'Kelas berhasil dibuat',
                     'redirect' => route('mentor.module.create', $course->slug)
                 ],
-                'success'
+                'Kelas berhasil dibuat'
             );
         }
 
@@ -456,7 +455,7 @@ class CourseController extends Controller
             [
                 'message' => 'Kelas gagal dibuat',
             ],
-            'error',
+            'Kelas gagal dibuat',
         );
     }
 
@@ -492,10 +491,10 @@ class CourseController extends Controller
         if ($validator->fails()) {
             return ResponseFormatter::error(
                 [
-                    'message' => 'Gagal membuat kelas',
+                    'message' => 'Gagal mengubah kelas',
                     'error' => $validator->errors()->first()
                 ],
-                'Gagal membuat kelas',
+                'Gagal mengubah kelas',
                 422
             );
         }
@@ -538,21 +537,19 @@ class CourseController extends Controller
             // 'status' => 'pending'
         ]);
 
-        dd($updateCourse);
-
         if ($updateCourse) {
             return ResponseFormatter::success(
                 [
-                    'message' => 'Kelas berhasil diupdate',
+                    'message' => 'Kelas berhasil diubah',
                     'redirect' => route('mentor.course')
                 ],
-                'Kelas berhasil diupdate'
+                'Kelas berhasil diubah'
             );
         }
 
         return ResponseFormatter::error(
             [
-                'message' => 'Kelas gagal diupdate',
+                'message' => 'Kelas gagal diubah',
             ],
             'error',
         );
