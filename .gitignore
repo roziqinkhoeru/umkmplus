@@ -3,6 +3,9 @@
 /public/build
 /public/hot
 /public/storage
+!/public/storage/blogs/blog1.png
+!/public/storage/courses/thumbnail/thumbnail-course.png
+!/public/storage/profile/mentor-1.png
 /storage/*.key
 /vendor
 .env
