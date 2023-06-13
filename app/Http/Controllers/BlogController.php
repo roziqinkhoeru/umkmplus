@@ -226,9 +226,9 @@ class BlogController extends Controller
             }
             if ($blog->thumbnail != 'blogs/blog1.png') {
                 // Delete file thumbnail before
-                $exists = Storage::disk('public')->exists('blogs/' . $blog->thumbnail);
+                $exists = Storage::disk('public')->exists($blog->thumbnail);
                 if ($exists) {
-                    Storage::disk('public')->delete('blogs/' . $blog->thumbnail);
+                    Storage::disk('public')->delete($blog->thumbnail);
                 }
             }
 

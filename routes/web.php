@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/profile/get-dashboard', 'getDashboard')->name('get.dashboard');
             Route::get('/profile/get-profile', 'getProfile')->name('get.profile');
             Route::put('/profile/update-profile', 'updateProfile')->name('update.profile');
+            Route::put('/profile/update-photo-profile', 'updatePhotoProfile')->name('update.photo.profile');
             Route::get('/profile/get-courses', 'getCourseProfile')->name('get.profile.course');
             Route::get('/profile/get-transaction-history', 'getTransactionHistory')->name('get.profile.transaction.history');
             Route::put('/profile/change-password', 'changePassword')->name('profile.change.password');
