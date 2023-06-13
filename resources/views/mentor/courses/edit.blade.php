@@ -327,14 +327,14 @@
                         if (xhr.responseJSON)
                             Swal.fire({
                                 icon: 'error',
-                                title: 'TAMBAH KELAS GAGAL!',
+                                title: 'UBAH KELAS GAGAL!',
                                 text: xhr.responseJSON.meta.message + " Error: " + xhr
                                     .responseJSON.data.error,
                             })
                         else
                             Swal.fire({
                                 icon: 'error',
-                                title: 'TAMBAH KELAS GAGAL!',
+                                title: 'UBAH KELAS GAGAL!',
                                 text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
                                     error,
                             })
