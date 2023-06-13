@@ -188,7 +188,7 @@
                                         <i class="fal fa-envelope"></i>
                                     </div>
                                     <div class="offcanvas__contact-text">
-                                        <a href="mailto:umkmplussupport@gmail.com">umkmplussupport@mail.com</a>
+                                        <a href="mailto:info@umkmplus.site">info@umkmplus.site</a>
                                     </div>
                                 </li>
                             </ul>
