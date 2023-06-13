@@ -1,2 +1,11 @@
-*
 !.gitignore
+/blogs/**
+!/blogs/blog1.png
+/courses/info/*
+/courses/modules/*
+/courses/thumbnail/**
+!/courses/thumbnail/thumbnail-course.png
+/courses/cv/**
+/profile/**
+!/profile/mentor-1.jpg
+/withdraw/**
