@@ -103,3 +103,12 @@
     font-size: 10.5px !important;
     text-transform: uppercase;
 }
+
+/* COURSE */
+/* edit */
+.file-pdf-info {
+    margin-bottom: 12px;
+}
+.file-pdf-info img {
+    height: 64px;
+}

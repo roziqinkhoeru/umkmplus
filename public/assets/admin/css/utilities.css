@@ -317,6 +317,14 @@ label.error {
     -o-transform: translateX(0px);
     -webkit-animation: float2 10s ease-out infinite;
 }
+.line-clamp-max-w-320 {
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
 .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
