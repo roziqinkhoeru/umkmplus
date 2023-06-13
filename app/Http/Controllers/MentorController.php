@@ -198,7 +198,7 @@ class MentorController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'job' => $request->job,
-                'profile_picture' => 'profile/mentor-1.jpg', // default profile photo
+                'profile_picture' => 'profile/profile-placeholder.png', // default profile photo
             ]);
 
             if (!$customer) {
