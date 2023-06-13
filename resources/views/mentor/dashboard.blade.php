@@ -127,6 +127,7 @@
         </script>
     @endforeach
     <script>
+        const newCategoryName = categoryName.map(category => category.replace('&amp;', '&'));
         //Notify
         $.notify({
             icon: 'flaticon-alarm-1',
@@ -144,7 +145,7 @@
         // category chart
         // data
         const categoryData = {
-            labels: categoryName,
+            labels: newCategoryName,
             datasets: [{
                 data: countCourseCategory,
                 backgroundColor: [
