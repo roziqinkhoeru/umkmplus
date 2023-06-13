@@ -22,7 +22,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Ubah Hasil Kelas Siswa
+                        <a href="#">Form Ubah Hasil Kelas Siswa</a>
                     </li>
                 </ul>
             </div>
