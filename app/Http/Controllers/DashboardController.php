@@ -210,7 +210,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $customer = $user->customer;
         $rules = [
-            'photo_profile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'profileImage' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -227,18 +227,18 @@ class DashboardController extends Controller
         try {
             DB::beginTransaction();
             // check if photo profile is default
-            if ($customer->profile_picture != 'profile/profile-placeholder.png') {
+            if ($customer->profile_picture != 'profile/profile-placeholder.png' || $customer->profile_picture != 'profile/mentor-1.jpg') {
                 // Delete file photo profile before
                 $exists = Storage::disk('public')->exists($customer->profile_picture);
                 if ($exists) {
                     Storage::disk('public')->delete($customer->profile_picture);
                 }
             }
-            $photo_profile = $request->file('photo_profile');
-            $photo_profile_path = $photo_profile->store('profile', 'public');
+            $profile_picture = $request->file('profileImage');
+            $profile_picture_path = $profile_picture->store('profile', 'public');
 
             $updateUser = $customer->update([
-                'photo_profile' => $photo_profile_path,
+                'profile_picture' => $profile_picture_path,
             ]);
 
             if (!$updateUser) {
@@ -253,11 +253,11 @@ class DashboardController extends Controller
             }
 
             DB::commit();
-            $profile = User::with('customer')->where('id', $user->id)->first();
+            $profile_picture_update = Customer::where('id', $customer->id)->first()->profile_picture;
 
             return ResponseFormatter::success(
                 [
-                    'profile' => $profile,
+                    'profile_picture' => $profile_picture_update,
                 ],
                 'Berhasil mengubah photo profile'
             );

@@ -479,7 +479,7 @@ class MentorController extends Controller
         try {
             DB::beginTransaction();
             // check if photo profile is default
-            if ($customer->profile_picture != 'profile/profile-placeholder.png') {
+            if ($customer->profile_picture != 'profile/profile-placeholder.png' || $customer->profile_picture != 'profile/mentor-1.jpg') {
                 // Delete file photo profile before
                 $exists = Storage::disk('public')->exists($customer->profile_picture);
                 if ($exists) {
