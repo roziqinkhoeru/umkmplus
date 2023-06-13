@@ -28,7 +28,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Form Edit Media
+                        <a href="#">Form Edit Media</a>
                     </li>
                 </ul>
             </div>
@@ -67,7 +67,10 @@
                                         (Youtube)
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">https://www.youtube.com/watch?v=</span>
+                                            </div>
                                             <input type="text" class="form-control" placeholder="Masukkan Kode Video"
                                                 value="{{ $mediaModule->video_url }}" aria-label="video_url"
                                                 aria-describedby="video_url-addon" id="video_url" name="video_url" required>
@@ -80,10 +83,12 @@
                                         Video
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-8">
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
                                             <input type="number" class="form-control" placeholder="Masukkan Durasi Video"
                                                 min="1" value="{{ $mediaModule->duration }}" aria-label="duration"
                                                 aria-describedby="duration-addon" id="duration" name="duration" required>
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">menit</span>
                                         </div>
                                     </div>
                                 </div>

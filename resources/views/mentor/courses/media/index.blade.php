@@ -28,7 +28,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        Data Media
+                        <a href="#">Data Media</a>
                     </li>
                 </ul>
             </div>
@@ -57,14 +57,13 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Judul</th>
-                                            <th class="text-center">Video</th>
-                                            <th class="text-center">Durasi</th>
+                                            <th class="text-center filter-none">Video</th>
+                                            <th class="">Durasi</th>
                                             <th class="text-center">Urutan Media</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center filter-none">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -98,13 +97,19 @@
                             var rowData = [
                                 index + 1,
                                 mediaModule.title,
-                                `<a href="https://www.youtube.com/watch?v=${mediaModule.video_url}" target="_blank" class="btn btn-warning">Video</a>`,
-                                mediaModule.duration,
+                                `<a href="https://www.youtube.com/watch?v=${mediaModule.video_url}" target="_blank" class="btn btn-warning btn-sm">Lihat</a>`,
+                                `${mediaModule.duration} menit`,
                                 mediaModule.no_media,
-                                `<a href="/mentor/module/${response.data.module.slug}/media/${mediaModule.id}/edit" class="btn btn-sm btn-primary">Edit</a>
+                                `<a href="/mentor/module/${response.data.module.slug}/media/${mediaModule.id}/edit" class="btn btn-sm btn-primary mr-1">Edit</a>
                                 <button class="btn btn-sm btn-danger" onclick="deleteMediaModule('${mediaModule.id}')">Hapus</button>`
                             ];
-                            $('#mediaModuleTable').DataTable().row.add(rowData).draw(false);
+                            let rowNode = $('#mediaModuleTable').DataTable().row.add(rowData).draw(
+                                false).node();
+
+                            $(rowNode).find('td').eq(0).addClass('text-center');
+                            $(rowNode).find('td').eq(2).addClass('text-center');
+                            $(rowNode).find('td').eq(4).addClass('text-center');
+                            $(rowNode).find('td').eq(5).addClass('text-center space-nowrap');
                         });
                     } else {
                         console.log("Data Kosong");
