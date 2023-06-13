@@ -211,7 +211,7 @@
 
                     let categoryName = [];
                     let totalCourse = [];
-                    $.map(response.data.statCourseCategory, function (category, index) {
+                    $.map(response.data.statCourseCategory, function(category, index) {
                         categoryName.push(category.name)
                         totalCourse.push(category.total_course)
                     });
@@ -362,8 +362,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             `);
                     $('#gender').val(response.data.customer.gender);
                     $("#formUpdateProfile").validate({
