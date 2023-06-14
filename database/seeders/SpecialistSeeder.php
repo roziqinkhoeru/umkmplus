@@ -35,6 +35,14 @@ class SpecialistSeeder extends Seeder
                 'name' => "Marketing",
                 'description' => "Marketing"
             ],
+            [
+                'name' => 'Finance',
+                'description' => 'Finance'
+            ],
+            [
+                'name' => 'Technology & E-Commerce',
+                'description' => 'Technology & E-Commerce'
+                ]
         ];
 
         foreach ($records as $record) {

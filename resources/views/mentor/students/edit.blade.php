@@ -94,6 +94,15 @@
                                             value="" required>
                                     </div>
                                 </div>
+                                {{-- certificate --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="certificate" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kirim Sertifikat
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8 d-flex">
+                                        <input type="checkbox" class="form-control" id="certificate" name="certificate"
+                                            required title="Checklist untuk menlanjutkan" style="width: 24px">
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-action">
                                 <div class="row">
@@ -121,6 +130,9 @@
                     min: 0,
                     max: 100,
                 },
+                certificate: {
+                    required: true,
+                },
             },
             messages: {
                 score: {
@@ -128,6 +140,9 @@
                     number: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Skor hanya boleh berisi angka',
                     min: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Skor minimal 0',
                     max: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Skor maksimal 100',
+                },
+                certificate: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Checklist untuk melanjutkan',
                 },
             },
             highlight: function(element) {
