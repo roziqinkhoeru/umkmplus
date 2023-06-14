@@ -80,7 +80,7 @@ class Customer extends Model
             $query->where('course_enrolls.status', 'aktif')
                 ->orWhere('course_enrolls.status', 'selesai');
         })
-        ->groupBy('customers.id')
+        ->groupBy('courses.mentor_id')
         ->orderBy('total_student', 'desc');
     }
 
