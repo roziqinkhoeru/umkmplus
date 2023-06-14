@@ -37,8 +37,9 @@
                                 Form ini digunakan untuk mengubah data mentor
                             </div>
                         </div>
-                        <form id="editMentorForm" action="#" method="POST">
+                        <form id="editMentorForm" action="#" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 {{-- name --}}
                                 <div class="form-group form-show-validation row">
@@ -158,19 +159,19 @@
                                 </div>
                                 {{-- profile picture --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="profileImage"
+                                    <label for="profilePicture"
                                         class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Foto
                                         Profil
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8">
                                         <div class="input-file input-file-image">
                                             <img class="img-upload-preview" width="240"
-                                                src="http://placehold.it/240x240" alt="profile-image-preview"
-                                                id="imagePreview">
+                                                src="{{ asset('storage/' . $mentor->profile_picture) }}"
+                                                alt="profile-image-preview" id="imagePreview">
                                             <input type="file" class="form-control form-control-file"
-                                                id="profileImage" name="profileImage" accept="image/*" required
+                                                id="profilePicture" name="profilePicture" accept="image/*" required
                                                 onchange="previewImage(event)">
-                                            <label for="profileImage"
+                                            <label for="profilePicture"
                                                 class="label-input-file btn btn-black btn-round mt-2 mr-3">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-image"></i>
@@ -199,6 +200,13 @@
 @endsection
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"
+        integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
         function previewImage(event) {
             const imagePreview = document.getElementById('imagePreview');
@@ -223,6 +231,18 @@
         $.validator.addMethod("nowhitespace", function(value, element) {
             return this.optional(element) || /^\S+$/i.test(value);
         }, "Username tidak boleh ada spasi");
+
+        // Menambahkan aturan validasi kustom untuk ukuran maksimum file
+        $.validator.addMethod('maxfilesize', function(value, element, param) {
+            var maxSize = param;
+
+            if (element.files.length > 0) {
+                var fileSize = element.files[0].size; // Ukuran file dalam byte
+                return fileSize <= maxSize;
+            }
+
+            return true;
+        }, '');
         $("#editMentorForm").validate({
             rules: {
                 name: {
@@ -267,6 +287,10 @@
                     required: true,
                     minlength: 3,
                     maxlength: 400,
+                },
+                profilePicture: {
+                    maxfilesize: 3 * 1024 * 1024, // 3MB (dalam byte)
+                    extension: 'jpg|jpeg|png',
                 },
             },
             messages: {
@@ -313,6 +337,10 @@
                     minlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tentang mentor minimal 3 karakter',
                     maxlength: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Tentang mentor maksimal 400 karakter',
                 },
+                profilePicture: {
+                    maxfilesize: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Ukuran foto maksimal 3MB',
+                    extension: '<i class="fas fa-exclamation-circle mr-1 text-sm icon-error"></i>Format foto harus jpg/jpeg/png',
+                },
             },
             highlight: function(element) {
                 $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -322,36 +350,27 @@
             },
             submitHandler: function(form, event) {
                 event.preventDefault();
+                let formData = new FormData(form);
                 Swal.fire({
                     title: 'Apakah anda yakin?',
                     text: "Anda akan mengubah data profil!",
                     icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Ubah data!',
-                cancelButtonText: 'Batal'
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Ubah data!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
-                    if (result) {
+                    if (result.isConfirmed) {
                         $('#updateButton').html(
                             '<i class="fas fa-circle-notch text-lg spinners-2"></i>');
                         $('#updateButton').prop('disabled', true);
                         $.ajax({
                             url: "{{ route('mentor.update.profile') }}",
-                            type: "PUT",
-                            data: {
-                                name: $('#name').val(),
-                                username: $('#username').val(),
-                                dob: $('#dob').val(),
-                                email: $('#email').val(),
-                                phone: $('#phone').val(),
-                                gender: $('#gender').val(),
-                                address: $('#address').val(),
-                                job: $('#job').val(),
-                                about: $('#about').val(),
-                                specialist: $('#specialist').val(),
-                                _token: "{{ csrf_token() }}"
-                            },
+                            type: "POST",
+                            processData: false,
+                            contentType: false,
+                            data: formData,
                             success: function(response) {
                                 $('#updateButton').html('Ubah');
                                 $('#updateButton').prop('disabled', false);

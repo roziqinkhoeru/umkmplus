@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
 use App\Models\Course;
-use App\Models\CourseEnroll;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\PDF;
+use App\Models\CourseEnroll;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
 
 class StudentController extends Controller
 {
@@ -39,7 +40,7 @@ class StudentController extends Controller
 
     public function mentorStudent()
     {
-        $enrolls = CourseEnroll::with('course','student.user')
+        $enrolls = CourseEnroll::with('course', 'student.user')
             ->with(['course' => function ($query) {
                 $query->withTrashed();
             }])
@@ -89,15 +90,47 @@ class StudentController extends Controller
 
     public function mentorUncompletedStudentUpdate(CourseEnroll $courseEnroll)
     {
+        $rules = [
+            'score' => 'required|numeric|min:0|max:100',
+        ];
+        $validator = validator(request()->all(), $rules);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error(
+                [
+                    'errors' => $validator->errors()->first(),
+                ],
+                'Gagal memperbarui skor',
+                422
+            );
+        }
+
         $courseEnroll->update([
             'score' => request('score'),
         ]);
+
+        $pdf = PDF::loadview('exports.pengajuan.kgb.pdf');
+
+        // Set path penyimpanan file PDF di direktori storage
+        $path = storage_path('app/public/certificates');
+
+        // Pastikan direktori penyimpanan ada
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
+        }
+
+        // Set nama file PDF
+        $fileName = $courseEnroll->student->name . '.pdf';
+
+        // Simpan file PDF ke direktori storage
+        // $pdf->save($path . '/' . $filename);
+        $filePath = $pdf->storeAs('certificates', $fileName, 'public'); // Menyimpan file di folder 'storage/app/public/cv'
 
         return ResponseFormatter::success(
             [
                 'redirect' => redirect('/mentor/student')->getTargetUrl(),
             ],
-            'Skor berhasil diperbarui'
+            'Skor berhasil diperbarui dan Sertifikat berhasil dikirimkan',
         );
     }
 }

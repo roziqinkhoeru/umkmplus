@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Course;
@@ -242,14 +243,7 @@ class DashboardController extends Controller
             ]);
 
             if (!$updateUser) {
-                DB::rollBack();
-                return ResponseFormatter::error(
-                    [
-                        'error' => 'Gagal mengubah photo profile',
-                    ],
-                    'Gagal mengubah photo profile',
-                    400
-                );
+                throw new Exception('Gagal memperbarui data foto profil.');
             }
 
             DB::commit();
@@ -262,6 +256,7 @@ class DashboardController extends Controller
                 'Berhasil mengubah photo profile'
             );
         } catch (\Exception $e) {
+            DB::rollBack();
             return ResponseFormatter::error(
                 [
                     'error' => $e->getMessage(),

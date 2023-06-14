@@ -155,9 +155,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="user-profile text-center">
-                                    <div class="name">Hizrian, 19</div>
-                                    <div class="job">Frontend Developer</div>
-                                    <div class="desc">A man who hates loneliness</div>
+                                    <div class="name">{{ $mentor->name }}</div>
+                                    <div class="job">{{ $mentor->job }}</div>
+                                    <div class="desc">{{ $mentor->about }}</div>
                                     <div class="view-profile">
                                         <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
                                             class="btn btn-secondary btn-block">Edit Profil</a>
