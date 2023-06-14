@@ -169,7 +169,7 @@
                                                 src="{{ asset('storage/' . $mentor->profile_picture) }}"
                                                 alt="profile-image-preview" id="imagePreview">
                                             <input type="file" class="form-control form-control-file"
-                                                id="profilePicture" name="profilePicture" accept="image/*" required
+                                                id="profilePicture" name="profilePicture" accept="image/*"
                                                 onchange="previewImage(event)">
                                             <label for="profilePicture"
                                                 class="label-input-file btn btn-black btn-round mt-2 mr-3">

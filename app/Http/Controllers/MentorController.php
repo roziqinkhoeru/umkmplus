@@ -417,24 +417,26 @@ class MentorController extends Controller
             if (!$updateCustomer) {
                 throw new Exception('Gagal memperbarui data profil.');
             }
-
-            // check if photo profile is default
-            if ($customer->profile_picture != 'profile/profile-placeholder.png' && $customer->profile_picture != 'profile/mentor-1.jpg') {
-                // Delete file photo profile before
-                $exists = Storage::disk('public')->exists($customer->profile_picture);
-                if ($exists) {
-                    Storage::disk('public')->delete($customer->profile_picture);
+            if ($request->profilePicture) {
+                # code...
+                // check if photo profile is default
+                if ($customer->profile_picture != 'profile/profile-placeholder.png' && $customer->profile_picture != 'profile/mentor-1.jpg') {
+                    // Delete file photo profile before
+                    $exists = Storage::disk('public')->exists($customer->profile_picture);
+                    if ($exists) {
+                        Storage::disk('public')->delete($customer->profile_picture);
+                    }
                 }
-            }
-            $profile_picture = $request->file('profilePicture');
-            $profile_picture_path = $profile_picture->store('profile', 'public');
+                $profile_picture = $request->file('profilePicture');
+                $profile_picture_path = $profile_picture->store('profile', 'public');
 
-            $updatePhotoProfile = $customer->update([
-                'profile_picture' => $profile_picture_path,
-            ]);
+                $updatePhotoProfile = $customer->update([
+                    'profile_picture' => $profile_picture_path,
+                ]);
 
-            if (!$updatePhotoProfile) {
-                throw new Exception('Gagal memperbarui data foto profil.');
+                if (!$updatePhotoProfile) {
+                    throw new Exception('Gagal memperbarui data foto profil.');
+                }
             }
 
             // update data mentor

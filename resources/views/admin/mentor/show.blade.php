@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.course') }}">
+                        <a href="{{ route('admin.mentor') }}">
                             Data Mentor
                         </a>
                     </li>
@@ -107,7 +107,7 @@
                                                 :
                                             </td>
                                             <td><span
-                                                    class="badge @switch($mentor->status)
+                                                    class="badge @switch($mentor->dataMentor->status)
                                                                     @case(1)
                                                                         badge-active
                                                                         @break
@@ -116,7 +116,7 @@
                                                                         @break
                                                                 @endswitch"><i
                                                         class="fas fa-circle" style="font-size: 10px"></i>
-                                                    {{ $mentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                                    {{ $mentor->dataMentor->status == 1 ? 'Aktif' : 'Nonaktif' }}
                                                 </span></td>
                                         </tr>
                                     </tbody>
