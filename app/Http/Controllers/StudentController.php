@@ -109,7 +109,8 @@ class StudentController extends Controller
             'score' => request('score'),
         ]);
 
-        $pdf = PDF::loadview('exports.pengajuan.kgb.pdf');
+        $pdf = PDF::loadview('mentor.exports.certificate', compact('courseEnroll'));
+        $pdf->setPaper('A4', 'landscape');
 
         // Set path penyimpanan file PDF di direktori storage
         $path = storage_path('app/public/certificates');
@@ -120,12 +121,11 @@ class StudentController extends Controller
         }
 
         // Set nama file PDF
-        $fileName = $courseEnroll->student->name . '.pdf';
+        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '.pdf';
 
         // Simpan file PDF ke direktori storage
-        // $pdf->save($path . '/' . $filename);
-        $filePath = $pdf->storeAs('certificates', $fileName, 'public'); // Menyimpan file di folder 'storage/app/public/cv'
-
+        $pdf->save($path . '/' . $fileName);
+        // $filePath = $pdf->storeAs('certificates', $fileName, 'public'); // Menyimpan file di folder 'storage/app/public/cv'
         return ResponseFormatter::success(
             [
                 'redirect' => redirect('/mentor/student')->getTargetUrl(),
