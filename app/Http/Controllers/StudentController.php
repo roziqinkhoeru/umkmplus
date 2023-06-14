@@ -121,7 +121,7 @@ class StudentController extends Controller
         }
 
         // Set nama file PDF
-        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '.pdf';
+        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '-'. $courseEnroll->student->name . '.pdf';
 
         // Simpan file PDF ke direktori storage
         $pdf->save($path . '/' . $fileName);

@@ -50,7 +50,7 @@
         </div>
         <div class="content">
             <p>
-                Telah mengikuti pelatihan pembelajaran online dengan penuh dedikasi dan berhasil menyelesaikan semua modul pembelajaran yang diberikan.
+                Telah mengikuti kelas {{ $courseEnroll->course->title }} dengan penuh dedikasi dan berhasil menyelesaikan semua modul pembelajaran yang diberikan.
             </p>
             <p>
                 Dengan ini, kami menyatakan bahwa {{ $courseEnroll->student->name }} telah memperoleh sertifikat pembelajaran yang diakui dan dihargai.
