@@ -51,13 +51,24 @@ class CartController extends Controller
     public function store(Request $request)
     {
         if (Auth::check()) {
-            $cart = Cart::create([
-                'student_id' => auth()->user()->customer_id,
-                'course_id' => $request->course_id,
-            ]);
+            // check if student already have the course
+            $checkCart = Cart::where('student_id', auth()->user()->customer_id)
+                ->where('course_id', $request->course_id)
+                ->first();
+
+            if ($checkCart) {
+                return ResponseFormatter::error([
+                    'redirect' => redirect()->route('cart.index')->getTargetUrl(),
+                ], 'Kelas sudah dimiliki', 500);
+            } else {
+                $cart = Cart::create([
+                    'student_id' => auth()->user()->customer_id,
+                    'course_id' => $request->course_id,
+                ]);
+            }
         } else {
             return ResponseFormatter::error([
-                'redirect' => redirect('/login')->getTargetUrl(),
+                'redirect' => redirect()->route('login')->getTargetUrl(),
             ], 'Gagal menambahkan ke keranjang', 500);
         }
 
