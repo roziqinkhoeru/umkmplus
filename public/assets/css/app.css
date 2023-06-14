@@ -470,6 +470,25 @@
 }
 
 /* PROFILE */
+/* header */
+.profile-image-edit-btn {
+    position: absolute;
+    bottom: -4px;
+    left: 48px;
+}
+.profile-image-edit-btn .wrapper-edit {
+    background: #dbdbdb;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* sidebar */
 .menu-logout:hover {
     color: #dc3545 !important;

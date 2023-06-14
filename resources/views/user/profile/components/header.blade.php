@@ -5,9 +5,17 @@
             <div class="row align-items-center">
                 <div class="col-xxl-8 col-md-8">
                     <div class="profile__basic d-md-flex align-items-center">
-                        <div class="profile__basic-thumb mr-30">
+                        <div class="profile__basic-thumb mr-30 position-relative">
                             <img src="{{ asset('storage/' . $profile->profile_picture) }}"
-                                alt="{{ $profile->user->username }}-user-profile" class="object-cover-center" id="photoProfile">
+                                alt="{{ $profile->user->username }}-user-profile" class="object-cover-center"
+                                id="photoProfile">
+                            <div class="profile-image-edit-btn">
+                                <div class="wrapper-edit">
+                                    <button class="profile__info-btn" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#image_profile_edit_modal"><i
+                                            class="fas fa-pen text-xs me-0"></i></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="profile__basic-content">
                             <h3 class="profile__basic-title" id="titleProfileName">
@@ -30,8 +38,6 @@
                             </a>
                         </div>
                     </div>
-                    <button class="profile__info-btn" type="button" data-bs-toggle="modal"
-                        data-bs-target="#image_profile_edit_modal"><i class="fa-regular fa-pen-to-square"></i></button>
                 </div>
             </div>
         </div>
@@ -67,8 +73,7 @@
                                     class="tp-btn w-100 btn-secondary btn-profile-photo">Edit</label>
                             </div>
                             <div class="col-6">
-                                <button type="submit" id="updateProfileImageButton"
-                                    class="tp-btn w-100">Ubah</button>
+                                <button type="submit" id="updateProfileImageButton" class="tp-btn w-100">Ubah</button>
                             </div>
                         </div>
                     </div>
