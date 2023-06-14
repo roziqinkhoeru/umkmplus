@@ -293,20 +293,37 @@ class MentorController extends Controller
         $countStudent = CourseEnroll::select(DB::raw('COUNT(*) as countStudent'))->with('course')->whereHas('course', function ($query) use ($user) {
             $query->where('mentor_id', $user->customer->id);
         })
-        ->groupBy('student_id')
-        ->get();
+            ->groupBy('student_id')
+            ->get();
         $countStudent = count($countStudent);
         $countCourse = Course::where('mentor_id', $user->customer->id)->count();
         $countBlog = Blog::where('user_id', $user->id)->count();
         $countCourseCategories = Category::withCount(['courses' => function ($query) use ($user) {
             $query->where('mentor_id', $user->customer->id);
         }])->get();
-        $revenue = CourseEnroll::with('course')->whereHas('course', function ($query) use ($user) {
+
+        // Array month
+        $bulan = range(1, 12);
+        // revenue mentor per year
+        $revenue = CourseEnroll::select(DB::raw('month(started_at) as month'), DB::raw('SUM(total_price) as total'))->with('course')->whereHas('course', function ($query) use ($user) {
             $query->where('mentor_id', $user->customer->id);
         })
-        ->whereIn('status', ['aktif', 'selesai'])
-        ->whereRaw('YEAR(created_at) = ?', [2023])
-        ->sum('total_price');
+            ->whereIn('status', ['aktif', 'selesai'])
+            ->whereYear('started_at', 2023) // Menambahkan kondisi untuk membatasi hanya tahun 2023
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->keyBy('month');
+        $revenueYear = $revenue->sum('total');
+        // Membuat array hasil penghasilan
+        $revenueMonth = [];
+        foreach ($bulan as $bln) {
+            $total = 0;
+            if (isset($revenue[$bln])) {
+                $total = $revenue[$bln]->total * 0.8;
+            }
+            $revenueMonth[$bln] = $total;
+        }
         $data = [
             'title' => 'Dashboard Mentor | Mentor UMKMPlus',
             'active' => 'dashboard',
@@ -314,7 +331,8 @@ class MentorController extends Controller
             'countCourse' => $countCourse,
             'countBlog' => $countBlog,
             'countCourseCategories' => $countCourseCategories,
-            'revenue' => $revenue * 0.8,
+            'revenueYear' => $revenueYear * 0.8,
+            'revenueMonth' => $revenueMonth,
         ];
         // dd($data);
 
@@ -480,7 +498,7 @@ class MentorController extends Controller
         try {
             DB::beginTransaction();
             // check if photo profile is default
-            if ($customer->profile_picture != 'profile/profile-placeholder.png' || $customer->profile_picture != 'profile/mentor-1.jpg') {
+            if ($customer->profile_picture != 'profile/profile-placeholder.png' && $customer->profile_picture != 'profile/mentor-1.jpg') {
                 // Delete file photo profile before
                 $exists = Storage::disk('public')->exists($customer->profile_picture);
                 if ($exists) {
