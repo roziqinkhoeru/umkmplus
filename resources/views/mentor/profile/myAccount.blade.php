@@ -157,7 +157,7 @@
                                 <div class="user-profile text-center">
                                     <div class="name">{{ $mentor->name }}</div>
                                     <div class="job">{{ $mentor->job }}</div>
-                                    <div class="desc">{{ $mentor->about }}</div>
+                                    <div class="desc">{{ $mentor->dataMentor->about }}</div>
                                     <div class="view-profile">
                                         <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
                                             class="btn btn-secondary btn-block">Edit Profil</a>
