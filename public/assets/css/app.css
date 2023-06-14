@@ -19,6 +19,13 @@
 .nav-icon-user:hover {
     color: #3d6ce7;
 }
+.tp-btn.tp-btn-3.btn-darks {
+    background: #083661 !important;
+    color: #ffffff !important;
+}
+.tp-btn.tp-btn-3.btn-darks:hover {
+    background: #031220 !important;
+}
 
 /* HOMEPAGE */
 /* header */
