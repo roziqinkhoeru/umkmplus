@@ -53,12 +53,14 @@ class DashboardController extends Controller
 
     public function getMentorPopular()
     {
-        $mentorPopulars = Customer::dataCourseStudent()
+        $mentorPopulars = Customer::mentor()
+            ->with(['dataMentor', 'specialists:name'])
+            ->withCount('mentorCourses')
             ->limit(4)
             ->get();
-        foreach ($mentorPopulars as $mentorPopular) {
-            $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentorPopular->id)->count();
-            $mentorPopular->total_course = $totalCourse;
+        foreach ($mentorPopulars as $mentor) {
+            $countStudent = Customer::countStudent($mentor->id);
+            $mentor->count_student = $countStudent;
         }
 
         return response()->json([
@@ -293,11 +295,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user()->customer;
         $transactionHistory = CourseEnroll::with('course', 'course.mentor', 'course.category')
-        ->where('student_id', $user->id)
-        ->with(['course' => function ($query) {
-            $query->withTrashed();
-        }])
-        ->orderBy('created_at', 'desc')
+            ->where('student_id', $user->id)
+            ->with(['course' => function ($query) {
+                $query->withTrashed();
+            }])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         if ($transactionHistory) {

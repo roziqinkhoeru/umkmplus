@@ -46,7 +46,7 @@ class Customer extends Model
         return $this->belongsToMany(Specialist::class, 'customer_specialists');
     }
 
-    function dataMentor()
+    public function dataMentor()
     {
         return $this->hasOne(Mentor::class, 'customer_id');
     }
@@ -57,7 +57,7 @@ class Customer extends Model
     }
     public static function scopeMentor($query)
     {
-        return $query->select('customers.id', 'customers.name','customers.slug', 'users.email', 'role_users.role_id')
+        return $query->select('customers.id', 'customers.name','customers.slug', 'users.email', 'role_users.role_id', 'customers.job', 'customers.profile_picture')
         ->with('dataMentor')
         ->leftJoin('users', 'users.customer_id', '=', 'customers.id')
         ->leftJoin('role_users', 'role_users.user_id', '=', 'users.id')

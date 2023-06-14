@@ -41,19 +41,23 @@ class MentorController extends Controller
     public function getDashboardMentor(Request $request)
     {
         if ($request->name == '') {
-            $mentors = Customer::dataCourseStudent()
+            $mentors = Customer::mentor()
+                ->with(['dataMentor', 'specialists:name'])
+                ->withCount('mentorCourses')
                 ->get();
             foreach ($mentors as $mentor) {
-                $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentor->id)->count();
-                $mentor->total_course = $totalCourse;
+                $countStudent = Customer::countStudent($mentor->id);
+                $mentor->count_student = $countStudent;
             }
         } else {
-            $mentors = Customer::dataCourseStudent()
-                ->where('customers.name', 'like', '%' . $request->name . '%')
+            $mentors = Customer::mentor()
+                ->with(['dataMentor', 'specialists:name'])
+                ->withCount('mentorCourses')
+                ->where('name', 'like', '%' . $request->name . '%')
                 ->get();
             foreach ($mentors as $mentor) {
-                $totalCourse = Customer::select('courses.id')->join('courses', 'courses.mentor_id', '=', 'customers.id')->where('customers.id', $mentor->id)->count();
-                $mentor->total_course = $totalCourse;
+                $countStudent = Customer::countStudent($mentor->id);
+                $mentor->count_student = $countStudent;
             }
         }
         return response()->json([

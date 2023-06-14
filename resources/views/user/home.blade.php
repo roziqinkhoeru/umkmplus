@@ -393,27 +393,27 @@
                         htmlString = emptyState('Maaf, mentor belum tersedia');
                     } else {
                         // success state
-                        $.map(response.data, function(mentorData, index) {
+                        $.map(response.data, function(dataMentor, index) {
                             htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/${mentorData.slug}"
+                            <a href="/mentor/${dataMentor.slug}"
                                 class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
                                 <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('storage/${mentorData.profile_picture}') }}" alt="${mentorData.slug}-mentor-profile">
+                                    <img src="{{ asset('storage/${dataMentor.profile_picture}') }}" alt="${dataMentor.slug}-mentor-profile">
                                 </div>
                                 <div class="course__content p-relative">
                                     <h5 class="course__title text-lg mb-1 text-center">
-                                        ${mentorData.name}
+                                        ${dataMentor.name}
                                     </h5>
-                                    <p class="mb-2 text-center">${mentorData.job}</p>
+                                    <p class="mb-2 text-center">${dataMentor.job}</p>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="me-3 d-flex align-items-center mb-0">
                                             <i
-                                                class="material-symbols-rounded me-2">school</i>${mentorData.total_student}<span
+                                                class="material-symbols-rounded me-2">school</i>${dataMentor.count_student}<span
                                                 class="text-gray ms-1">Students</span>
                                         </p>
                                         <p class="d-flex align-items-center mb-0">
                                             <i
-                                                class="material-symbols-rounded me-2">group</i>${mentorData.total_course}<span
+                                                class="material-symbols-rounded me-2">group</i>${dataMentor.mentor_courses_count}<span
                                                 class="text-gray ms-1">Kelas</span>
                                         </p>
                                     </div>
