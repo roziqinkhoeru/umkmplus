@@ -25,7 +25,7 @@
 
             {{-- main content --}}
             {{-- Detail Course --}}
-            <div class="row">
+            <div class="row flex-column-reverse flex-md-row">
                 {{-- mentor data --}}
                 <div class="col-md-7">
                     <div class="card">
@@ -139,17 +139,45 @@
                         </div>
                     </div>
                 </div>
-                {{-- mentor statistic (course) --}}
+                {{-- profile --}}
                 <div class="col-md-5">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title">Statistik Mentor (Data Kelas)</div>
+                    {{-- card profile --}}
+                    <div class="">
+                        <div class="card card-profile">
+                            <div class="card-header"
+                                style="background-image: url('{{ asset('assets/template/admin/img/blogpost.jpg') }}')">
+                                <div class="profile-picture">
+                                    <div class="avatar avatar-xl">
+                                        <img src="{{ asset('storage/' . auth()->user()->customer->profile_picture) }}"
+                                            alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="user-profile text-center">
+                                    <div class="name">Hizrian, 19</div>
+                                    <div class="job">Frontend Developer</div>
+                                    <div class="desc">A man who hates loneliness</div>
+                                    <div class="view-profile">
+                                        <a href="{{ route('mentor.edit.profile', $mentor->id) }}"
+                                            class="btn btn-secondary btn-block">Edit Profil</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="statisticMentorCourseChart" style="width: 50%; height: 50%"></canvas>
+                    </div>
+                    {{-- statistic mentor course --}}
+                    <div class="">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-head-row">
+                                    <div class="card-title">Statistik Mentor (Data Kelas)</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="statisticMentorCourseChart" style="width: 50%; height: 50%"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>

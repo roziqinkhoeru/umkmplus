@@ -156,6 +156,30 @@
                                             placeholder="Masukkan Email" value="{{ $mentor->user->email }}" required>
                                     </div>
                                 </div>
+                                {{-- profile picture --}}
+                                <div class="form-group form-show-validation row">
+                                    <label for="profileImage"
+                                        class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Foto
+                                        Profil
+                                        <span class="required-label">*</span></label>
+                                    <div class="col-lg-4 col-md-9 col-sm-8">
+                                        <div class="input-file input-file-image">
+                                            <img class="img-upload-preview" width="240"
+                                                src="http://placehold.it/240x240" alt="profile-image-preview"
+                                                id="imagePreview">
+                                            <input type="file" class="form-control form-control-file"
+                                                id="profileImage" name="profileImage" accept="image/*" required
+                                                onchange="previewImage(event)">
+                                            <label for="profileImage"
+                                                class="label-input-file btn btn-black btn-round mt-2 mr-3">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-file-image"></i>
+                                                </span>
+                                                Unggah Foto
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-action">
                                 <div class="row">
@@ -176,6 +200,18 @@
 
 @section('script')
     <script>
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+
         $(document).ready(function() {
             $('#dob').datetimepicker({
                 format: 'DD/MM/YYYY',
