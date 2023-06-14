@@ -83,7 +83,7 @@ class DiscountFactory extends Factory
 
         // Mentor
         if ($roleUserRecord['role_id'] == 2) {
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 2; $i++) {
                 // Discount factory
                 $discountRecord = [
                     'mentor_id' => $customer->id,
@@ -161,7 +161,7 @@ class DiscountFactory extends Factory
         // Student
         if ($roleUserRecord['role_id'] == 3) {
             // Course enroll factory
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < 2; $i++) {
                 $coursesID = Course::pluck('id')->toArray();
                 $course = Course::find($this->faker->randomElement($coursesID));
                 $courseEnrollRecord = [

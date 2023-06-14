@@ -116,7 +116,7 @@ class UserSeeder extends Seeder
         $faker = Factory::create();
 
         // course factory
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             # code...
             $courseRecord = [
                 'mentor_id' => 2,
@@ -152,7 +152,6 @@ class UserSeeder extends Seeder
                     'slug' =>  Str::lower(Str::slug($module->title, '-')),
                 ]);
                 for ($k = 1; $k < 4; $k++) {
-
                     // media module factory
                     $mediaModuleRecord = [
                         'module_id' => $module->id,

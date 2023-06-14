@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             SpecialistSeeder::class,
             UserSeeder::class,
         ]);
-        Discount::factory()->count(100)->create();
+        Discount::factory()->count(10)->create();
         $this->call([
             TestimonialSeeder::class,
             BlogSeeder::class,
