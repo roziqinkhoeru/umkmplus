@@ -38,6 +38,7 @@ class GoogleAuthController extends Controller
             } else {
                 $newCustomer = Customer::create([
                     'name' => $user->name,
+                    'profile_picture' => 'profile/profile-placeholder.png',
                     'phone' => '00000000000'
                 ]);
                 $newUser = User::create([
