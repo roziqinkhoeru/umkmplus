@@ -168,11 +168,11 @@ class UserSeeder extends Seeder
                 'id' => $faker->unique()->uuid(),
                 'student_id' => 3,
                 'course_id' => $course->id,
-                'status' => $faker->randomElement(['menunggu pembayaran', 'proses', 'aktif', 'selesai']),
+                'status' => $faker->randomElement(['menunggu pembayaran', 'aktif', 'selesai']),
                 'upto_no_module' => 1,
                 'upto_no_media' => 1,
-                'started_at' => $faker->dateTimeBetween('-1 years', '-4 months'),
-                'finished_at' => $faker->dateTimeBetween('-4 months', 'now'),
+                'started_at' => $faker->dateTimeBetween('-5 months', '-1 months'),
+                'finished_at' => $faker->dateTimeBetween('-1 months', 'now'),
                 'total_price' => $course->price,
             ];
             $courseEnroll = CourseEnroll::create($courseEnrollRecord);

@@ -100,7 +100,7 @@
                         </div>
                         <div class="card-body pb-0">
                             <div class="mb-4 mt-2">
-                                <h1>Rp {{ number_format($revenue, 0, ',', '.') }} <span class="text-base">/
+                                <h1>Rp {{ number_format($revenueYear, 0, ',', '.') }} <span class="text-base">/
                                         {{ number_format($countCourse, 0, ',', '.') }} kelas</span></h1>
                             </div>
                             <div class="pull-in">
@@ -214,8 +214,9 @@
                 pointHoverBorderWidth: 1,
                 pointRadius: 1,
                 pointHitRadius: 5,
-                data: [9800000, 6500000, 8200000, 7500000, 9800000, 8000000, 9000000, 10200000, 8500000,
-                    12500000, 7000000, 13450200
+                data: [{{ $revenueMonth[1] }}, {{ $revenueMonth[2] }}, {{ $revenueMonth[3] }}, {{ $revenueMonth[4] }},
+                {{ $revenueMonth[5] }}, {{ $revenueMonth[6] }}, {{ $revenueMonth[7] }}, {{ $revenueMonth[8] }}, {{ $revenueMonth[9] }},
+                {{ $revenueMonth[10] }}, {{ $revenueMonth[11] }}, {{ $revenueMonth[12] }}
                 ],
             }]
         }

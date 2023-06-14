@@ -171,8 +171,8 @@ class DiscountFactory extends Factory
                     'status' => $this->faker->randomElement(['menunggu pembayaran', 'proses', 'aktif', 'selesai']),
                     'upto_no_module' => 1,
                     'upto_no_media' => 1,
-                    'started_at' => $this->faker->dateTimeBetween('-1 years', '-4 months'),
-                    'finished_at' => $this->faker->dateTimeBetween('-4 months', 'now'),
+                    'started_at' => $this->faker->dateTimeBetween('-5 months', '-1 months'),
+                    'finished_at' => $this->faker->dateTimeBetween('-1 months', 'now'),
                     'total_price' => $course->price,
                 ];
                 $courseEnroll = CourseEnroll::create($courseEnrollRecord);

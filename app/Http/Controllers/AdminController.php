@@ -29,10 +29,32 @@ class AdminController extends Controller
         $countCourse = Course::count();
         $countBlog = Blog::where('user_id', $user->id)->count();
         $countCourseCategories = Category::withCount(['courses'])->get();
-        $revenue = CourseEnroll::with('course')
-        ->whereIn('status', ['aktif', 'selesai'])
-        ->whereRaw('YEAR(created_at) = ?', [2023])
-        ->sum('total_price');
+        // $revenue = CourseEnroll::with('course')
+        //     ->whereIn('status', ['aktif', 'selesai'])
+        //     ->whereRaw('YEAR(created_at) = ?', [2023])
+        //     ->sum('total_price');
+
+        // Array month
+        $bulan = range(1, 12);
+        // revenue mentor per year
+        $revenue = CourseEnroll::select(DB::raw('month(started_at) as month'), DB::raw('SUM(total_price) as total'))
+            ->with('course')
+            ->whereIn('status', ['aktif', 'selesai'])
+            ->whereYear('started_at', 2023) // Menambahkan kondisi untuk membatasi hanya tahun 2023
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->keyBy('month');
+        $revenueYear = $revenue->sum('total');
+        // Membuat array hasil penghasilan
+        $revenueMonth = [];
+        foreach ($bulan as $bln) {
+            $total = 0;
+            if (isset($revenue[$bln])) {
+                $total = $revenue[$bln]->total * 0.2;
+            }
+            $revenueMonth[$bln] = $total;
+        }
 
         $data = [
             'title' => 'Dashboard Admin | Admin UMKMPlus',
@@ -42,7 +64,8 @@ class AdminController extends Controller
             'countCourse' => $countCourse,
             'countBlog' => $countBlog,
             'countCourseCategories' => $countCourseCategories,
-            'revenue' => $revenue * 0.2,
+            'revenueYear' => $revenueYear * 0.2,
+            'revenueMonth' => $revenueMonth,
         ];
 
         return view('admin.dashboard', $data);
