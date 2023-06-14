@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Cart;
 use App\Models\Course;
 use App\Models\CourseEnroll;
 use App\Models\Customer;
@@ -282,6 +283,12 @@ class CourseEnrollController extends Controller
                         ]);
                         $mentor->balance += ($courseEnroll->total_price * 0.8);
                         $mentor->save();
+
+                        // check if course in cart
+                        $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
+                        if ($existCart) {
+                            $existCart->delete();
+                        }
                     }
                 }
             } else if ($transaction == 'settlement') {
@@ -293,6 +300,12 @@ class CourseEnrollController extends Controller
                 ]);
                 $mentor->balance += ($courseEnroll->total_price * 0.8);
                 $mentor->save();
+
+                // check if course in cart
+                $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
+                if ($existCart) {
+                    $existCart->delete();
+                }
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
             }
@@ -478,15 +491,9 @@ class CourseEnrollController extends Controller
             return redirect()->route('course.playing.test', $courseEnroll->id);
         }
 
-        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '-'. $courseEnroll->student->name . '.pdf';
+        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '-' . $courseEnroll->student->name . '.pdf';
 
         return response()->download(storage_path('app/public/certificates/' . $fileName));
-        // $data =
-        //     [
-        //         'title' => 'Sertifikat Kelas ' . $courseEnroll->title . ' | UMKM Plus',
-        //         'courseEnroll' => $courseEnroll
-        //     ];
-        // return view('testimonials.certificate', $data);
     }
 
     public function courseStudentTestimonial(CourseEnroll $courseEnroll)
