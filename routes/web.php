@@ -260,7 +260,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/mentor/student', 'mentorStudent')->name('mentor.student');
             Route::get('/mentor/un-student', 'mentorUncompletedStudent')->name('mentor.uncompleted.student');
             Route::get('/mentor/un-student/{courseEnroll:id}', 'mentorUncompletedStudentEdit')->name('mentor.uncompleted.student.edit');
-            Route::put('/mentor/un-student/{courseEnroll}', 'mentorUncompletedStudentUpdate')->name('mentor.uncompleted.student.update');
+            Route::put('/mentor/un-student/{courseEnroll:id}', 'mentorUncompletedStudentUpdate')->name('mentor.uncompleted.student.update');
         });
         // Blog
         Route::controller(BlogController::class)->group(function () {

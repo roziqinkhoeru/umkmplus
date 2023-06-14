@@ -144,7 +144,7 @@ class CourseEnrollController extends Controller
                     "Pembelian kelas berhasil"
                 );
             } else if ($request->discountID) {
-            // check if student use the referral code
+                // check if student use the referral code
                 $discount = Discount::find($request->discountID);
                 $grossAmount = $priceCheckout - $discount->discount;
 
@@ -477,15 +477,16 @@ class CourseEnrollController extends Controller
         } else if ($courseEnroll->score == 0) {
             return redirect()->route('course.playing.test', $courseEnroll->id);
         }
-        $data =
-            [
-                'title' => 'Sertifikat Kelas ' . $courseEnroll->title . ' | UMKM Plus',
-                'courseEnroll' => $courseEnroll
-            ];
 
-        dd($data);
+        $fileName = 'UMKMPlus-' . $courseEnroll->course->title . '-'. $courseEnroll->student->name . '.pdf';
 
-        return view('testimonials.certificate', $data);
+        return response()->download(storage_path('app/public/certificates/' . $fileName));
+        // $data =
+        //     [
+        //         'title' => 'Sertifikat Kelas ' . $courseEnroll->title . ' | UMKM Plus',
+        //         'courseEnroll' => $courseEnroll
+        //     ];
+        // return view('testimonials.certificate', $data);
     }
 
     public function courseStudentTestimonial(CourseEnroll $courseEnroll)

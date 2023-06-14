@@ -72,7 +72,7 @@ class Customer extends Model
 
     public static function scopeDataCourseStudent($query)
     {
-        return $query->select('customers.id', 'customers.name', 'customers.profile_picture', 'customers.job', 'customers.slug', DB::raw('count(course_enrolls.id) as total_student'))
+        return $query->select('customers.name', 'customers.profile_picture', 'customers.job', 'customers.slug', DB::raw('count(course_enrolls.id) as total_student'))
         ->with(['dataMentor', 'specialists:name'])
         ->leftJoin('courses', 'courses.mentor_id', '=', 'customers.id')
         ->leftJoin('course_enrolls', 'course_enrolls.course_id', '=', 'courses.id')
@@ -80,7 +80,7 @@ class Customer extends Model
             $query->where('course_enrolls.status', 'aktif')
                 ->orWhere('course_enrolls.status', 'selesai');
         })
-        ->groupBy('customers.id')
+        ->groupBy('courses.mentor_id')
         ->orderBy('total_student', 'desc');
     }
 
