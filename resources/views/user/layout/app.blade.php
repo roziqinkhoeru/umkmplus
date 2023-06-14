@@ -67,13 +67,6 @@
     <title>{{ $title }}</title>
 </head>
 
-{{-- condition: profile user not complete yet --}}
-@if (Auth::check())
-    @if (auth()->user()->customer->phone == "00000000000" || auth()->user()->customer->address == null || auth()->user()->customer->gender == null)
-
-    @endif
-@endif
-
 <body>
     {{-- pre loader area start --}}
     <div id="loading">
@@ -97,6 +90,41 @@
     {{-- back to top end --}}
 
     @include('user.components.navbar')
+    {{-- condition: profile user not complete yet --}}
+    @if (Auth::check())
+        @if (auth()->user()->customer->phone == '00000000000' ||
+                auth()->user()->customer->address == null ||
+                auth()->user()->customer->gender == null)
+            <section class="pt-20 pb-20" style="background: #6151FB">
+                <div class="container">
+                    <div class="d-flex align-items-lg-center justify-content-between flex-column flex-lg-row">
+                        <div class="mb-3 mb-lg-0">
+                            <div class="d-flex align-items-sm-center flex-column flex-sm-row">
+                                <div class="mr-20 mb-3 mb-sm-0">
+                                    <img src="{{ asset('assets/img/decoration/check-and-good.png') }}"
+                                        alt="check-and-good" style="width: 72px">
+                                </div>
+                                <div class="">
+                                    <p class="mb-5 text-white text-xl fw-bold">Hi,
+                                        {{ auth()->user()->customer->name }}. Kamu
+                                        belum
+                                        melengkapi
+                                        data profil!</p>
+                                    <p class="mb-0" style="color: #e9e9e9">Lengkapi data profil kamu agar
+                                        mempermudah dalam
+                                        mengakses website kami.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-92-btn">
+                            <a href="{{ route('profile') }}" class="tp-btn tp-btn-3 btn-darks rounded-pill">Lengkapi
+                                Profil</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+    @endif
     @yield('content')
     @include('user.components.footer')
 
