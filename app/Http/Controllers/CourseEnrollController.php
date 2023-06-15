@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseFormatter;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Cart;
+use Ramsey\Uuid\Uuid;
 use App\Models\Course;
-use App\Models\CourseEnroll;
-use App\Models\Customer;
-use App\Models\Discount;
-use App\Models\MediaModule;
 use App\Models\Mentor;
 use App\Models\Module;
+use App\Models\Customer;
+use App\Models\Discount;
+use Nette\Utils\Strings;
+use Midtrans\Notification;
+use App\Models\MediaModule;
 use App\Models\Testimonial;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use App\Models\CourseEnroll;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Str;
-use Nette\Utils\Strings;
-use Ramsey\Uuid\Uuid;
 
 class CourseEnrollController extends Controller
 {
@@ -252,7 +253,7 @@ class CourseEnrollController extends Controller
     {
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        $notif = new \Midtrans\Notification();
+        $notif = new Notification();
 
         $verifSignatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . \Midtrans\Config::$serverKey);
 
@@ -283,12 +284,6 @@ class CourseEnrollController extends Controller
                         ]);
                         $mentor->balance += ($courseEnroll->total_price * 0.8);
                         $mentor->save();
-
-                        // check if course in cart
-                        $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
-                        if ($existCart) {
-                            $existCart->delete();
-                        }
                     }
                 }
             } else if ($transaction == 'settlement') {
@@ -300,13 +295,6 @@ class CourseEnrollController extends Controller
                 ]);
                 $mentor->balance += ($courseEnroll->total_price * 0.8);
                 $mentor->save();
-
-                // check if course in cart
-                $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
-                if ($existCart) {
-                    $existCart->delete();
-                }
-                dd($existCart);
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
             }
