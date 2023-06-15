@@ -306,6 +306,7 @@ class CourseEnrollController extends Controller
                 if ($existCart) {
                     $existCart->delete();
                 }
+                dd($existCart);
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
             }
