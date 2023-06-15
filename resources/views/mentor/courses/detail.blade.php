@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#">
-                            Detail Kelas
+                            Kelas {{ $course->title }}
                         </a>
                     </li>
                 </ul>
@@ -324,8 +324,7 @@
                         });
                     }
                 },
-                error: function() {
-                }
+                error: function() {}
             });
         }
 

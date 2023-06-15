@@ -8,7 +8,7 @@
                 <h4 class="page-title">Edit Modul</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor">
+                        <a href="/mentor/dashboard">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,13 +16,25 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/course/{{ $course->slug }}/module">Data Modul</a>
+                        <a href="/mentor/course">Data Kelas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Form Edit Modul</a>
+                        <a href="/mentor/course/{{ $course->slug }}">Kelas {{ $course->title }}</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('mentor.module', $course->slug) }}">Data Module</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Form Edit</a>
                     </li>
                 </ul>
             </div>
@@ -160,6 +172,7 @@
 
             return true;
         }, '');
+
         $("#editModuleForm").validate({
             rules: {
                 title: {
@@ -169,7 +182,7 @@
                 },
                 file: {
                     extension: "pdf",
-                    maxfilesize: 3 * 1024 * 1024, // 5MB (dalam byte)
+                    maxfilesize: 3 * 1024 * 1024, // 5MB (in bytes)
                 },
                 no_module: {
                     required: true,
@@ -236,22 +249,22 @@
                     error: function(xhr, status, error) {
                         $('#updateButton').html('Ubah');
                         $('#updateButton').prop('disabled', false);
-                            'X-CSRF-TOKEN'));
 
-                        if (xhr.responseJSON)
+                        if (xhr.responseJSON) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'UBAH MODULE GAGAL!',
                                 text: xhr.responseJSON.meta.message + " Error: " + xhr
                                     .responseJSON.data.error,
-                            })
-                        else
+                            });
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'UBAH MODULE GAGAL!',
                                 text: "Terjadi kegagalan, silahkan coba beberapa saat lagi! Error: " +
                                     error,
-                            })
+                            });
+                        }
                         return false;
                     }
                 });

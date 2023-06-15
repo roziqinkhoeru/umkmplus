@@ -111,11 +111,9 @@
                             $(rowNode).find('td').eq(4).addClass('text-center');
                             $(rowNode).find('td').eq(5).addClass('text-center space-nowrap');
                         });
-                    } else {
-                    }
+                    } else {}
                 },
-                error: function() {
-                }
+                error: function() {}
             });
         }
 
