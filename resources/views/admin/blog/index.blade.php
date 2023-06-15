@@ -123,6 +123,7 @@
     @endif
     <script>
         $(document).ready(function() {
+            localStorage.removeItem('imageBlogPreview');
             $('#blogTable').DataTable({
                 columnDefs: [{
                     targets: 'filter-none',

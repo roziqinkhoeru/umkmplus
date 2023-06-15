@@ -106,6 +106,7 @@
 
     <script>
         $(document).ready(function() {
+            localStorage.removeItem('imageWDPreview');
             $('#withdrawTable').DataTable({
                 "columnDefs": [{
                     "targets": 'filter-none',
