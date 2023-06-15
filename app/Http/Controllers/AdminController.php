@@ -29,10 +29,6 @@ class AdminController extends Controller
         $countCourse = Course::count();
         $countBlog = Blog::where('user_id', $user->id)->count();
         $countCourseCategories = Category::withCount(['courses'])->get();
-        // $revenue = CourseEnroll::with('course')
-        //     ->whereIn('status', ['aktif', 'selesai'])
-        //     ->whereRaw('YEAR(created_at) = ?', [2023])
-        //     ->sum('total_price');
 
         // Array month
         $bulan = range(1, 12);
@@ -40,7 +36,7 @@ class AdminController extends Controller
         $revenue = CourseEnroll::select(DB::raw('month(started_at) as month'), DB::raw('SUM(total_price) as total'))
             ->with('course')
             ->whereIn('status', ['aktif', 'selesai'])
-            ->whereYear('started_at', 2023) // Menambahkan kondisi untuk membatasi hanya tahun 2023
+            ->whereYear('started_at', date("Y")) // Menambahkan kondisi untuk membatasi hanya tahun sekarang
             ->groupBy('month')
             ->orderBy('month')
             ->get()
