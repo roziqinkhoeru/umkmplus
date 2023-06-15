@@ -22,6 +22,14 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ url('/mentor/course/' . $course->slug) }}">
+                            Kelas {{ $course->title }}
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
                         <a href="#">Form Edit Kelas</a>
                     </li>
                 </ul>
@@ -178,9 +186,10 @@
                                     <div class="col-lg-6 col-md-9 col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control"
-                                                placeholder="Masukkan Link Google Form" value="{{ $course->google_form }}"
-                                                aria-label="google_form" aria-describedby="google_form-addon"
-                                                id="google_form" name="google_form" required>
+                                                placeholder="Masukkan Link Google Form"
+                                                value="{{ $course->google_form }}" aria-label="google_form"
+                                                aria-describedby="google_form-addon" id="google_form" name="google_form"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
