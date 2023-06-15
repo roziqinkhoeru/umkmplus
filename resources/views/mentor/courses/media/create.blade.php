@@ -73,6 +73,8 @@
                                             <input type="text" class="form-control" placeholder="Masukkan Kode Video"
                                                 value="{{ old('video_url') }}" aria-label="video_url"
                                                 aria-describedby="video_url-addon" id="video_url" name="video_url" required>
+                                                <span class="input-group-text"
+                                                style="border-top-left-radius: 0; border-bottom-left-radius: 0">&ab_channel</span>
                                         </div>
                                     </div>
                                 </div>

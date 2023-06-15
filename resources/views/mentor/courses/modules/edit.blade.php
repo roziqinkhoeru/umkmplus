@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="input-file input-file-image">
                                             <input type="file" class="form-control form-control-file" id="file"
-                                                name="file" accept="application/pdf" required
+                                                name="file" accept="application/pdf"
                                                 onchange="previewFile(event)">
                                             <label for="file" class="label-input-file btn btn-black btn-round mt-2">
                                                 <span class="btn-label">
@@ -182,7 +182,7 @@
                 },
                 file: {
                     extension: "pdf",
-                    maxfilesize: 3 * 1024 * 1024, // 5MB (in bytes)
+                    maxfilesize: 3 * 1024 * 1024, // 3MB (in bytes)
                 },
                 no_module: {
                     required: true,
