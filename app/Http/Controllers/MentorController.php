@@ -313,7 +313,7 @@ class MentorController extends Controller
             $query->where('mentor_id', $user->customer->id);
         })
             ->whereIn('status', ['aktif', 'selesai'])
-            ->whereYear('started_at', 2023) // Menambahkan kondisi untuk membatasi hanya tahun 2023
+            ->whereYear('started_at', date("Y")) // Menambahkan kondisi untuk membatasi hanya tahun sekarang
             ->groupBy('month')
             ->orderBy('month')
             ->get()
