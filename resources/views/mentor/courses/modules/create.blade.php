@@ -8,7 +8,7 @@
                 <h4 class="page-title">Tambah Modul</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor">
+                        <a href="/mentor/dashboard">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,13 +16,25 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/course/{{ $course->slug }}/module">Data Modul</a>
+                        <a href="/mentor/course">Data Kelas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Form Tambah Modul</a>
+                        <a href="/mentor/course/{{ $course->slug }}">Kelas {{ $course->title }}</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('mentor.module', $course->slug) }}">Data Module</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Tambah Module</a>
                     </li>
                 </ul>
             </div>
