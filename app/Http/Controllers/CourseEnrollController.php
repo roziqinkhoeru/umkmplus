@@ -253,7 +253,7 @@ class CourseEnrollController extends Controller
     {
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        $notif = new Notification();
+        $notif = new \Midtrans\Notification();
 
         $verifSignatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . \Midtrans\Config::$serverKey);
 
@@ -284,6 +284,12 @@ class CourseEnrollController extends Controller
                         ]);
                         $mentor->balance += ($courseEnroll->total_price * 0.8);
                         $mentor->save();
+
+                        // check if course in cart
+                        $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
+                        if ($existCart) {
+                            $existCart->delete();
+                        }
                     }
                 }
             } else if ($transaction == 'settlement') {
@@ -295,6 +301,12 @@ class CourseEnrollController extends Controller
                 ]);
                 $mentor->balance += ($courseEnroll->total_price * 0.8);
                 $mentor->save();
+
+                // check if course in cart
+                $existCart = Cart::where('course_id', $courseEnroll->course_id)->where('student_id', $courseEnroll->student_id)->first();
+                if ($existCart) {
+                    $existCart->delete();
+                }
             } else if ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
                 $courseEnroll->delete();
             }
