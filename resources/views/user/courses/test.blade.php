@@ -26,18 +26,3 @@
     </main>
 @endsection
 
-@section('script')
-    <script>
-        // Mendengarkan event message dari iframe
-        window.addEventListener('message', function(event) {
-            // Memeriksa apakah pesan berasal dari iframe formulir Google yang disematkan
-            if (event.origin === 'https://docs.google.com') {
-                console.log('Pesan diterima: ');
-                // Memeriksa isi pesan untuk mengetahui status pengiriman formulir
-                if (event.data === 'formSubmitted') {
-                    // Formulir telah terkirim
-                    console.log('Formulir telah terkirim.');
-                }
-            }
-        });
-    </script>

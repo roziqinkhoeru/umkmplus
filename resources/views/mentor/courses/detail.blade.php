@@ -322,12 +322,9 @@
                                 );
                             }
                         });
-                    } else {
-                        console.log("Data Kosong");
                     }
                 },
                 error: function() {
-                    console.log('error');
                 }
             });
         }

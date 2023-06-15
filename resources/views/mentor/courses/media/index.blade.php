@@ -112,11 +112,9 @@
                             $(rowNode).find('td').eq(5).addClass('text-center space-nowrap');
                         });
                     } else {
-                        console.log("Data Kosong");
                     }
                 },
                 error: function() {
-                    console.log('error');
                 }
             });
         }
