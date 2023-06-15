@@ -105,8 +105,11 @@
                                         alt="check-and-good" style="height: 72px">
                                 </div>
                                 <div class="">
+                                    @php
+                                        $name = explode(' ', auth()->user()->customer->name);
+                                    @endphp
                                     <p class="mb-5 text-white text-xl fw-bold">Hi,
-                                        {{ auth()->user()->customer->name }}. Kamu
+                                        {{ $name[0] }}. Kamu
                                         belum
                                         melengkapi
                                         data profil!</p>
