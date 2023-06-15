@@ -111,12 +111,9 @@
                                 'text-center filter-none space-nowrap');
 
                         });
-                    } else {
-                        console.log("Data Kosong");
                     }
                 },
                 error: function() {
-                    console.log('error');
                 }
             });
         }
