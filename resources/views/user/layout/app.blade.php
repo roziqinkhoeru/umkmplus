@@ -92,6 +92,10 @@
     @include('user.components.navbar')
     {{-- condition: profile user not complete yet --}}
     @if (Auth::check())
+        {{-- get first name --}}
+        @php
+            $name = explode(' ', auth()->user()->customer->name);
+        @endphp
         @if (auth()->user()->customer->phone == '00000000000' ||
                 auth()->user()->customer->address == null ||
                 auth()->user()->customer->gender == null)
@@ -105,10 +109,6 @@
                                         alt="check-and-good" style="height: 72px">
                                 </div>
                                 <div class="">
-                                    {{-- get first name --}}
-                                    @php
-                                        $name = explode(' ', auth()->user()->customer->name);
-                                    @endphp
                                     <p class="mb-5 text-white text-xl fw-bold">Hi,
                                         {{ $name[0] }}. Kamu
                                         belum
@@ -128,10 +128,8 @@
                 </div>
             </section>
         @endif
-    @endif
 
-    {{-- condition: the user must complete the payment --}}
-    @if (Auth::check())
+        {{-- condition: the user must complete the payment --}}
         @if (auth()->user()->customer->studentCourseEnrolls->where('status', 'menunggu pembayaran')->count() > 0)
             <section class="pt-20 pb-20" style="background: #8d51fb">
                 <div class="container">
@@ -144,7 +142,7 @@
                                 </div>
                                 <div class="">
                                     <p class="mb-5 text-white text-xl fw-bold">Hi,
-                                        {{ auth()->user()->customer->name }}. Kamu
+                                        {{ $name }}. Kamu
                                         belum masih memliki transaksi yang belum diselesaikan!</p>
                                     <p class="mb-0" style="color: #e9e9e9">Selesaikan transaksinya agar kamu bisa
                                         mengakses produk yang kamu pilih.</p>
