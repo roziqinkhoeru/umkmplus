@@ -1,0 +1,100 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  17. TEAM CSS START
+/*----------------------------------------*/
+
+.team{
+    &__wrapper{
+        @media #{$xl}{
+            padding-left: 30px;
+        }
+        @media #{$md, $sm, $xs}{
+            padding-left: 0;
+        }
+        & p{
+            font-size: 16px;
+            color: var(--tp-text-11);
+        }
+    }
+    &__item{
+        &:hover{
+            & .team__social{
+                visibility: visible;
+                opacity: 1;
+                bottom: 20px;
+            }
+        }
+    }
+    &__thumb{
+        position: relative;
+        z-index: 1;
+    }
+    &__shape{
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        bottom: -41px;
+        width: 100%;
+        & img{
+            width: 100%;
+            @media #{$sm}{
+                width: auto;
+            }
+        }
+
+        @media #{$lg, $xs}{
+            bottom: -44px;
+        }
+
+        @media #{$md}{
+            bottom: -50px;
+        }
+    }
+    &__content{
+        padding-top: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    &__title{
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 0;
+
+        & a{
+            &:hover{
+                color: var(--tp-theme-2);
+            }
+        }
+    }
+    &__designation{
+        display: inline-block;
+        font-size: 14px;
+        color: var(--tp-text-11);
+    }
+    &__social{
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        @include transform(translateX(-50%));
+        width: 80%;
+        visibility: hidden;
+        opacity: 0;
+        & a{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: var(--tp-text-7);
+            @include border-radius(50%);
+            background-color: var(--tp-common-white);
+            margin: 0 2px;
+
+            &:hover{
+                background-color: var(--tp-theme-1);
+                color: var(--tp-common-white);
+            }
+        }
+    }
+}

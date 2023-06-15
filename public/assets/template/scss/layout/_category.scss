@@ -1,0 +1,270 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  15. CATEGORY CSS START
+/*----------------------------------------*/
+
+.category{
+    &__wrapper{
+        & .section__title-wrapper-2{
+            padding-right: 110px;
+
+            @media #{$xl, $lg, $xs}{
+                padding-right: 0;
+            }
+        }
+        & p{
+            font-size: 15px;
+            color: var(--tp-text-11);
+            padding-right: 85px;
+            margin-bottom: 25px;
+
+            @media #{$lg, $xs}{
+                padding-right: 0;
+            }
+        }
+
+        &-3{
+            & p{
+                font-size: 16px;
+                color: var(--tp-text-11);
+                margin-bottom: 5px;
+                padding-right: 35px;
+
+                @media #{$xs}{
+                    margin-bottom: 15px;
+                }
+
+            }
+        }
+    }
+    &__item{
+        &-wrapper{
+            @media #{$md, $sm, $xs}{
+                margin-top: 50px;
+            }
+        }
+        &:hover{
+            & .category__icon{
+                & a{
+                    background-color: var(--tp-common-blue-2);
+                    & svg path{
+                        stroke: var(--tp-common-white);
+                    }
+                }
+                &.pink-bg{
+                    & a{
+                        background-color: var(--tp-common-pink);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.green-bg{
+                    & a{
+                        background-color: var(--tp-common-green-3);
+                        & svg path{
+                            fill: var(--tp-common-white);
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.orange-bg{
+                    & a{
+                        background-color: var(--tp-common-orange);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.purple-bg{
+                    & a{
+                        background-color: var(--tp-common-purple);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.green-bg-2{
+                    & a{
+                        background-color: var(--tp-common-green-4);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.yellow-bg{
+                    & a{
+                        background-color: var(--tp-common-yellow);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                            fill: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.violet-bg{
+                    & a{
+                        background-color: var(--tp-common-violet);
+                        & svg path{
+                            fill: var(--tp-common-white);
+                        }
+                    }
+                }
+                &.add{
+                    & a{
+                        background-color: var(--tp-common-green-2);
+                        color: var(--tp-common-white);
+                        & svg path{
+                            fill: var(--tp-common-white);
+                        }
+                    }
+                }
+            }
+        }
+        &-3{
+            border: 2px solid rgba($color: #031220, $alpha: .06);
+            @include border-radius(14px);
+
+            &:hover{
+                border-color: var(--tp-theme-3);
+            }
+        }
+    }
+    &__icon{
+        margin-bottom: 10px;
+        & a{
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            @include border-radius(14px);
+            background-color: rgba($color: #4270FF, $alpha: .1);
+        }
+
+        &.pink-bg{
+            & a{
+                background-color: rgba($color: #FF6470, $alpha: .1);
+            }
+        }
+
+        &.green-bg{
+            & a{
+                background-color: rgba($color: #27AA4D, $alpha: .1);
+            }
+        }
+
+        &.orange-bg{
+            & a{
+                background-color: rgba($color: #F37F43, $alpha: .1);
+            }
+        }
+
+        &.purple-bg{
+            & a{
+                background-color: rgba($color: #E33CFF, $alpha: .1);
+            }
+        }
+
+        &.green-bg-2{
+            & a{
+                background-color: rgba($color: #20AD96, $alpha: .1);
+            }
+        }
+
+        &.yellow-bg{
+            & a{
+                background-color: rgba($color: #F5B455, $alpha: .1);
+            }
+        }
+
+        &.violet-bg{
+            & a{
+                background-color: rgba($color: #6151FB, $alpha: .1);
+                & svg path{
+                    fill: #6151FB;
+                }
+            }
+        }
+        &.add{
+            & a{
+                background-color: transparent;
+                border: 1px solid var(--tp-common-green-2);
+                font-size: 35px;
+                color: var(--tp-common-green-2);
+            }
+        }
+        
+    }
+    &__title{
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 0;
+        & a{
+            &:hover{
+                color: var(--tp-theme-2);
+            }
+        }
+        &.add{
+            color: var(--tp-common-green-2);
+        }
+        &-3{
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--tp-common-black-3);
+            background-color: var(--tp-grey-7);
+            margin-bottom: 0;
+            padding: 20px 30px;
+        }
+    }
+    &__list{
+        padding-top: 10px;
+        padding-bottom: 5px;
+        & ul{
+            & li{
+                list-style: none;
+                & a{
+                    font-size: 15px;
+                    color: var(--tp-common-black-3);
+                    position: relative;
+                    padding-left: 14px;
+                    padding: 7px 30px 10px;
+                    padding-left: 40px;
+                    display: block;
+                    & i{
+                        margin-left: 30px;
+                        visibility: hidden;
+                        opacity: 0;
+                        color: var(--tp-theme-3);
+                    }
+                    &::after{
+                        position: absolute;
+                        content: '';
+                        left: 28px;
+                        top: 44%;
+                        @include transform(tranlateY(-50%));
+                        width: 3px;
+                        height: 3px;
+                        @include border-radius(50%);
+                        background-color: var(--tp-common-black-3);
+                    }
+                    &:hover{
+                        background-color: rgba($color: #007A70, $alpha: .06);
+                        & i{
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__btn{
+        &-3{
+            padding: 20px 30px 35px;
+        }
+    }
+    &__more{
+        flex: 0 0 auto;
+    }
+}

@@ -1,0 +1,175 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  BREADCRUMB CSS START
+/*----------------------------------------*/
+
+.breadcrumb{
+    &__title{
+        font-size: 65px;
+        color: var(--tp-common-white);
+        @media #{$sm}{
+            font-size: 40px;
+        }
+        @media #{$xs}{
+            font-size: 35px;
+        }
+
+        &-2{
+            font-size: 50px;
+            line-height: 1.1;
+            margin-top: 12px;
+            @media #{$sm}{
+                font-size: 40px;
+            }
+            @media #{$xs}{
+                font-size: 26px;
+            }
+        }
+        &-pre{
+            display: inline-block;
+            height: 24px;
+            line-height: 26px;
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 500;
+            background: var(--tp-theme-2);
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            padding: 0 7px;
+            margin-bottom: 12px;
+        }
+    }
+    &__list{
+        & span{
+            font-size: 16px;
+            color: var(--tp-common-white);
+            font-weight: 500;
+            padding-right: 3px;
+            margin-right: 3px;
+            text-transform: capitalize;
+            & a{
+                &:hover{
+                    color: var(--tp-theme-1);
+                }
+            }
+        }
+        &-2{
+            & span{
+                font-size: 14px;
+                color: var(--tp-text-11);
+                font-weight: 500;
+                padding-right: 3px;
+                margin-right: 3px;
+                text-transform: capitalize;
+                & a{
+                    &:hover{
+                        color: var(--tp-theme-1);
+                    }
+                }
+            }
+        }
+    }
+    &__overlay{
+        position: relative;
+
+        &::after{
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 3, 32, 0.6);
+        }
+    }
+}
+
+
+.page{
+    &__title{
+        &-shape{
+            & img{
+                position: absolute;
+                z-index: 1;
+                &.page-title-shape-1{
+                    left: 0;
+                    bottom: 105px;
+                }
+                &.page-title-shape-2{
+                    left: 105px;
+                    top: 35%;
+                    @media #{$xxl}{
+                        left: 40px;
+                    }
+                    @media #{$xl}{
+                        top: 28%;
+                    }
+                    @media #{$lg}{
+                        top: 24%;
+                    }
+                    @media #{$md}{
+                        top: 29%;
+                    }
+                    @media #{$sm}{
+                        left: 50px;
+                        top: 28%;
+                    }
+                    @media #{$xs}{
+                        left: 30px;
+                        top: 28%;
+                    }
+                }
+                &.page-title-shape-3{
+                    bottom: 35%;
+                    right: 0;
+                }
+                &.page-title-shape-4{
+                    bottom: 41%;
+                    right: 0;
+                }
+                &.page-title-shape-5{
+                    top: 61%;
+                    left: 0;
+                    z-index: -1;
+                }
+                &.page-title-shape-6{
+                    top: 43%;
+                    left: 5%;
+                    z-index: -1;
+                    @media #{$xl}{
+                        top: 20%;
+                        left: 3%;
+                    }
+                    @media #{$lg}{
+                        top: 20%;
+                        left: 3%;
+                    }
+                    @media #{$md}{
+                        top: 20%;
+                        left: 3%;
+                    }
+                    @media #{$sm}{
+                        top: 20%;
+                        left: 3%;
+                    }
+                    @media #{$xs}{
+                        top: 9%;
+                        left: 3%;
+                    }
+                }
+                &.page-title-shape-7{
+                    top: 27%;
+                    right: 0;
+                    z-index: -1;
+                }
+                &.page-title-shape-8{
+                    top: 38%;
+                    right: 25%;
+                    z-index: -1;
+                }
+            }
+        }
+    }
+}

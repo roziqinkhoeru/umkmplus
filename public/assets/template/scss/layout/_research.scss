@@ -1,0 +1,266 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  10. RESEARCH CSS START
+/*----------------------------------------*/
+
+.research{
+    &__border{
+        & .row [class*="col-"]:nth-child(2) .research__item-border::after{
+            @media #{$md}{
+                display: none;
+            }
+        }
+    }
+    &__item{
+        padding: 40px 40px 15px;
+
+        @media #{$lg, $xs}{
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        @media #{$md, $sm, $xs}{
+            background-color: var(--tp-common-white);
+        }
+
+        &:hover,
+        &.active{
+            background-color: var(--tp-common-white);
+        }
+
+        &-border{
+            position: relative;
+
+            &::after{
+                position: absolute;
+                content: '';
+                right: -15px;
+                top: 50%;
+                @include transform(translateY(-50%));
+                background-color: rgba($color: #031220, $alpha: .08);
+                width: 1px;
+                height: 350px;
+
+                @media #{$sm, $xs}{
+                    display: none;
+                }
+            }
+        }
+    }
+    &__thumb{
+        & img{
+            width: 200px;
+            height: 200px;
+            @include border-radius(50%);
+        }
+        &-2{
+            position: absolute;
+            bottom: 0;
+            right: -35px;
+            z-index: 1;
+
+            @media #{$sm}{
+                right: -30px;
+            }
+
+            @media #{$xs}{
+                right: 12px;
+            }
+        }
+    }
+    &__title{
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--tp-common-black-2);
+
+        &-2{
+            font-size: 26px;
+            line-height: 32px;
+            color: var(--tp-common-black-4);
+            margin-bottom: 20px;
+        }
+    }
+    &__content{
+        & p{
+            font-size: 15px;
+            line-height: 24px;
+        }
+        &-2{
+            width: 60%;
+            z-index: 11;
+            @media #{$xs}{
+                width: inherit;
+            }
+        }
+    }
+    &__wrapper{
+        &-2{
+            & p{
+                font-size: 16px;
+                color: var(--tp-text-11);
+                padding-right: 170px;
+                margin-bottom: 25px;
+
+                @media #{$lg}{
+                    padding-right: 55px;
+                }
+
+                @media #{$xs}{
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    &__download{
+        position: relative;
+        height: 200px;
+        padding: 40px 40px 30px;
+
+        @media #{$lg}{
+            height: 246px;
+        }
+
+        @media #{$sm}{
+            padding-left: 25px;
+        }
+
+        @media #{$xs}{
+            height: 550px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        &-bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include border-radius(14px);
+        }
+    }
+    &__store{
+        & ul{
+            & li{
+                list-style: none;
+                display: inline-block;
+                margin-right: 5px;
+                margin-bottom: 10px;
+                & a{
+                    display: inline-block;
+                    border: 2px solid rgba($color: #031220, $alpha: .1);
+                    @include border-radius(6px);
+                    height: 36px;
+                    line-height: 32px;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: var(--tp-common-black);
+                    padding: 0 17px;
+
+                    & img{
+                        margin-right: 2px;
+                        height: 17px;
+                        width: 14px;
+                        @include transform(translateY(-2px));
+                    }
+
+                    &:hover{
+                        background-color: var(--tp-common-white);
+                        border-color: var(--tp-common-white);
+                    }
+                }
+            }
+        }
+    }
+    &__features{
+        &-wrapper{
+            @media #{$lg}{
+                padding-left: 50px;
+            }
+        }
+        &-item{
+            &:hover{
+                & span{
+                    background-color: var(--tp-common-violet);
+                    & svg path{
+                        stroke: var(--tp-common-white);
+                    }
+
+                    &.yellow-bg{
+                        background-color: var(--tp-common-yellow-3);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+
+                    &.green-bg{
+                        background-color: var(--tp-common-green-4);
+                        & svg path{
+                            stroke: var(--tp-common-white);
+                        }
+                    }
+                }
+            }
+        }
+        &-icon{
+            @media #{$xs}{
+                margin-bottom: 20px;
+            }
+            & span{
+                display: inline-block;
+                width: 66px;
+                height: 66px;
+                line-height: 66px;
+                text-align: center;
+                @include border-radius(10px);
+                background-color: rgba($color: #6151FB, $alpha: .08);
+
+                &.yellow-bg{
+                    & span{
+                        background-color: rgba($color: #F4930E, $alpha: .08);
+                    }
+                }
+
+                &.green-bg{
+                    & span{
+                        background-color: rgba($color: #20AD96, $alpha: .08);
+                    }
+                }
+            }
+        }
+        &-content{
+            & h4{
+                font-size: 20px;
+                font-weight: 600;
+            }
+            & p{
+                font-size: 15px;
+                line-height: 24px;
+                color: var(--tp-text-11);
+            }
+        }
+    }
+    &__shape{
+        &-1{
+            position: absolute;
+            left: 135px;
+            top: 0;
+            opacity: .3;
+            z-index: -1;
+        }
+        &-2{
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: .3;
+            z-index: -1;
+        }
+        &-3{
+            position: absolute;
+            right: 85px;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+}

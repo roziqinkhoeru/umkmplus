@@ -1,0 +1,30 @@
+============== PASSED ==============
+##### ADMIN #####
+- responsive login
+- login sucess, error
+- logout success, redirect
+- forgot password success, resend link, link to email
+- reset password admin success, error, redirect
+- course data, course detail, course activated & deactivated, course detail, course application, detail course application, course application rejected, course application accepted
+- mentor data, detail mentor, mentor activated, mentor deactivated, mentor application, download cv mentor, mentor rejected, mentor accepted
+- student data, detail students
+
+##### MENTOR #####
+- responsive login
+- login success, error
+- logout success, redirect
+- forgot password mentor success, resend link, link to email
+- reset password mentor error, success, redirect
+- discount clear
+- student clear
+- course 1/2
+
+##### STUDENT #####
+- responsive login
+- login success, error
+- logout success, redirect
+- forgot password student success, resend link, link to email
+- reset password student error, success, redirect
+- register student success, error, redirect
+- login with google
+- register with google

@@ -1,0 +1,5 @@
+/* navbar */
+#mobile-menu > ul li.active a {
+    color: #3d6ce7;
+    font-weight: 500;
+}

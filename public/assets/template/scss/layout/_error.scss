@@ -1,0 +1,36 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  26. ERROR CSS START
+/*----------------------------------------*/
+
+.error{
+    &__title{
+        font-size: 70px;
+        line-height: .9;
+        margin-bottom: 10px;
+        @media #{$sm}{
+            font-size: 60px;
+        }
+        @media #{$xs}{
+            font-size: 37px;
+        }
+    }
+    &__content{
+        & p{
+            font-size: 20px;
+            color: var(--tp-text-1);
+            margin-bottom: 45px;
+        }
+    }
+    &__thumb{
+        & img{
+            @media #{$sm}{
+                width: 100%;
+            }
+            @media #{$xs}{
+                width: 100%;
+            }
+        }
+    }
+}

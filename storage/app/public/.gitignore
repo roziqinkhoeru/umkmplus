@@ -1,2 +1,14 @@
-*
 !.gitignore
+/blogs/**
+/cv
+!/blogs/blog1.png
+/courses/info/**
+!/courses/info/dummy-module.pdf
+/courses/modules/**
+!/courses/modules/dummy-module.pdf
+/courses/thumbnail/**
+!/courses/thumbnail/thumbnail-course.png
+/profile/**
+!/profile/mentor-1.jpg
+!/profile/profile-placeholder.png
+/withdraw/**

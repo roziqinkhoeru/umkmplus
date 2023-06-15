@@ -1,0 +1,114 @@
+@import url("utilities.css");
+
+.table td {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    min-height: 60px !important;
+    height: auto !important;
+}
+
+/* NAVBAR */
+.hover-logout:hover {
+    background-color: #f2596129 !important;
+    color: #f25961 !important;
+    font-weight: 600 !important;
+}
+.hover-logout:hover p,
+.nav-item .hover-logout:hover p {
+    color: #f25961 !important;
+}
+.sidebar.sidebar-style-2[data-color="purple"]
+    .nav.nav-primary
+    > .nav-item.active
+    > a {
+    background: #6861ce !important;
+    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1),
+        4px 4px 15px -5px rgba(104, 97, 206, 0.4);
+}
+
+/* LOGIN */
+/* layout */
+.auth-image-wrapper {
+    margin-bottom: 0;
+    padding: 9px 16px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    background: #ffffff;
+}
+
+.auth-image-wrapper img {
+    height: 28px;
+}
+.btn-anchor {
+    appearance: none;
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    color: #1269db;
+}
+.btn-anchor:hover {
+    color: #6861ce;
+}
+
+/* MENTOR */
+/* index */
+.badge.badge-category {
+    padding: 4px 5px !important;
+    border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    -ms-border-radius: 4px !important;
+    -o-border-radius: 4px !important;
+}
+.badge.badge-active {
+    background: #1571e827 !important;
+    color: #1572e8 !important;
+    font-weight: 500;
+}
+.badge.badge-nonactive,
+.badge.badge-ditolak {
+    background: #f2596127 !important;
+    color: #f25961 !important;
+    font-weight: 500;
+}
+.badge.badge-pending {
+    background: #e0a80027 !important;
+    color: #e0a800 !important;
+    font-weight: 500;
+}
+.badge.badge-waiting {
+    background: #fdaf4b27 !important;
+    color: #fdaf4b !important;
+    font-weight: 500;
+}
+.badge.badge-diterima {
+    background: #0fae3427 !important;
+    color: #0fae34 !important;
+    font-weight: 500;
+}
+
+/* BLOG */
+/* create */
+#contentWrapper .ck.ck-content.ck-editor__editable {
+    min-height: 240px !important;
+}
+.btn-delete-image {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: 10.5px !important;
+    text-transform: uppercase;
+}
+
+/* COURSE */
+/* edit */
+.file-pdf-info {
+    margin-bottom: 12px;
+}
+.file-pdf-info img {
+    height: 64px;
+}
