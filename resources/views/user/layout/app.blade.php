@@ -105,6 +105,7 @@
                                         alt="check-and-good" style="height: 72px">
                                 </div>
                                 <div class="">
+                                    {{-- get first name --}}
                                     @php
                                         $name = explode(' ', auth()->user()->customer->name);
                                     @endphp
