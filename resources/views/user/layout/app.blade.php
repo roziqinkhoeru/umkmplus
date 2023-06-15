@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="">
                                     <p class="mb-5 text-white text-xl fw-bold">Hi,
-                                        {{ $name }}. Kamu
+                                        {{ $name[0] }}. Kamu
                                         belum masih memliki transaksi yang belum diselesaikan!</p>
                                     <p class="mb-0" style="color: #e9e9e9">Selesaikan transaksinya agar kamu bisa
                                         mengakses produk yang kamu pilih.</p>
