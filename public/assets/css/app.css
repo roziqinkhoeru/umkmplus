@@ -67,6 +67,12 @@
     margin-top: 4px !important;
     width: 100%;
 }
+.dropdown.dropdown-category
+    .dropdown-menu.dropdown-menu-category
+    li
+    .dropdown-item.active.text-primary {
+    color: #ffffff !important;
+}
 .course-tag-wrapper {
     position: absolute;
     top: 18px;
