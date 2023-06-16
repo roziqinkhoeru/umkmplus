@@ -39,6 +39,11 @@ class CategorySeeder extends Seeder
                 'slug' => 'tech-and-ecommerce',
                 'description' => 'Kita akan membahas mengenai penggunaan teknologi dan pemanfaatan e-commerce dalam bisnis UMKM. Ini meliputi pembuatan dan pengelolaan situs web, penggunaan platform e-commerce untuk menjual produk secara online, perlindungan keamanan data dan privasi, serta pemanfaatan alat digital dan analitik bisnis untuk meningkatkan efisiensi dan keputusan bisnis.',
             ],
+            [
+                'name' => 'SDM',
+                'slug' => 'sdm',
+                'description' => 'Kita akan membahas mengenai penggunaan teknologi dan pemanfaatan e-commerce dalam bisnis UMKM. Ini meliputi pembuatan dan pengelolaan situs web, penggunaan platform e-commerce untuk menjual produk secara online, perlindungan keamanan data dan privasi, serta pemanfaatan alat digital dan analitik bisnis untuk meningkatkan efisiensi dan keputusan bisnis.',
+            ],
 
         ];
 
