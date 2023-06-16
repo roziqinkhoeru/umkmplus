@@ -45,7 +45,7 @@
                                 Form ini digunakan untuk mengubah data Kelas
                             </div>
                         </div>
-                        <form id="createCourseForm" action="#" method="POST" enctype="multipart/form-data">
+                        <form id="editCourseForm" action="#" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -266,7 +266,7 @@
             return this.optional(element) || /^https:\/\/docs\.google\.com\/forms\//.test(value);
         }, "Masukkan link google form yang valid.");
 
-        $("#createCourseForm").validate({
+        $("#editCourseForm").validate({
             rules: {
                 title: {
                     required: true,
