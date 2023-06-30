@@ -224,6 +224,7 @@
                             let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
                                 option);
                             console.log(coursePriceDiscountFormat);
+                            console.log(coursePrice);
                             let date = new Date(courseData.created_at);
                             let options = {
                                 day: '2-digit',
