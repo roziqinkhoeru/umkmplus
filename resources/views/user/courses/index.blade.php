@@ -218,7 +218,7 @@
                                 minimumFractionDigits: 0,
                                 maximumFractionDigits: 0,
                             };
-                            let coursePrice = courseData.price.toLocaleString('id-ID', option);
+                            let coursePrice = courseData.price;
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
                             let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
@@ -253,7 +253,7 @@
                                                                 ${courseData.title}
                                                             </h3>
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Gratis'}
-                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice : ''}</span>
+                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice.toLocaleString('id-ID', option) : ''}</span>
                                                         </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
