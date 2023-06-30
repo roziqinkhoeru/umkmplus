@@ -235,6 +235,20 @@
 }
 
 @media screen and (max-width: 479px) {
+    /* global */
+    button.hamurger-btn {
+        width: 28px !important;
+        height: 27px !important;
+    }
+    button.hamurger-btn span:first-child {
+        top: 0 !important;
+    }
+    button.hamurger-btn span:nth-child(2) {
+        top: 9px !important;
+    }
+    button.hamurger-btn span:last-child {
+        top: 18px !important;
+    }
     /* utilities */
     .pt-60 {
         padding-top: 48px;
@@ -324,5 +338,14 @@
     /* PLAYING COURSE */
     .playing-course-iframe {
         height: 280px !important;
+    }
+}
+
+@media screen and (max-width: 419px) {
+    .slider__content-button .tp-btn {
+        padding: 0 24px !important;
+    }
+    .slider__content-button .tp-btn.tp-btn-2 {
+        margin-right: 18px !important;
     }
 }
