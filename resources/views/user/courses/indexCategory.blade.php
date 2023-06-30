@@ -229,9 +229,6 @@
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
                             let coursePrice = parseInt(courseData.price);
-                            let coursePriceDiscountFormat = coursePriceDiscount;
-                            console.log(coursePriceDiscountFormat);
-                            console.log(coursePrice);
                             let date = new Date(courseData.created_at);
 
                             let createAt = date.toLocaleDateString('id-ID', dateOption);
@@ -256,8 +253,8 @@
                                                                 class="course__title-2 line-clamp-3-hover text-lg leading-lg mb-2">
                                                                 ${courseData.title}
                                                             </h3>
-                                                            <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Free'}
-                                                            <span class="text-decoration-line-through text-xs text-muted">${courseData.price != 0 ? coursePrice.toLocaleString('id-ID', currencyOption) : ''}</span>
+                                                            <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscount.toLocaleString('id-ID', currencyOption) : 'Free'}
+                                                            <span class="text-decoration-line-through text-xs text-green-3">${courseData.price != 0 ? coursePrice.toLocaleString('id-ID', currencyOption) : ''}</span>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
                                                                 <div class="course__action">
