@@ -213,14 +213,17 @@
                             let option = {
                                 style: 'currency',
                                 currency: 'IDR',
+                                currencyDisplay: 'symbol',
                                 useGrouping: true,
                                 minimumFractionDigits: 0,
                                 maximumFractionDigits: 0,
                             };
                             let coursePrice = courseData.price.toLocaleString('id-ID', option);
-                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price * courseData.discount / 100);
+                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
+                                courseData.discount / 100);
                             let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
                                 option);
+                            console.log(coursePriceDiscountFormat);
                             let date = new Date(courseData.created_at);
                             let options = {
                                 day: '2-digit',
