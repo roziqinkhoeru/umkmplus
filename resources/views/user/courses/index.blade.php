@@ -208,30 +208,30 @@
                         // empty state
                         htmlString = emptyState('Maaf, kelas belum tersedia');
                     } else {
+                        const currencyOption = {
+                            style: 'currency',
+                            currency: 'IDR',
+                            currencyDisplay: 'symbol',
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                        };
+                        const dateOption = {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                        };
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let option = {
-                                style: 'currency',
-                                currency: 'IDR',
-                                currencyDisplay: 'symbol',
-                                useGrouping: true,
-                                minimumFractionDigits: 0,
-                                maximumFractionDigits: 0,
-                            };
                             let coursePrice = courseData.price;
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
                             let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
-                                option);
+                                currencyOption);
                             console.log(coursePriceDiscountFormat);
                             console.log(coursePrice);
                             let date = new Date(courseData.created_at);
-                            let options = {
-                                day: '2-digit',
-                                month: 'long',
-                                year: 'numeric'
-                            };
-                            let createAt = date.toLocaleDateString('id-ID', options);
+                            let createAt = date.toLocaleDateString('id-ID', dateOption);
                             htmlString += `<div class="col-span-4-course">
                                                     <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block"
                                                         href="{{ url('/course/${createSlug(courseData.title)}') }}">
@@ -253,7 +253,7 @@
                                                                 ${courseData.title}
                                                             </h3>
                                                             <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscountFormat : 'Gratis'}
-                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice.toLocaleString('id-ID', option) : ''}</span>
+                                                            <span class="text-decoration-line-through text-xs">${courseData.discount != 0 ? coursePrice.toLocaleString('id-ID', currencyOption) : ''}</span>
                                                         </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
