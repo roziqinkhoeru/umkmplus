@@ -228,7 +228,7 @@
                         $.map(response.data, function(courseData, index) {
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
-                            let coursePrice = courseData.price;
+                            let coursePrice = parseInt(courseData.price);
                             let coursePriceDiscountFormat = coursePriceDiscount;
                             console.log(coursePriceDiscountFormat);
                             console.log(coursePrice);

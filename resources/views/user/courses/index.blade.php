@@ -223,7 +223,7 @@
                         };
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let coursePrice = courseData.price;
+                            let coursePrice = parseInt(courseData.price);
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
                             let coursePriceDiscountFormat = coursePriceDiscount;
