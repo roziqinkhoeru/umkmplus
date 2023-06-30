@@ -226,8 +226,7 @@
                             let coursePrice = courseData.price;
                             let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
                                 courseData.discount / 100);
-                            let coursePriceDiscountFormat = coursePriceDiscount.toLocaleString('id-ID',
-                                currencyOption);
+                            let coursePriceDiscountFormat = coursePriceDiscount;
                             console.log(coursePriceDiscountFormat);
                             console.log(coursePrice);
                             let date = new Date(courseData.created_at);
