@@ -172,7 +172,7 @@
                                             <div
                                                 class="course__bottom d-sm-flex align-items-center justify-content-between">
                                                 <div class="testimoni-author-wrapper">
-                                                    <img src="{{ $testimonial->courseEnroll ? asset('storage/'.$testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png') }}"
+                                                    <img src="{{ $testimonial->courseEnroll ? asset('storage/' . $testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png') }}"
                                                         alt="{{ $testimonial->courseEnroll ? Str::slug($testimonial->courseEnroll->student->name) : '' }}-testimoni-profile">
                                                     <div>
                                                         <p class="testimoni-author-name">
@@ -270,12 +270,19 @@
                         // empty state
                         htmlString = emptyState('Maaf, kelas belum tersedia');
                     } else {
+                        const currencyOption = {
+                            style: 'currency',
+                            currency: 'IDR',
+                            currencyDisplay: 'symbol',
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                        };
                         // success state
                         $.map(response.data, function(courseData, index) {
-                            let coursePrice = new Intl.NumberFormat('id-ID', {
-                                style: 'currency',
-                                currency: 'IDR'
-                            }).format(courseData.price);
+                            let coursePrice = parseInt(courseData.price);
+                            let coursePriceDiscount = courseData.price - Math.ceil(courseData.price *
+                                courseData.discount / 100);
                             htmlString += `<div class="col-span-3-course">
                             <a class="course__item-2 transition-3 white-bg mb-30 fix h-100 d-block border-1 border-light-2"
                                                         href="/course/${courseData.slug}">
@@ -296,7 +303,9 @@
                                                                 class="course__title-2 line-clamp-3-hover text-lg leading-lg mb-2">
                                                                 ${courseData.title}
                                                             </h3>
-                                                            <p class="mb-10 fw-medium text-green-2">${coursePrice}</p>
+                                                            <p class="mb-10 fw-medium text-green-2">${courseData.price != 0 ? coursePriceDiscount.toLocaleString('id-ID', currencyOption) : 'Gratis'}
+                                                            <span class="text-decoration-line-through text-xs text-green-3">${courseData.discount != 0 ? coursePrice.toLocaleString('id-ID', currencyOption) : ''}</span>
+                                                            </p>
                                                             <div
                                                                 class="course__bottom-2 d-flex align-items-center justify-content-between">
                                                                 <div class="course__action">
