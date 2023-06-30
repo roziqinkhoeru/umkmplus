@@ -204,7 +204,7 @@
         {{-- testimoni area end --}}
 
         <!-- blog area start -->
-        <section class="blog__area pt-120 pb-85 p-relative">
+        <section class="blog__area pt-70 pb-70 p-relative">
             <div class="blog__shape">
                 <img class="blog__shape-1" src="{{ asset('assets/img/decoration/blog-shape-1.png') }}" alt="circle-red">
                 <img class="blog__shape-2" src="{{ asset('assets/img/decoration/blog-shape-2.png') }}"
@@ -217,158 +217,122 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
-                        <div class="section__title-wrapper mb-60 text-center">
+                        <div class="section__title-wrapper mb-45 text-center">
                             <span class="section__title-pre text-uppercase text-green fw-semibold">latest blog</span>
-                            <h2 class="section__title section__title-44">Berita Terbaru dari UMKMPlus</h2>
+                            <h2 class="section__title section__title-44 mb-2">Berita Terbaru dari UMKMPlus</h2>
+                            <p>Berikut adalah beberapa berita terbaru dari kami yang dapat membantu anda dalam
+                                mengembangkan usaha anda.</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xxl-6 col-xl-6">
                         <div
-                            class="blog__item-float blog__item-float-overlay p-relative fix transition-3 mb-30 d-flex align-items-end">
-                            <div class="blog__thumb-bg w-img fix" data-background="assets/img/blog/blog-1.jpg"></div>
+                            class="blog__item-float blog__item-float-overlay p-relative fix transition-3 mb-30 d-flex align-items-end rounded-2-5">
+                            <div class="blog__thumb-bg w-img fix"
+                                data-background="{{ asset('storage/' . $latestBlog[0]->thumbnail) }}"></div>
                             <div class="blog__content-float">
                                 <div class="blog__tag-float mb-15">
-                                    <a href="#">Uncategorized</a>
+                                    <a href="javascript:void(0);" class="rounded-3">Latest</a>
                                 </div>
                                 <h3 class="blog__title-float">
-                                    <a href="blog-details.html">Individual master Courses For degree students.</a>
+                                    <a href="/blog/{{ $latestBlog[0]->slug }}"
+                                        class="line-clamp-3">{{ $latestBlog[0]->title }}</a>
                                 </h3>
                                 <div class="blog__meta-float">
                                     <ul>
                                         <li>
-                                            <span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
                                                     <path
-                                                        d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
+                                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                                     <path
-                                                        d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">Dec 28, 2022</a></span>
+                                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                                </svg>
+                                                <a
+                                                    href="javascript:void(0);">{{ CustomDate::tglIndo($latestBlog[0]->created_at) }}</a>
+                                            </span>
                                         </li>
                                         <li>
-                                            <span><svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">1,526 views</a></span>
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                                </svg>
+                                                <a
+                                                    href="javascript:void(0);">{{ $latestBlog[0]->user->customer->name }}</a>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <div class="blog__item mb-30 white-bg transition-3 mb-30">
-                            <div class="blog__thumb w-img fix">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-2.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="blog__content">
-                                <div class="blog__tag">
-                                    <a href="#">University</a>
+                    @foreach ($latestBlog as $blogs)
+                        @if ($loop->first)
+                            @continue
+                        @endif
+                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                            <div class="blog__item mb-30 white-bg transition-3 mb-30 rounded-2-5 overflow-hidden"
+                                style="height: calc(100% - 30px) !important">
+                                <div class="blog__thumb w-img fix overflow-hidden" style="height: 180px !important;">
+                                    <a href="/blog/{{ $blogs->slug }}" class="d-block h-100">
+                                        <img class="h-100 object-cover-center"
+                                            src="{{ asset('storage/' . $blogs->thumbnail) }}" alt="">
+                                    </a>
                                 </div>
-                                <h3 class="blog__title">
-                                    <a href="blog-details.html">How stay calm from the First time.</a>
-                                </h3>
-                                <div class="blog__meta">
-                                    <ul>
-                                        <li>
-                                            <span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">Jun 14, 2022</a></span>
-                                        </li>
-                                        <li>
-                                            <span><svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">1,526 views</a></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                        <div class="blog__item mb-30 white-bg transition-3 mb-30">
-                            <div class="blog__thumb w-img fix">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-3.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="blog__content">
-                                <div class="blog__tag">
-                                    <a href="#">HR and L&D</a>
-                                </div>
-                                <h3 class="blog__title">
-                                    <a href="blog-details.html">Classroom adapts for the future of learning</a>
-                                </h3>
-                                <div class="blog__meta">
-                                    <ul>
-                                        <li>
-                                            <span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">Jun 14, 2022</a></span>
-                                        </li>
-                                        <li>
-                                            <span><svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z"
-                                                        stroke="white" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg><a href="#">1,526 views</a></span>
-                                        </li>
-                                    </ul>
+                                <div class="blog__content h-100">
+                                    <div class="blog__meta mb-10">
+                                        <ul>
+                                            <li>
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-calendar-check"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                                        <path
+                                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                                    </svg>
+                                                    <a href="javascript:void(0);"
+                                                        class="line-clamp-1">{{ CustomDate::tglDefault($blogs->created_at) }}</a>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-person-circle"
+                                                        viewBox="0 0 16 16">
+                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                                    </svg>
+                                                    <a href="javascript:void(0);"
+                                                        class="line-clamp-1">{{ $blogs->user->customer->name }}</a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h3 class="blog__title">
+                                        <a href="/blog/{{ $blogs->slug }}" class="line-clamp-2">{{ $blogs->title }}</a>
+                                    </h3>
+                                    <div class="postbox__text">
+                                        <p class="mb-0 line-clamp-3">{{ $blogs->headline }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
         <!-- blog area end -->
 
         <!-- cta area start -->
-        <section class="cta__area pb-120">
+        <section class="cta__area pb-90">
             <div class="container">
                 <div class="cta__inner">
                     <div class="row">
@@ -398,7 +362,8 @@
                                     <p>Jadilah mentor dan beri dampak positif pada para pembelajar.
                                         Bergabunglah sekarang dan ciptakan masa depan yang
                                         cerah!</p>
-                                    <a href="{{ Auth::check() ? '/faq' : '/mentor/register' }}" class="tp-btn tp-btn-3 rounded-pill">Start Teaching</a>
+                                    <a href="{{ Auth::check() ? '/faq' : '/mentor/register' }}"
+                                        class="tp-btn tp-btn-3 rounded-pill">Mulai Mengajar</a>
                                 </div>
                             </div>
                         </div>
@@ -421,7 +386,7 @@
                                     <h3 class="cta__title">Apply for Admission</h3>
                                     <p>Sudah menyelesaikan kursus? Saatnya mengajukan sertifikat dengan langkah-langkah
                                         sederhana bersama UMKMPlus.</p>
-                                    <a href="/profile?content=course" class="tp-btn tp-btn-4 rounded-pill">Apply Now</a>
+                                    <a href="/profile?content=course" class="tp-btn tp-btn-4 rounded-pill">Lanjutkan</a>
                                 </div>
                             </div>
                         </div>
