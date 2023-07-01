@@ -61,7 +61,7 @@ class DashboardController extends Controller
         $mentorPopulars = Customer::mentor()
             ->with(['dataMentor', 'specialists:name'])
             ->withCount('mentorCourses')
-            ->limit(4)
+            ->limit(6)
             ->get();
         foreach ($mentorPopulars as $mentor) {
             $countStudent = Customer::countStudent($mentor->id);
