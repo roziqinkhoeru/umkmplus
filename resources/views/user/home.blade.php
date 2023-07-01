@@ -40,7 +40,7 @@
         {{-- slider area end --}}
 
         {{-- brand area start --}}
-        <section class="pt-35">
+        <section class="brand__area pt-35">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-center column-gap-15 row-gap-4 flex-wrap">
                     <a href="https://www.apple.com" class="d-block" target="_blank" rel="noopener noreferrer"><img
@@ -106,7 +106,7 @@
         {{-- course area end --}}
 
         {{-- mentor area start --}}
-        <section class="course__area pt-50 pb-70 bg-white">
+        <section class="mentor__area pt-50 pb-70 bg-white">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
@@ -118,8 +118,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <div class="row" id="mentorPopular">
+                <div class="mentors-container-mb">
+                    <div class="mentors-container">
+                        <div class="row">
+                            <div class="col-xxl-12">
+                                <div class="mentors__slider">
+                                    <div id="mentorPopular" class="mentors__active owl-carousel"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center">
@@ -131,7 +138,15 @@
         {{-- mentor area end --}}
 
         {{-- testimoni area start --}}
-        <section class="course__area pt-70 pb-70 bg-secondaries">
+        <section class="testimoni__area pt-70 pb-80 bg-secondaries position-relative z-index-1">
+            <div class="research__shape">
+                <img class="research__shape-1 d-none d-sm-block"
+                    src="{{ asset('assets/img/decoration/research-shape-1.png') }}" alt="half-circle-orange">
+                <img class="research__shape-2 d-none d-sm-block"
+                    src="{{ asset('assets/img/decoration/research-shape-2.png') }}" alt="half-circle-blue">
+                <img class="research__shape-3" src="{{ asset('assets/img/decoration/research-shape-3.png') }}"
+                    alt="half-circle-transparent">
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
@@ -145,65 +160,69 @@
                 </div>
                 <div class="testimoni-container">
                     <div class="row">
-                        @if (count($testimonials) == 0)
-                            {{-- empty state --}}
-                            <div class="text-center col-span-full pt-30 pb-30">
-                                <div class="text-center w-100 d-flex justify-content-center">
-                                    <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
-                                        <p class="text-xl font-semibold mb-0">Maaf, testimoni belum tersedia</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            {{-- success state --}}
-                            @foreach ($testimonials as $testimonial)
-                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-                                    <div class="course__item white-bg transition-3 mb-30 rounded-4">
-                                        <div class="course__content p-relative pt-3 pb-2">
-                                            <div class="mb-4 d-flex align-items-center">
-                                                @for ($i = 0; $i < $testimonial->rating; $i++)
-                                                    <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
-                                                @endfor
-                                                @for ($i = 0; $i < 5 - $testimonial->rating; $i++)
-                                                    <i class="fa-solid fa-star text-3xl me-2 text-gray"></i>
-                                                @endfor
-                                            </div>
-                                            <p>{{ $testimonial->testimonial }}</p>
-                                            <div
-                                                class="course__bottom d-sm-flex align-items-center justify-content-between">
-                                                <div class="testimoni-author-wrapper">
-                                                    <img src="{{ $testimonial->courseEnroll ? asset('storage/' . $testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png') }}"
-                                                        alt="{{ $testimonial->courseEnroll ? Str::slug($testimonial->courseEnroll->student->name) : '' }}-testimoni-profile">
-                                                    <div>
-                                                        <p class="testimoni-author-name">
-                                                            {{ $testimonial->courseEnroll ? $testimonial->courseEnroll->student->name : '' }}
-                                                        </p>
-                                                        <p class="testimoni-author-job">
-                                                            @if ($testimonial->courseEnroll)
-                                                                @if ($testimonial->courseEnroll->student->job != null)
-                                                                    {{ $testimonial->courseEnroll->student->job }}
-                                                                @else
-                                                                    Pelaku Usaha
-                                                                @endif
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="col-xxl-12">
+                            @if (count($testimonials) == 0)
+                                {{-- empty state --}}
+                                <div class="text-center pt-50 pb-50">
+                                    <div class="text-center w-100 d-flex justify-content-center">
+                                        <div class="rounded-3 px-5 py-4" style="background: #0e0e0e10">
+                                            <p class="text-xl font-semibold mb-0">Maaf, testimoni belum tersedia</p>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endif
+                            @else
+                                <div class="testimonial__slider">
+                                    <div class="testimonial__active owl-carousel">
+                                        {{-- success state --}}
+                                        @foreach ($testimonials as $testimonial)
+                                            <div class="course__item white-bg transition-3 mb-30 rounded-4">
+                                                <div class="course__content p-relative pt-3 pb-2">
+                                                    <div class="mb-4 d-flex align-items-center">
+                                                        @for ($i = 0; $i < $testimonial->rating; $i++)
+                                                            <i class="fa-solid fa-star text-3xl me-2 text-star"></i>
+                                                        @endfor
+                                                        @for ($i = 0; $i < 5 - $testimonial->rating; $i++)
+                                                            <i class="fa-solid fa-star text-3xl me-2 text-gray"></i>
+                                                        @endfor
+                                                    </div>
+                                                    <p>{{ $testimonial->testimonial }}</p>
+                                                    <div
+                                                        class="course__bottom d-sm-flex align-items-center justify-content-between">
+                                                        <div class="testimoni-author-wrapper">
+                                                            <img src="{{ $testimonial->courseEnroll ? asset('storage/' . $testimonial->courseEnroll->student->profile_picture) : asset('assets/img/dummy/testimoni-1.png') }}"
+                                                                alt="{{ $testimonial->courseEnroll ? Str::slug($testimonial->courseEnroll->student->name) : '' }}-testimoni-profile">
+                                                            <div>
+                                                                <p class="testimoni-author-name">
+                                                                    {{ $testimonial->courseEnroll ? $testimonial->courseEnroll->student->name : '' }}
+                                                                </p>
+                                                                <p class="testimoni-author-job">
+                                                                    @if ($testimonial->courseEnroll)
+                                                                        @if ($testimonial->courseEnroll->student->job != null)
+                                                                            {{ $testimonial->courseEnroll->student->job }}
+                                                                        @else
+                                                                            Pelaku Usaha
+                                                                        @endif
+                                                                    @else
+                                                                        -
+                                                                    @endif
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         {{-- testimoni area end --}}
 
-        <!-- blog area start -->
+        {{-- blog area start --}}
         <section class="blog__area pt-70 pb-70 p-relative">
             <div class="blog__shape">
                 <img class="blog__shape-1" src="{{ asset('assets/img/decoration/blog-shape-1.png') }}" alt="circle-red">
@@ -281,7 +300,8 @@
                                 <div class="blog__thumb w-img fix overflow-hidden" style="height: 180px !important;">
                                     <a href="/blog/{{ $blogs->slug }}" class="d-block h-100">
                                         <img class="h-100 object-cover-center"
-                                            src="{{ asset('storage/' . $blogs->thumbnail) }}" alt="">
+                                            src="{{ asset('storage/' . $blogs->thumbnail) }}"
+                                            alt="{{ $blogs->slug }}-blog-thumbnail">
                                     </a>
                                 </div>
                                 <div class="blog__content h-100">
@@ -329,9 +349,9 @@
                 </div>
             </div>
         </section>
-        <!-- blog area end -->
+        {{-- blog area end --}}
 
-        <!-- cta area start -->
+        {{-- cta area start --}}
         <section class="cta__area pb-90">
             <div class="container">
                 <div class="cta__inner">
@@ -394,7 +414,7 @@
                 </div>
             </div>
         </section>
-        <!-- cta area end -->
+        {{-- cta area end --}}
     </main>
 @endsection
 
@@ -596,36 +616,80 @@
                     } else {
                         // success state
                         $.map(response.data, function(dataMentor, index) {
-                            htmlString += `<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-                            <a href="/mentor/${dataMentor.slug}"
-                                class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
-                                <div class="mentor-card-thumbnail mt-3">
-                                    <img src="{{ asset('storage/${dataMentor.profile_picture}') }}" alt="${dataMentor.slug}-mentor-profile">
-                                </div>
-                                <div class="course__content p-relative">
-                                    <h5 class="course__title text-lg mb-1 text-center">
-                                        ${dataMentor.name}
-                                    </h5>
-                                    <p class="mb-2 text-center">${dataMentor.job}</p>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="me-3 d-flex align-items-center mb-0">
-                                            <i
-                                                class="material-symbols-rounded me-2">school</i>${dataMentor.count_student}<span
-                                                class="text-gray ms-1">Students</span>
-                                        </p>
-                                        <p class="d-flex align-items-center mb-0">
-                                            <i
-                                                class="material-symbols-rounded me-2">group</i>${dataMentor.mentor_courses_count}<span
-                                                class="text-gray ms-1">Kelas</span>
-                                        </p>
+                            htmlString += `<div class="">
+                                <a href="/mentor/${dataMentor.slug}"
+                                    class="course__item white-bg transition-3 mb-30 rounded-2-5 border border-1 border-light-2 d-block">
+                                    <div class="mentor-card-thumbnail mt-3">
+                                        <img src="{{ asset('storage/${dataMentor.profile_picture}') }}" alt="${dataMentor.slug}-mentor-profile">
                                     </div>
-                                </div>
-                            </a>
-                        </div>`
+                                    <div class="course__content p-relative">
+                                        <h5 class="course__title text-lg mb-1 text-center">
+                                            ${dataMentor.name}
+                                        </h5>
+                                        <p class="mb-2 text-center">${dataMentor.job}</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="me-3 d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">school</i>${dataMentor.count_student}<span
+                                                    class="text-gray ms-1">Students</span>
+                                            </p>
+                                            <p class="d-flex align-items-center mb-0">
+                                                <i
+                                                    class="material-symbols-rounded me-2">group</i>${dataMentor.mentor_courses_count}<span
+                                                    class="text-gray ms-1">Kelas</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>`
                         });
                     }
 
                     $("#mentorPopular").html(htmlString);
+
+                    $(document).ready(function() {
+                        $(".mentors__active").owlCarousel({
+                            //add owl carousel in activation class
+                            loop: true,
+                            margin: 27,
+                            items: 4,
+                            navText: [
+                                '<button class="nav-left"><i class="bi bi-arrow-left-short"></i></button>',
+                                '<button class="nav-right"><i class="bi bi-arrow-right-short"></i></button>',
+                            ],
+                            nav: true,
+                            dots: true,
+                            slideTransition: "fadeOutLeft",
+                            smartSpeed: 300,
+                            responsive: {
+                                0: {
+                                    items: 1,
+                                    nav: false,
+                                    dots: true,
+                                },
+                                576: {
+                                    items: 2,
+                                    nav: false,
+                                    dots: true,
+                                },
+                                767: {
+                                    items: 2,
+                                    nav: true,
+                                    dots: false,
+                                },
+                                992: {
+                                    items: 3,
+                                    nav: true,
+                                    dots: false,
+                                },
+                                1200: {
+                                    items: 4,
+                                    nav: true,
+                                    dots: false,
+                                },
+                            },
+                        });
+                    })
                 },
                 // error state
                 error: function() {
