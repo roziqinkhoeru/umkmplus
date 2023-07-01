@@ -7474,10 +7474,12 @@ input[type="color"] {
 /*----------------------------------------*/
 /*  18. TESTIMONIAL CSS START
 /*----------------------------------------*/
-.testimonial__slider .owl-stage-outer {
+.testimonial__slider .owl-stage-outer,
+.mentors__slider .owl-stage-outer {
     overflow: visible;
 }
-.testimonial__slider .owl-item {
+.testimonial__slider .owl-item,
+.mentors__slider .owl-item {
     opacity: 0;
     visibility: hidden;
     -webkit-transition: all 0.3s ease-out 0s;
@@ -7486,11 +7488,12 @@ input[type="color"] {
     -o-transition: all 0.3s ease-out 0s;
     transition: all 0.3s ease-out 0s;
 }
-.testimonial__slider .owl-item.active {
+.testimonial__slider .owl-item.active,
+.mentors__slider .owl-item.active {
     opacity: 1;
     visibility: visible;
 }
-.testimonial__slider .owl-dots {
+.testimonial__slider .owl-dots{
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -7498,7 +7501,7 @@ input[type="color"] {
     display: flex;
     align-items: center;
     position: absolute;
-    bottom: -52px;
+    bottom: -36px;
     left: 50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
@@ -7506,7 +7509,24 @@ input[type="color"] {
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
 }
-.testimonial__slider .owl-dots .owl-dot {
+.mentors__slider .owl-dots {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.testimonial__slider .owl-dots .owl-dot,
+.mentors__slider .owl-dots .owl-dot {
     margin: 0 6px;
     width: 8px;
     height: 8px;
@@ -7517,12 +7537,14 @@ input[type="color"] {
     -ms-border-radius: 50%;
     border-radius: 50%;
 }
-.testimonial__slider .owl-dots .owl-dot.active {
+.testimonial__slider .owl-dots .owl-dot.active,
+.mentors__slider .owl-dots .owl-dot.active {
     width: 12px;
     height: 12px;
-    background-color: var(--tp-theme-2);
+    background-color: var(--tp-common-violet);
 }
-.testimonial__active.swiper-container {
+.testimonial__active.swiper-container,
+.mentors__active.swiper-container {
     overflow: visible;
 }
 .testimonial__item {
