@@ -132,6 +132,56 @@
     object-fit: cover;
     object-position: center;
 }
+.mentors-container-mb {
+    margin-bottom: 24px;
+}
+.mentors__slider .owl-nav {
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    z-index: 10;
+    width: 100%;
+}
+.mentors__slider .owl-nav .owl-prev {
+    top: 0;
+    position: absolute;
+    left: -30px;
+}
+.mentors__slider .owl-nav .owl-next {
+    top: 0;
+    position: absolute;
+    right: -30px;
+}
+.mentors__slider .owl-nav .owl-next .nav-right,
+.mentors__slider .owl-nav .owl-prev .nav-left {
+    font-size: 27px;
+    color: #6c6c6c;
+    background: #ffffff;
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: 2px solid #6c6c6c;
+    opacity: 0.08;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+.mentors__slider:hover .owl-nav .owl-next .nav-right,
+.mentors__slider:hover .owl-nav .owl-prev .nav-left {
+    opacity: 0.8;
+}
 /* testimoni */
 .testimoni-container {
     padding: 0 5rem;
@@ -141,16 +191,16 @@
     align-items: center;
 }
 .testimoni-author-wrapper img {
-    width: 56px;
-    height: 56px;
-    object-fit: cover;
-    object-position: center;
-    margin-right: 1rem;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    width: 56px !important;
+    height: 56px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin-right: 1rem !important;
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    -ms-border-radius: 50% !important;
+    -o-border-radius: 50% !important;
 }
 .testimoni-author-name {
     margin-bottom: 1px !important;

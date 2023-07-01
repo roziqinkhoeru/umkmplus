@@ -132,6 +132,10 @@
     .brand-logo-user {
         height: 28px;
     }
+    /* mentor */
+    .mentors-container-mb {
+        margin-bottom: 54px;
+    }
 
     /* MENTOR DETAIL */
     /* course */
