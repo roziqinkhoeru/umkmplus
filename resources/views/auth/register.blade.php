@@ -83,10 +83,11 @@
                                             <h5>Jenis Kelamin</h5>
                                         </label>
                                         <div class="sign__input">
-                                            <select class="select-form w-100 h-52" aria-label="Default select example"
-                                                name="gender" id="gender" required>
-                                                <option hidden selected>Pilih Jenis Kelamin</option>
-                                                <option selected value="laki-laki">laki-laki</option>
+                                            <i class="fal fa-venus-mars icon-form" style="z-index: 100"></i>
+                                            <select class="select-form w-100 h-52 input-form float-none" name="gender"
+                                                id="gender" required>
+                                                <option selected value="">Pilih Jenis Kelamin</option>
+                                                <option value="laki-laki">laki-laki</option>
                                                 <option value="perempuan">perempuan</option>
                                             </select>
                                         </div>
