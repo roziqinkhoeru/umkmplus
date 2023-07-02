@@ -92,20 +92,22 @@
                         </div>
                         `;
                     } else {
+                        const currencyOption = {
+                            style: 'currency',
+                            currency: 'IDR',
+                            currencyDisplay: 'symbol',
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                        };
+
                         $.map(response.data.carts, function(cartCourse, index) {
-                            let option = {
-                                style: 'currency',
-                                currency: 'IDR',
-                                useGrouping: true,
-                                minimumFractionDigits: 0,
-                                maximumFractionDigits: 0,
-                            };
                             let discountPrice = Math.ceil(cartCourse.price * cartCourse
                                 .discount / 100);
                             let subTotal = cartCourse.price - discountPrice;
-                            let coursePrice = cartCourse.price.toLocaleString('id-ID', option);
-                            discountPrice = discountPrice.toLocaleString('id-ID', option);
-                            subTotal = subTotal.toLocaleString('id-ID', option);
+                            let coursePrice = parseInt(cartCourse.price);
+                            discountPrice = discountPrice.toLocaleString('id-ID', currencyOption);
+                            subTotal = subTotal.toLocaleString('id-ID', currencyOption);
                             cartCourseContentDesktop += `<tr>
                                             <td class="product-name">
                                                 <div class="d-flex gap-3">
@@ -117,9 +119,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="product-price"><span class="amount">${coursePrice}</span></td>
-                                            <td class="product-discount"><span class="amount">${discountPrice}</span></td>
-                                            <td class="product-subtotal"><span class="amount">${subTotal}</span></td>
+                                            <td class="product-price"><span class="amount">${coursePrice.toLocaleString('id-ID', currencyOption)}</span></td>
+                                            <td class="product-discount"><span class="amount space-nowrap" style="color: #cb3232">- ${discountPrice}</span></td>
+                                            <td class="product-subtotal"><span class="amount text-green fw-semibold">${subTotal}</span></td>
                                             <td class="product-remove space-nowrap">
                                                 <a href="#" onclick="deleteCart('${cartCourse.id}')" class="tp-btn tp-btn-6 me-2 btn-delete rounded-2" id="deleteCartButton">Hapus</a>
                                                 <a href="{{ url('checkout/${cartCourse.slug}') }}" class="tp-btn tp-btn-6 rounded-2">Checkout</a>
@@ -135,7 +137,7 @@
                                                 <div class="">
                                                     <p class="text-base mb-5">${cartCourse.title}</p>
                                                     <p class="text-base fw-semibold mb-0">${subTotal} <span
-                                                            class="text-xs text-decoration-line-through text-green fw-semibold">${coursePrice}</span></p>
+                                                            class="text-xs text-decoration-line-through text-green fw-semibold">${coursePrice.toLocaleString('id-ID', currencyOption)}</span></p>
                                                 </div>
                                             </div>
                                         </div>
