@@ -693,6 +693,16 @@ input[type="color"] {
     border-color: var(--tp-theme-3);
     color: var(--tp-common-white);
 }
+.tp-btn-14 {
+    background-color: var(--tp-theme-1);
+    border-color: var(--tp-theme-1);
+    color: var(--tp-common-white);
+}
+.tp-btn-14:hover {
+    background-color: var(--tp-common-white);
+    border-color: var(--tp-common-white);
+    color: var(--tp-common-black);
+}
 .tp-btn-border {
     height: 44px;
     line-height: 40px;
@@ -7493,7 +7503,7 @@ input[type="color"] {
     opacity: 1;
     visibility: visible;
 }
-.testimonial__slider .owl-dots{
+.testimonial__slider .owl-dots {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
