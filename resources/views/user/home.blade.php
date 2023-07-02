@@ -5,7 +5,7 @@
         $categoryUrl = request()->get('category');
     @endphp
 
-    <main>
+    <main class="w-100 overflow-hidden">
         {{-- slider area start --}}
         <section class="slider__area slider-height-2 include-bg d-flex align-items-center"
             data-background="{{ asset('assets/img/decoration/blue-bg.png') }}">
@@ -63,7 +63,7 @@
         {{-- brand area end --}}
 
         {{-- course area start --}}
-        <section class="course__area pt-80 pb-50 bg-white">
+        <section class="course__area pt-80 pb-30 bg-white">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="d-grid gap-5 grid-cols-12 mt-30" id="courseCategory">
                 </div>
-                <div class="row justify-content-center pt-70 pb-10">
+                <div class="row justify-content-center pt-45-lg-60">
                     <div class="col-xxl-8 col-xl-8 col-lg-8">
                         <div class="course__enroll-wrapper mt-40 p-relative d-sm-flex align-items-center justify-content-between include-bg"
                             data-background="{{ asset('assets/img/decoration/course-bg.png') }}">
