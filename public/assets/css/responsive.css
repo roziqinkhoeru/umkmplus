@@ -132,6 +132,9 @@
     .brand-logo-user {
         height: 28px;
     }
+    .pt-45-lg-60 {
+        padding-top: 60px;
+    }
     /* mentor */
     .mentors-container-mb {
         margin-bottom: 54px;

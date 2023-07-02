@@ -114,6 +114,9 @@
     object-fit: cover;
     object-position: center;
 }
+.pt-45-lg-60 {
+    padding-top: 45px;
+}
 /* mentor */
 .mentor-card-thumbnail {
     width: 150px;
