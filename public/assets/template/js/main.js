@@ -222,8 +222,14 @@
     // course slider
     var swiper = new Swiper(".course__slider", {
         spaceBetween: 30,
-        slidesPerView: 2,
+        slidesPerView: 4,
         breakpoints: {
+            1200: {
+                slidesPerView: 4,
+            },
+            991: {
+                slidesPerView: 3,
+            },
             768: {
                 slidesPerView: 2,
             },
