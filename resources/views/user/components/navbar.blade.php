@@ -22,7 +22,7 @@
                                     <li class="{{ request()->is('mentor*') ? 'active' : '' }}">
                                         <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
-                                    <li class="">
+                                    <li class="{{ request()->is('blog*') ? 'active' : '' }}">
                                         <a href="/blog">Blog</a>
                                     </li>
                                     @if (!Auth::check())
@@ -53,9 +53,10 @@
                                 <form action="{{ url('/course') }}" method="GET" class="formSearchDesktop">
                                     <div class="header__search-input">
                                         <input type="text" placeholder="Cari kelas..." class="rounded-pill"
-                                            id="searchCourseDesktop" name="search" @if (request()->has('search')) value="{{ request()->search }}" @endif>
-                                        <button class="header__search-btn r-5" onclick="getCourse('desktop')"><svg width="18"
-                                                height="18" viewBox="0 0 18 18" fill="none"
+                                            id="searchCourseDesktop" name="search"
+                                            @if (request()->has('search')) value="{{ request()->search }}" @endif>
+                                        <button class="header__search-btn r-5" onclick="getCourse('desktop')"><svg
+                                                width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.11117 15.2222C12.0385 15.2222 15.2223 12.0385 15.2223 8.11111C15.2223 4.18375 12.0385 1 8.11117 1C4.18381 1 1.00006 4.18375 1.00006 8.11111C1.00006 12.0385 4.18381 15.2222 8.11117 15.2222Z"
@@ -145,8 +146,11 @@
                         </div>
                         <div class="offcanvas__search mb-25">
                             <form form action="{{ url('/course') }}" method="GET" class="formSearchMobile">
-                                <input type="text" placeholder="Cari kelas..." id="searchCourseMobile" name="search" @if (request()->has('search')) value="{{ request()->search }}" @endif>
-                                <button type="submit"  onclick="getCourse('mobile')"><i class="far fa-search"></i></button>
+                                <input type="text" placeholder="Cari kelas..." id="searchCourseMobile"
+                                    name="search"
+                                    @if (request()->has('search')) value="{{ request()->search }}" @endif>
+                                <button type="submit" onclick="getCourse('mobile')"><i
+                                        class="far fa-search"></i></button>
                             </form>
                         </div>
                         <div class="mobile-menu fix"></div>
