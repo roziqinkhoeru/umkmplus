@@ -101,6 +101,51 @@
                 </div>
                 <div class="d-grid gap-5 grid-cols-12 mt-30" id="courseCategory">
                 </div>
+                <div class="row justify-content-center pt-70 pb-10">
+                    <div class="col-xxl-8 col-xl-8 col-lg-8">
+                        <div class="course__enroll-wrapper mt-40 p-relative d-sm-flex align-items-center justify-content-between include-bg"
+                            data-background="{{ asset('assets/img/decoration/course-bg.png') }}">
+                            <div class="course__enroll-icon">
+                                <span>
+                                    <svg width="28" height="34" viewBox="0 0 28 34" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g filter="url(#filter0_d_268_615)">
+                                            <path
+                                                d="M7.59649 15.161H11.2015V23.561C11.2015 25.521 12.2632 25.9177 13.5582 24.4477L22.3898 14.4144C23.4748 13.1894 23.0198 12.1744 21.3748 12.1744H17.7698V3.77435C17.7698 1.81435 16.7082 1.41769 15.4132 2.88769L6.58149 12.921C5.50816 14.1577 5.96316 15.161 7.59649 15.161Z"
+                                                fill="white" />
+                                        </g>
+                                        <defs>
+                                            <filter id="filter0_d_268_615" x="2" y="2" width="24.9795"
+                                                height="31.3354" filterUnits="userSpaceOnUse"
+                                                color-interpolation-filters="sRGB">
+                                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                                <feColorMatrix in="SourceAlpha" type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                    result="hardAlpha" />
+                                                <feOffset dy="4" />
+                                                <feGaussianBlur stdDeviation="2" />
+                                                <feComposite in2="hardAlpha" operator="out" />
+                                                <feColorMatrix type="matrix"
+                                                    values="0 0 0 0 0.825 0 0 0 0 0.38207 0 0 0 0 0 0 0 0 0.5 0" />
+                                                <feBlend mode="normal" in2="BackgroundImageFix"
+                                                    result="effect1_dropShadow_268_615" />
+                                                <feBlend mode="normal" in="SourceGraphic"
+                                                    in2="effect1_dropShadow_268_615" result="shape" />
+                                            </filter>
+                                        </defs>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="course__enroll-content">
+                                <p>Bersama Kami</p>
+                                <h4>Menemukan Kursus yang Tepat</h4>
+                            </div>
+                            <div class="course__enroll-btn pt-5">
+                                <a href="/coure/category" class="tp-btn-5 tp-btn-14">Temukan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         {{-- course area end --}}
