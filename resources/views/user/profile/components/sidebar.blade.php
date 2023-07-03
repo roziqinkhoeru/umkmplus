@@ -1,6 +1,6 @@
 {{-- sidebar --}}
 <div class="col-xxl-4 col-md-4">
-    <div class="profile__menu-left white-bg mb-50 pt-5">
+    <div class="profile__menu-left white-bg mb-50 pt-5 rounded-2-5">
         <div class="profile__menu-tab">
             <div class="nav nav-tabs flex-column justify-content-start text-start">
                 {{-- my dashboard --}}
