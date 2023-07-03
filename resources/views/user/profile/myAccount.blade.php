@@ -128,10 +128,10 @@
             // Display loading state
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                             <div class="order__info">
-                                                <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                                <div class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                                     <h3 class="order__info-title">Dashboard Saya</h3>
                                                 </div>
-                                                <div class="order__list white-bg px-9">
+                                                <div class="order__list white-bg px-9 rounded-2-5">
                                                     <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
                                                         <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                     </div>
@@ -147,10 +147,10 @@
                 success: function(response) {
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
-                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                             <h3 class="order__info-title">Dashboard Saya</h3>
                                         </div>
-                                        <div class="order__list white-bg px-9 pb-9">
+                                        <div class="order__list white-bg px-9 rounded-2-5 pb-9">
                                             <h5 class="mb-25" style="color: #4A545C">Statistik Kelas</h5>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -264,13 +264,13 @@
             // Display loading state
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
-                                            <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
+                                            <div class="profile__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                                 <h3 class="profile__info-title">Informasi Akun</h3>
                                                 <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                                     data-bs-target="#profile_edit_modal"><i
                                                         class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
                                             </div>
-                                            <div class="order__list white-bg px-9">
+                                            <div class="order__list white-bg px-9 rounded-2-5">
                                                 <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
@@ -286,13 +286,13 @@
                 success: function(response) {
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="profile__info" id="profileInfo">
-                                <div class="profile__info-top d-flex justify-content-between align-items-center px-9">
+                                <div class="profile__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                     <h3 class="profile__info-title">Informasi Akun</h3>
                                     <button class="profile__info-btn" type="button" data-bs-toggle="modal"
                                         data-bs-target="#profile_edit_modal"><i
                                             class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
                                 </div>
-                                <div class="profile__info-wrapper white-bg px-9">
+                                <div class="profile__info-wrapper white-bg px-9 rounded-2-5">
                                     <div class="profile__info-item">
                                         <p>Nama</p>
                                         <h4>${response.data.customer.name}</h4>
@@ -320,10 +320,10 @@
                     $("#profileEditModal").html(`
                         <div class="modal fade" id="profile_edit_modal" tabindex="-1" aria-labelledby="profile_edit_modal"aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
+                                <div class="modal-content rounded-2-5">
                                     <div class="profile__edit-wrapper">
                                         <div class="profile__edit-close">
-                                            <button type="button" class="profile__edit-close-btn" data-bs-toggle="modal"
+                                            <button type="button" class="profile__edit-close-btn rounded-3" data-bs-toggle="modal"
                                                 data-bs-target="#course_enroll_modal"><i class="fa-light fa-xmark"></i></button>
                                         </div>
                                         <form action="{{ route('update.profile') }}" method="POST" id="formUpdateProfile">
@@ -354,7 +354,7 @@
                                                 <input type="text" name="address" id="address" value="${response.data.customer.address}" placeholder="Alamat Anda">
                                             </div>
                                             <div class="profile__edit-input">
-                                                <button type="submit" id="updateProfileButton" class="tp-btn w-100">Update</button>
+                                                <button type="submit" id="updateProfileButton" class="tp-btn w-100 rounded-3">Update</button>
                                             </div>
                                         </form>
                                     </div>
@@ -491,10 +491,10 @@
             // Display loading state
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
-                                            <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                            <div class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                                 <h3 class="order__info-title">Kelas Saya</h3>
                                             </div>
-                                            <div class="order__list white-bg px-9">
+                                            <div class="order__list white-bg px-9 rounded-2-5">
                                                 <div class="d-flex align-items-center justify-content-center pt-35 pb-60">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
@@ -509,10 +509,10 @@
                 success: function(response) {
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                                     <div class="order__info">
-                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9">
+                                        <div class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5">
                                             <h3 class="order__info-title">Kelas Saya</h3>
                                         </div>
-                                        <div class="order__list white-bg px-9 pb-9">
+                                        <div class="order__list white-bg px-9 rounded-2-5 pb-9">
                                             <div class="d-grid gap-5 grid-cols-12">
                                                 ${getMyCourse(response.data)}
                                             </div>
@@ -604,11 +604,11 @@
             $("#nav-tabContent").html(`<div class="tab-pane fade show active" role="tabpanel">
                                         <div class="order__info">
                                             <div
-                                                class="order__info-top d-flex justify-content-between align-items-center px-9"
+                                                class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5"
                                             >
                                                 <h3 class="order__info-title">Riwayat Transaksi</h3>
                                             </div>
-                                            <div class="order__list white-bg">
+                                            <div class="order__list white-bg rounded-2-5">
                                                 <div class="d-flex align-items-center justify-content-center pt-35 pb-60 px-9">
                                                     <i class="fas fa-circle-notch spinners-2" style="font-size: 54px"></i>
                                                 </div>
@@ -625,11 +625,11 @@
                     htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                             <div class="order__info">
                                 <div
-                                    class="order__info-top d-flex justify-content-between align-items-center px-9"
+                                    class="order__info-top d-flex justify-content-between align-items-center px-9 rounded-2-5"
                                 >
                                     <h3 class="order__info-title">Riwayat Transaksi</h3>
                                 </div>
-                                <div class="order__list white-bg px-9">
+                                <div class="order__list white-bg px-9 rounded-2-5">
                                     <div>
                                         ${getMyTransaction(response.data)}
                                     </div>
@@ -655,16 +655,18 @@
                                     </div>
                                 </div>`;
             } else {
+                const currencyOption = {
+                    style: 'currency',
+                    currency: 'IDR',
+                    currencyDisplay: 'symbol',
+                    useGrouping: true,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                };
+
                 $.map(data, function(enroll) {
-                    let option = {
-                        style: 'currency',
-                        currency: 'IDR',
-                        useGrouping: true,
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                    };
-                    let coursePrice = enroll.course.price.toLocaleString('id-ID', option);
-                    let courseTotalPrice = enroll.total_price;
+                    let coursePrice = parseInt(enroll.course.price);
+                    let courseTotalPrice = parseInt(enroll.total_price);
                     let badgeStatus = '';
                     let badgeText = '';
                     switch (enroll.status) {
@@ -719,7 +721,7 @@
                                                     </div>
                                                     <div>
                                                         <p class="mb-5 text-base fw-bold">${enroll.course.title}</p>
-                                                        <p class="mb-0">Harga Produk: <span class="fw-medium">${coursePrice}</span></p>
+                                                        <p class="mb-0">Harga Produk: <span class="fw-medium">${coursePrice.toLocaleString('id-ID', currencyOption)}</span></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -732,7 +734,7 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="d-flex align-items-center justify-content-between flex-wrap" style="gap: 8px 0">
-                                                    <p class="mb-0 text-green fw-bold text-base">${courseTotalPrice.toLocaleString('id-ID', option)}</p>
+                                                    <p class="mb-0 text-green fw-bold text-base">${courseTotalPrice.toLocaleString('id-ID', currencyOption)}</p>
                                                     ${enroll.status === 'menunggu pembayaran' ? `<a href="/checkout/${enroll.course.slug}" class="tp-btn tp-btn-4 btn-sm" style="padding: 4px 12px !important">Selesaikan</a>` : ''}
                                                 </div>
                                             </div>
@@ -749,10 +751,10 @@
         function formChangePassword() {
             htmlString = `<div class="tab-pane fade show active" role="tabpanel">
                         <div class="password__change">
-                            <div class="password__change-top px-9">
+                            <div class="password__change-top px-9 rounded-2-5">
                                 <h3 class="password__change-title">Ubah Kata Sandi</h3>
                             </div>
-                            <div class="password__form white-bg px-9">
+                            <div class="password__form white-bg px-9 rounded-2-5">
                                 <form action="{{ route('profile.change.password') }}" method="POST" id="formChangePassword">
                                     @csrf @method('PUT')
                                     <div class="password__input">
@@ -768,7 +770,7 @@
                                         <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" >
                                     </div>
                                     <div class="password__input mb-5 text-right">
-                                        <button type="submit "id="updatePasswordButton" class="tp-btn">Update password</button>
+                                        <button type="submit "id="updatePasswordButton" class="tp-btn tp-btn-4 rounded-3">Update password</button>
                                     </div>
                                 </form>
                             </div>
@@ -857,7 +859,6 @@
             });
         }
 
-
         // Menambahkan aturan validasi kustom untuk ukuran maksimum file
         $.validator.addMethod('maxfilesize', function(value, element, param) {
             var maxSize = param;
@@ -895,8 +896,8 @@
                 $.ajax({
                     url: "{{ route('update.photo.profile') }}",
                     type: "POST",
-                        processData: false,
-                        contentType: false,
+                    processData: false,
+                    contentType: false,
                     data: formData,
                     success: function(response) {
                         $('#updateProfileImageButton').html(
@@ -909,8 +910,10 @@
                             title: 'UBAH FOTO PROFIL BERHASIL!',
                             text: response.meta.message,
                         })
-                        $("#photoProfile").attr('src', `{{ asset('storage/${response.data.profile_picture}') }}`);
-                        $("#imagePreview").attr('src', `{{ asset('storage/${response.data.profile_picture}') }}`);
+                        $("#photoProfile").attr('src',
+                            `{{ asset('storage/${response.data.profile_picture}') }}`);
+                        $("#imagePreview").attr('src',
+                            `{{ asset('storage/${response.data.profile_picture}') }}`);
                         getContent('profile');
                     },
                     error: function(xhr, status, error) {
