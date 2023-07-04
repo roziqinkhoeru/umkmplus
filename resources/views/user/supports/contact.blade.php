@@ -8,39 +8,40 @@
                 <div class="row align-items-center row-gap-5">
                     <div class="col-xxl-6 col-lg-6">
                         <div class="slider__content-2 mt-30">
-                            <span class="text-green fw-semibold">#BelajarLangsungDariAhli</span>
-                            <h3 class="slider__title-2">Mentor Terpopuler</h3>
-                            <p>Belajar langsung dari para Professional dan Practitioners Business Expert dengan pengalaman
-                                selama puluhan tahun di dunia bisnis.</p>
+                            <span class="text-green fw-semibold">#TerhubungdenganKami</span>
+                            <h3 class="slider__title-2">Kontak Kami</h3>
+                            <p>
+                                Punya pertanyaan atau hanya ingin menyapa? Kami akan senang mendengar dari Anda.
+                            </p>
                             <div class="slider__search mb-20">
-                                <form action="#" id="formSearchMentor">
+                                <form action="#" id="">
                                     <div class="slider__search-input p-relative">
-                                        <input type="text" placeholder="Cari mentor..." name="searchMentor"
-                                            id="searchMentor" style="background: #F1F1F1">
-                                        <button type="submit" class="tp-btn-search-header">Search</button>
+                                        <input type="email" placeholder="youremail@email.com" name="email"
+                                            id="email" style="background: #F1F1F1">
+                                        <button type="submit" class="tp-btn-search-header">Subscribe</button>
                                         <div class="slider__search-input-icon"
                                             style="transform: translateY(-57%) !important;">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
                                                 <path
-                                                    d="M8.625 15.75C12.56 15.75 15.75 12.56 15.75 8.625C15.75 4.68997 12.56 1.5 8.625 1.5C4.68997 1.5 1.5 4.68997 1.5 8.625C1.5 12.56 4.68997 15.75 8.625 15.75Z"
-                                                    stroke="#828282" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                                <path d="M16.5 16.5L15 15" stroke="#828282" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                    d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+                                                <path
+                                                    d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
                                             </svg>
+
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-6 col-lg-6">
+                    <div class="col-xxl-1 d-none d-xxl-block"></div>
+                    <div class="col-xxl-5 col-lg-6">
                         <div class="slider__thumb-2 p-relative">
                             <div class="slider__shape">
                                 <img class="img-fluid header-image-animation-2"
-                                    src="{{ asset('assets/img/brand/man-and-women-pen.png') }}"
-                                    alt="man-and-women-pen-header">
+                                    src="{{ asset('assets/img/decoration/header-hexa-2.png') }}"
+                                    alt="hexa-header-umkmplus-2">
                             </div>
                         </div>
                     </div>
@@ -56,8 +57,7 @@
                     <div class="col-xxl-7 col-xl-7 col-lg-6">
                         <div class="contact__wrapper">
                             <div class="section__title-wrapper mb-40">
-                                <h2 class="section__title">Hubungi Kami</h2>
-                                <p>Punya pertanyaan atau hanya ingin menyapa? Kami akan senang mendengar dari Anda.</p>
+                                <h3 class="section__title">Hubungi Kami</h3>
                             </div>
                             <div class="contact__form">
                                 <form action="#">
