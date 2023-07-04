@@ -142,7 +142,7 @@
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div class="offcanvas__contact mt-30 mb-20">
-                            <h4>Contact Info</h4>
+                            <h4>Informasi Kontak</h4>
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <div class="offcanvas__contact-icon mr-15">
