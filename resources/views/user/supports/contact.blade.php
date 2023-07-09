@@ -60,41 +60,42 @@
                                 <h3 class="section__title">Hubungi Kami</h3>
                             </div>
                             <div class="contact__form">
-                                <form action="#">
+                                <form action="#" id="contactForm">
                                     <div class="row">
                                         <div class="col-xxl-6 col-xl-6 col-md-6">
-                                            <div class="contact__form-input">
-                                                <input type="text" id="fullname" id="fullname" required
-                                                    placeholder="Nama Lengkap">
+                                            <div class="contact__form-input pb-4">
+                                                <input type="text" id="fullname" name="fullname" required
+                                                    placeholder="Nama Lengkap" class="mb-1">
                                             </div>
                                         </div>
                                         <div class="col-xxl-6 col-xl-6 col-md-6">
-                                            <div class="contact__form-input">
+                                            <div class="contact__form-input pb-4">
                                                 <input type="email" id="email" name="email" required
-                                                    placeholder="youremail@email.com">
+                                                    placeholder="youremail@email.com" class="mb-1">
                                             </div>
                                         </div>
                                         <div class="col-xxl-12">
-                                            <div class="contact__form-input">
+                                            <div class="contact__form-input pb-4">
                                                 <input type="text" id="subject" name="subject" required
-                                                    placeholder="Subjek">
+                                                    placeholder="Subjek" class="mb-1">
                                             </div>
                                         </div>
                                         <div class="col-xxl-12">
-                                            <div class="contact__form-input">
-                                                <textarea required id="messages" name="messages" placeholder="Masukkan Pesan Anda"></textarea>
+                                            <div class="contact__form-input pb-3">
+                                                <textarea required id="messages" name="messages" placeholder="Masukkan Pesan Anda" class="mb-1"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xxl-12">
                                             <div class="contact__form-agree  d-flex align-items-center mb-20">
-                                                <input class="e-check-input" type="checkbox" id="e-agree">
-                                                <label class="e-check-label" for="e-agree">Saya setuju dengan<a
+                                                <input class="e-check-input" type="checkbox" id="terms" name="terms">
+                                                <label class="e-check-label" for="terms">Saya setuju dengan<a
                                                         href="/terms">Syarat dan Ketentuan</a></label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-12">
                                             <div class="contact__btn">
-                                                <button class="tp-btn rounded-3 tp-btn-4">Kirim Pesan</button>
+                                                <button class="tp-btn rounded-3 tp-btn-4" id="contactFormButton">Kirim
+                                                    Pesan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -160,13 +161,16 @@
                                     <h4>Ikuti Kami</h4>
                                     <ul>
                                         {{-- facebook --}}
-                                        <li><a href="#" class="fb"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <li><a href="https://www.facebook.com/" rel="noopener noreferrer" target="_blank"
+                                                class="fb"><i class="fa-brands fa-facebook-f"></i></a>
                                         </li>
                                         {{-- twitter --}}
-                                        <li><a href="#" class="tw"><i class="fa-brands fa-twitter"></i></a>
+                                        <li><a href="https://www.twitter.com/" rlrel="noopener noreferrer"
+                                                target="_blank" class="tw"><i class="fa-brands fa-twitter"></i></a>
                                         </li>
                                         {{-- youtube --}}
-                                        <li><a href="#" class="pin"><i class="fa-brands fa-youtube"></i></a>
+                                        <li><a href="https://www.youtube.com/" rlrel="noopener noreferrer"
+                                                target="_blank" class="pin"><i class="fa-brands fa-youtube"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -180,5 +184,45 @@
     </main>
 @endsection
 @section('script')
-    <script></script>
+    <script>
+        // validate form
+        $("#contactForm").validate({
+            rules: {
+                fullname: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                subject: {
+                    required: true,
+                },
+                messages: {
+                    required: true,
+                },
+                terms: {
+                    required: true,
+                },
+            },
+            messages: {
+                fullname: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Nama lengkap tidak boleh kosong',
+                },
+                email: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak boleh kosong',
+                    email: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Email tidak valid',
+                },
+                subject: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Subjek tidak boleh kosong',
+                },
+                messages: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Pesan tidak boleh kosong',
+                },
+                terms: {
+                    required: '<i class="fas fa-exclamation-circle mr-6 text-sm icon-error"></i>Anda harus menyetujui syarat dan ketentuan',
+                },
+            },
+        });
+    </script>
 @endsection
