@@ -27,6 +27,9 @@
 .text-right {
     text-align: right !important;
 }
+.text-justify {
+    text-align: justify !important;
+}
 /* leading 1 */
 .leading-base {
     line-height: 1 !important;
