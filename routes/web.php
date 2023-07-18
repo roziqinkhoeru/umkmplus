@@ -36,11 +36,21 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/about', function () {
+    return view('user.company.about', ['title' => 'Tentang Kami | UMKMPlus']);
+});
 Route::get('/contact', function () {
     return view('user.supports.contact', ['title' => 'Kontak Kami | UMKMPlus']);
 });
 Route::get('/terms', function () {
     return view('user.supports.terms', ['title' => 'Syarat da Ketentuan | UMKMPlus']);
+});
+Route::get('/faq', function () {
+    return view('user.supports.faq', ['title' => 'FAQ | UMKMPlus']);
+});
+Route::get('/tutorial', function () {
+    return view('user.supports.tutorial', ['title' => 'Tutorial | UMKMPlus']);
 });
 
 Route::get('/dashboard/search/{any}', function () {
