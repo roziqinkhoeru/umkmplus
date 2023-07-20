@@ -8017,7 +8017,7 @@ input[type="color"] {
     -ms-transform: translateY(-50%) rotate(45deg);
     -o-transform: translateY(-50%) rotate(45deg);
     transform: translateY(-50%) rotate(45deg);
-    background-color: var(--tp-theme-3);
+    background-color: var(--tp-common-violet);
     color: var(--tp-common-white);
 }
 .faq__accordion .accordion-collapse {
@@ -8065,7 +8065,7 @@ input[type="color"] {
     bottom: 0;
     width: 100%;
     height: 100px;
-    background-color: var(--tp-grey-9);
+    background-color: var(--tp-grey-4);
     z-index: -1;
 }
 .app__inner {

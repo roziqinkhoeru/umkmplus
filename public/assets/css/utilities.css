@@ -60,6 +60,10 @@
     padding-bottom: 36px !important;
 }
 
+.max-w-80-md {
+    max-width: 80% !important;
+}
+
 /* input */
 .input-form {
     padding: 0 36px 0 50px !important;

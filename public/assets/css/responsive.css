@@ -278,6 +278,9 @@
     .text-4xl {
         font-size: 2rem;
     }
+    .max-w-80-md {
+        max-width: 100% !important;
+    }
 
     /* HOMEPAGE */
     /* header */
