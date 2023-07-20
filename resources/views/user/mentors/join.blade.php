@@ -136,17 +136,18 @@
                     <div class="join-info-wrapper">
                         <hr class="d-sm-none mb-35">
                         <h5 class="text-xl">General inquiries</h5>
-                        <p class="mb-30 text-base">Reach us at <a href="mailto:info@umkmplus.com" class="text-tp-theme-1"
-                                style="text-decoration: underline;text-underline-offset: 2px">info@umkmplus.com</a> and
+                        <p class="mb-30 text-base">Reach us at <a href="mailto:info@umkmplus.site"
+                                class="text-tp-theme-1"
+                                style="text-decoration: underline;text-underline-offset: 2px">info@umkmplus.site</a> and
                             we will get back to you
                             asap.</p>
                         <h5 class="text-xl">Working as UMKMPlus?</h5>
                         <p class="mb-30 text-base">Visit our careers page or send us an email at <a
-                                href="mailto:info@umkmplus.com" class="text-tp-theme-1"
+                                href="mailto:info@umkmplus.site" class="text-tp-theme-1"
                                 style="text-decoration: underline;text-underline-offset: 2px">careers@umkmplus.com</a></p>
                         <h5 class="text-xl">Insurance agent?</h5>
                         <p class="mb-30 text-base">Become an insurance agent by contacting us at <a
-                                href="mailto:info@umkmplus.com" class="text-tp-theme-1"
+                                href="mailto:info@umkmplus.site" class="text-tp-theme-1"
                                 style="text-decoration: underline;text-underline-offset: 2px">careers@umkmplus.com</a></p>
                     </div>
                 </div>
