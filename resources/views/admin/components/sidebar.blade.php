@@ -29,11 +29,11 @@
                 <ul class="nav">
                     <li>
                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                            <a href="/admin/profile">
+                            <a href="{{ route('admin.profile') }}">
                                 <span class="link-collapse">Profil Saya</span>
                             </a>
                         @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                            <a href="/mentor/profile">
+                            <a href="{{ route('mentor.profile') }}">
                                 <span class="link-collapse">Profil Saya</span>
                             </a>
                         @endif
@@ -48,12 +48,12 @@
         {{-- dashboard --}}
         <li class="nav-item @if ($active == 'dashboard') active @endif">
             @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                <a href="/admin">
+                <a href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-home"></i>
                     <p>Dashboard</p>
                 </a>
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <a href="/mentor/dashboard">
+                <a href="{{ route('mentor.dashboard') }}">
                     <i class="fas fa-home"></i>
                     <p>Dashboard</p>
                 </a>

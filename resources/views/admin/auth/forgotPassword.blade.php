@@ -18,7 +18,7 @@
                 </div>
                 <div class="login-account">
                     <span class="msg">Ingat kata sandi?</span>
-                    <a href="/admin/login" class="link"> Masuk</a>
+                    <a href="{{ route('admin.login') }}" class="link"> Masuk</a>
                 </div>
             </form>
         </div>
