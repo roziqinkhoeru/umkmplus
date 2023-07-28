@@ -140,10 +140,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xxl-12">
-                    </div>
-                </div>
             </div>
         </section>
         {{-- tutorial area end --}}
