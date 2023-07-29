@@ -8,7 +8,7 @@
                 <h4 class="page-title">Bayar Permohonan Withdraw</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/withdraw">Data Withdraw</a>
+                        <a href="{{ route('admin.withdraw') }}">Data Withdraw</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>

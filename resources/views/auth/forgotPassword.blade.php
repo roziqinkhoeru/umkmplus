@@ -17,8 +17,9 @@
                 <div class="row">
                     <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2">
                         <div class="section__title-wrapper text-center" style="margin-bottom: 44px">
-                            <a href="/"><img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
-                                    alt="umkmplus-logo" style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
+                            <a href="{{ route('dashboard') }}"><img
+                                    src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}" alt="umkmplus-logo"
+                                    style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
                             <h2 class="section__title mb-2">Lupa kata sandi Anda?</h2>
                             <p>Masukkan email terdaftar Anda untuk menerima tautan
                                 reset kata sandi.</p>
@@ -46,7 +47,7 @@
                                 </form>
                             </div>
                             <div class="sign__new text-center mt-20">
-                                <p>Ingat kata sandi? <a href="/login"> Masuk</a></p>
+                                <p>Ingat kata sandi? <a href="{{ route('login') }}"> Masuk</a></p>
                             </div>
                         </div>
                         <div id="forgotPasswordSuccess"></div>

@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                         <div class="logo">
-                            <a href="/">
+                            <a href="{{ route('dashboard') }}">
                                 <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                     alt="umkm-letter-logo">
                             </a>
@@ -23,20 +23,20 @@
                                         <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
                                     <li class="{{ request()->is('blog*') ? 'active' : '' }}">
-                                        <a href="/blog">Blog</a>
+                                        <a href="{{ route('blog.index') }}">Blog</a>
                                     </li>
                                     @if (!Auth::check())
                                         <li class="d-block d-sm-none">
-                                            <a href="/login">Masuk</a>
+                                            <a href="{{ route('login') }}">Masuk</a>
                                         </li>
                                     @else
                                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
                                             <li class="d-block d-sm-none">
-                                                <a href="/admin">Profile</a>
+                                                <a href="{{ route('admin.dashboard') }}">Profile</a>
                                             </li>
                                         @else
                                             <li class="d-block d-sm-none">
-                                                <a href="/profile">Profile</a>
+                                                <a href="{{ route('profile') }}">Profile</a>
                                             </li>
                                         @endif
                                         <li class="d-block d-sm-none">
@@ -71,13 +71,13 @@
                             </div>
                             {{-- condition::isloggedIn=false --}}
                             @if (!Auth::check())
-                                <div class="ms-4 d-none d-sm-block"><a href="/login"
+                                <div class="ms-4 d-none d-sm-block"><a href="{{ route('login') }}"
                                         class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
                                 </div>
                             @else
                                 <div class="ms-4">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 3)
-                                        <a href="/cart" onclick="getCart()" id="cart"
+                                        <a href="{{ route('cart.index') }}" onclick="getCart()" id="cart"
                                             class="d-flex align-items-center nav-icon-cart position-relative">
                                             <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
                                         </a>
@@ -85,15 +85,18 @@
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                        <a href="/admin" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('admin.dashboard') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                                        <a href="/mentor/dashboard" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('mentor.dashboard') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @else
-                                        <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('profile') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @endif
@@ -132,7 +135,7 @@
                     <div class="offcanvas__content">
                         <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
                             <div class="offcanvas__logo logo">
-                                <a href="/">
+                                <a href="{{ route('dashboard') }}">
                                     <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                         alt="umkmplus-letter-logo">
                                 </a>

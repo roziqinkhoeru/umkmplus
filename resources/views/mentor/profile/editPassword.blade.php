@@ -8,7 +8,7 @@
                 <h4 class="page-title">Ubah Password Mentor</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/mentor">Data Mentor</a>
+                        <a href="{{ route('admin.mentor') }}">Data Mentor</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -78,7 +78,8 @@
                             <div class="card-action">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="/mentor/profile" class="btn btn-default btn-outline-dark">Batal</a>
+                                        <a href="{{ route('mentor.profile') }}"
+                                            class="btn btn-default btn-outline-dark">Batal</a>
                                         <button class="btn btn-primary ml-3" id="updatePasswordButton" type="submit">Ubah
                                             Password</button>
                                     </div>

@@ -76,7 +76,7 @@
                                         <h3 class="text-2xl">Keranjang Kosong</h3>
                                         <p class="text-base">Kamu belum menambahkan kelas apapun ke
                                             keranjang</p>
-                                        <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari
+                                        <a href="{{ route('course.index') }}" class="tp-btn tp-btn-4 rounded-2">Cari
                                             Kelas</a>
                                     </div>
                                 </td>
@@ -87,7 +87,7 @@
                             <h3 class="text-2xl">Keranjang Kosong</h3>
                             <p class="text-base">Kamu belum menambahkan kelas apapun ke
                                 keranjang</p>
-                            <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari
+                            <a href="{{ route('course.index') }}" class="tp-btn tp-btn-4 rounded-2">Cari
                                 Kelas</a>
                         </div>
                         `;

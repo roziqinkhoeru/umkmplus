@@ -8,7 +8,7 @@
                 <h4 class="page-title">Detail Kelas Siswa</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>

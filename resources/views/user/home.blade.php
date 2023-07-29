@@ -141,7 +141,7 @@
                                 <h4>Menemukan Kursus yang Tepat</h4>
                             </div>
                             <div class="course__enroll-btn pt-5">
-                                <a href="/course/category" class="tp-btn-5 tp-btn-14">Temukan</a>
+                                <a href="{{ route('category') }}" class="tp-btn-5 tp-btn-14">Temukan</a>
                             </div>
                         </div>
                     </div>

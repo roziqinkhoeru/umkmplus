@@ -8,7 +8,7 @@
                         <div class="footer__widget footer-col-1 mb-50">
                             <div class="footer__logo">
                                 <div class="logo">
-                                    <a href="/">
+                                    <a href="{{ route('dashboard') }}">
                                         <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                             alt="umkm-letter-logo">
                                     </a>
@@ -65,13 +65,13 @@
                                         <a href="/about">About</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/course/category">Course</a>
+                                        <a href="{{ route('category') }}">Course</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/mentor">Mentor</a>
+                                        <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
                                     <li class="hover-right">
-                                        <a href="/blog">Blog</a>
+                                        <a href="{{ route('blog.index') }}">Blog</a>
                                     </li>
                                 </ul>
                             </div>
@@ -96,7 +96,7 @@
                                     </li>
                                     @if (!Auth::check())
                                         <li class="hover-right">
-                                            <a href="/mentor/register">Become Our Mentor</a>
+                                            <a href="{{ route('mentor.register') }}">Become Our Mentor</a>
                                         </li>
                                     @endif
                                 </ul>

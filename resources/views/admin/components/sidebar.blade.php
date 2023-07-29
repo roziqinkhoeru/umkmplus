@@ -6,7 +6,7 @@
                 <img src="{{ asset('assets/template/admin/img/profile.jpg') }}" alt="admin-profile"
                     class="avatar-img rounded-circle">
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <img src="{{ asset("storage/".auth()->user()->customer->profile_picture) }}"
+                <img src="{{ asset('storage/' . auth()->user()->customer->profile_picture) }}"
                     alt="{{ auth()->user()->username }}-profile" class="avatar-img rounded-circle">
             @endif
         </div>
@@ -88,7 +88,7 @@
                     </ul>
                 </div>
             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                <a href="/mentor/course">
+                <a href="{{ route('mentor.course') }}">
                     <i class="fas fa-book"></i>
                     <p>Kelas</p>
                 </a>
@@ -97,7 +97,7 @@
         {{-- mentor --}}
         <li class="nav-item @if ($active == 'mentor') active @endif">
             @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                <a href="/admin/mentor">
+                <a href="{{ route('admin.mentor') }}">
                     <i class="fas fa-chalkboard-teacher"></i>
                     <p>Mentor</p>
                 </a>
@@ -106,7 +106,7 @@
         {{-- student --}}
         <li class="nav-item @if ($active == 'student') active @endif">
             @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                <a href="/admin/student">
+                <a href="{{ route('admin.student') }}">
                     <i class="fas fa-user-graduate"></i>
                     <p>Siswa</p>
                 </a>
@@ -141,26 +141,26 @@
         {{-- application --}}
         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
             <li class="nav-item @if ($active == 'testimonial') active @endif">
-                <a href="/admin/testimonial">
+                <a href="{{ route('admin.testimonial') }}">
                     <i class="fas fa-star"></i>
                     <p>Testimonial</p>
                 </a>
             </li>
             <li class="nav-item @if ($active == 'application') active @endif">
-                <a href="/admin/mentor/application">
+                <a href="{{ route('admin.mentor.application') }}">
                     <i class="fas fa-id-badge"></i>
                     <p>Pendaftar Mentor</p>
                 </a>
             </li>
             {{-- blog --}}
             <li class="nav-item @if ($active == 'blog') active @endif">
-                <a href="/admin/blog">
+                <a href="{{ route('admin.blog') }}">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
                 </a>
             </li>
             <li class="nav-item @if ($active == 'withdraw') active @endif">
-                <a href="/admin/withdraw">
+                <a href="{{ route('admin.withdraw') }}">
                     <i class="fas fa-money-bill"></i>
                     <p>Keuangan</p>
                 </a>
@@ -173,13 +173,13 @@
                 </a>
             </li>
             <li class="nav-item @if ($active == 'blog') active @endif">
-                <a href="/mentor/blog">
+                <a href="{{ route('mentor.blog') }}">
                     <i class="fas fa-pen-alt"></i>
                     <p>Blog</p>
                 </a>
             </li>
             <li class="nav-item @if ($active == 'withdraw') active @endif">
-                <a href="/mentor/withdraw">
+                <a href="{{ route('mentor.withdraw') }}">
                     <i class="fas fa-money-bill"></i>
                     <p>Keuangan</p>
                 </a>

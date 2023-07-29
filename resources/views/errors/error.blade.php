@@ -95,7 +95,8 @@
                     <div class="col-xxl-8">
                         <div class="error__content text-center">
                             <div class="error__content">
-                                <a href="/"><img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
+                                <a href="{{ route('dashboard') }}"><img
+                                        src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                         alt="umkmplus-logo"
                                         style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
                                 <h3 class="error__title" style="margin-bottom: 30px !important">{{ $header }}
@@ -103,7 +104,8 @@
                                 <p>{{ $message }}</p>
 
                                 <div class="error__btn">
-                                    <a href="/" class="tp-btn tp-btn-2 rounded-pill">Back to home</a>
+                                    <a href="{{ route('dashboard') }}" class="tp-btn tp-btn-2 rounded-pill">Back to
+                                        home</a>
                                 </div>
                             </div>
                         </div>

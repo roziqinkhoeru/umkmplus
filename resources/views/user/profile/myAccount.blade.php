@@ -534,7 +534,7 @@
                                 <div class="text-center">
                                     <h3 class="text-2xl">Kelas Kosong</h3>
                                     <p class="text-base">Kamu belum masuk ke dalam kelas apapun</p>
-                                    <a href="/course" class="tp-btn tp-btn-4 rounded-2">Cari Kelas</a>
+                                    <a href="{{ route('course.index') }}" class="tp-btn tp-btn-4 rounded-2">Cari Kelas</a>
                                 </div>
                             </div>`
             } else {
@@ -651,7 +651,7 @@
                                     <div class="text-center">
                                         <h3 class="text-2xl">Transaksi Kosong</h3>
                                         <p class="text-base">Kamu belum melakukan transaksi  apapun</p>
-                                        <a href="/course" class="tp-btn tp-btn-4 rounded-2">Beli Kelas</a>
+                                        <a href="{{ route('course.index') }}" class="tp-btn tp-btn-4 rounded-2">Beli Kelas</a>
                                     </div>
                                 </div>`;
             } else {
