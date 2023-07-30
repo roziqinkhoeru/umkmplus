@@ -38,6 +38,11 @@
     .card-join-mentor {
         right: 0;
     }
+
+    /* ABOUT */
+    .new-category-container {
+        right: 13px;
+    }
 }
 
 @media screen and (max-width: 990px) {
@@ -113,6 +118,11 @@
     .col-span-6-mycourse {
         grid-column: 1 / -1;
     }
+
+    /* ABOUT */
+    .new-category-container {
+        right: 22px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -186,6 +196,9 @@
     .ml-92-btn {
         margin-left: 0 !important;
     }
+    .research__thumb-2 {
+        bottom: unset;
+    }
 
     /* HOMEPAGE */
     /* header */
@@ -238,6 +251,11 @@
     /* PLAYING COURSE */
     .playing-course-iframe {
         height: 400px !important;
+    }
+
+    /* ABOUT */
+    .new-category-container {
+        right: 27%;
     }
 }
 
@@ -357,5 +375,10 @@
     }
     .slider__content-button .tp-btn.tp-btn-2 {
         margin-right: 18px !important;
+    }
+
+    /* ABOUT */
+    .new-category-container {
+        right: 18%;
     }
 }

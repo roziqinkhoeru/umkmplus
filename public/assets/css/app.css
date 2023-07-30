@@ -950,3 +950,44 @@
 .btn-anchor:hover {
     color: #6861ce;
 }
+
+/* ABOUT */
+.umkmplus-container-about {
+    padding: 8px 14px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    background: #eceef2;
+}
+.category__content .category__title a:hover {
+    color: #6861ce;
+}
+.new-category-container {
+    position: absolute;
+    top: -4px;
+    right: -3px;
+    transform: rotate(24deg);
+    -webkit-transform: rotate(24deg);
+    -moz-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    -o-transform: rotate(24deg);
+}
+.new-category-caption {
+    display: flex;
+}
+.new-category-caption .new-category-title {
+    font-size: 10px;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    background: #c7ab0e;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+}

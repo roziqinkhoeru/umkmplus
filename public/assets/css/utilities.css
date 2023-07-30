@@ -273,6 +273,20 @@ label.error {
     -o-border-radius-topleft: 8px;
     -o-border-radius-topright: 8px;
 }
+.rounded-5 {
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+}
+.rounded-6 {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
 
 /* display */
 .grid-cols-12 {
