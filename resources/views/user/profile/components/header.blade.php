@@ -63,7 +63,7 @@
                                 id="imagePreview">
                         </figure>
                     </div>
-                    <div class="profile__edit-input">
+                    <div class="profile__edit-input position-relative">
                         <div class="row">
                             <div class="col-6">
                                 <input type="file" class="form-control form-control-file form-control-hidden"
