@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
@@ -37,9 +38,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/about', function () {
-    return view('user.company.about', ['title' => 'Tentang Kami | UMKMPlus']);
-});
 Route::get('/contact', function () {
     return view('user.supports.contact', ['title' => 'Kontak Kami | UMKMPlus']);
 });
@@ -107,6 +105,11 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('/blog', 'index')->name('blog.index');
     Route::get('/blog/data', 'getBlog')->name('blog.data');
     Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
+});
+
+// About
+Route::controller(AboutController::class)->group(function () {
+    Route::get('/about', 'index')->name('about.index');
 });
 
 // Student Role
