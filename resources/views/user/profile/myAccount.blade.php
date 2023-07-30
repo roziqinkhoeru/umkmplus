@@ -871,6 +871,7 @@
             return true;
         }, '');
 
+
         // change profile picture
         $("#formUpdateProfileImage").validate({
             rules: {
@@ -900,6 +901,7 @@
                     contentType: false,
                     data: formData,
                     success: function(response) {
+                        localStorage.removeItem('imageProfilePreview');
                         $('#updateProfileImageButton').html(
                             'Ubah');
                         $('#updateProfileImageButton').prop('disabled',
