@@ -8,7 +8,7 @@
                 <h4 class="page-title">Kelas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -64,7 +64,7 @@
                                                 <td class="text-center">{{ $course->category->name }}</td>
                                                 <td class="space-nowrap">
                                                     {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}</td>
-                                                    <td class="text-center">{{ CustomDate::tglIndo($course->created_at) }}</td>
+                                                <td class="text-center">{{ CustomDate::tglIndo($course->created_at) }}</td>
                                                 <td class="text-center text-capitalize">
                                                     <span
                                                         class="badge @switch($course->status)

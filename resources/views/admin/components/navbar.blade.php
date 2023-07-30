@@ -128,7 +128,7 @@
                             @endif
                             {{-- blog --}}
                             @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                <a class="col-6 col-md-4 p-0" href="/admin/blog">
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.blog') }}">
                                     <div class="quick-actions-item">
                                         <div class="avatar-item bg-info rounded-circle">
                                             <i class="fas fa-pen-alt"></i>
@@ -136,7 +136,7 @@
                                         <span class="text">Blog</span>
                                     </div>
                                 </a>
-                                <a class="col-6 col-md-4 p-0" href="/admin/withdraw">
+                                <a class="col-6 col-md-4 p-0" href="{{ route('admin.withdraw') }}">
                                     <div class="quick-actions-item">
                                         <div class="avatar-item bg-green rounded-circle">
                                             <i class="fas fa-money-bill"></i>
@@ -145,7 +145,7 @@
                                     </div>
                                 </a>
                             @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                                <a class="col-6 col-md-4 p-0" href="/mentor/blog">
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.blog') }}">
                                     <div class="quick-actions-item">
                                         <div class="avatar-item bg-info rounded-circle">
                                             <i class="fas fa-pen-alt"></i>
@@ -153,7 +153,7 @@
                                         <span class="text">Blog</span>
                                     </div>
                                 </a>
-                                <a class="col-6 col-md-4 p-0" href="/mentor/withdraw">
+                                <a class="col-6 col-md-4 p-0" href="{{ route('mentor.withdraw') }}">
                                     <div class="quick-actions-item">
                                         <div class="avatar-item bg-green rounded-circle">
                                             <i class="fas fa-money-bill"></i>
@@ -197,9 +197,9 @@
                                 <h4>{{ Auth::user()->username }}</h4>
                                 <p class="text-muted">{{ Auth::user()->email }}</p>
                                 @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                    <a href="/admin/profile" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                    <a href="{{ route('admin.profile') }}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                 @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                                    <a href="/mentor/profile" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                    <a href="{{ route('mentor.profile') }}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                 @endif
                             </div>
                         </div>

@@ -8,7 +8,7 @@
                 <h4 class="page-title">Module</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/course">Data Kelas</a>
+                        <a href="{{ route('mentor.course') }}">Data Kelas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -113,8 +113,7 @@
                         });
                     }
                 },
-                error: function() {
-                }
+                error: function() {}
             });
         }
 

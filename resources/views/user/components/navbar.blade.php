@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                         <div class="logo">
-                            <a href="/">
+                            <a href="{{ route('dashboard') }}">
                                 <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                     alt="umkm-letter-logo">
                             </a>
@@ -22,21 +22,21 @@
                                     <li class="{{ request()->is('mentor*') ? 'active' : '' }}">
                                         <a href="{{ route('mentor') }}">Mentor</a>
                                     </li>
-                                    <li class="">
-                                        <a href="/blog">Blog</a>
+                                    <li class="{{ request()->is('blog*') ? 'active' : '' }}">
+                                        <a href="{{ route('blog.index') }}">Blog</a>
                                     </li>
                                     @if (!Auth::check())
                                         <li class="d-block d-sm-none">
-                                            <a href="/login">Masuk</a>
+                                            <a href="{{ route('login') }}">Masuk</a>
                                         </li>
                                     @else
                                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
                                             <li class="d-block d-sm-none">
-                                                <a href="/admin">Profile</a>
+                                                <a href="{{ route('admin.dashboard') }}">Profile</a>
                                             </li>
                                         @else
                                             <li class="d-block d-sm-none">
-                                                <a href="/profile">Profile</a>
+                                                <a href="{{ route('profile') }}">Profile</a>
                                             </li>
                                         @endif
                                         <li class="d-block d-sm-none">
@@ -53,9 +53,10 @@
                                 <form action="{{ url('/course') }}" method="GET" class="formSearchDesktop">
                                     <div class="header__search-input">
                                         <input type="text" placeholder="Cari kelas..." class="rounded-pill"
-                                            id="searchCourseDesktop" name="search" @if (request()->has('search')) value="{{ request()->search }}" @endif>
-                                        <button class="header__search-btn r-5" onclick="getCourse('desktop')"><svg width="18"
-                                                height="18" viewBox="0 0 18 18" fill="none"
+                                            id="searchCourseDesktop" name="search"
+                                            @if (request()->has('search')) value="{{ request()->search }}" @endif>
+                                        <button class="header__search-btn r-5" onclick="getCourse('desktop')"><svg
+                                                width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.11117 15.2222C12.0385 15.2222 15.2223 12.0385 15.2223 8.11111C15.2223 4.18375 12.0385 1 8.11117 1C4.18381 1 1.00006 4.18375 1.00006 8.11111C1.00006 12.0385 4.18381 15.2222 8.11117 15.2222Z"
@@ -70,13 +71,13 @@
                             </div>
                             {{-- condition::isloggedIn=false --}}
                             @if (!Auth::check())
-                                <div class="ms-4 d-none d-sm-block"><a href="/login"
+                                <div class="ms-4 d-none d-sm-block"><a href="{{ route('login') }}"
                                         class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
                                 </div>
                             @else
                                 <div class="ms-4">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 3)
-                                        <a href="/cart" onclick="getCart()" id="cart"
+                                        <a href="{{ route('cart.index') }}" onclick="getCart()" id="cart"
                                             class="d-flex align-items-center nav-icon-cart position-relative">
                                             <i class="fa-solid fa-cart-shopping" style="font-size: 19px;"></i>
                                         </a>
@@ -84,15 +85,18 @@
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
                                     @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
-                                        <a href="/admin" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('admin.dashboard') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @elseif (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 2)
-                                        <a href="/mentor/dashboard" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('mentor.dashboard') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @else
-                                        <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                        <a href="{{ route('profile') }}"
+                                            class="d-flex align-items-center nav-icon-user">
                                             <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                         </a>
                                     @endif
@@ -131,7 +135,7 @@
                     <div class="offcanvas__content">
                         <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
                             <div class="offcanvas__logo logo">
-                                <a href="/">
+                                <a href="{{ route('dashboard') }}">
                                     <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                         alt="umkmplus-letter-logo">
                                 </a>
@@ -145,8 +149,11 @@
                         </div>
                         <div class="offcanvas__search mb-25">
                             <form form action="{{ url('/course') }}" method="GET" class="formSearchMobile">
-                                <input type="text" placeholder="Cari kelas..." id="searchCourseMobile" name="search" @if (request()->has('search')) value="{{ request()->search }}" @endif>
-                                <button type="submit"  onclick="getCourse('mobile')"><i class="far fa-search"></i></button>
+                                <input type="text" placeholder="Cari kelas..." id="searchCourseMobile"
+                                    name="search"
+                                    @if (request()->has('search')) value="{{ request()->search }}" @endif>
+                                <button type="submit" onclick="getCourse('mobile')"><i
+                                        class="far fa-search"></i></button>
                             </form>
                         </div>
                         <div class="mobile-menu fix"></div>
@@ -161,7 +168,7 @@
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div class="offcanvas__contact mt-30 mb-20">
-                            <h4>Contact Info</h4>
+                            <h4>Informasi Kontak</h4>
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <div class="offcanvas__contact-icon mr-15">

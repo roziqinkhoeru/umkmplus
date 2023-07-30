@@ -185,7 +185,8 @@
                             <div class="card-action">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="/mentor/profile" class="btn btn-default btn-outline-dark">Batal</a>
+                                        <a href="{{ route('mentor.profile') }}"
+                                            class="btn btn-default btn-outline-dark">Batal</a>
                                         <button class="btn btn-primary ml-3" id="updateButton"
                                             type="submit">Ubah</button>
                                     </div>

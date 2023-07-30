@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Cart;
+use App\Models\Blog;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
@@ -24,10 +25,11 @@ class DashboardController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $testimonials = Testimonial::with('courseEnroll.student')->where('status', 'tampilkan')->limit(3)->get();
+        $testimonials = Testimonial::with('courseEnroll.student')->where('status', 'tampilkan')->limit(5)->get();
         if ($testimonials->isEmpty()) {
             $testimonials = null;
         }
+        $latestBlog = Blog::with('user.customer')->where('status', 'tampilkan')->orderBy('created_at', 'desc')->limit(3)->get();
 
         if (Auth::check()) {
             $countCart = Cart::countCart();
@@ -37,6 +39,7 @@ class DashboardController extends Controller
                     'categories' => $categories,
                     'testimonials' => $testimonials,
                     'countCart' => $countCart,
+                    'latestBlog' => $latestBlog
                 ];
         } else {
 
@@ -44,7 +47,8 @@ class DashboardController extends Controller
                 [
                     'title' => 'UMKMPlus',
                     'categories' => $categories,
-                    'testimonials' => $testimonials
+                    'testimonials' => $testimonials,
+                    'latestBlog' => $latestBlog
                 ];
         }
 
@@ -57,7 +61,7 @@ class DashboardController extends Controller
         $mentorPopulars = Customer::mentor()
             ->with(['dataMentor', 'specialists:name'])
             ->withCount('mentorCourses')
-            ->limit(4)
+            ->limit(6)
             ->get();
         foreach ($mentorPopulars as $mentor) {
             $countStudent = Customer::countStudent($mentor->id);

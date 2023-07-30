@@ -8,7 +8,7 @@
                 <h4 class="page-title">Edit Media</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/course">Data Kelas</a>
+                        <a href="{{ route('mentor.course') }}">Data Kelas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -74,7 +74,7 @@
                                             <input type="text" class="form-control" placeholder="Masukkan Kode Video"
                                                 value="{{ $mediaModule->video_url }}" aria-label="video_url"
                                                 aria-describedby="video_url-addon" id="video_url" name="video_url" required>
-                                                <span class="input-group-text"
+                                            <span class="input-group-text"
                                                 style="border-top-left-radius: 0; border-bottom-left-radius: 0">&ab_channel</span>
                                         </div>
                                     </div>
@@ -112,7 +112,8 @@
                                 <div class="card-action">
                                     <div class="row">
                                         <div class="col-md-12 text-right">
-                                            <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
+                                            <a href="{{ route('mentor.course') }}"
+                                                class="btn btn-default btn-outline-dark">Batal</a>
                                             <button class="btn btn-primary ml-3" id="updateButton"
                                                 type="submit">Ubah</button>
                                         </div>

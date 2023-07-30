@@ -29,7 +29,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Data Blog</div>
                                 <div class="card-tools">
-                                    <a href="/admin/blog/create" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                    <a href="{{ route('admin.blog.create') }}" class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">
                                         </span>
                                         Buat Blog

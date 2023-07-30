@@ -8,7 +8,7 @@
                 <h4 class="page-title">Edit Modul</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/course">Data Kelas</a>
+                        <a href="{{ route('mentor.course') }}">Data Kelas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -90,8 +90,7 @@
                                         </div>
                                         <div class="input-file input-file-image">
                                             <input type="file" class="form-control form-control-file" id="file"
-                                                name="file" accept="application/pdf"
-                                                onchange="previewFile(event)">
+                                                name="file" accept="application/pdf" onchange="previewFile(event)">
                                             <label for="file" class="label-input-file btn btn-black btn-round mt-2">
                                                 <span class="btn-label">
                                                     <i class="fa fa-file-pdf"></i>
@@ -119,7 +118,8 @@
                                 <div class="card-action">
                                     <div class="row">
                                         <div class="col-md-12 text-right">
-                                            <a href="/mentor/course" class="btn btn-default btn-outline-dark">Batal</a>
+                                            <a href="{{ route('mentor.course') }}"
+                                                class="btn btn-default btn-outline-dark">Batal</a>
                                             <button class="btn btn-primary ml-3" id="updateButton"
                                                 type="submit">Ubah</button>
                                         </div>

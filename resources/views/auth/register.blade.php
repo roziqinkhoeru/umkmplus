@@ -16,8 +16,9 @@
                 <div class="row">
                     <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2">
                         <div class="section__title-wrapper text-center" style="margin-bottom: 44px">
-                            <a href="/"><img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
-                                    alt="umkmplus-logo" style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
+                            <a href="{{ route('dashboard') }}"><img
+                                    src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}" alt="umkmplus-logo"
+                                    style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
                             <h2 class="section__title mb-2">Daftarkan Akun Anda</h2>
                             <p>Belajar dengan seru di UMKMPlus bersama para praktisi kami</p>
                         </div>
@@ -83,10 +84,11 @@
                                             <h5>Jenis Kelamin</h5>
                                         </label>
                                         <div class="sign__input">
-                                            <select class="select-form w-100 h-52" aria-label="Default select example"
-                                                name="gender" id="gender" required>
-                                                <option hidden selected>Pilih Jenis Kelamin</option>
-                                                <option selected value="laki-laki">laki-laki</option>
+                                            <i class="fal fa-venus-mars icon-form" style="z-index: 100"></i>
+                                            <select class="select-form w-100 h-52 input-form float-none" name="gender"
+                                                id="gender" required>
+                                                <option selected value="">Pilih Jenis Kelamin</option>
+                                                <option value="laki-laki">laki-laki</option>
                                                 <option value="perempuan">perempuan</option>
                                             </select>
                                         </div>
@@ -128,7 +130,7 @@
                                     <button type="submit" id="registerButton"
                                         class="tp-btn w-100 rounded-pill">Daftar</button>
                                     <div class="sign__new text-center mt-20">
-                                        <p>Sudah punya akun? <a href="/login"> Login</a></p>
+                                        <p>Sudah punya akun? <a href="{{ route('login') }}"> Login</a></p>
                                     </div>
                                 </form>
                             </div>

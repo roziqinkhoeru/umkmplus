@@ -7,7 +7,7 @@
                     {{-- logo --}}
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                         <div class="logo">
-                            <a href="/">
+                            <a href="{{ route('dashboard') }}">
                                 <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                     alt="umkm-letter-logo">
                             </a>
@@ -19,20 +19,20 @@
                                 <ul>
                                     @if (!Auth::check())
                                         <li class="d-block d-sm-none">
-                                            <a href="/login">Masuk</a>
+                                            <a href="{{ route('login') }}">Masuk</a>
                                         </li>
                                     @else
                                         @if (auth()->user()->roles()->first()->getOriginal()['pivot_role_id'] == 1)
                                             <li class="d-block d-sm-none">
-                                                <a href="/admin">Profile</a>
+                                                <a href="{{ route('admin.dashboard') }}">Profile</a>
                                             </li>
                                         @else
                                             <li class="d-block d-sm-none">
-                                                <a href="/profile">Profile</a>
+                                                <a href="{{ route('profile') }}">Profile</a>
                                             </li>
                                         @endif
                                         <li class="d-block d-sm-none">
-                                            <a href="/profile/my-courses">Kelas Saya</a>
+                                            <a href="/profile?content=course">Kelas Saya</a>
                                         </li>
                                         <li class="d-block d-sm-none">
                                             <a href="/logout" onclick="logout()" class="menu-logout">Keluar</a>
@@ -66,7 +66,7 @@
                             </div>
                             {{-- condition::isloggedIn=false --}}
                             @if (!Auth::check())
-                                <div class="ms-4 d-none d-sm-block"><a href="/login"
+                                <div class="ms-4 d-none d-sm-block"><a href="{{ route('login') }}"
                                         class="tp-btn tp-btn-login rounded-pill" role="button">Masuk</a>
                                 </div>
                             @else
@@ -74,7 +74,7 @@
                                     <p class="space-nowrap mb-0 fw-medium">Halo, {{ Auth::user()->customer->name }}</p>
                                 </div>
                                 <div class="ms-4 d-none d-sm-block">
-                                    <a href="/profile" class="d-flex align-items-center nav-icon-user">
+                                    <a href="{{ route('profile') }}" class="d-flex align-items-center nav-icon-user">
                                         <i class="fa-solid fa-circle-user" style="font-size: 20px"></i>
                                     </a>
                                 </div>
@@ -112,7 +112,7 @@
                     <div class="offcanvas__content">
                         <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
                             <div class="offcanvas__logo logo">
-                                <a href="/">
+                                <a href="{{ route('dashboard') }}">
                                     <img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
                                         alt="umkmplus-letter-logo">
                                 </a>
@@ -142,7 +142,7 @@
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div class="offcanvas__contact mt-30 mb-20">
-                            <h4>Contact Info</h4>
+                            <h4>Informasi Kontak</h4>
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <div class="offcanvas__contact-icon mr-15">
