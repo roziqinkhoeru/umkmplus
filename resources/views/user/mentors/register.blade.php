@@ -16,8 +16,9 @@
                 <div class="row">
                     <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2">
                         <div class="section__title-wrapper text-center" style="margin-bottom: 44px">
-                            <a href="/"><img src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}"
-                                    alt="umkmplus-logo" style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
+                            <a href="{{ route('dashboard') }}"><img
+                                    src="{{ asset('assets/img/brand/umkmplus-letter-logo.svg') }}" alt="umkmplus-logo"
+                                    style="margin-bottom: 30px; width: 200px; margin-top: 30px"></a>
                             <h2 class="section__title mb-2">Daftarkan Akun Mentor Anda</h2>
                             <p>Jadilah mentor</p>
                         </div>

@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/blog">
+                    <a class="nav-link" href="{{ route('blog.index') }}">
                         UMKMPlus Blog
                     </a>
                 </li>

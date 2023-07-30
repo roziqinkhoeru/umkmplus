@@ -8,7 +8,7 @@
                 <h4 class="page-title">Ubah Hasil Kelas Siswa</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/student">Data Hasil Kelas Siswa</a>
+                        <a href="{{ route('mentor.student') }}">Data Hasil Kelas Siswa</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -96,7 +96,8 @@
                                 </div>
                                 {{-- certificate --}}
                                 <div class="form-group form-show-validation row">
-                                    <label for="certificate" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kirim Sertifikat
+                                    <label for="certificate" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-sm-right">Kirim
+                                        Sertifikat
                                         <span class="required-label">*</span></label>
                                     <div class="col-lg-4 col-md-9 col-sm-8 d-flex">
                                         <input type="checkbox" class="form-control" id="certificate" name="certificate"
@@ -107,7 +108,8 @@
                             <div class="card-action">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="/admin/mentor" class="btn btn-default btn-outline-dark">Batal</a>
+                                        <a href="{{ route('admin.mentor') }}"
+                                            class="btn btn-default btn-outline-dark">Batal</a>
                                         <button class="btn btn-primary ml-3" id="updateButton" type="submit">Ubah</button>
                                     </div>
                                 </div>

@@ -79,7 +79,7 @@
                                         <h5>Pekerjaan</h5>
                                     </label>
                                     <div class="sign__input">
-                                        <i class="fal fa-map-marked icon-form"></i>
+                                        <i class="fal fa-briefcase icon-form"></i>
                                         <input type="text" placeholder="Masukan pekerjaan " name="job" id="job"
                                             required value="{{ old('job') }}" class="input-form">
                                     </div>
@@ -90,22 +90,25 @@
                                         <h5>Jenis Kelamin</h5>
                                     </label>
                                     <div class="sign__input">
-                                        <select class="select-form w-100 h-52" aria-label="Default select example"
-                                            name="gender" id="gender" required>
-                                            <option selected value="laki-laki">laki-laki</option>
+                                        <i class="fal fa-venus-mars icon-form" style="z-index: 100"></i>
+                                        <select class="select-form w-100 h-52 input-form float-none" name="gender"
+                                            id="gender" required>
+                                            <option selected value="">Pilih Jenis Kelamin</option>
+                                            <option value="laki-laki">laki-laki</option>
                                             <option value="perempuan">perempuan</option>
                                         </select>
                                     </div>
                                 </div>
-                                {{-- specialist --}}
+                                {{-- spesialisasi --}}
                                 <div class="sign__input-wrapper mb-22">
                                     <label for="specialist">
                                         <h5>Spesialisasi</h5>
                                     </label>
                                     <div class="sign__input">
-                                        <select class="select-form w-100 h-52" aria-label="Default select example"
-                                            name="specialist" id="specialist" required>
-                                            {{-- <option hidden>Pilih Spesialisasi</option> --}}
+                                        <i class="fal fa-user-md icon-form" style="z-index: 100"></i>
+                                        <select class="select-form w-100 h-52 input-form float-none" name="specialist"
+                                            id="specialist" required>
+                                            <option selected value="">Pilih Spesialisasi</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->name }}">{{ $category->name }}</option>
                                             @endforeach
@@ -113,7 +116,7 @@
                                     </div>
                                 </div>
                                 {{-- cv --}}
-                                <div class="sign__input-wrapper mb-35 mt-75">
+                                <div class="sign__input-wrapper mb-35">
                                     <label for="file_cv">
                                         <h5>CV</h5>
                                     </label>
@@ -124,7 +127,8 @@
                                     </div>
                                 </div>
                                 {{-- button --}}
-                                <button id="registerButton" class="tp-btn w-100 rounded-pill" type="submit">Daftar menjadi
+                                <button id="registerButton" class="tp-btn w-100 rounded-pill" type="submit">Daftar
+                                    menjadi
                                     mentor</button>
                             </form>
                         </div>
@@ -136,17 +140,18 @@
                     <div class="join-info-wrapper">
                         <hr class="d-sm-none mb-35">
                         <h5 class="text-xl">General inquiries</h5>
-                        <p class="mb-30 text-base">Reach us at <a href="mailto:info@umkmplus.com" class="text-tp-theme-1"
-                                style="text-decoration: underline;text-underline-offset: 2px">info@umkmplus.com</a> and
+                        <p class="mb-30 text-base">Reach us at <a href="mailto:info@umkmplus.site"
+                                class="text-tp-theme-1"
+                                style="text-decoration: underline;text-underline-offset: 2px">info@umkmplus.site</a> and
                             we will get back to you
                             asap.</p>
                         <h5 class="text-xl">Working as UMKMPlus?</h5>
                         <p class="mb-30 text-base">Visit our careers page or send us an email at <a
-                                href="mailto:info@umkmplus.com" class="text-tp-theme-1"
+                                href="mailto:info@umkmplus.site" class="text-tp-theme-1"
                                 style="text-decoration: underline;text-underline-offset: 2px">careers@umkmplus.com</a></p>
                         <h5 class="text-xl">Insurance agent?</h5>
                         <p class="mb-30 text-base">Become an insurance agent by contacting us at <a
-                                href="mailto:info@umkmplus.com" class="text-tp-theme-1"
+                                href="mailto:info@umkmplus.site" class="text-tp-theme-1"
                                 style="text-decoration: underline;text-underline-offset: 2px">careers@umkmplus.com</a></p>
                     </div>
                 </div>

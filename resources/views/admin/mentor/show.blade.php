@@ -8,7 +8,7 @@
                 <h4 class="page-title">Mentor</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/admin">
+                        <a href="{{ route('admin.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -95,7 +95,8 @@
                                             </td>
                                             <td>
                                                 @if ($mentor->dataMentor->file_cv)
-                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}" class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
+                                                    <a href="{{ asset('storage/' . $mentor->dataMentor->file_cv) }}"
+                                                        class="">{{ substr($mentor->dataMentor->file_cv, 3) }}</a>
                                                 @else
                                                     <span>CV tidak tersedia</span>
                                                 @endif

@@ -8,7 +8,7 @@
                 <h4 class="page-title">Permohonan Withdraw</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -16,7 +16,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/mentor/withdraw">Data Withdraw</a>
+                        <a href="{{ route('mentor.withdraw') }}">Data Withdraw</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -109,7 +109,7 @@
                     <div class="card-action">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <a href="/mentor/withdraw" class="btn btn-default btn-outline-dark">Batal</a>
+                                <a href="{{ route('mentor.withdraw') }}" class="btn btn-default btn-outline-dark">Batal</a>
                                 <button class="btn btn-primary ml-3" id="createButton" type="submit">Kirim</button>
                             </div>
                         </div>

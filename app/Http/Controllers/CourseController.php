@@ -203,6 +203,8 @@ class CourseController extends Controller
             "countCourse" => $countCourse,
             "countStudent" => $countStudent
         ];
+        $relatedCourse = Course::withCount('modules', 'courseEnrolls')->where('category_id', $course->category_id)->where('id', '!=', $course->id)->limit(4)->get();
+
         $data =
             [
                 'title' => $course->title . ' | UMKM Plus',
@@ -210,7 +212,8 @@ class CourseController extends Controller
                 'countMediaModule' => $countMediaModule,
                 'countMentor' => $countMentor,
                 'courseEnroll' => $courseEnroll ?? null,
-                'cartCourse' => $cartCourse->id ?? null
+                'cartCourse' => $cartCourse->id ?? null,
+                'relatedCourse' => $relatedCourse
             ];
 
         return view('user.courses.detail', $data);

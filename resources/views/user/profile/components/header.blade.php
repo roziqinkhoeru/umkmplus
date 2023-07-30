@@ -1,7 +1,7 @@
 {{-- profile area start --}}
 <section class="profile__area pt-90 pb-50 grey-bg-2">
     <div class="container">
-        <div class="profile__basic-inner pb-20 white-bg">
+        <div class="profile__basic-inner pb-20 white-bg rounded-2-5">
             <div class="row align-items-center">
                 <div class="col-xxl-8 col-md-8">
                     <div class="profile__basic d-md-flex align-items-center">
@@ -47,10 +47,10 @@
 <div class="modal fade" id="image_profile_edit_modal" tabindex="-1"
     aria-labelledby="image_profile_edit_modal"aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content rounded-2-5">
             <div class="profile__edit-wrapper">
                 <div class="profile__edit-close">
-                    <button type="button" class="profile__edit-close-btn" data-bs-toggle="modal"
+                    <button type="button" class="profile__edit-close-btn rounded-3" data-bs-toggle="modal"
                         data-bs-target="#course_enroll_modal"><i class="fa-light fa-xmark"></i></button>
                 </div>
                 <form action="#" method="POST" id="formUpdateProfileImage" enctype="multipart/form-data">
@@ -63,17 +63,18 @@
                                 id="imagePreview">
                         </figure>
                     </div>
-                    <div class="profile__edit-input">
+                    <div class="profile__edit-input position-relative">
                         <div class="row">
                             <div class="col-6">
                                 <input type="file" class="form-control form-control-file form-control-hidden"
                                     id="profileImage" name="profileImage" accept="image/*" required
                                     onchange="previewImage(event)">
                                 <label for="profileImage"
-                                    class="tp-btn w-100 btn-secondary btn-profile-photo">Edit</label>
+                                    class="tp-btn w-100 btn-secondary btn-profile-photo rounded-3">Ubah</label>
                             </div>
                             <div class="col-6">
-                                <button type="submit" id="updateProfileImageButton" class="tp-btn w-100">Ubah</button>
+                                <button type="submit" id="updateProfileImageButton"
+                                    class="tp-btn w-100 rounded-3">Terapkan</button>
                             </div>
                         </div>
                     </div>
@@ -84,13 +85,20 @@
 </div>
 
 <script>
+    const imagePreview = document.getElementById('imagePreview');
+
+    window.onload = function() {
+        localStorage.removeItem('imageProfilePreview');
+        document.getElementById('profileImage').value = '';
+    };
+
     function previewImage(event) {
-        var imagePreview = document.getElementById('imagePreview');
         var file = event.target.files[0];
         var reader = new FileReader();
 
         reader.onload = function(e) {
             imagePreview.src = e.target.result;
+            localStorage.setItem('imageProfilePreview', e.target.result);
         };
 
         reader.readAsDataURL(file);

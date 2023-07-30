@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
@@ -36,6 +37,19 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 // user
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/contact', function () {
+    return view('user.supports.contact', ['title' => 'Kontak Kami | UMKMPlus']);
+});
+Route::get('/terms', function () {
+    return view('user.supports.terms', ['title' => 'Syarat da Ketentuan | UMKMPlus']);
+});
+Route::get('/faq', function () {
+    return view('user.supports.faq', ['title' => 'FAQ | UMKMPlus']);
+});
+Route::get('/tutorial', function () {
+    return view('user.supports.tutorial', ['title' => 'Tutorial | UMKMPlus']);
+});
 
 Route::get('/dashboard/search/{any}', function () {
     return view('admin.search', ['title' => 'Search | Dashboard UMKMPlus', 'active' => 'search']);
@@ -91,6 +105,11 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('/blog', 'index')->name('blog.index');
     Route::get('/blog/data', 'getBlog')->name('blog.data');
     Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
+});
+
+// About
+Route::controller(AboutController::class)->group(function () {
+    Route::get('/about', 'index')->name('about.index');
 });
 
 // Student Role

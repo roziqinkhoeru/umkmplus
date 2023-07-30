@@ -8,7 +8,7 @@
                 <h4 class="page-title">Detail Blog</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="/mentor/dashboard">
+                        <a href="{{ route('mentor.dashboard') }}">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -182,10 +182,8 @@
                     class: 'text-lg mb-15'
                 }
             })
-            .then(editor => {
-            })
-            .catch(error => {
-            });
+            .then(editor => {})
+            .catch(error => {});
     </script>
 
     <script>

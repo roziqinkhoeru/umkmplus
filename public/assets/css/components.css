@@ -3,3 +3,28 @@
     color: #3d6ce7;
     font-weight: 500;
 }
+/* jquery validation */
+.contact__form-input input.error,
+.contact__form-input textarea.error {
+    background-color: #ffe4e8cc !important;
+    border: 2px solid #ffe4e8cc !important;
+}
+.contact__form-input input.error:focus,
+.contact__form-input textarea.error:focus {
+    border: 2px solid #f1556c !important;
+}
+.contact__form-agree label.error {
+    display: none !important;
+}
+.contact__form-agree .e-check-input.error {
+    border: 1px solid #f1556c !important;
+    background-color: #ffe4e8 !important;
+}
+
+/* JQUERY VALIDATION */
+#profileImage-error {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
